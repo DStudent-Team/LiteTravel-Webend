@@ -54,6 +54,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -71,21 +74,21 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates/emp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\public" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\java\com\travelplatform\web" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\static" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -139,11 +142,23 @@
       <workItem from="1571318984856" duration="10220000" />
       <workItem from="1571360413454" duration="5185000" />
       <workItem from="1571380900096" duration="6814000" />
+      <workItem from="1571389380344" duration="324000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
