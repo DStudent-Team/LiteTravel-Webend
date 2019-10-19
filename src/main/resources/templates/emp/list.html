@@ -53,13 +53,13 @@
 						<table class="table table-striped table-sm">
 							<thead>
 								<tr>
-									<th>#</th>
-									<th>lastName</th>
-									<th>email</th>
-									<th>gender</th>
-									<th>department</th>
-									<th>birth</th>
-									<th>edit</th>
+									<th th:text="#{list.ID}">#</th>
+									<th th:text="#{list.lastName}">lastName</th>
+									<th th:text="#{list.email}">email</th>
+									<th th:text="#{list.gender}">gender</th>
+									<th th:text="#{list.department}">department</th>
+									<th th:text="#{list.birth}">birth</th>
+									<th th:text="#{list.edit}">edit</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -67,7 +67,7 @@
 									<td th:text="${emp.id}"></td>
 									<td>[[${emp.lastName}]]</td>
 									<td th:text="${emp.email}"></td>
-									<td th:text="${emp.gender}==0?'女':'男'"></td>
+									<td th:text="${emp.gender}==0?#{global.female}:#{global.male}"></td>
 									<td th:text="${emp.department.departmentName}"></td>
 									<td th:text="${#dates.format(emp.birth,'yyyy-MM-dd')}"></td>
 									<td>
