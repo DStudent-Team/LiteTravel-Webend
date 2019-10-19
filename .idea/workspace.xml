@@ -8,13 +8,19 @@
       <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +75,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="KrisHugo &lt;krishugo@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
@@ -162,7 +173,7 @@
       <workItem from="1571380900096" duration="6814000" />
       <workItem from="1571389380344" duration="372000" />
       <workItem from="1571408602141" duration="2687000" />
-      <workItem from="1571495447274" duration="2549000" />
+      <workItem from="1571495447274" duration="4831000" />
     </task>
     <servers />
   </component>
