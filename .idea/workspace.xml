@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Localization Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,12 +155,23 @@
       <workItem from="1571380900096" duration="6814000" />
       <workItem from="1571389380344" duration="372000" />
       <workItem from="1571408602141" duration="2687000" />
-      <workItem from="1571495447274" duration="4831000" />
+      <workItem from="1571495447274" duration="5277000" />
     </task>
+    <task id="LOCAL-00001" summary="Localization Update">
+      <created>1571500851604</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1571500851604</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UpdateCopyrightCheckinHandler">
+    <option name="UPDATE_COPYRIGHT" value="true" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -192,6 +185,12 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Localization Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Localization Update" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
