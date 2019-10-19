@@ -2,7 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/login.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/login_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/login_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/login_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/login_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/spring-boot-web-restfulcrud.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/login.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/login_en.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/login_en_US.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/login_zh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/login_zh_CN.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,6 +86,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1SJr9VZPBJ0rdRO4jOqrlElte94" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -76,21 +98,22 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates/error" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\public" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\java\com\travelplatform\web" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -145,6 +168,8 @@
       <workItem from="1571360413454" duration="5185000" />
       <workItem from="1571380900096" duration="6814000" />
       <workItem from="1571389380344" duration="372000" />
+      <workItem from="1571408602141" duration="2687000" />
+      <workItem from="1571495447274" duration="1904000" />
     </task>
     <servers />
   </component>
@@ -156,7 +181,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

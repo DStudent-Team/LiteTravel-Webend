@@ -9,10 +9,10 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../../static/asserts/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
-		<link href="asserts/css/dashboard.css" rel="stylesheet">
+		<link href="../../static/asserts/css/dashboard.css" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -178,7 +178,8 @@
 				</nav>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h1>404</h1>
+					<h1>status:[[${status}}]]</h1>
+					<hr>status:[[${timestamp}}]]</hr>
 				</main>
 			</div>
 		</div>
@@ -186,18 +187,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="../../static/asserts/js/jquery-3.2.1.slim.min.js" ></script>
+		<script type="text/javascript" src="../../static/asserts/js/popper.min.js" ></script>
+		<script type="text/javascript" src="../../static/asserts/js/bootstrap.min.js" ></script>
 
 		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+		<script type="text/javascript" src="../../static/asserts/js/feather.min.js" ></script>
 		<script>
 			feather.replace()
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
+		<script type="text/javascript" src="../../static/asserts/js/Chart.min.js" ></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {
