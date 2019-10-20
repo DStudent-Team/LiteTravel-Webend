@@ -38,13 +38,13 @@ public class MyServerConfig {
         return registrationBean;
     }
 
-    //Servlet配置，1.x为EmbeddedServeletContainerCustomizer, 2.x改写为WebServerFactoryCustomizer
+    //Servlet配置，1.x为EmbeddedServletContainerCustomizer, 2.x改写为WebServerFactoryCustomizer
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
             @Override
             public void customize(ConfigurableWebServerFactory factory) {
-                factory.setPort(8081);
+                factory.setPort(8080);
             }
         };
     }
