@@ -10,30 +10,36 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.rmi.registry.Registry;
 
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
+
+    //Url格式，Example
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/travelplatform").setViewName("success");
+        registry.addViewController("/travelPlatform").setViewName("success");
     }
+
+    //网页配置化
     @Bean
     public WebMvcConfigurer webMvcConfigurer(){
         WebMvcConfigurer configurer = new WebMvcConfigurer(){
+            //添加url进入格式
             @Override
             public void addViewControllers(ViewControllerRegistry registry){
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/index.html").setViewName("login");
                 registry.addViewController("/main.html").setViewName("dashboard");
             }
+
             //实现拦截器
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/index.html","/","/user/login","/static/**","classpath:/static/","/webjars/**","/webjars/");
+                        .excludePathPatterns("/", "/index.html", "/user/login", "classpath:/static/", "/webjars/", "/static/**", "/webjars/**", "/error");
             }
 
+            //基于SpringBoot2.0更新，设置静态元素资源文件夹
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");

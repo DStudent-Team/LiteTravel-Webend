@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Localization Update">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/component/MyErrorAttributes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/MyExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/exception/UserNotExistException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/error/5xx.html" afterDir="false" />
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyServerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/filter/MyFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/listener/MyListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/servlet/MyServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error/404.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/error/4xx.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error/4xx.html" afterDir="false" />
     </list>
@@ -170,7 +165,7 @@
       <workItem from="1571389380344" duration="372000" />
       <workItem from="1571408602141" duration="2687000" />
       <workItem from="1571495447274" duration="5277000" />
-      <workItem from="1571535658628" duration="4024000" />
+      <workItem from="1571535658628" duration="9280000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -179,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571500851604</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ErrorRedirect Enhanced&#10;Study Examples">
+      <created>1571540657716</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1571540657716</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +205,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Localization Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Localization Update" />
+    <MESSAGE value="ErrorRedirect Enhanced&#10;Study Examples" />
+    <option name="LAST_COMMIT_MESSAGE" value="ErrorRedirect Enhanced&#10;Study Examples" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
