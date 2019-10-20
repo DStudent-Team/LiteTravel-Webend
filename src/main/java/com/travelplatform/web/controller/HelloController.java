@@ -1,7 +1,9 @@
 package com.travelplatform.web.controller;
 
+import com.travelplatform.web.exception.UserNotExistException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,8 +14,12 @@ public class HelloController {
 
     @ResponseBody
     @RequestMapping("/hello")
-    public String Hello(){
+    public String Hello(@RequestParam("user") String user) {
+        if (user.equals("aaa")) {
+            throw new UserNotExistException();
+        }
         return "Hello from Quick Web Application";
+
     }
 
     @RequestMapping("/success")

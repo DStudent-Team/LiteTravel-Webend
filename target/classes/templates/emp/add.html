@@ -10,10 +10,11 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}"  rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" rel="stylesheet"
+			  th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 
 		<!-- Custom styles for this template -->
-		<link href="../../static/asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<link href="../../static/asserts/css/dashboard.css" rel="stylesheet" th:href="@{/asserts/css/dashboard.css}">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -80,7 +81,9 @@
 						<label th:text="#{list.birth}">Birth</label>
 						<input name="birth" type="text" class="form-control" placeholder="zhangsan" th:value="${emp}!=null?${#dates.format(emp.birth,'yyyy-MM-dd')}">
 					</div>
-					<button type="submit" class="btn btn-primary" th:text="${emp}!=null?#{list.modify}:#{list.insert}">添加</button>
+						<button class="btn btn-primary" th:text="${emp}!=null?#{list.modify}:#{list.insert}"
+								type="submit">添加
+						</button>
 				</form>
 				</main>
 			</div>
@@ -89,18 +92,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" th:src="@{../../static/asserts/js/jquery-3.2.1.slim.min.js}"></script>
-		<script type="text/javascript" th:src="@{../../static/asserts/js/popper.min.js}"></script>
-		<script type="text/javascript" th:src="@{../../static/asserts/js/bootstrap.min.js}"></script>
+		<script th:src="@{../../static/asserts/js/jquery-3.2.1.slim.min.js}" type="text/javascript"></script>
+		<script th:src="@{../../static/asserts/js/popper.min.js}" type="text/javascript"></script>
+		<script th:src="@{../../static/asserts/js/bootstrap.min.js}" type="text/javascript"></script>
 
 		<!-- Icons -->
-		<script type="text/javascript" th:src="@{../../static/asserts/js/feather.min.js}"></script>
+		<script th:src="@{../../static/asserts/js/feather.min.js}" type="text/javascript"></script>
 		<script>
 			feather.replace()
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" th:src="@{../../static/asserts/js/Chart.min.js}"></script>
+		<script th:src="@{../../static/asserts/js/Chart.min.js}" type="text/javascript"></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {
