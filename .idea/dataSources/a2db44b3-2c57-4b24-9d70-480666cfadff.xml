@@ -1124,24 +1124,44 @@
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
     <table id="283" parent="7" name="account"/>
-    <column id="284" parent="283" name="id">
+    <table id="284" parent="7" name="department">
+      <Collation>utf8_general_ci</Collation>
+    </table>
+    <column id="285" parent="283" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="283" name="username">
+    <column id="286" parent="283" name="username">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="283" name="balance">
+    <column id="287" parent="283" name="balance">
       <Position>3</Position>
       <DataType>double|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="287" parent="283" name="PRIMARY">
+    <key id="288" parent="283" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="289" parent="284" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="290" parent="284" name="departmentName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="291" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

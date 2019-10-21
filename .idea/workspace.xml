@@ -2,20 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_1_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_spring_boot_starter_1_1_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_starter_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_2_1_3_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_crypto_5_2_0_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/DruidConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/TestConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/department.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a2db44b3-2c57-4b24-9d70-480666cfadff.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a2db44b3-2c57-4b24-9d70-480666cfadff.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-boot-web-restfulcrud.iml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-web-restfulcrud.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/error/4xx.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error/4xx.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/error/5xx.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error/5xx.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/success.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +64,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="sqlconnect: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="account: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="SQLconnect@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="sqlconnect: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="department: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -98,22 +113,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates/error" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\java\com\travelplatform\web" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\public" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\java\com\travelplatform\web" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -174,7 +189,10 @@
       <workItem from="1571555394673" duration="2325000" />
       <workItem from="1571582688394" duration="1597000" />
       <workItem from="1571584895928" duration="2094000" />
-      <workItem from="1571587236774" duration="252000" />
+      <workItem from="1571587236774" duration="593000" />
+      <workItem from="1571618538022" duration="1192000" />
+      <workItem from="1571638870578" duration="10252000" />
+      <workItem from="1571649321992" duration="487000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -211,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571549659579</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Mysql &amp; JDBC Dependencies Compile">
+      <created>1571587553478</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1571587553478</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,7 +264,8 @@
     <MESSAGE value="Servlet, Filter &amp; Listener Components Construct.&#10;Fixed bugs" />
     <MESSAGE value="Recommit" />
     <MESSAGE value="Fix some program style" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix some program style" />
+    <MESSAGE value="Mysql &amp; JDBC Dependencies Compile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mysql &amp; JDBC Dependencies Compile" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
