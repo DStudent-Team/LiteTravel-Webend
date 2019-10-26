@@ -3,6 +3,8 @@ package com.travelplatform.web.mapper;
 import com.travelplatform.web.entities.Department;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Collection;
+
 public interface DepartmentMapper {
     @Select("select * from department where id = #{id}")
     public Department getDepartmentById(Integer id);
@@ -16,4 +18,7 @@ public interface DepartmentMapper {
 
     @Update("update department set departmentName=#{departmentName} where id = #{id}")
     public int updateDepartment(Department department);
+
+    @Select("select * from department")
+    public Collection<Department> getDepartments();
 }

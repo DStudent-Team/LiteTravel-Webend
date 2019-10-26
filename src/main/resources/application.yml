@@ -9,9 +9,9 @@ spring:
     data-username: root
     data-password: root3306
     driver-class-name: com.mysql.cj.jdbc.Driver
-    schema:
-      - classpath:department.sql
-      - classpath:employee.sql
+    #    schema:
+    #      - classpath:department.sql
+    #      - classpath:employee.sql
     # 配置Druid
     type: com.alibaba.druid.pool.DruidDataSource
     # 连接池的设置
@@ -59,6 +59,12 @@ spring:
   jpa.hibernate.ddl-auto: update
 # Other Configs
 logging.level.org.springframework.security: DEBUG
+#mybatis 基本配置
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
 
 
 #spring:

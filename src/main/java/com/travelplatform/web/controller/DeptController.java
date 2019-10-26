@@ -2,8 +2,6 @@ package com.travelplatform.web.controller;
 
 import com.travelplatform.web.entities.Department;
 import com.travelplatform.web.mapper.DepartmentMapper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
