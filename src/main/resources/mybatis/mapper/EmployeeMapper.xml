@@ -7,6 +7,18 @@
         insert into employee(lastName, email, gender, department_id, birth)
             value (#{lastName}, #{email}, #{gender}, #{departmentId}, #{birth})
     </insert>
+
+    <select id="getEmployeeById" resultType="com.travelplatform.web.entities.Employee">
+        select *
+        from employee
+        where id = #{id}
+    </select>
+
+    <select id="getEmployees" resultType="com.travelplatform.web.entities.Employee">
+        select *
+        from employee
+    </select>
+
     <update id="updateEmployee">
         update employee
         set lastName      = #{lastName},
@@ -16,13 +28,10 @@
             birth         = #{birth}
         where id = #{id}
     </update>
-    <select id="getEmployeeById" resultType="com.travelplatform.web.entities.Employee">
-        select *
+
+    <delete id="deleteEmployee">
+        delete
         from employee
         where id = #{id}
-    </select>
-    <select id="getEmployees" resultType="com.travelplatform.web.entities.Employee">
-        select *
-        from employee
-    </select>
+    </delete>
 </mapper>

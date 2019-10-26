@@ -38,12 +38,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/emp")
-    public String addEmp(Employee employee){
+    public String updateEmployees(Employee employee) {
         if (employee.getId() == null) {
             employeeMapper.InsertEmployee(employee);
             System.out.println("保存成功:" + employee);
         } else {
-            System.out.println("Post错误");
+            //原本应该为一个PUT请求，实际用的时候，只能识别个POST，狗屎
+            employeeMapper.updateEmployee(employee);
+            System.out.println("修改成功:" + employee);
         }
         return "redirect:/emps";
     }
@@ -58,16 +60,19 @@ public class EmployeeController {
         return "emp/add";
     }
 
-    //
-    @PutMapping("/emp")
-    public String updateEmployee(Employee employee){
-        employeeMapper.updateEmployee(employee);
-        System.out.println("修改成功:" + employee);
-        return "redirect:/emps";
-    }
-//    @PostMapping("/emp/{id}")
-//    public String deleteEmployee(@PathVariable("id") Integer id){
-//        employeeDao.delete(id);
+//    Put请求失效了
+//    @PutMapping("/emp")
+//    public String updateEmployee(Employee employee){
+//        employeeMapper.updateEmployee(employee);
+//        System.out.println("修改成功:" + employee);
 //        return "redirect:/emps";
 //    }
+
+
+    //delete请求也失效了。
+    @PostMapping("/emp/{id}")
+    public String deleteEmployee(@PathVariable("id") Integer id) {
+        employeeMapper.deleteEmployee(id);
+        return "redirect:/emps";
+    }
 }

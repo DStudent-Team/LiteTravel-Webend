@@ -14,30 +14,30 @@ import java.util.Map;
 
 @Controller
 public class HelloController {
+//
+//    @Autowired
+//    JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    @ResponseBody
-    @RequestMapping("/query")
-    public Map<String, Object> map() {
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from department");
-        return list.get(0);
-    }
-
-    @ResponseBody
-    @RequestMapping("/hello")
-    public String Hello(@RequestParam("user") String user) {
-        if (user.equals("aaa")) {
-            throw new UserNotExistException();
-        }
-        return "Hello from Quick Web Application";
-
-    }
-
-    @RequestMapping("/success")
-    public String Success(Map<String, Object> map){
-        map.put("hello", "你好");
-        return "success";
-    }
+//    @ResponseBody
+//    @RequestMapping("/query")
+//    public Map<String, Object> map() {
+//        List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from department");
+//        return list.get(0);
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping("/hello")
+//    public String Hello(@RequestParam("user") String user) {
+//        if (user.equals("aaa")) {
+//            throw new UserNotExistException();
+//        }
+//        return "Hello from Quick Web Application";
+//
+//    }
+//
+//    @RequestMapping("/success")
+//    public String Success(Map<String, Object> map){
+//        map.put("hello", "你好");
+//        return "success";
+//    }
 }

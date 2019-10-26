@@ -13,4 +13,6 @@ public interface EmployeeMapper {
     public Collection<Employee> getEmployees();
 
     public void updateEmployee(Employee employee);
+
+    public void deleteEmployee(Integer id);
 }

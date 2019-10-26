@@ -51,6 +51,7 @@
 				<div th:replace="~{commons/bar::sidebar(activeUri='emps')}"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                     <form method="post" th:action="@{/emp}"/>
+                    <!--         下面这句话基本等于毫无卵用           -->
                     <input name="_method" th:if="${emp}!=null" type="hidden" value="PUT">
                     <input name="id" th:if="${emp!=null}" th:value="${emp.id}" type="hidden">
                     <div class="form-group">

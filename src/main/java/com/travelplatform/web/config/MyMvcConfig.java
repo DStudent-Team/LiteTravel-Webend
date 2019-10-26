@@ -17,7 +17,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     //Url格式，Example
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/travelPlatform").setViewName("success");
+//        registry.addViewController("/travelPlatform").setViewName("success");
     }
 
     //网页配置化

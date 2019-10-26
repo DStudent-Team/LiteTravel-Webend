@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL-->
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -74,7 +75,8 @@
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
 										<form th:action="@{/emp/}+${emp.id}" method="post">
-                                        <input type="hidden" name="_method" value="delete" />
+											<!--         下面这句话基本等于毫无卵用           -->
+											<input name="_method" type="hidden" value="delete"/>
                                             <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                         </form>
 									</td>
