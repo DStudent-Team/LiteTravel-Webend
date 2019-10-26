@@ -1,12 +1,16 @@
 package com.travelplatform.web.entities;
-
+//有少部分JPA的事例标签，暂时不用，用mybatis
+//import javax.persistence.*;
 import java.util.Date;
-
+//@Entity
+//@Table(name = "employee")
 public class Employee {
-
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+//    @Column
     private String lastName;
-
+//    @Column
     private String email;
     //1 male, 0 female
     private Integer gender;
@@ -24,7 +28,6 @@ public class Employee {
                 ", birth=" + birth +
                 '}';
     }
-
 
     public Integer getId() {
         return id;
