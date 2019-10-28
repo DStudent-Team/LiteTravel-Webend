@@ -20,17 +20,18 @@
     </select>
 
     <update id="updateEmployee">
-    update employee
-    set lastName      = #{lastName},
-        email         = #{email},
-        gender        = #{gender},
-        department_id = #{departmentId},
-        birth         = #{birth}
-    where id = #{id}
+        update employee
+        set lastName      = #{lastName},
+            email         = #{email},
+            gender        = #{gender},
+            department_id = #{departmentId},
+            birth         = #{birth}
+        where id = #{id}
     </update>
 
     <delete id="deleteEmployee">
-        delete from employee
+        delete
+        from employee
         where id = #{id}
     </delete>
 </mapper>

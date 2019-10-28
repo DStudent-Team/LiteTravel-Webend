@@ -10,11 +10,13 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="eureka-server" target="1.8" />
       <module name="spring-boot-web-restfulcrud" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="eureka-server" options="-parameters" />
       <module name="spring-boot-web-restfulcrud" options="-parameters" />
     </option>
   </component>
