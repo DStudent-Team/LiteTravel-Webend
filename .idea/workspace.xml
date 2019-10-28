@@ -210,19 +210,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\mybatis" />
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\public" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources" />
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates" />
       <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\java\com\travelplatform\web" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\backend" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\mybatis" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
+      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\resources" />
     </key>
   </component>
   <component name="RestServicesNavigator">
