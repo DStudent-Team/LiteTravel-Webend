@@ -48,19 +48,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 
             }
-//            //实现拦截器
-//            @Override
-//            public void addInterceptors(InterceptorRegistry registry) {
-//                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-//                        .excludePathPatterns("/", "/index.html", "/user/login", "classpath:/static/", "/webjars/", "/static/**", "/webjars/**", "/error");
-//            }
 
-//            //基于SpringBoot2.0更新，设置静态元素资源文件夹
-//            @Override
-//            public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//                registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-//                registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
-//            }
         };
         return configurer;
     }

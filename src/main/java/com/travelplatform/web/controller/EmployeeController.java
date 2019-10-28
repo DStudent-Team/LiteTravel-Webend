@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-
 @Controller
 public class EmployeeController {
     @Autowired(required = false)
