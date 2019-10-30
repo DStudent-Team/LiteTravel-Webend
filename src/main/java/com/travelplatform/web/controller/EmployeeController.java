@@ -37,15 +37,17 @@ public class EmployeeController {
     }
 
     @PostMapping("/emp")
-    public String updateEmployees(Employee employee) {
+    public String insertEmployee(Employee employee) {
         if (employee.getId() == null) {
             employeeMapper.InsertEmployee(employee);
             System.out.println("保存成功:" + employee);
-        } else {
-            //原本应该为一个PUT请求，实际用的时候，只能识别个POST，狗屎
-            employeeMapper.updateEmployee(employee);
-            System.out.println("修改成功:" + employee);
         }
+//        else {
+//            //原本应该为一个PUT请求，实际用的时候，只能识别个POST，狗屎
+//            System.out.println("test");
+//            employeeMapper.updateEmployee(employee);
+//            System.out.println("修改成功:" + employee);
+//        }
         return "redirect:/emps";
     }
 
@@ -59,17 +61,17 @@ public class EmployeeController {
         return "emp/add";
     }
 
-//    Put请求失效了
-//    @PutMapping("/emp")
-//    public String updateEmployee(Employee employee){
-//        employeeMapper.updateEmployee(employee);
-//        System.out.println("修改成功:" + employee);
-//        return "redirect:/emps";
-//    }
+    //在springboot2.0后，需要配置spring.mvc.hiddenmethod.enabled = true(默认为false), put和delete请求才能生效
+    @PutMapping("/emp")
+    public String updateEmployee(Employee employee){
+        employeeMapper.updateEmployee(employee);
+        System.out.println("修改成功:" + employee);
+        return "redirect:/emps";
+    }
 
 
     //delete请求也失效了。
-    @PostMapping("/emp/{id}")
+    @DeleteMapping("/emp/{id}")
     public String deleteEmployee(@PathVariable("id") Integer id) {
         employeeMapper.deleteEmployee(id);
         return "redirect:/emps";

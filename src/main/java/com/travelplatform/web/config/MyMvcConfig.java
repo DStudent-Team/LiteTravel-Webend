@@ -14,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 
+    public LoginHandlerInterceptor loginHandlerInterceptor(){
+        return new LoginHandlerInterceptor();
+    }
     //Url格式，Example
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
@@ -23,20 +26,22 @@ public class MyMvcConfig implements WebMvcConfigurer {
     //网页配置化
     @Bean
     public WebMvcConfigurer webMvcConfigurer(){
-        WebMvcConfigurer configurer = new WebMvcConfigurer(){
+        return new WebMvcConfigurer(){
             //添加url进入格式
             @Override
             public void addViewControllers(ViewControllerRegistry registry){
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/index.html").setViewName("login");
                 registry.addViewController("/main.html").setViewName("dashboard");
+                registry.addViewController("/Cover.html").setViewName("cover");
             }
 
             //注册拦截器
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
+                //此处的ExcludePathPatterns排除特殊关键字被拦截的情况，例如静态资源，登录页面，错误页面等。
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/index.html", "/", "/static/**", "/webjars/**", "/user/login");
+                        .excludePathPatterns( "/", "/index.html", "/Cover.html", "/user/login", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
             }
 
             //静态文件
@@ -46,11 +51,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
                 //webjar文件
                 registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-
+                //图片文件
+                registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/asserts/img/");
             }
 
         };
-        return configurer;
     }
     //建立LocaleResolver 以屏蔽原默认设置的LocaleResolver
     @Bean
