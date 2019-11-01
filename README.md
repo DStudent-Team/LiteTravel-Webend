@@ -1,6 +1,6 @@
 # spring-boot-web-restfulcrud
 ## 已经整合的模块如下
-- spring boot
+- spring boot 2.2.0
 - spring web
 - spring cloud discovery
 - bootstrap 4.3.1
