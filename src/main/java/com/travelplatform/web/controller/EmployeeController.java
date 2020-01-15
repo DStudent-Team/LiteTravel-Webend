@@ -1,7 +1,7 @@
 package com.travelplatform.web.controller;
 
-import com.travelplatform.web.entities.Department;
-import com.travelplatform.web.entities.Employee;
+import com.travelplatform.web.po.Department;
+import com.travelplatform.web.po.Employee;
 import com.travelplatform.web.mapper.DepartmentMapper;
 import com.travelplatform.web.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,6 @@ public class EmployeeController {
 
     @Autowired(required = false)
     DepartmentMapper departmentMapper;
-//    @GetMapping("/emp/{id}")
-//    public Employee getEmployee(@PathVariable("id") Integer id){
-//        return employeeMapper.getEmployeeById(id);
-//    }
 
     @GetMapping("/emps")
     public String list(ModelMap model){
@@ -42,12 +38,6 @@ public class EmployeeController {
             employeeMapper.InsertEmployee(employee);
             System.out.println("保存成功:" + employee);
         }
-//        else {
-//            //原本应该为一个PUT请求，实际用的时候，只能识别个POST，狗屎
-//            System.out.println("test");
-//            employeeMapper.updateEmployee(employee);
-//            System.out.println("修改成功:" + employee);
-//        }
         return "redirect:/emps";
     }
 

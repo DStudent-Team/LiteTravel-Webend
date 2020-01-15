@@ -47,3 +47,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.hrefBtn{
+  text-decoration: none;
+}
+
+.btnPlus{
+  margin-bottom: 5px;
+}

@@ -1,0 +1,10 @@
+.modify-carousel{
+    height: 500px;
+    overflow: hidden;
+}
+.modify-img-carousel{
+    width: 100%;
+}
+.modify-text-carousel{
+    bottom: 5%;
+}

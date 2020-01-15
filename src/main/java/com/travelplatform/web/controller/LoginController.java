@@ -1,21 +1,27 @@
 package com.travelplatform.web.controller;
 
+import com.travelplatform.web.po.User;
+import com.travelplatform.web.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 @Controller
 public class LoginController {
+    @Autowired
+    UserMapper userMapper;
+
     @PostMapping(value = "/user/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
+    public String login(@RequestParam("userCode") String userCode,
+                        @RequestParam("userPassword") String userPassword,
                         Map<String, Object> map,
                         HttpSession session){
-        if(!StringUtils.isEmpty(username) && "123456".equals(password)){
-            session.setAttribute("loginUser", username);
+        User user = userMapper.findUser(userCode, userPassword);
+        if(!StringUtils.isEmpty(userCode) && user != null){
+            session.setAttribute("loginUser", user.getUserName());
             //需要重定向
             return "redirect:/main.html";
         }
@@ -24,5 +30,30 @@ public class LoginController {
             return "login";
         }
     }
+
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    public String register(@RequestParam("userCode") String userCode,
+                           @RequestParam("userName") String userName,
+                           @RequestParam("userPassword") String userPassword,
+                           Map<String, Object> map,
+                           HttpSession session){
+        /*
+         * 此处需要检查注册合理性，重名，重账号等
+         * */
+        userMapper.insertUser(userCode, userName, userPassword);
+        login(userCode, userPassword, map, session);
+        return "redirect:/main.html";
+    }
+
+
+
+    @GetMapping(value = "/toRegister")
+    public String toRegister(){
+        return "/register";
+    }
+
+    @GetMapping("/toLogin")
+    public String toLogin(){ return "login"; }
+
 
 }

@@ -4,8 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.travelplatform.web.entities.Department;
-import com.travelplatform.web.entities.Employee;
+import com.travelplatform.web.po.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

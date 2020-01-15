@@ -1,6 +1,6 @@
 package com.travelplatform.web.controller;
 
-import com.travelplatform.web.entities.Department;
+import com.travelplatform.web.po.Department;
 import com.travelplatform.web.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

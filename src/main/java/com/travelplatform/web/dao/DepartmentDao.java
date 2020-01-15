@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.travelplatform.web.entities.Department;
+import com.travelplatform.web.po.Department;
 import org.springframework.stereotype.Repository;
 
 

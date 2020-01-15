@@ -6,4 +6,8 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <!-- 别名定义 -->
+    <typeAliases>
+        <package name="com.travelplatform.web.po" />
+    </typeAliases>
 </configuration>

@@ -1,4 +1,4 @@
-package com.travelplatform.web.entities;
+package com.travelplatform.web.po;
 
 public class Department {
 

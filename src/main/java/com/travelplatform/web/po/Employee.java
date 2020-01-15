@@ -1,4 +1,4 @@
-package com.travelplatform.web.entities;
+package com.travelplatform.web.po;
 //有少部分JPA的事例标签，暂时不用，用mybatis
 //import javax.persistence.*;
 import java.util.Date;

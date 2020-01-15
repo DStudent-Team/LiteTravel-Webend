@@ -1,6 +1,6 @@
 package com.travelplatform.web.mapper;
 
-import com.travelplatform.web.entities.Employee;
+import com.travelplatform.web.po.Employee;
 
 import java.util.Collection;
 

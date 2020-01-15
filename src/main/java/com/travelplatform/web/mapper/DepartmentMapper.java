@@ -1,6 +1,6 @@
 package com.travelplatform.web.mapper;
 
-import com.travelplatform.web.entities.Department;
+import com.travelplatform.web.po.Department;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Collection;
