@@ -30,10 +30,10 @@
 - 数据增删改查(mybatis)(user, travel_lines, travel_agency) 
 - 数据库存储内容补全(user, travel_lines, travel_agency) 
 - 自定义错误跳转
-- 待补全
+- *待补全*
 ## 需要补全的内容还有
 - 登陆注册检验，安全检验
 - 数据库事务管理
 - 各种各样的前端网页
 - 支付功能的接入
-- 待更新
+- *待更新*
