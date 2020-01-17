@@ -1,4 +1,13 @@
 # spring-boot-web-restfulcrud
+**大学生创新创业项目 - 分布式旅行平台下的 前台网站前后端系统**
+
+*前端直接用的是bootstrap UI框架 + thymeleaf模版引擎, 缓解没有专业前端人员的问题*
+
+*后端用的是SpringBoot2.2.0 全家桶*
+
+*分布式模块用的是Spring Cloud*
+
+*数据库语言使用的是Mysql8.0.17*
 ## 已经整合的模块如下
 - spring boot 2.2.0
 - spring web
