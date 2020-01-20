@@ -1,7 +1,7 @@
 # spring-boot-web-restfulcrud
 **大学生创新创业项目 - 分布式旅行平台下的 前台网站前后端系统**
 
-*前端直接用的是bootstrap UI框架 + thymeleaf模版引擎, 缓解没有专业前端人员的问题*
+*前端直接用的是bootstrap UI框架 + thymeleaf模版引擎*
 
 *后端用的是SpringBoot2.2.0 全家桶*
 
