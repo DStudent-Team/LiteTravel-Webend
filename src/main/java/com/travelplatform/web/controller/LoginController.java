@@ -4,6 +4,7 @@ import com.travelplatform.web.po.User;
 import com.travelplatform.web.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -23,7 +24,7 @@ public class LoginController {
         if(!StringUtils.isEmpty(userCode) && user != null){
             session.setAttribute("loginUser", user.getUserName());
             //需要重定向
-            return "redirect:/main.html";
+            return "redirect:/index.html";
         }
         else{
             map.put("msg","用户名密码错误");
@@ -44,8 +45,6 @@ public class LoginController {
         login(userCode, userPassword, map, session);
         return "redirect:/main.html";
     }
-
-
 
     @GetMapping(value = "/toRegister")
     public String toRegister(){

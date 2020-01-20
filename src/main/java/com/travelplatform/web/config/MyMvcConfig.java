@@ -31,7 +31,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
             @Override
             public void addViewControllers(ViewControllerRegistry registry){
                 registry.addViewController("/").setViewName("login");
-                registry.addViewController("/index.html").setViewName("login");
+                registry.addViewController("/login.html").setViewName("login");
+                registry.addViewController("/index.html").setViewName("index");
                 registry.addViewController("/register.html").setViewName("register");
                 registry.addViewController("/main.html").setViewName("dashboard");
                 registry.addViewController("/Cover.html").setViewName("cover");
@@ -42,7 +43,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 //此处的ExcludePathPatterns排除特殊关键字被拦截的情况，例如静态资源，登录/注册页面，错误页面等。
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns( "/", "/index.html", "/cover", "/user/login",  "/toRegister/**", "/user/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
+                        .excludePathPatterns( "/", "/login.html", "/cover", "/user/login",  "/toRegister/**", "/user/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
             }
 
             //静态文件
