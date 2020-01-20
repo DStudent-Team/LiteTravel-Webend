@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Signin Template for Bootstrap With Spring Boot</title>
+		<!-- Bootstrap core CSS -->
+		<link href="#" rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
+		<!-- Custom styles for this template -->
+		<link href="#" rel="stylesheet" th:href="@{/asserts/css/signin.css}">
+
+	</head>
+
+	<body class="text-center">
+		<form class="form-signin" th:action="@{/user/register}" method="post" onsubmit="return checkDuplicate()">
+			<img alt="" class="mb-4" height="72" th:src="@{/asserts/img/bootstrap-solid.svg}" width="72" >
+
+			<h1 class="h3 mb-3 font-weight-normal" th:text="#{register.tip}">Please sign up</h1>
+
+            <p id="usernameSpan" style="color:red"></p>
+			<label class="sr-only" th:text="#{login.usercode}">Usercode</label>
+			<input id="userCode" type="text" name="userCode" class="form-control" th:placeholder="#{login.usercode}" required="" autofocus="">
+
+			<label class="sr-only" th:text="#{login.username}">Username</label>
+			<input type="text" name="userName" class="form-control" th:placeholder="#{login.username}" required="" autofocus="">
+
+			<label class="sr-only" th:text="#{login.password}">Password</label>
+			<input type="password" name="userPassword" class="form-control" th:placeholder="#{login.password}" required="">
+
+			<button class="btn btn-lg btn-primary btn-block btnPlus" type="submit" th:text="#{register.btn}">Sign Up</button>
+			<a class="hrefBtn" th:href="@{/toLogin}">
+				<button class="btn btn-lg btn-primary btn-block btnPlus" type="button" th:text="#{login.btn}">Sign In</button>
+			</a>
+			<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+			<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
+			<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+		</form>
+
+		<script th:src="@{/webjars/jquery/3.4.1/jquery.slim.js}"></script>
+		<script type="text/javascript">
+			function checkDuplicate()
+			{
+				var f = false;
+				var username = document.getElementById("usernameSpan");
+				// javascript所有的变量都是以var定义的
+				// javascript的变量属于弱类型
+				// 获取用户输入的用户名
+				var code = document.getElementById("userCode").value;
+				//去除字符串两端空格
+				code = code.trim();
+                alert("test2:"+code);
+				//判断是否为空
+				if(code === "")
+				{
+                    username.innerHTML ="用户名不能为空";
+					f = false;
+				}
+				else if(code.length < 6 || code.length > 16)
+				{
+                    username.innerHTML = "用户名的长度为6-16位";
+					f = false;
+				}
+				else
+				{
+                    username.innerHTML = "";
+					//校验用户名是否存在
+					//使用ajax异步校验用户名
+                    alert("jumpToCheck : " + code);
+                    //ajax有问题，无法跳转进去！！！！！超级严重，导致根本无法检测是否有重名！！
+					$.ajax({
+						url: "/checkName",
+						type: "get",
+						data: {"userCode" : code},//json数据格式的用户名从jsp传递给controller
+						dataType: "json",
+                        contentType: "application/json",
+						async: false, //让ajax执行代码顺序同步
+                        success: function(data)
+						{
+							alert("checkSuccess");
+							if(data.msg==="true")
+							{
+                                username.innerHTML = "用户名可用";
+								f=true;
+							}
+							else
+							{
+                                username.innerHTML = "用户名已存在";
+								f=false;
+							}
+						},
+                        error:function (data) {
+                            alert(data + " fail to send.");
+                        }
+					});
+				    //错误结束点，直接跳出，不会执行下面的内容
+				}
+				if(username.innerHTML.length === 0)
+				    username.style.display = "none";
+				else
+				    username.style.display = "visible";
+				return f;
+			}
+		</script>
+	</body>
+
+</html>
