@@ -11,10 +11,10 @@ import java.util.Locale;
 
 @MapperScan(value = "com.travelplatform.web.mapper")
 @SpringBootApplication
-public class SpringBootWebRestfulcrudApplication {
+public class LiteTravelWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootWebRestfulcrudApplication.class, args);
+        SpringApplication.run(LiteTravelWebApplication.class, args);
     }
     @Bean
     public ViewResolver myViewResolver(){

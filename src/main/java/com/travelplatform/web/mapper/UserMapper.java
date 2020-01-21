@@ -6,4 +6,5 @@ public interface UserMapper {
     public User findUser(String userCode, String userPassword);
     public void insertUser(String userCode, String userPassword);
     public User findUserByCode(String userCode);
+    public User findUserById(Integer userId);
 }

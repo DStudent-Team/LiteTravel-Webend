@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.TravelPlatform</groupId>
-    <artifactId>spring-boot-web-restfulcrud</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-web-restfulcrud</name>
-    <description>Demo project for Spring Boot</description>
+    <artifactId>Lite-Travel-Web</artifactId>
+    <version>0.0.1</version>
+    <name>Lite-Travel-Web</name>
+    <description>Web Application of Lite Travel.</description>
 
     <properties>
         <java.version>1.8</java.version>

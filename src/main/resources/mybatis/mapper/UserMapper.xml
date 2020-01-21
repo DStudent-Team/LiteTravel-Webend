@@ -19,4 +19,9 @@
         FROM sqlconnect.sys_user
         WHERE user_code = #{userCode}
     </select>
+    <select id="findUserById" resultType="User">
+        SELECT *
+        FROM sqlconnect.sys_user
+        WHERE user_id = #{userId}
+    </select>
 </mapper>
