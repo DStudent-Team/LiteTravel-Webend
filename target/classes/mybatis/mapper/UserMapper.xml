@@ -19,4 +19,10 @@
         FROM sqlconnect.sys_user
         WHERE user_code = #{userCode}
     </select>
+    <select id="findUserById" resultType="user">
+        SELECT sys_user.user_name, travel_member.*
+        FROM sqlconnect.sys_user, sqlconnect.travel_member
+        WHERE sys_user.user_id = #{id}
+        AND travel_member.id = sys_user.user_id;
+    </select>
 </mapper>

@@ -4,7 +4,6 @@ package com.travelplatform.web.po;
 public class User {
     private Integer userId;
     private String userCode;
-    private String userName;
     private String userPassword;
     private Integer userState;
 
@@ -22,14 +21,6 @@ public class User {
 
     public void setUserCode(String userCode) {
         this.userCode = userCode;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getUserPassword() {
@@ -53,7 +44,6 @@ public class User {
         return "User{" +
                 "user_id=" + userId +
                 ", user_code='" + userCode + '\'' +
-                ", user_name='" + userName + '\'' +
                 ", user_password='" + userPassword + '\'' +
                 ", user_state=" + userState +
                 '}';

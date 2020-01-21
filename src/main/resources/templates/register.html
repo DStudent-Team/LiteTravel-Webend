@@ -31,7 +31,7 @@
 
 			<button class="btn btn-lg btn-primary btn-block btnPlus" type="submit" th:text="#{register.btn}">Sign Up</button>
 			<a class="hrefBtn" th:href="@{/toLogin}">
-				<button class="btn btn-lg btn-primary btn-block btnPlus" type="button" th:text="#{login.btn}">Sign In</button>
+				<button class="btn btn-lg btn-	primary btn-block btnPlus" type="button" th:text="#{login.btn}">Sign In</button>
 			</a>
 			<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
 			<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
@@ -43,7 +43,7 @@
 			function checkDuplicate()
 			{
 				var f = false;
-				var username = document.getElementById("usernameSpan");
+				var usercode = document.getElementById("usernameSpan");
 				// javascript所有的变量都是以var定义的
 				// javascript的变量属于弱类型
 				// 获取用户输入的用户名
@@ -54,17 +54,17 @@
 				//判断是否为空
 				if(code === "")
 				{
-                    username.innerHTML ="用户名不能为空";
+                    usercode.innerHTML ="用户名不能为空";
 					f = false;
 				}
 				else if(code.length < 6 || code.length > 16)
 				{
-                    username.innerHTML = "用户名的长度为6-16位";
+                    usercode.innerHTML = "用户名的长度为6-16位";
 					f = false;
 				}
 				else
 				{
-                    username.innerHTML = "";
+                    usercode.innerHTML = "";
 					//校验用户名是否存在
 					//使用ajax异步校验用户名
                     alert("jumpToCheck : " + code);
@@ -81,12 +81,12 @@
 							alert("checkSuccess");
 							if(data.msg==="true")
 							{
-                                username.innerHTML = "用户名可用";
+                                usercode.innerHTML = "用户名可用";
 								f=true;
 							}
 							else
 							{
-                                username.innerHTML = "用户名已存在";
+                                usercode.innerHTML = "用户名已存在";
 								f=false;
 							}
 						},
@@ -96,10 +96,10 @@
 					});
 				    //错误结束点，直接跳出，不会执行下面的内容
 				}
-				if(username.innerHTML.length === 0)
-				    username.style.display = "none";
+				if(usercode.innerHTML.length === 0)
+				    usercode.style.display = "none";
 				else
-				    username.style.display = "visible";
+				    usercode.style.display = "visible";
 				return f;
 			}
 		</script>
