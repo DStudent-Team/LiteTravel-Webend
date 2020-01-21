@@ -1,4 +1,5 @@
-# spring-boot-web-restfulcrud
+# Lite-Travel-WebApplication
+
 **大学生创新创业项目 - 分布式旅行平台下的 前台网站前后端系统**
 
 *前端直接用的是bootstrap UI框架 + thymeleaf模版引擎*
