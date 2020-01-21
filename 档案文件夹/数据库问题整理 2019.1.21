@@ -1,0 +1,60 @@
+## 数据库部分的问题
+
+---
+
+- 中期检查报告需要完整的E-R图，并且实际数据库也应该完全符合这个E-R图
+
+- 需要修改的表：travel_member 
+  - 表名改名为 travel_user_info
+  - phone 属性应该改为varchar(11) 并限定是纯数字
+  - 添加属性：
+    - user_avatarURL 用户头像图片路径 varchar
+    - sex varchar(1) 0为男,1为女
+- 修改一个表：travel_member_reserve_hotel
+  - 改名为：travel_hotel_orders
+  - 属性如下：
+
+| 属性名      | 类型       | 注释                                                         |
+| ----------- | ---------- | ------------------------------------------------------------ |
+| OrderId     | Integer    | 主键，唯一；                                                 |
+| HotelId     | Integer    | 外键，多对多；                                               |
+| UserId      | Integer    | 外键，多对多；                                               |
+| Days        | Integer    | 非空，默认为0                                                |
+| Status      | Varchar(1) | 非空，默认为0，0为’WaitConfirm‘, 1为'WaitComplete'，2为’Completed‘ |
+| CreateDate  | Datetime   | 非空                                                         |
+| PayDate     | Datetime   | 非空，必须大于CreateDate                                     |
+| ComfirmDate | Datetime   | 非空，必须大于PayDate                                        |
+| Total       | Integer    | 非空，默认为0，有算法：Hotal.price * Days                    |
+
+- 修改一个表：travel_member_reserve_lines
+  - 改名为：travel_lines_orders
+  - 类似上面的表
+
+| 属性名      | 类型       | 注释                                                         |
+| ----------- | ---------- | ------------------------------------------------------------ |
+| OrderId     | Integer    | 主键，唯一；                                                 |
+| LineId      | Integer    | 外键，多对多；                                               |
+| UserId      | Integer    | 外键，多对多；                                               |
+| Status      | Varchar(1) | 非空，默认为0，0为’WaitConfirm‘, 1为'WaitComplete'，2为’Completed‘ |
+| CreateDate  | Datetime   | 非空                                                         |
+| PayDate     | Datetime   | 非空，必须大于CreateDate                                     |
+| ComfirmDate | Datetime   | 非空，必须大于PayDate                                        |
+| Total       | Integer    | 非空，默认为0，有算法：Hotal.price * Days                    |
+
+- 补充新的一个表：travel_user_account
+
+  | 属性名   | 类型        | 注释                                                         |
+  | -------- | ----------- | ------------------------------------------------------------ |
+  | userid   | Integer     | 内部唯一查询方式                                             |
+  | usercode | varchar(18) | 外部唯一查询方式，限制长度为18位                             |
+  | password | varchar(18) | 用户密码，限制大小为6~18位                                   |
+  | state    | varchar(1)  | 账户状态，'0'表示该用户为被封锁的状态, '1'表示该用户是正常运行的用户 |
+
+- 事务管理
+
+  - 当用户账户被删除时，用户账户信息也要同时被删除
+  - 当某个路线被预定了，应当在路线预约表中添加信息，并且也在对应的酒店预约表中添加预约信息
+  - 整个表的外键约束应当完整
+
+---
+
