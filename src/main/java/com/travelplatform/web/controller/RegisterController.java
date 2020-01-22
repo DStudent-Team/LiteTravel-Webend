@@ -12,7 +12,7 @@ public class RegisterController {
     UserMapper userMapper;
 
     @ResponseBody//返回给jsp字符串格式
-    @GetMapping(value = "/checkName")
+    @PostMapping(value = "/checkName")
     public String checkName(String userCode) {
         String msg;
         System.out.println("Send In! :" + userCode);

@@ -14,6 +14,7 @@
 	</head>
 
 	<body class="text-center">
+
 		<form class="form-signin" th:action="@{/user/register}" method="post" onsubmit="return checkDuplicate()">
 			<img alt="" class="mb-4" height="72" th:src="@{/asserts/img/bootstrap-solid.svg}" width="72" >
 
@@ -38,7 +39,7 @@
 			<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
 		</form>
 
-		<script th:src="@{/webjars/jquery/3.4.1/jquery.slim.js}"></script>
+		<script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 		<script type="text/javascript">
 			function checkDuplicate()
 			{
@@ -68,7 +69,6 @@
 					//校验用户名是否存在
 					//使用ajax异步校验用户名
                     alert("jumpToCheck : " + code);
-                    //ajax有问题，无法跳转进去！！！！！超级严重，导致根本无法检测是否有重名！！
 					$.ajax({
 						url: "/checkName",
 						type: "post",
@@ -76,9 +76,9 @@
 						dataType: "json",
                         contentType: "application/json",
 						async: false, //让ajax执行代码顺序同步
+						//在网页中请求时无法获得结果，转入error，但直接请求能够返回json结果
                         success: function(data)
 						{
-							alert("checkSuccess");
 							if(data.msg==="true")
 							{
                                 usercode.innerHTML = "用户名可用";
@@ -91,10 +91,9 @@
 							}
 						},
                         error:function (data) {
-                            alert(data + " fail to send.");
+                            console.log("errorMsg : " + data);
                         }
 					});
-				    //错误结束点，直接跳出，不会执行下面的内容
 				}
 				if(usercode.innerHTML.length === 0)
 				    usercode.style.display = "none";

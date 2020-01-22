@@ -53,7 +53,7 @@ public class LoginController {
         userInfoMapper.insertInfo(userMapper.findUserByCode(userCode).getUserId(), username);
         if(userMapper.findUserByCode(userCode) != null) {
             login(userCode, password, map, session);
-            return "redirect:/main.html";
+            return "redirect:/index.html";
         }
         else {
             return "register";
