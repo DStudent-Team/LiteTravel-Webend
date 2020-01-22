@@ -25,8 +25,7 @@ public class LoginController {
                         Map<String, Object> map,
                         HttpSession session){
         User user = userMapper.findUser(userCode, password);
-        if(!StringUtils.isEmpty(userCode) && user != null){
-
+        if(!StringUtils.isEmpty(userCode) && user != null) {
             //获取用户信息
             Integer userId = user.getUserId();
             session.setAttribute("userId",
@@ -51,6 +50,7 @@ public class LoginController {
                            HttpSession session) throws Exception {
         /*
          * 此处需要检查注册合理性，重名，重账号等
+         * 重账号用js直接Post请求完成
          * */
         if(userMapper.findUserByCode(userCode) != null)
             return "redirect:/toRegister";
@@ -79,6 +79,5 @@ public class LoginController {
 
     @GetMapping("/toLogin")
     public String toLogin(){ return "login"; }
-
 
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>轻旅·用户</title>
+		<!-- Bootstrap core CSS -->
+		<link th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<h1>user:[[${info.username}]]</h1>
+					<h2>sex:[[${info.sex}]]</h2>
+					<h2>city:[[${info.city}]]</h2>
+					<h2>email:[[${info.email}]]</h2>
+					<h2>phone:[[${info.phone}]]</h2>
+					<h2>user_avatarUrl:[[${info.user_avatarUrl}]]</h2>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}" ></script>
+	</body>
+
+</html>
