@@ -48,7 +48,7 @@ public class LoginController {
          * 此处需要检查注册合理性，重名，重账号等
          * */
         if(userMapper.findUserByCode(userCode) != null)
-            return "register";
+            return "redirect:/toRegister";
         userMapper.insertUser(userCode, password);
         userInfoMapper.insertInfo(userMapper.findUserByCode(userCode).getUserId(), username);
         if(userMapper.findUserByCode(userCode) != null) {
@@ -56,13 +56,13 @@ public class LoginController {
             return "redirect:/index.html";
         }
         else {
-            return "register";
+            return "redirect:/toRegister";
         }
     }
 
     @GetMapping(value = "/toRegister")
     public String toRegister(){
-        return "/register";
+        return "register";
     }
 
     @GetMapping("/toLogin")

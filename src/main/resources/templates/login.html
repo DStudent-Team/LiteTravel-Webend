@@ -13,7 +13,7 @@
 	</head>
 
 	<body class="text-center">
-		<form class="form-signin" action="dashboard.html" th:action="@{/user/login}" method="post" >
+		<form class="form-signin" th:action="@{/user/login}" method="post" >
 			<img alt="" class="mb-4" height="72" th:src="@{/asserts/img/bootstrap-solid.svg}" width="72">
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
 			<!-- 只在错误发生时才会显示 -->

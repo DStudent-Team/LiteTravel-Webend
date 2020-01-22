@@ -44,49 +44,46 @@
 			function checkDuplicate()
 			{
 				var f = false;
-				var usercode = document.getElementById("usernameSpan");
+				var usernameSpan = document.getElementById("usernameSpan");
 				// javascript所有的变量都是以var定义的
 				// javascript的变量属于弱类型
 				// 获取用户输入的用户名
-				var code = document.getElementById("userCode").value;
+				var userCode = document.getElementById("userCode").value;
 				//去除字符串两端空格
-				code = code.trim();
-                alert("test2:"+code);
+				userCode = userCode.trim();
 				//判断是否为空
-				if(code === "")
+				if(userCode === "")
 				{
-                    usercode.innerHTML ="用户名不能为空";
+                    usernameSpan.innerHTML ="用户名不能为空";
 					f = false;
 				}
-				else if(code.length < 6 || code.length > 16)
+				else if(userCode.length < 6 || userCode.length > 16)
 				{
-                    usercode.innerHTML = "用户名的长度为6-16位";
+                    usernameSpan.innerHTML = "用户名的长度为6-16位";
 					f = false;
 				}
 				else
 				{
-                    usercode.innerHTML = "";
+                    usernameSpan.innerHTML = "";
 					//校验用户名是否存在
 					//使用ajax异步校验用户名
-                    alert("jumpToCheck : " + code);
 					$.ajax({
 						url: "/checkName",
 						type: "post",
-						data: {"userCode" : code},//json数据格式的用户名从jsp传递给controller
+						data: {'userCode' : userCode}, //json数据格式的用户名从jsp传递给controller
 						dataType: "json",
-                        contentType: "application/json",
+                        contentType: "application/x-www-form-urlencoded", //修改contentType，使@RequestParam可以接收数据。
 						async: false, //让ajax执行代码顺序同步
-						//在网页中请求时无法获得结果，转入error，但直接请求能够返回json结果
                         success: function(data)
 						{
 							if(data.msg==="true")
 							{
-                                usercode.innerHTML = "用户名可用";
+                                usernameSpan.innerHTML = "用户名可用";
 								f=true;
 							}
 							else
 							{
-                                usercode.innerHTML = "用户名已存在";
+                                usernameSpan.innerHTML = "用户名已存在";
 								f=false;
 							}
 						},
@@ -95,10 +92,10 @@
                         }
 					});
 				}
-				if(usercode.innerHTML.length === 0)
-				    usercode.style.display = "none";
+				if(usernameSpan.innerHTML.length === 0)
+				    usernameSpan.style.display = "none";
 				else
-				    usercode.style.display = "visible";
+				    usernameSpan.style.display = "visible";
 				return f;
 			}
 		</script>
