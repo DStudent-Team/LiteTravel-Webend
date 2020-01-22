@@ -3,6 +3,7 @@ package com.travelplatform.web.controller;
 import com.travelplatform.web.mapper.UserInfoMapper;
 import com.travelplatform.web.po.User;
 import com.travelplatform.web.mapper.UserMapper;
+import com.travelplatform.web.po.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +54,15 @@ public class LoginController {
          * */
         if(userMapper.findUserByCode(userCode) != null)
             return "redirect:/toRegister";
-        userMapper.insertUser(userCode, password);
-        userInfoMapper.insertInfo(userMapper.findUserByCode(userCode).getUserId(), username);
+        User user = new User();
+        user.setUserCode(userCode);
+        user.setPassword(password);
+        userMapper.insertUser(user);
+        System.out.println(user.getUserId());
+        UserInfo userinfo = new UserInfo();
+        userinfo.setUser_id(user.getUserId());
+        userinfo.setUsername(username);
+        userInfoMapper.insertInfo(userinfo);
         if(userMapper.findUserByCode(userCode) != null) {
             login(userCode, password, map, session);
             return "redirect:/index.html";

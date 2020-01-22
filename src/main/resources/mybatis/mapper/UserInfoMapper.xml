@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.travelplatform.web.mapper.UserInfoMapper">
-    <insert id="insertInfo">
+    <insert id="insertInfo" parameterType="UserInfo">
         INSERT INTO travel_user_info(user_id, username)
-        VALUES (#{userId}, #{username});
+        VALUES (#{user_id}, #{username});
     </insert>
     <select id="findInfoById" resultType="UserInfo">
         SELECT *
         FROM  travel_user_info
-        WHERE user_id = #{userId};
+        WHERE user_id = #{user_id};
     </select>
 </mapper>

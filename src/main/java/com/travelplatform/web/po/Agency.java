@@ -3,7 +3,7 @@ package com.travelplatform.web.po;
 public class Agency {
     public int id;
     public String name;
-    public String desp;
+    public String description;
     public String address;
     public String phone;
 
@@ -23,12 +23,12 @@ public class Agency {
         this.name = name;
     }
 
-    public String getDesp() {
-        return desp;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesp(String desp) {
-        this.desp = desp;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAddress() {
@@ -52,7 +52,7 @@ public class Agency {
         return "Agency{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", desp='" + desp + '\'' +
+                ", description='" + description + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
