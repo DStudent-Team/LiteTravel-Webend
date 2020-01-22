@@ -1,20 +1,24 @@
 package com.travelplatform.web.po;
 
 public class UserInfo {
-    private Integer userId;
-    private String username;
-    private String phone;
-    private String city;
-    private String email;
+    public Integer userId;
+    public String username;
+    public Integer sex;
+    public String phone;
+    public String city;
+    public String email;
+    public String user_avatarUrl;
 
     @Override
     public String toString() {
         return "UserInfo{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
+                ", sex='" + sex + '\'' +
                 ", phone='" + phone + '\'' +
                 ", city='" + city + '\'' +
                 ", email='" + email + '\'' +
+                ", user_avatarUrl='" + user_avatarUrl + '\'' +
                 '}';
     }
 
@@ -32,6 +36,14 @@ public class UserInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public String getPhone() {
@@ -56,5 +68,13 @@ public class UserInfo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUser_avatarUrl() {
+        return user_avatarUrl;
+    }
+
+    public void setUser_avatarUrl(String user_avatarUrl) {
+        this.user_avatarUrl = user_avatarUrl;
     }
 }

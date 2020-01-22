@@ -2,10 +2,10 @@ package com.travelplatform.web.po;
 
 
 public class User {
-    private Integer userId;
-    private String userCode;
-    private String password;
-    private Integer state;
+    public Integer userId;
+    public String userCode;
+    public String password;
+    public Integer state;
 
     public Integer getUserId() {
         return userId;

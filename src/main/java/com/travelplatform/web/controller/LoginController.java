@@ -25,9 +25,13 @@ public class LoginController {
                         HttpSession session){
         User user = userMapper.findUser(userCode, password);
         if(!StringUtils.isEmpty(userCode) && user != null){
+
             //获取用户信息
-            session.setAttribute("loginUser",
-                    userInfoMapper.findInfoById(user.getUserId()).getUsername());
+            Integer userId = user.getUserId();
+            session.setAttribute("userId",
+                    userId);
+            session.setAttribute("username",
+                    userInfoMapper.findInfoById(userId).getUsername());
             //需要重定向
             return "redirect:/index.html";
         }

@@ -1,10 +1,8 @@
 package com.travelplatform.web.controller;
 
 import com.travelplatform.web.exception.UserNotExistException;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

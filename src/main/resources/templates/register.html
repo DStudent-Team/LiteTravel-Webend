@@ -43,11 +43,11 @@
 		<script type="text/javascript">
 			function checkDuplicate()
 			{
-				var f = false;
-				var usernameSpan = document.getElementById("usernameSpan");
 				// javascript所有的变量都是以var定义的
 				// javascript的变量属于弱类型
 				// 获取用户输入的用户名
+				var f = false;
+				var usernameSpan = document.getElementById("usernameSpan");
 				var userCode = document.getElementById("userCode").value;
 				//去除字符串两端空格
 				userCode = userCode.trim();
@@ -79,12 +79,12 @@
 							if(data.msg==="true")
 							{
                                 usernameSpan.innerHTML = "用户名可用";
-								f=true;
+								f = true;
 							}
 							else
 							{
-                                usernameSpan.innerHTML = "用户名已存在";
-								f=false;
+                                usernameSpan.innerHTML = "用户名已被使用";
+								f = false;
 							}
 						},
                         error:function (data) {

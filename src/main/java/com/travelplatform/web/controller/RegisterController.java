@@ -15,7 +15,6 @@ public class RegisterController {
     @PostMapping(value = "/checkName")
     public String checkName(@RequestParam("userCode") String userCode) {
         String msg;
-        System.out.println("Send In! :" + userCode);//没有找到userCode
         //根据用户名查询是否存在该用户名
         User user = userMapper.findUserByCode(userCode);
         //当对象不为空，说明用户名存在
@@ -25,7 +24,6 @@ public class RegisterController {
         else {
             msg = "{\"msg\":\"false\"}";
         }
-        System.out.println(msg);
         return msg;
     }
 

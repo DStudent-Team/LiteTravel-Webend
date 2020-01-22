@@ -16,7 +16,7 @@ public class UserController {
     @GetMapping("/user/{userId}")
     public String toUser(@PathVariable("userId") Integer userId, ModelMap model){
         UserInfo info = userInfoMapper.findInfoById(userId);
-        model.addAttribute("Info", info);
+        model.addAttribute("info", info);
         return "user";
     }
 
