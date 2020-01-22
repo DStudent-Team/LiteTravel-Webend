@@ -4,8 +4,8 @@ package com.travelplatform.web.po;
 public class User {
     private Integer userId;
     private String userCode;
-    private String userPassword;
-    private Integer userState;
+    private String password;
+    private Integer state;
 
     public Integer getUserId() {
         return userId;
@@ -23,20 +23,20 @@ public class User {
         this.userCode = userCode;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Integer getUserState() {
-        return userState;
+    public Integer getState() {
+        return state;
     }
 
-    public void setUserState(Integer userState) {
-        this.userState = userState;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class User {
         return "User{" +
                 "user_id=" + userId +
                 ", user_code='" + userCode + '\'' +
-                ", user_password='" + userPassword + '\'' +
-                ", user_state=" + userState +
+                ", password='" + password + '\'' +
+                ", user_state=" + state +
                 '}';
     }
 }

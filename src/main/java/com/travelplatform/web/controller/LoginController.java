@@ -6,7 +6,6 @@ import com.travelplatform.web.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -18,12 +17,13 @@ public class LoginController {
     UserMapper userMapper;
     @Autowired
     UserInfoMapper userInfoMapper;
+
     @PostMapping(value = "/user/login")
     public String login(@RequestParam("userCode") String userCode,
-                        @RequestParam("userPassword") String userPassword,
+                        @RequestParam("password") String password,
                         Map<String, Object> map,
                         HttpSession session){
-        User user = userMapper.findUser(userCode, userPassword);
+        User user = userMapper.findUser(userCode, password);
         if(!StringUtils.isEmpty(userCode) && user != null){
             //获取用户信息
             session.setAttribute("loginUser",
@@ -37,29 +37,27 @@ public class LoginController {
         }
     }
 
+    @Transactional
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public String register(@RequestParam("userCode") String userCode,
-                           @RequestParam("userName") String userName,
-                           @RequestParam("userPassword") String userPassword,
+    public String register(@RequestParam(name = "userCode") String userCode,
+                           @RequestParam(name = "username") String username,
+                           @RequestParam(name = "password") String password,
                            Map<String, Object> map,
                            HttpSession session) throws Exception {
         /*
          * 此处需要检查注册合理性，重名，重账号等
          * */
-        InsertUser(userCode, userName, userPassword);
+        if(userMapper.findUserByCode(userCode) != null)
+            return "register";
+        userMapper.insertUser(userCode, password);
+        userInfoMapper.insertInfo(userMapper.findUserByCode(userCode).getUserId(), username);
         if(userMapper.findUserByCode(userCode) != null) {
-            login(userCode, userPassword, map, session);
+            login(userCode, password, map, session);
             return "redirect:/main.html";
         }
         else {
             return "register";
         }
-    }
-
-    @Transactional
-    public void InsertUser(String userCode, String userName, String userPassword) {
-        userMapper.insertUser(userCode, userPassword);
-        userInfoMapper.insertInfo(userMapper.findUserByCode(userCode).getUserId(), userName);
     }
 
     @GetMapping(value = "/toRegister")

@@ -1,7 +1,7 @@
 package com.travelplatform.web.po;
 
 public class UserInfo {
-    private Integer id;
+    private Integer userId;
     private String username;
     private String phone;
     private String city;
@@ -10,7 +10,7 @@ public class UserInfo {
     @Override
     public String toString() {
         return "UserInfo{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
                 ", city='" + city + '\'' +
@@ -18,12 +18,12 @@ public class UserInfo {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

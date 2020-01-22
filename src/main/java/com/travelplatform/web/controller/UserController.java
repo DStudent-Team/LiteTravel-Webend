@@ -1,7 +1,7 @@
 package com.travelplatform.web.controller;
 
-import com.travelplatform.web.mapper.UserMapper;
-import com.travelplatform.web.po.User;
+import com.travelplatform.web.mapper.UserInfoMapper;
+import com.travelplatform.web.po.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class UserController {
     @Autowired
-    UserMapper userMapper;
-    @GetMapping("/toUser/{token}")
-    public String toUser(@PathVariable("token") Integer id, ModelMap model){
-        User user = userMapper.findUserById(id);
-        model.addAttribute("User", user);
+    UserInfoMapper userInfoMapper;
+
+    @GetMapping("/user/{userId}")
+    public String toUser(@PathVariable("userId") Integer userId, ModelMap model){
+        UserInfo info = userInfoMapper.findInfoById(userId);
+        model.addAttribute("Info", info);
         return "user";
     }
 
