@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.travelplatform.web.mapper.UserInfoMapper">
+<mapper namespace="com.LiteTravel.web.mapper.UserInfoMapper">
     <insert id="insertInfo" parameterType="UserInfo">
         INSERT INTO travel_user_info(user_id, username)
         VALUES (#{user_id}, #{username});

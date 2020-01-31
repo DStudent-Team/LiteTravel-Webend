@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Adventure - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -8,24 +8,25 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+	  <link rel="stylesheet" th:href="@{/asserts/css/open-iconic-bootstrap.min.css}">
+	  <link rel="stylesheet" th:href="@{/asserts/css/animate.css}">
 
-    <link rel="stylesheet" href="css/aos.css">
+	  <link rel="stylesheet" th:href="@{/asserts/css/owl.carousel.min.css}">
+	  <link rel="stylesheet" th:href="@{/asserts/css/owl.theme.default.min.css}">
+	  <link rel="stylesheet" th:href="@{/asserts/css/magnific-popup.css}">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+	  <link rel="stylesheet" th:href="@{/asserts/css/aos.css}">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+	  <link rel="stylesheet" th:href="@{/asserts/css/ionicons.min.css}">
 
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+	  <link rel="stylesheet" th:href="@{/asserts/css/bootstrap-datepicker.css}">
+	  <link rel="stylesheet" th:href="@{/asserts/css/jquery.timepicker.css}">
+
+
+	  <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
+	  <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
+	  <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
+
   </head>
   <body>
     
@@ -50,7 +51,7 @@
 	  </nav>
     <!-- END nav -->
     
-    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');">
+    <div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/asserts/img/bg_1.jpg} + ');'">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -97,10 +98,10 @@
 										    <input type="number" value="25000" min="0" max="120000"/>	-
 										    <input type="number" value="50000" min="0" max="120000"/>
 										  </span>
-										  <input value="1000" min="0" max="120000" step="500" type="range"/>
-										  <input value="50000" min="0" max="120000" step="500" type="range"/>
-										  </svg>
-										</div>
+							<input value="1000" min="0" max="120000" step="500" type="range"/>
+							<input value="50000" min="0" max="120000" step="500" type="range"/>
+							</svg>
+						</div>
 		              </div>
 		              <div class="form-group">
 		                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
@@ -148,7 +149,7 @@
           	<div class="row">
 		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/hotel-1.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" th:style="'background-image:url(' + @{/asserts/img/hotel-1.jpg} + ');'">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-link"></span>
 		    						</div>
@@ -181,7 +182,8 @@
 		    			</div>
 		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/hotel-2.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+								   th:style="'background-image:url(' + @{/asserts/img/hotel-2.jpg} + ');'">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-link"></span>
 		    						</div>
@@ -214,7 +216,8 @@
 		    			</div>
 		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/hotel-3.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+								   th:style="'background-image:url(' + @{/asserts/img/hotel-3.jpg} + ');'">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-link"></span>
 		    						</div>
@@ -247,7 +250,8 @@
 		    			</div>
 		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/hotel-4.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+								   th:style="'background-image:url(' + @{/asserts/img/hotel-4.jpg} + ');'">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-link"></span>
 		    						</div>
@@ -280,7 +284,8 @@
 		    			</div>
 		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/hotel-5.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+								   th:style="'background-image:url(' + @{/asserts/img/hotel-5.jpg} + ');'">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-link"></span>
 		    						</div>
@@ -313,7 +318,8 @@
 		    			</div>
 		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/hotel-5.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+								   th:style="'background-image:url(' + @{/asserts/img/hotel-5.jpg} + ');'">
 		    						<div class="icon d-flex justify-content-center align-items-center">
 		    							<span class="icon-link"></span>
 		    						</div>
@@ -459,24 +465,22 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
+	  <script th:src="@{/asserts/js/jquery.min.js}"></script>
+	  <script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>
+	  <script th:src="@{/asserts/js/popper.min.js}"></script>
+	  <script th:src="@{/asserts/js/bootstrap.min.js}"></script>
+	  <script th:src="@{/asserts/js/jquery.easing.1.3.js}"></script>
+	  <script th:src="@{/asserts/js/jquery.waypoints.min.js}"></script>
+	  <script th:src="@{/asserts/js/jquery.stellar.min.js}"></script>
+	  <script th:src="@{/asserts/js/owl.carousel.min.js}"></script>
+	  <script th:src="@{/asserts/js/jquery.magnific-popup.min.js}"></script>
+	  <script th:src="@{/asserts/js/aos.js}"></script>
+	  <script th:src="@{/asserts/js/jquery.animateNumber.min.js}"></script>
+	  <script th:src="@{/asserts/js/bootstrap-datepicker.js}"></script>
+	  <script th:src="@{/asserts/js/jquery.timepicker.min.js}"></script>
+	  <script th:src="@{/asserts/js/scrollax.min.js}"></script>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
-    
+	  <script th:src="@{/asserts/js/google-map.js}"></script>
+	  <script th:src="@{/asserts/js/main.js}"></script>
   </body>
 </html>

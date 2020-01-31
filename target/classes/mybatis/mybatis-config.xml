@@ -8,6 +8,6 @@
     </settings>
     <!-- 别名定义 -->
     <typeAliases>
-        <package name="com.travelplatform.web.po" />
+        <package name="com.LiteTravel.web.po" />
     </typeAliases>
 </configuration>
