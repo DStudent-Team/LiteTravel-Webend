@@ -32,21 +32,7 @@
 <div th:replace="~{commons/bar::topBar(activeUri='index')}"></div>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/img/bg_1.jpg} + ');'">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
-             data-scrollax-parent="true">
-            <div class="col-md-9 ftco-animate mb-5 pb-5 text-center text-md-left"
-                 data-scrollax=" properties: { translateY: '70%' }">
-                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Discover <br>A new
-                    Place</h1>
-                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop,
-                    or visit from local experts</p>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{commons/BG::indexBG}"></div>
 
 <section class="ftco-section justify-content-end ftco-search">
     <div class="container-wrap ml-auto">
@@ -269,7 +255,7 @@
         <div class="row">
             <div class="col-md-4 ftco-animate">
                 <a href="#" class="destination-entry img"
-                   th:style="'background-image:url(' + @{/asserts/img/destination-1.jpg} + ');'">
+                   th:style="'background-image:url(' + @{/img/destination-1.jpg} + ');'">
                     <div class="text text-center">
                         <h3>Beachfront Scape</h3>
                     </div>
@@ -277,7 +263,7 @@
             </div>
             <div class="col-md-4 ftco-animate">
                 <a href="#" class="destination-entry img"
-                   th:style="'background-image:url(' + @{/asserts/img/destination-2-1.jpg} + ');'">
+                   th:style="'background-image:url(' + @{/img/destination-2-1.jpg} + ');'">
                     <div class="text text-center">
                         <h3>Group Holidays</h3>
                     </div>
@@ -285,7 +271,7 @@
             </div>
             <div class="col-md-4 ftco-animate">
                 <a href="#" class="destination-entry img"
-                   th:style="'background-image:url(' + @{/asserts/img/destination-3.jpg} + ');'">
+                   th:style="'background-image:url(' + @{/img/destination-3.jpg} + ');'">
                     <div class="text text-center">
                         <h3>City Breaks</h3>
                     </div>
@@ -296,7 +282,7 @@
 </section>
 
 <section class="ftco-about d-md-flex">
-    <div class="one-half img" th:style="'background-image:url(' + @{/asserts/img/about.jpg} + ');'"></div>
+    <div class="one-half img" th:style="'background-image:url(' + @{/img/about.jpg} + ');'"></div>
     <div class="one-half ftco-animate">
         <div class="heading-section ftco-animate ">
             <h2 class="mb-4">The Best Travel Agency</h2>
@@ -367,7 +353,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/destination-1.jpg} + ');'">
+                       th:style="'background-image: url(' + @{/img/destination-1.jpg} + ');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -402,7 +388,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination d-md-flex flex-column-reverse">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       style="background-image: url(../static/asserts/img/destination-2.jpg);">
+                       th:style="'background-image: url(' + @{/img/destination-2.jpg} + ');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -437,7 +423,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url('+ @{/asserts/img/destination-3.jpg} +');'">
+                       th:style="'background-image: url('+ @{/img/destination-3.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -472,7 +458,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination d-md-flex flex-column-reverse">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/destination-4.jpg} + ');'">
+                       th:style="'background-image: url(' + @{/img/destination-4.jpg} + ');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -509,7 +495,7 @@
 </section>
 
 <section class="ftco-section ftco-counter img" id="section-counter"
-         th:style="'background-image: url(' + @{/asserts/img/bg_1.jpg} + ');'" data-stellar-background-ratio="0.5">
+         th:style="'background-image: url(' + @{/img/bg_1.jpg} + ');'" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -566,7 +552,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/hotel-1.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/hotel-1.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -600,7 +586,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination d-md-flex flex-column-reverse">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/hotel-2.jpg} + ');'">
+                       th:style="'background-image: url(' + @{/img/hotel-2.jpg} + ');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -634,7 +620,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/hotel-3.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/hotel-3.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -668,7 +654,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination d-md-flex flex-column-reverse">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/hotel-4.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/hotel-4.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -702,7 +688,7 @@
             <div class="col-sm col-md-6 col-lg ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/hotel-5.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/hotel-5.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -752,7 +738,7 @@
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
                             <div class="user-img mb-5"
-                                 th:style="'background-image: url(' + @{/asserts/img/person_1.jpg} +');'">
+                                 th:style="'background-image: url(' + @{/img/person_1.jpg} +');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -768,7 +754,7 @@
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
                             <div class="user-img mb-5"
-                                 th:style="'background-image: url(' + @{/asserts/img/person_2.jpg} +');'">
+                                 th:style="'background-image: url(' + @{/img/person_2.jpg} +');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -784,7 +770,7 @@
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
                             <div class="user-img mb-5"
-                                 th:style="'background-image: url(' + @{/asserts/img/person_3.jpg} +');'">
+                                 th:style="'background-image: url(' + @{/img/person_3.jpg} +');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -800,7 +786,7 @@
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
                             <div class="user-img mb-5"
-                                 th:style="'background-image: url(' + @{/asserts/img/person_1.jpg} +');'">
+                                 th:style="'background-image: url(' + @{/img/person_1.jpg} +');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -816,7 +802,7 @@
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
                             <div class="user-img mb-5"
-                                 th:style="'background-image: url(' + @{/asserts/img/person_1.jpg} +');'">
+                                 th:style="'background-image: url(' + @{/img/person_1.jpg} +');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -846,7 +832,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/restaurant-1.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/restaurant-1.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -873,7 +859,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="destination d-md-flex flex-column-reverse">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/restaurant-2.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/restaurant-2.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -900,7 +886,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/restaurant-3.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/restaurant-3.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -927,7 +913,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="destination d-md-flex flex-column-reverse">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       th:style="'background-image: url(' + @{/asserts/img/restaurant-4.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/restaurant-4.jpg} +');'">
                         <div class="icon d-flex justify-content-center align-items-center">
                             <span class="icon-link"></span>
                         </div>
@@ -966,7 +952,7 @@
             <div class="col-md-4 d-flex ftco-animate">
                 <div class="blog-entry align-self-stretch">
                     <a href="blog-single.html" class="block-20"
-                       th:style="'background-image: url(' + @{/asserts/img/image_1.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/image_1.jpg} +');'">
                     </a>
                     <div class="text">
                         <span class="tag">Tips, Travel</span>
@@ -983,7 +969,7 @@
             <div class="col-md-4 d-flex ftco-animate">
                 <div class="blog-entry align-self-stretch">
                     <a href="blog-single.html" class="block-20"
-                       th:style="'background-image: url(' + @{/asserts/img/image_2.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/image_2.jpg} +');'">
                     </a>
                     <div class="text">
                         <span class="tag">Culture</span>
@@ -1000,7 +986,7 @@
             <div class="col-md-4 d-flex ftco-animate">
                 <div class="blog-entry align-self-stretch">
                     <a href="blog-single.html" class="block-20"
-                       th:style="'background-image: url(' + @{/asserts/img/image_3.jpg} +');'">
+                       th:style="'background-image: url(' + @{/img/image_3.jpg} +');'">
                     </a>
                     <div class="text">
                         <span class="tag">Tips, Travel</span>
@@ -1018,31 +1004,9 @@
     </div>
 </section>
 
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Subcribe to our Newsletter</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts. Separated they live in</p>
-                    <div class="row d-flex justify-content-center mt-5">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Enter email address">
-                                    <input type="submit" value="Subscribe" class="submit px-3">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div th:replace="~{commons/Footer::subscriber}"></div>
 
-<footer th:replace="~{commons/bar::webFooter}"></footer>
+<footer th:replace="~{commons/Footer::webFooter}"></footer>
 
 
 <!-- loader -->
