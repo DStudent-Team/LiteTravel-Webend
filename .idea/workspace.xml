@@ -2,126 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lite-Travel-Web.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a2db44b3-2c57-4b24-9d70-480666cfadff.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a2db44b3-2c57-4b24-9d70-480666cfadff.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_16_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_guice_4_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_archaius_archaius_core_0_7_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_eureka_eureka_client_1_9_13.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_hystrix_hystrix_core_1_5_18.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_commons_util_0_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_eventbus_0_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_infix_0_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_servo_servo_core_0_12_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_jersey_server_1_19_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_jersey_servlet_1_19_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_jxpath_commons_jxpath_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_addons_reactor_extra_3_3_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_3_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_10_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_stringtemplate_3_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jettison_jettison_1_3_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_11.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_2_2_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_autoconfigure_2_2_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_2_2_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_2_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_freemarker_2_2_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_loadbalancer_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_archaius_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_client_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_server_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_hystrix_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_ribbon_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_loadbalancer_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_netflix_archaius_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_netflix_eureka_server_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_netflix_ribbon_2_2_0_RC1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_2_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a2db44b3-2c57-4b24-9d70-480666cfadff.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a2db44b3-2c57-4b24-9d70-480666cfadff/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/LiteTravelWebApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/LiteTravelWebApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/component/LoginHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/component/LoginHandlerInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/component/MyErrorAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/component/MyErrorAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/component/MyLocaleResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/component/MyLocaleResolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/DruidConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/DruidConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyBatisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyBatisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/config/MyServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyServerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/DeptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/EmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/MyExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/MyExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/TravelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/TravelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/dao/DepartmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/dao/DepartmentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/dao/EmployeeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/dao/EmployeeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/exception/UserNotExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/exception/UserNotExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/filter/MyFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/filter/MyFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/listener/MyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/listener/MyListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/AgencyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/AgencyMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/DepartmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/DepartmentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/EmployeeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/EmployeeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/HotelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/LineMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/LineMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/UserInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/UserInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/Agency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Agency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Hotel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/po/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/UserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/travelplatform/web/servlet/MyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/servlet/MyServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/AgencyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/AgencyMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/EmployeeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/LineMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/LineMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotel.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/travelplatform/web/LiteTravelWebApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/LiteTravel/web/LiteTravelWebApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/AgencyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/AgencyMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/EmployeeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/LineMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/LineMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotel.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/档案文件夹/接口说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/接口说明.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -313,16 +203,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@945e1d46" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@bd12d7d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@945e1d46" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8249cd9e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3f58f109" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@bd12d7d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@84018fda" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -387,7 +273,8 @@
       <workItem from="1574346012914" duration="331000" />
       <workItem from="1574764220005" duration="653000" />
       <workItem from="1574814047746" duration="1228000" />
-      <workItem from="1580475279250" duration="3944000" />
+      <workItem from="1580475279250" duration="7251000" />
+      <workItem from="1580522115359" duration="2249000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -494,7 +381,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572767478435</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改">
+      <created>1580480774356</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1580480774356</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,7 +434,8 @@
     <MESSAGE value="利用POST勉强完成了修改和删除，但是实际上我发现PUT和DELETE两个的语法，在html中不知道为什么无法实现，就很迷。&#10;明明使用了&lt;input name=&quot;_method&quot; value=&quot;PUT/DELETE&quot;&gt;元素，但是就是无法识别成PUT和POST，感觉是Filter坏了，但是我也不知道该如何修改。" />
     <MESSAGE value="update" />
     <MESSAGE value="Cover网页修改背景图片测试" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cover网页修改背景图片测试" />
+    <MESSAGE value="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
