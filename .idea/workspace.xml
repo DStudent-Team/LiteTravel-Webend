@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/BG.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/Footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/档案文件夹/轻旅·数据库.xmind" afterDir="false" />
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotel-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotel-single.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotel-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotel-single.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/档案文件夹/轻旅·数据库.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/轻旅·数据库.xmind" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -276,7 +265,7 @@
       <workItem from="1574764220005" duration="653000" />
       <workItem from="1574814047746" duration="1228000" />
       <workItem from="1580475279250" duration="7251000" />
-      <workItem from="1580522115359" duration="9347000" />
+      <workItem from="1580522115359" duration="10289000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -397,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580524786656</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
+      <created>1580553778455</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1580553778455</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,7 +441,8 @@
     <MESSAGE value="Cover网页修改背景图片测试" />
     <MESSAGE value="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改" />
     <MESSAGE value="Progress:&#10;1. 重用网页。&#10;2. 删减部分冗余" />
-    <option name="LAST_COMMIT_MESSAGE" value="Progress:&#10;1. 重用网页。&#10;2. 删减部分冗余" />
+    <MESSAGE value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
