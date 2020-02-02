@@ -1,37 +1,134 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-		<title>轻旅·用户</title>
-		<!-- Bootstrap core CSS -->
-		<link th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
-	</head>
+    <title>轻旅·用户</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/asserts/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/animate.css}">
 
-	<body>
-		<div class="container-fluid">
-			<div class="row">
-				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h1>user:[[${info.username}]]</h1>
-					<h2>sex:[[${info.sex}]]</h2>
-					<h2>city:[[${info.city}]]</h2>
-					<h2>email:[[${info.email}]]</h2>
-					<h2>phone:[[${info.phone}]]</h2>
-					<h2>user_avatarUrl:[[${info.user_avatarUrl}]]</h2>
-				</main>
-			</div>
-		</div>
+    <link rel="stylesheet" th:href="@{/asserts/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/magnific-popup.css}">
 
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}" ></script>
-		<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}" ></script>
-		<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}" ></script>
-	</body>
+    <link rel="stylesheet" th:href="@{/asserts/css/aos.css}">
 
+    <link rel="stylesheet" th:href="@{/asserts/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/asserts/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/User.css}">
+</head>
+
+<body>
+<div th:replace="~{commons/bar::topBar(activeUri='User')}"></div>
+<div th:replace="~{commons/BG::sectionBG(sectionName=(${info!=null}?${info.username}:'User'))}"></div>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <form method="post" th:action="@{/user}">
+                    <input name="_method" th:if="${info}!=null" type="hidden" value="PUT">
+                    <!-- id -->
+                    <input name="userId" th:if="${info!=null}" th:value="${info.userId}" type="hidden">
+					<!-- AvatarForm -->
+					<input class="form-control" name="avatarUri" placeholder="/avatar.jpg"
+							   th:value="${info}!=null?${info.avatarUri}:'/avatar.jpg'" type="hidden">
+					<!-- AvatarDisplay -->
+					<div class="text-center ">
+						<img th:src="@{'/img/' + ${info.avatarUri}}" class="img-thumbnail rounded avatarImg" alt="..."/>
+					</div>
+					<!-- username -->
+                    <div class="form-group">
+                        <label th:text="#{list.username}">username</label>
+                        <input class="form-control" name="username" placeholder="zhangsan"
+                               th:value="${info}!=null?${info.username}:''" type="text">
+                    </div>
+                    <!-- gender(selection) -->
+                    <div class="form-group">
+                        <label th:text="#{list.gender}">Gender</label><br/>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="gender"
+                                   th:checked="${info}!=null?${info.gender}==1:false" type="radio" value="1">
+                            <label class="form-check-label" th:text="#{global.male}">男</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="gender"
+                                   th:checked="${info}!=null?${info.gender}==0:false" type="radio" value="0">
+                            <label class="form-check-label" th:text="#{global.female}">女</label>
+                        </div>
+                    </div>
+                    <!-- Birth -->
+                    <div class="form-group">
+                        <label th:text="#{list.birth}">Birth</label>
+                        <input class="form-control" name="birth" placeholder="1999-01-03"
+                               th:value="${info}!=null?${#dates.format(info.birth,'yyyy-MM-dd')}:''" type="text">
+                    </div>
+                    <!-- Phone -->
+                    <div class="form-group">
+                        <label th:text="#{list.phone}">Phone</label>
+                        <input class="form-control" name="phone" placeholder="1234567890"
+                               th:value="${info}!=null?${info.phone}:''">
+                    </div>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label th:text="#{list.email}">Email</label>
+                        <input class="form-control" name="email" placeholder="zhangsan@atguigu.com"
+                               th:value="${info}!=null?${info.email}:''" type="email">
+                    </div>
+                    <!-- Address -->
+                    <div class="form-group">
+                        <label th:text="#{list.address}">Address</label>
+                        <input class="form-control" name="address" placeholder="北京市"
+                               th:value="${info}!=null?${info.address}:''">
+                    </div>
+
+                    <button class="btn btn-primary" th:text="${info}!=null?#{list.modify}:#{list.insert}"
+                            type="submit">添加/修改
+                    </button>
+                </form>
+            </main>
+        </div>
+    </div>
+</section>
+<div th:replace="~{commons/Footer::subscriber}"></div>
+<div th:replace="~{commons/Footer::webFooter}"></div>
+
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/asserts/js/jquery.min.js}"></script>
+<script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/asserts/js/popper.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/asserts/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/asserts/js/owl.carousel.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/asserts/js/aos.js}"></script>
+<script th:src="@{/asserts/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/asserts/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/asserts/js/scrollax.min.js}"></script>
+
+<script th:src="@{/asserts/js/google-map.js}"></script>
+<script th:src="@{/asserts/js/main.js}"></script>
+</body>
 </html>

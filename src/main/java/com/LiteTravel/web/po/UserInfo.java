@@ -1,33 +1,37 @@
 package com.LiteTravel.web.po;
 
+import java.util.Date;
+
 public class UserInfo {
-    public Integer user_id;
+    public Integer userId;
     public String username;
-    public Integer sex;
+    public Integer gender;
     public String phone;
-    public String city;
+    public String address;
     public String email;
-    public String user_avatarUrl;
+    public Date birth;
+    public String avatarUri;
 
     @Override
     public String toString() {
         return "UserInfo{" +
-                "user_id=" + user_id +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", sex='" + sex + '\'' +
+                ", gender=" + gender +
                 ", phone='" + phone + '\'' +
-                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", user_avatarUrl='" + user_avatarUrl + '\'' +
+                ", birth=" + birth +
+                ", avatarUri='" + avatarUri + '\'' +
                 '}';
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -38,12 +42,12 @@ public class UserInfo {
         this.username = username;
     }
 
-    public Integer getSex() {
-        return sex;
+    public Integer getGender() {
+        return gender;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public String getPhone() {
@@ -54,12 +58,12 @@ public class UserInfo {
         this.phone = phone;
     }
 
-    public String getCity() {
-        return city;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -70,11 +74,19 @@ public class UserInfo {
         this.email = email;
     }
 
-    public String getUser_avatarUrl() {
-        return user_avatarUrl;
+    public Date getBirth() {
+        return birth;
     }
 
-    public void setUser_avatarUrl(String user_avatarUrl) {
-        this.user_avatarUrl = user_avatarUrl;
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public String getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(String avatarUri) {
+        this.avatarUri = avatarUri;
     }
 }

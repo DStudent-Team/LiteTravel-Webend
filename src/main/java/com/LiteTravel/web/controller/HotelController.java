@@ -20,7 +20,7 @@ public class HotelController {
         /*设置筛选条件为Hotel*/
         model.addAttribute("category", "hotel");
         model.addAttribute("hotels", hotels);
-        return "hotel";
+        return "hotels";
     }
 
     @GetMapping("/hotel/{id}")

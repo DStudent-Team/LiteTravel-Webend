@@ -60,7 +60,7 @@ public class LoginController {
         userMapper.insertUser(user);
         System.out.println(user.getUserId());
         UserInfo userinfo = new UserInfo();
-        userinfo.setUser_id(user.getUserId());
+        userinfo.setUserId(user.getUserId());
         userinfo.setUsername(username);
         userInfoMapper.insertInfo(userinfo);
         if(userMapper.findUserByCode(userCode) != null) {

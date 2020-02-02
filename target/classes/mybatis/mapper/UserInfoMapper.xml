@@ -5,11 +5,22 @@
 <mapper namespace="com.LiteTravel.web.mapper.UserInfoMapper">
     <insert id="insertInfo" parameterType="UserInfo">
         INSERT INTO travel_user_info(user_id, username)
-        VALUES (#{user_id}, #{username});
+        VALUES (#{userId}, #{username});
     </insert>
+    <update id="updateUserInfo">
+        UPDATE travel_user_info
+        SET username = #{username},
+            gender   = #{gender},
+            birth    = #{birth},
+            phone    = #{phone},
+            email    = #{email},
+            address  = #{address},
+            avatarUri = #{avatarUri}
+        WHERE user_id = #{userId};
+    </update>
     <select id="findInfoById" resultType="UserInfo">
         SELECT *
         FROM  travel_user_info
-        WHERE user_id = #{user_id};
+        WHERE user_id = #{userId};
     </select>
 </mapper>

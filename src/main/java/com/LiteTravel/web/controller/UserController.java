@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -18,6 +21,13 @@ public class UserController {
         UserInfo info = userInfoMapper.findInfoById(userId);
         model.addAttribute("info", info);
         return "user";
+    }
+
+    @PutMapping("/user")
+    public String updateUser(UserInfo userInfo, HttpSession session){
+        userInfoMapper.updateUserInfo(userInfo);
+        session.setAttribute("username", userInfo.username);
+        return "redirect:/user/" + userInfo.userId;
     }
 
 }
