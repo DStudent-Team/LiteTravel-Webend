@@ -2,40 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
-      <change afterPath="$PROJECT_DIR$/.idea/resourceBundles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/asserts/css/User.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/asserts/img/avatar.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/UserInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/UserInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/UserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/Lite-Travel-Web.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotel.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/Lite-Travel-Web.kotlin_module" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -239,26 +207,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8b1f3263" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8b1f3263" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@f17364f2" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@1e1a0946" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@1e1a0946" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@484fab47" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -324,6 +273,8 @@
       <workItem from="1580475279250" duration="7251000" />
       <workItem from="1580522115359" duration="10289000" />
       <workItem from="1580609385234" duration="10049000" />
+      <workItem from="1580706734873" duration="2139000" />
+      <workItem from="1580712898376" duration="866000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>

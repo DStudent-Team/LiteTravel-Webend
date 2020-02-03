@@ -45,8 +45,10 @@
 							   th:value="${info}!=null?${info.avatarUri}:'/avatar.jpg'" type="hidden">
 					<!-- AvatarDisplay -->
 					<div class="text-center ">
-						<img th:src="@{'/img/' + ${info.avatarUri}}" class="img-thumbnail rounded avatarImg" alt="..."/>
+						<img th:src="@{'/img/' + ${info.avatarUri}}" class="img-thumbnail rounded avatarImg" alt="..." th:href="@{'/changeAvatar/' + ${info.userId}} " />
 					</div>
+                    <!-- Tips-->
+                    <!--<p class="text-center" style="color:black" th:if="${msg}!=null" th:text="${msg}"></p>-->
 					<!-- username -->
                     <div class="form-group">
                         <label th:text="#{list.username}">username</label>
