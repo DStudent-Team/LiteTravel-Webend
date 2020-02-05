@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/档案文件夹/数据库修改日志：2020-2-5.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Hotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/HotelMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotels.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +56,56 @@
         <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_agency: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_forum_post: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_forum_replay: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="travel_hotel: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_hotel_orders: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_line: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_lines_orders: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_sight: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -207,7 +269,17 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand />
+          <expand>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c25bb78f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c25bb78f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@e6ee2e18" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+          </expand>
           <select />
         </treeState>
       </serviceView>
@@ -274,7 +346,9 @@
       <workItem from="1580522115359" duration="10289000" />
       <workItem from="1580609385234" duration="10049000" />
       <workItem from="1580706734873" duration="2139000" />
-      <workItem from="1580712898376" duration="866000" />
+      <workItem from="1580712898376" duration="3343000" />
+      <workItem from="1580801659665" duration="4262000" />
+      <workItem from="1580903110979" duration="6362000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -402,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580553778455</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Nothing.">
+      <created>1580731374182</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1580731374182</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,7 +532,8 @@
     <MESSAGE value="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改" />
     <MESSAGE value="Progress:&#10;1. 重用网页。&#10;2. 删减部分冗余" />
     <MESSAGE value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
-    <option name="LAST_COMMIT_MESSAGE" value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
+    <MESSAGE value="Nothing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Nothing." />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />

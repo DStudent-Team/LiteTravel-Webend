@@ -17,8 +17,9 @@ public class HotelController {
     @GetMapping("/hotels")
     public String HotelList(ModelMap model){
         Collection<Hotel> hotels = hotelMapper.getHotels();
-        /*设置筛选条件为Hotel*/
-        model.addAttribute("category", "hotel");
+        /* 设置筛选页面的筛选项目为Hotel */
+//        model.addAttribute("category", "hotel");
+        /* 放入数据 */
         model.addAttribute("hotels", hotels);
         return "hotels";
     }

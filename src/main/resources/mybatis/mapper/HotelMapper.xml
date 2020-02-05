@@ -7,9 +7,9 @@
         SELECT * FROM travel_hotel
     </select>
     <select id="getHotelById" resultType="Hotel">
-        SELECT * FROM travel_hotel WHERE id = #{id}
+        SELECT * FROM travel_hotel WHERE hotelId = #{hotelId}
     </select>
     <select id="getHotelsByAddress" resultType="Hotel">
-        SELECT * FROM travel_hotel WHERE address = #{address}
+        SELECT * FROM travel_hotel WHERE hotelAddress = #{hotelAddress}
     </select>
 </mapper>
