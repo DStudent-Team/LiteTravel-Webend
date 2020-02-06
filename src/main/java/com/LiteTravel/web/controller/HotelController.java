@@ -30,8 +30,14 @@ public class HotelController {
     }
     /* 使用PageHelper获得并设置 分页数据 */
     private void setPageHotel(Integer page, ModelMap model){
-        PageHelper.startPage(page, 3);
+        /* 分页：
+        * 参数1: 第几页
+        * 参数2: 每页展示几个数据 */
+        PageHelper.startPage(page, 6    );
         List<Hotel> hotels = hotelMapper.getHotels();
+        /* 分页信息类
+        * 参数1：数据集合
+        * 参数2：需要展示的最大导航页数*/
         PageInfo<Hotel> info = new PageInfo<>(hotels, 5);
         /* 设置筛选页面的筛选项目为Hotel */
 //        model.addAttribute("category", "hotel");
