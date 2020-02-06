@@ -4,12 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="author" content="Kris Hugo">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Cover Template · Bootstrap</title>
-
-    <!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">-->
-
+    <title>轻旅</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
           rel="stylesheet"
@@ -25,9 +22,10 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-
+            background-image: url("../img/2.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
         }
-
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -37,8 +35,8 @@
     <!-- Custom styles for this template -->
     <link th:href="@{/asserts/css/cover.css}" rel="stylesheet">
 </head>
-<body class="text-center background">
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<body class="text-center bd-placeholder-img">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column ">
     <header class="masthead mb-auto">
         <div class="inner">
             <h3 class="masthead-brand">Cover</h3>

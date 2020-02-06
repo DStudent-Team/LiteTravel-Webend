@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
+      <change afterPath="$PROJECT_DIR$/.idea/resourceBundles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/asserts/css/User.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/asserts/img/avatar.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/config/MyMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/UserInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/UserInfoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/UserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_en_US.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/i18n/localization_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/commons/bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/Lite-Travel-Web.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_en_US.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/i18n/localization_zh_CN.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/Lite-Travel-Web.kotlin_module" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,18 +57,39 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="SQLconnect@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="SQLconnect@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="SQLconnect@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="sqlconnect: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_hotel: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_user_account: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="root@122.51.98.193" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="travel_database: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="travel_user_info: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -44,9 +98,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="spring-beans.schema" />
+        <option value="Interface" />
         <option value="HTML File" />
         <option value="Class" />
-        <option value="Interface" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -94,7 +149,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="jdk.selected.JAVA_MODULE" value="10" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static/asserts/img" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v10.16.0-win-x64/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -111,11 +168,11 @@
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\LiteTravel-Webend\src\main\resources\static\asserts\img" />
+      <recent name="G:\GithubProjects\LiteTravel-Webend\src\main\resources\templates\commons" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts\img" />
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts\js" />
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources" />
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates\emp" />
-      <recent name="G:\GithubProjects\demo\spring-boot-web-restfulcrud\src\main\resources\templates" />
     </key>
   </component>
   <component name="RestServicesNavigator">
@@ -133,6 +190,11 @@
     </treeState>
   </component>
   <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
     <option name="ruleStates">
       <list>
         <RuleState>
@@ -144,10 +206,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.SpringBootWebRestfulcrudApplication">
+  <component name="RunManager" selected="Spring Boot.LiteTravelWebApplication">
     <configuration name="EurekaServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="eureka-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.travelplatform.eureka.EurekaServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LiteTravelWebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Lite-Travel-Web" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.LiteTravel.web.LiteTravelWebApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -159,6 +229,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.EurekaServerApplication" />
+      <item itemvalue="Spring Boot.LiteTravelWebApplication" />
+      <item itemvalue="Spring Boot.SpringBootWebRestfulcrudApplication" />
+    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
@@ -167,7 +242,21 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@a751e206" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8b1f3263" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@8b1f3263" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@f17364f2" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@1e1a0946" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@1e1a0946" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@484fab47" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -223,6 +312,18 @@
       <workItem from="1572522375124" duration="465000" />
       <workItem from="1572584043386" duration="886000" />
       <workItem from="1572682819673" duration="179000" />
+      <workItem from="1572698952079" duration="4992000" />
+      <workItem from="1572765206905" duration="9106000" />
+      <workItem from="1573126335293" duration="122000" />
+      <workItem from="1574038409861" duration="628000" />
+      <workItem from="1574054469848" duration="1198000" />
+      <workItem from="1574338515089" duration="4561000" />
+      <workItem from="1574346012914" duration="331000" />
+      <workItem from="1574764220005" duration="653000" />
+      <workItem from="1574814047746" duration="1228000" />
+      <workItem from="1580475279250" duration="7251000" />
+      <workItem from="1580522115359" duration="10289000" />
+      <workItem from="1580609385234" duration="10049000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -322,7 +423,35 @@
       <option name="project" value="LOCAL" />
       <updated>1572257971179</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Cover网页修改背景图片测试">
+      <created>1572767478435</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1572767478435</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改">
+      <created>1580480774356</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1580480774356</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Progress:&#10;1. 重用网页。&#10;2. 删减部分冗余">
+      <created>1580524786656</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1580524786656</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
+      <created>1580553778455</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1580553778455</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +496,11 @@
     <MESSAGE value="Mybatis compile with Restful code, and Almost success, except for the putmapping mode." />
     <MESSAGE value="利用POST勉强完成了修改和删除，但是实际上我发现PUT和DELETE两个的语法，在html中不知道为什么无法实现，就很迷。&#10;明明使用了&lt;input name=&quot;_method&quot; value=&quot;PUT/DELETE&quot;&gt;元素，但是就是无法识别成PUT和POST，感觉是Filter坏了，但是我也不知道该如何修改。" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="Cover网页修改背景图片测试" />
+    <MESSAGE value="Progress:&#10;1. Hotel网页允许正常请求了。&#10;2. Hotel属性需要更新，暂时未改" />
+    <MESSAGE value="Progress:&#10;1. 重用网页。&#10;2. 删减部分冗余" />
+    <MESSAGE value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />

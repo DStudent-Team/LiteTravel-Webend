@@ -1,11 +1,6 @@
 /*
  * Globals
  */
-.background{
-  background-image: url("http://localhost:8080/img/0.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 /* Links */
 a,
 a:focus,

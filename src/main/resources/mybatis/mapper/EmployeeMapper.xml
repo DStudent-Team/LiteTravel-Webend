@@ -2,25 +2,25 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.travelplatform.web.mapper.EmployeeMapper">
+<mapper namespace="com.LiteTravel.web.mapper.EmployeeMapper">
     <insert id="InsertEmployee">
-        insert into employee(lastName, email, gender, department_id, birth)
+        insert into sqlconnect.employee(lastName, email, gender, department_id, birth)
             value (#{lastName}, #{email}, #{gender}, #{departmentId}, #{birth})
     </insert>
 
-    <select id="getEmployeeById" resultType="com.travelplatform.web.entities.Employee">
+    <select id="getEmployeeById" resultType="com.LiteTravel.web.po.Employee">
         select *
-        from employee
+        from sqlconnect.employee
         where id = #{id}
     </select>
 
-    <select id="getEmployees" resultType="com.travelplatform.web.entities.Employee">
+    <select id="getEmployees" resultType="com.LiteTravel.web.po.Employee">
         select *
-        from employee
+        from sqlconnect.employee
     </select>
 
     <update id="updateEmployee">
-        update employee
+        update sqlconnect.employee
         set lastName      = #{lastName},
             email         = #{email},
             gender        = #{gender},
@@ -31,7 +31,7 @@
 
     <delete id="deleteEmployee">
         delete
-        from employee
+        from sqlconnect.employee
         where id = #{id}
     </delete>
 </mapper>

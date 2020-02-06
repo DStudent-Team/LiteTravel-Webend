@@ -3,7 +3,8 @@
     <words>
       <w>depts</w>
       <w>emps</w>
-      <w>restfulcrud</w>
+      <w>navbar</w>
+      <w>toggler</w>
     </words>
   </dictionary>
 </component>

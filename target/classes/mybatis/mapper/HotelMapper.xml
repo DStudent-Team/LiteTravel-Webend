@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.LiteTravel.web.mapper.HotelMapper">
+    <select id="getHotels" resultType="Hotel">
+        SELECT * FROM travel_hotel
+    </select>
+    <select id="getHotelById" resultType="Hotel">
+        SELECT * FROM travel_hotel WHERE id = #{id}
+    </select>
+    <select id="getHotelsByAddress" resultType="Hotel">
+        SELECT * FROM travel_hotel WHERE address = #{address}
+    </select>
+</mapper>

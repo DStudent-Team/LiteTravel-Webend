@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bar</title>
 </head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#" >[[${session.loginUser}]]</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="/main.html" >[[${session.loginUser}]]</a>
     <input aria-label="Search" class="form-control form-control-dark w-100" placeholder="Search"
            th:placeholder="#{bar.search}" type="text">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#" th:href="@{/index.html}" th:text="#{bar.Signout}">Sign out</a>
+            <a class="nav-link" href="#" th:href="@{/login}" th:text="#{bar.Signout}">Sign out</a>
         </li>
     </ul>
 </nav>
@@ -26,16 +26,17 @@
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
-                    [[#{bar.dashboard}]] <span class="sr-only">(current)</span>
+                    [[#{bar.dashboard}]]
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" th:href="@{/main.html}">
+                <a class="nav-link" href="#" th:href="@{/travel/lines}"
+                   th:class="${activeUri=='lines'?'nav-link active':'nav-link'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                         <polyline points="13 2 13 9 20 9"></polyline>
                     </svg>
-                    Orders
+                    [[#{bar.lines}]]
                 </a>
             </li>
             <li class="nav-item">
@@ -140,6 +141,28 @@
         </ul>
     </div>
 </nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" th:fragment="topBar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/index.html}">轻旅</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li th:class="${activeUri=='Index'?'nav-item active':'nav-item'}"><a th:href="@{/index.html}" class="nav-link">Home</a></li>
+                <li th:class="${activeUri=='About'?'nav-item active':'nav-item'}"><a th:href="@{/about.html}" class="nav-link">About</a></li>
+                <li th:class="${activeUri=='Places'?'nav-item active':'nav-item'}"><a th:href="@{/places.html}" class="nav-link">Places</a></li>
+                <li th:class="${activeUri=='Hotels'?'nav-item active':'nav-item'}"><a th:href="@{/hotels}" class="nav-link">Hotels</a></li>
+                <li th:class="${activeUri=='Blog'?'nav-item active':'nav-item'}"><a th:href="@{/blog.html}" class="nav-link">Blog</a></li>
+                <li th:class="${activeUri=='Contact'?'nav-item active':'nav-item'}"><a th:href="@{/contact.html}" class="nav-link">Contact</a></li>
+                <li th:class="${activeUri=='User'?'nav-item active':'nav-item'}"><a th:href="@{/user/} + ${session.userId}" class="nav-link">[[${session.username}]]</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 </body>
 </html>
