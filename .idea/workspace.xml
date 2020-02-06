@@ -2,21 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/档案文件夹/数据库修改日志：2020-2-5.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_5_1_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_autoconfigure_1_2_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_starter_1_2_13.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lite-Travel-Web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lite-Travel-Web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/po/Hotel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/HotelMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotels.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/前台系统任务整理.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" beforeDir="false" afterPath="$PROJECT_DIR$/档案文件夹/数据库问题整理 2019.1.30.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -272,12 +269,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c25bb78f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5b09df25" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c25bb78f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@e6ee2e18" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5b09df25" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2da0a6c6" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -348,7 +345,8 @@
       <workItem from="1580706734873" duration="2139000" />
       <workItem from="1580712898376" duration="3343000" />
       <workItem from="1580801659665" duration="4262000" />
-      <workItem from="1580903110979" duration="6362000" />
+      <workItem from="1580903110979" duration="7476000" />
+      <workItem from="1580962360026" duration="7226000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -483,7 +481,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580731374182</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="更新酒店动态数据展示，暂未做分页展示">
+      <created>1580914072874</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1580914072874</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,7 +538,8 @@
     <MESSAGE value="Progress:&#10;1. 重用网页。&#10;2. 删减部分冗余" />
     <MESSAGE value="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。" />
     <MESSAGE value="Nothing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Nothing." />
+    <MESSAGE value="更新酒店动态数据展示，暂未做分页展示" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新酒店动态数据展示，暂未做分页展示" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
