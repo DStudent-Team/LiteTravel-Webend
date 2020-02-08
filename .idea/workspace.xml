@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="酒店分页展示完成">
+      <change afterPath="$PROJECT_DIR$/档案文件夹/轻旅·数据库-未完成-20.2.8.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/mapper/HotelMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/HotelMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotel-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotel-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/hotels.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/mapper/HotelMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/mapper/HotelMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotel-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotel-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/hotels.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -255,7 +264,17 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand />
+          <expand>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7dc2d9dc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7dc2d9dc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@89348f32" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+          </expand>
           <select />
         </treeState>
       </serviceView>
@@ -327,6 +346,7 @@
       <workItem from="1580903110979" duration="7476000" />
       <workItem from="1580962360026" duration="9443000" />
       <workItem from="1581077126521" duration="327000" />
+      <workItem from="1581143725204" duration="5071000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
