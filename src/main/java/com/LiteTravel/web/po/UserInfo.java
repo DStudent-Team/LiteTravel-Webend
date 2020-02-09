@@ -1,6 +1,7 @@
 /*
 * 用户个人信息Po
 * 用于保存用户的基本个人信息
+* todo 用户地址信息仍需要跟进修缮
 * */
 package com.LiteTravel.web.po;
 

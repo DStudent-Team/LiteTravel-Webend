@@ -9,6 +9,7 @@
     <select id="getHotelById" resultType="Hotel">
         SELECT * FROM travel_hotel WHERE hotel_id = #{hotelId}
     </select>
+    <!-- todo 通过地址筛选酒店? 实际上这个筛选算法还需要更加精细 -->
     <select id="getHotelsByAddress" resultType="Hotel">
         SELECT * FROM travel_hotel WHERE hotel_address = #{hotelAddress}
     </select>

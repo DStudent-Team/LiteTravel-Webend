@@ -16,6 +16,7 @@ import java.util.List;
 public class HotelController {
     @Autowired
     public HotelMapper hotelMapper;
+    /* todo 酒店列表实际上用了两个接口来接受两个不同的请求, 冗余了, 试试可不可以更加尽可能的重用 */
     /* 默认第一页 */
     @GetMapping("/hotels")
     public String HotelList(ModelMap model){
@@ -53,19 +54,20 @@ public class HotelController {
         /* 获取酒店基本信息 */
         Hotel hotel = hotelMapper.getHotelById(hotelId);
 
-        /* 获取酒店具体介绍数据 */
-        /* 获取房间块展示数据 */
-        /* 获取房间可折叠展示块信息 */
+        /* todo 获取酒店具体介绍数据 */
+        /* todo 获取房间块展示数据 */
+        /* todo 获取房间可折叠展示块信息 */
 
         PageHelper.startPage(1,3);
         List<Hotel> relatedHotels = hotelMapper.getRelatedHotel(hotelId);
         /* 设置酒店基本信息数据 */
         model.addAttribute("hotel", hotel);
-        /* 设置酒店具体介绍数据 */
-        /* 设置房间块展示数据 */
-        /* 设置房间可折叠展示块信息 */
+        /* todo 设置酒店具体介绍数据 */
+        /* todo 设置房间块展示数据 */
+        /* todo 设置房间可折叠展示块信息 */
 
         /* 设置推荐酒店基本信息数据 */
+        /* todo 设计推荐算法 */
         model.addAttribute("relatedHotels", relatedHotels);
 
         return "hotel-single";
