@@ -115,6 +115,7 @@ if $mingw ; then
   [ -n "$JAVA_HOME" ] &&
     JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
   # TODO classpath?
+  # issue Haing no idea how i should do.
 fi
 
 if [ -z "$JAVA_HOME" ]; then

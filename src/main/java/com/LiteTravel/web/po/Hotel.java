@@ -1,3 +1,8 @@
+/*
+* 酒店概览信息表
+* 用于酒店的列表展示, 地址信息仍需要做些许修改
+* todo 需要对地址内容进行跟进
+* */
 package com.LiteTravel.web.po;
 
 public class Hotel {

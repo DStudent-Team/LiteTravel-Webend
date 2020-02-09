@@ -1,3 +1,4 @@
+// 教程Po案例，当前网站不需要
 package com.LiteTravel.web.po;
 //有少部分JPA的事例标签，暂时不用，用mybatis
 //import javax.persistence.*;

@@ -17,11 +17,12 @@
 			<img alt="" class="mb-4" height="72" th:src="@{/asserts/img/bootstrap-solid.svg}" width="72">
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
 			<!-- 只在错误发生时才会显示 -->
+			<!-- todo 设计JavaScript方法, 本地检测账号输入是否合理 -->
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 			<label class="sr-only" th:text="#{login.usercode}">Username</label>
 			<input type="text" name="userCode" class="form-control" th:placeholder="#{login.usercode}" required="" autofocus="">
 			<label class="sr-only" th:text="#{login.password}">Password</label>
-			<input type="password" name="password" class="form-control" th:placeholder="#{login.password}" required="">
+			<input type="password" name="userPassword" class="form-control" th:placeholder="#{login.password}" required="">
 			<div class="checkbox mb-3">
 				<label>
           <input type="checkbox" value="remember-me" > [[#{login.remember}]]

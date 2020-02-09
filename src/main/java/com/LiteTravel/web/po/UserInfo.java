@@ -1,28 +1,33 @@
+/*
+* 用户个人信息Po
+* 用于保存用户的基本个人信息
+* todo 用户地址信息仍需要跟进修缮
+* */
 package com.LiteTravel.web.po;
 
 import java.util.Date;
 
 public class UserInfo {
     public Integer userId;
-    public String username;
-    public Integer gender;
-    public String phone;
-    public String address;
-    public String email;
-    public Date birth;
-    public String avatarUri;
+    public String userName;
+    public Integer userGender;
+    public String userPhone;
+    public String userAddress;
+    public String userEmail;
+    public Date userBirth;
+    public String userAvatarUri;
 
     @Override
     public String toString() {
         return "UserInfo{" +
                 "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", gender=" + gender +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", birth=" + birth +
-                ", avatarUri='" + avatarUri + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userGender=" + userGender +
+                ", userPhone='" + userPhone + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userBirth=" + userBirth +
+                ", userAvatarUri='" + userAvatarUri + '\'' +
                 '}';
     }
 
@@ -34,59 +39,59 @@ public class UserInfo {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Integer getGender() {
-        return gender;
+    public Integer getUserGender() {
+        return userGender;
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
+    public void setUserGender(Integer userGender) {
+        this.userGender = userGender;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public Date getBirth() {
-        return birth;
+    public Date getUserBirth() {
+        return userBirth;
     }
 
-    public void setBirth(Date birth) {
-        this.birth = birth;
+    public void setUserBirth(Date userBirth) {
+        this.userBirth = userBirth;
     }
 
-    public String getAvatarUri() {
-        return avatarUri;
+    public String getUserAvatarUri() {
+        return userAvatarUri;
     }
 
-    public void setAvatarUri(String avatarUri) {
-        this.avatarUri = avatarUri;
+    public void setUserAvatarUri(String userAvatarUri) {
+        this.userAvatarUri = userAvatarUri;
     }
 }

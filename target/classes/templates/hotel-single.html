@@ -30,7 +30,7 @@
 
 
 <!--重用topBar-->
-<div th:replace="~{commons/bar::topBar(activeUri='hotels')}"></div>
+<div th:replace="~{commons/bar::topBar(activeUri='Hotels')}"></div>
 <!-- END nav -->
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Hotel')}"></div>
@@ -158,6 +158,7 @@
                         <h2 th:text="${hotel.hotelName}">Luxury Hotel in Paris</h2>
                         <p class="rate mb-5">
                             <!-- 详细地址-->
+                            <!-- 可跳转, 跳转至地点介绍? 不对, 地图展示? 会更复杂, 不然先设计跳转至通过地址筛选酒店的列表? 好像可行, 先这么做着 -->
                             <span class="loc"><a href="#"><i class="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
                             <!-- 用户评分 -->
                             <span class="star">
@@ -463,7 +464,8 @@
                                             </div>
                                         </div>
                                         <!-- 简单介绍 -->
-                                        <p th:text="${relatedHotel.hotelDesc}">Far far away, behind the word mountains, far from the countries</p>
+                                        <p th:text="${relatedHotel.hotelDesc}">Far far away, behind the word mountains,
+                                            far from the countries</p>
                                         <hr>
                                         <p class="bottom-area d-flex">
                                             <span><i class="icon-map-o"></i>[[${relatedHotel.hotelAddress}]]</span>

@@ -1,3 +1,4 @@
+// todo 旅行社推出的旅行线路po, 属性还会被修改, 为了暂时测试用而设计
 package com.LiteTravel.web.po;
 
 public class Line {

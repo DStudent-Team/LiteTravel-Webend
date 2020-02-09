@@ -1,3 +1,4 @@
+// 教程Po案例，当前网站不需要
 package com.LiteTravel.web.po;
 
 public class Department {

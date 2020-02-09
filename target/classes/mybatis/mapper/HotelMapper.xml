@@ -7,12 +7,12 @@
         SELECT * FROM travel_hotel
     </select>
     <select id="getHotelById" resultType="Hotel">
-        SELECT * FROM travel_hotel WHERE hotelId = #{hotelId}
+        SELECT * FROM travel_hotel WHERE hotel_id = #{hotelId}
     </select>
     <select id="getHotelsByAddress" resultType="Hotel">
-        SELECT * FROM travel_hotel WHERE hotelAddress = #{hotelAddress}
+        SELECT * FROM travel_hotel WHERE hotel_address = #{hotelAddress}
     </select>
     <select id="getRelatedHotel" resultType="Hotel">
-        SELECT * FROM travel_hotel WHERE hotelId != #{hotelId}
+        SELECT * FROM travel_hotel WHERE hotel_id != #{hotelId}
     </select>
 </mapper>
