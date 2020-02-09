@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Progress:&#10;1. 将Hotel-single网页转为动态网页，暂未连接数据库信息&#10;2. 将数据库思维导图简单的画出来了。暂时只完成酒店，用户，酒店订单，酒店评价部分。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/emp/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/commons/bar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/emp/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/emp/add.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,22 +134,22 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts" />
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts\js" />
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\backend" />
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\mybatis" />
-      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\GithubProjects\LiteTravel-Webend\src\main\resources\static\asserts\img" />
       <recent name="G:\GithubProjects\LiteTravel-Webend\src\main\resources\templates\commons" />
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts\img" />
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts\js" />
       <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\static\asserts\js" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\backend" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\mybatis" />
+      <recent name="G:\GithubProjects\spring-boot-web-restfulcrud\src\main\resources\templates\error" />
     </key>
   </component>
   <component name="RestServicesNavigator">
@@ -288,7 +285,7 @@
       <workItem from="1580522115359" duration="10289000" />
       <workItem from="1580609385234" duration="10049000" />
       <workItem from="1581145535786" duration="9000" />
-      <workItem from="1581145576809" duration="1995000" />
+      <workItem from="1581145576809" duration="3113000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -472,38 +469,42 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="603" y="227" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1581145642409" />
-    <state width="1024" height="155" key="GridCell.Tab.0.bottom" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.0.bottom" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
-    <state width="1024" height="155" key="GridCell.Tab.0.center" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.0.center" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
-    <state width="1024" height="155" key="GridCell.Tab.0.left" timestamp="1581147022838">
+    <state width="804" height="155" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.0.left" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1581147022838" />
-    <state width="1024" height="155" key="GridCell.Tab.0.right" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.0.right" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
-    <state width="1024" height="155" key="GridCell.Tab.1.bottom" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.1.bottom" timestamp="1581148692329">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
-    <state width="1024" height="155" key="GridCell.Tab.1.center" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581148692329" />
+    <state width="804" height="155" key="GridCell.Tab.1.center" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
-    <state width="1024" height="155" key="GridCell.Tab.1.left" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.1.left" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
-    <state width="1024" height="155" key="GridCell.Tab.1.right" timestamp="1581147022839">
+    <state width="804" height="155" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.1.right" timestamp="1581148692328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1024" height="155" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1581147022839" />
+    <state width="804" height="155" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state x="324" y="115" key="SettingsEditor" timestamp="1581148284530">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="324" y="115" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1581148284530" />
     <state x="504" y="297" key="com.intellij.ide.util.TipDialog" timestamp="1581145534742">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
