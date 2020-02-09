@@ -28,11 +28,12 @@
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
         </dependency>
-
+        <!--   J2EE SpringBoot-web核心   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--      前端UI框架: BootStrap   -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
@@ -50,12 +51,12 @@
             <artifactId>jquery</artifactId>
             <version>3.4.1</version>
         </dependency>
-        <!--          thymeleaf依赖       -->
+        <!--             thymeleaf依赖         -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
+        <!-- Spring Boot 测试依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -67,7 +68,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--        JDBC依赖           -->
+        <!--              JDBC依赖             -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -76,11 +77,17 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--        MyBatis依赖        -->
+        <!--             MyBatis依赖            -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.0</version>
+        </dependency>
+        <!--       MyBatis插件: PageHelper      -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.13</version>
         </dependency>
         <!--         Druid依赖(默认为Hikari)     -->
         <dependency>
