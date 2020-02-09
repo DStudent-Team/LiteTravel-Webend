@@ -30,8 +30,8 @@
 - 后台监测
 - 页面展示全球化
 - 分布式注册
-- 数据增删改查(mybatis)(user, travel_lines, travel_agency) 
-- 数据库存储内容补全(user, travel_lines, travel_agency) 
+- 数据增删改查(mybatis)(user) 
+- 数据库存储内容补全(user, user_info, hotel) 
 - 自定义错误跳转
 - *待补全*
 ## 需要补全的内容还有
