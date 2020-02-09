@@ -10,9 +10,9 @@
 
     <link rel="stylesheet" th:href="@{/asserts/css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/animate.css}">
-    
-    <link rel="stylesheet" th:href="@{css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{css/owl.theme.default.min.css}">
+
+    <link rel="stylesheet" th:href="@{/asserts/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/owl.theme.default.min.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/magnific-popup.css}">
 
     <link rel="stylesheet" th:href="@{/asserts/css/aos.css}">
@@ -22,7 +22,7 @@
     <link rel="stylesheet" th:href="@{/asserts/css/bootstrap-datepicker.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/jquery.timepicker.css}">
 
-    
+
     <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
@@ -50,7 +50,7 @@
 	  </nav>
     <!-- END nav -->
     
-    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');">
+    <div class="hero-wrap js-fullheight" th:style="'background-image: url('+@{/img/bg_1.jpg}+');'">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
