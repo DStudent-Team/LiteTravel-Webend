@@ -10,10 +10,10 @@
 
 		<title>轻旅·后台</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
+		<link th:href="@{/asserts/css/bootstrap.min.css}" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
-		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<link th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -92,7 +92,7 @@
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" th:src="@{asserts/js/Chart.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}" ></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {

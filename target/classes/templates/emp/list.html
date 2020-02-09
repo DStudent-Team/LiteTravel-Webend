@@ -11,11 +11,11 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="@{asserts/css/bootstrap.min.css}" rel="stylesheet"
+		<link th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet"
 			  th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 
 		<!-- Custom styles for this template -->
-		<link href="../../static/asserts/css/dashboard.css" rel="stylesheet" th:href="@{/asserts/css/dashboard.css}">
+		<link rel="stylesheet" th:href="@{/asserts/css/dashboard.css}">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -91,18 +91,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="../../static/asserts/js/jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="../../static/asserts/js/popper.min.js"></script>
-		<script type="text/javascript" src="../../static/asserts/js/bootstrap.min.js"></script>
+		<script type="text/javascript" th:src="@{/asserts/js/jquery-3.4.1.slim.min.js}"></script>
+		<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}"></script>
+		<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"></script>
 
 		<!-- Icons -->
-		<script type="text/javascript" src="../../static/asserts/js/feather.min.js"></script>
+		<script type="text/javascript" th:src="@{/asserts/js/feather.min.js}"></script>
 		<script>
 			feather.replace()
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" src="../../static/asserts/js/Chart.min.js"></script>
+		<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}"></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {
