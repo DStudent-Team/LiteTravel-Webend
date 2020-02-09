@@ -8,4 +8,5 @@ public interface HotelMapper {
     public List<Hotel> getHotels();
     public Hotel getHotelById(Integer hotelId);
     public List<Hotel> getHotelsByAddress(String hotelAddress);
+    public List<Hotel> getRelatedHotel(Integer hotelId);
 }

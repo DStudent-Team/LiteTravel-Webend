@@ -12,4 +12,7 @@
     <select id="getHotelsByAddress" resultType="Hotel">
         SELECT * FROM travel_hotel WHERE hotelAddress = #{hotelAddress}
     </select>
+    <select id="getRelatedHotel" resultType="Hotel">
+        SELECT * FROM travel_hotel WHERE hotelId != #{hotelId}
+    </select>
 </mapper>

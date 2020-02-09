@@ -139,8 +139,8 @@
                     <div th:each="hotel:${hotels}" class="col-sm col-md-6 col-lg-4 ftco-animate">
                         <div class="destination">
                             <!-- 酒店推广图 hotelImageUrl -->
-                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                               th:style="'background-image:url(' + @{/img/hotel-1.jpg} + ');'">
+                            <a th:href="@{'/hotel/' + ${hotel.hotelId}}" class="img img-2 d-flex justify-content-center align-items-center"
+                               th:style="'background-image:url(' + @{'/img/' + ${hotel.hotelImgUri}} + ');'">
                                 <!-- 跳转连接提示Icon -->
                                 <div class="icon d-flex justify-content-center align-items-center">
                                     <span class="icon-link"></span>
@@ -175,7 +175,7 @@
                                     <!-- 所在地址(应该也有一个跳转连接, 即搜索同地域的所有酒店!) -->
                                     <span><i class="icon-map-o"></i> [[${hotel.hotelAddress}]]</span>
                                     <!-- 预约链接按钮(跳转详情页面) -->
-                                    <span class="ml-auto"><a href="#">Book Now</a></span>
+                                    <span class="ml-auto"><a th:href="@{'/hotel/' + ${hotel.hotelId}}">Book Now</a></span>
                                 </p>
                             </div>
                         </div>

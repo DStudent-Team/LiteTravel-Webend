@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表">
+      <change afterPath="$PROJECT_DIR$/档案文件夹/轻旅·数据库-未完成-20.2.9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LiteTravel/web/controller/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/档案文件夹/轻旅·数据库-未完成-20.2.8.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,17 +258,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5b09df25" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5b09df25" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@f71c347" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -337,6 +329,9 @@
       <workItem from="1580801659665" duration="4262000" />
       <workItem from="1580903110979" duration="7476000" />
       <workItem from="1580962360026" duration="9443000" />
+      <workItem from="1581077126521" duration="327000" />
+      <workItem from="1581143725204" duration="9528000" />
+      <workItem from="1581227705007" duration="4592000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -485,7 +480,28 @@
       <option name="project" value="LOCAL" />
       <updated>1580974394626</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="酒店单页展示：&#10;1. 添加动态数据&#10;2. 增加基础推荐算法请求(未写推荐算法, 仅仅只是留了一个接口)&#10;未完成部分:&#10;1. 正文部分&#10;2. 地址跳转?&#10;3. 房间部分&#10;4. 房间跳转&#10;5. 房间页面&#10;6. 评价部分">
+      <created>1581149384714</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1581149384714</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表">
+      <created>1581233690859</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1581233690859</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表">
+      <created>1581236237162</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1581236237162</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,7 +553,9 @@
     <MESSAGE value="Nothing." />
     <MESSAGE value="更新酒店动态数据展示，暂未做分页展示" />
     <MESSAGE value="酒店分页展示完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="酒店分页展示完成" />
+    <MESSAGE value="酒店单页展示：&#10;1. 添加动态数据&#10;2. 增加基础推荐算法请求(未写推荐算法, 仅仅只是留了一个接口)&#10;未完成部分:&#10;1. 正文部分&#10;2. 地址跳转?&#10;3. 房间部分&#10;4. 房间跳转&#10;5. 房间页面&#10;6. 评价部分" />
+    <MESSAGE value="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表" />
   </component>
   <component name="WindowStateProjectService">
     <state x="603" y="227" key="FileChooserDialogImpl" timestamp="1581145642409">

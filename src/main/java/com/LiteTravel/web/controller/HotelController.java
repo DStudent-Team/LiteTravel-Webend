@@ -48,10 +48,26 @@ public class HotelController {
         model.addAttribute("pageInfo", info);
     }
 
-    @GetMapping("/hotel/{id}")
-    public String Hotel(@PathVariable("id") Integer id, ModelMap model){
-        Hotel hotel = hotelMapper.getHotelById(id);
+    @GetMapping("/hotel/{hotelId}")
+    public String Hotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
+        /* 获取酒店基本信息 */
+        Hotel hotel = hotelMapper.getHotelById(hotelId);
+
+        /* 获取酒店具体介绍数据 */
+        /* 获取房间块展示数据 */
+        /* 获取房间可折叠展示块信息 */
+
+        PageHelper.startPage(1,3);
+        List<Hotel> relatedHotels = hotelMapper.getRelatedHotel(hotelId);
+        /* 设置酒店基本信息数据 */
         model.addAttribute("hotel", hotel);
+        /* 设置酒店具体介绍数据 */
+        /* 设置房间块展示数据 */
+        /* 设置房间可折叠展示块信息 */
+
+        /* 设置推荐酒店基本信息数据 */
+        model.addAttribute("relatedHotels", relatedHotels);
+
         return "hotel-single";
     }
 
