@@ -5,7 +5,7 @@
     <title>Bar</title>
 </head>
 <body>
-
+<!-- 目前使用的模版的通用模板块，用于展示原模版中一直在页尾前出现的订阅板块 使用th:replace="~{common/Footer::subscriber}"  -->
 <section class="ftco-section-parallax" th:fragment="subscriber">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
@@ -30,6 +30,7 @@
     </div>
 </section>
 
+<!-- 目前使用的模版的通用模板块，用于展示页脚 使用th:replace="~{common/Footer::webFooter}"  -->
 <footer class="ftco-footer ftco-bg-dark ftco-section" th:fragment="webFooter">
     <div class="container">
         <div class="row mb-5">

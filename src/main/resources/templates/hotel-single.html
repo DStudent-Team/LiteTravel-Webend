@@ -30,7 +30,7 @@
 
 
 <!--重用topBar-->
-<div th:replace="~{commons/bar::topBar(activeUri='hotels')}"></div>
+<div th:replace="~{commons/bar::topBar(activeUri='Hotels')}"></div>
 <!-- END nav -->
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Hotel')}"></div>
@@ -464,7 +464,8 @@
                                             </div>
                                         </div>
                                         <!-- 简单介绍 -->
-                                        <p th:text="${relatedHotel.hotelDesc}">Far far away, behind the word mountains, far from the countries</p>
+                                        <p th:text="${relatedHotel.hotelDesc}">Far far away, behind the word mountains,
+                                            far from the countries</p>
                                         <hr>
                                         <p class="bottom-area d-flex">
                                             <span><i class="icon-map-o"></i>[[${relatedHotel.hotelAddress}]]</span>

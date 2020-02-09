@@ -5,7 +5,7 @@
     <title>Bar</title>
 </head>
 <body>
-
+<!-- 目前使用的模版的通用模板块，用于首页的背景图片展示板块。使用th:replace="~{common/BG::indexBG}" 用于首页的背景图片展示板块 -->
 <div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/img/bg_1.jpg} + ');'" th:fragment="indexBG">
     <div class="overlay"></div>
     <div class="container">
@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-
+<!-- 目前使用的模版的通用模板块，用于非首页的背景图片展示板块 使用th:replace="~{common/BG::sectionBG(sectionName=="XXX")}" sectionName为模块内需要使用到的必要参数, 具体赋值看内部构造 -->
 <div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/img/bg_1.jpg} + ');'" th:fragment="sectionBG">
     <div class="overlay"></div>
     <div class="container">
