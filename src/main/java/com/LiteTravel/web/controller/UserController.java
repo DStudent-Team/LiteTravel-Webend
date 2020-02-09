@@ -26,7 +26,7 @@ public class UserController {
     @PutMapping("/user")
     public String updateUser(UserInfo userInfo, HttpSession session){
         userInfoMapper.updateUserInfo(userInfo);
-        session.setAttribute("username", userInfo.username);
+        session.setAttribute("userName", userInfo.userName);
         return "redirect:/user/" + userInfo.userId;
     }
 

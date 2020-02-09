@@ -21,17 +21,17 @@ public class LoginController {
 
     @PostMapping(value = "/user/login")
     public String login(@RequestParam("userCode") String userCode,
-                        @RequestParam("password") String password,
+                        @RequestParam("userPassword") String userPassword,
                         Map<String, Object> map,
                         HttpSession session){
-        User user = userMapper.findUser(userCode, password);
+        User user = userMapper.findUser(userCode, userPassword);
         if(!StringUtils.isEmpty(userCode) && user != null) {
             //获取用户信息
             Integer userId = user.getUserId();
             session.setAttribute("userId",
                     userId);
-            session.setAttribute("username",
-                    userInfoMapper.findInfoById(userId).getUsername());
+            session.setAttribute("userName",
+                    userInfoMapper.findInfoById(userId).getUserName());
             //需要重定向
             return "redirect:/index.html";
         }
@@ -44,8 +44,8 @@ public class LoginController {
     @Transactional
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public String register(@RequestParam(name = "userCode") String userCode,
-                           @RequestParam(name = "username") String username,
-                           @RequestParam(name = "password") String password,
+                           @RequestParam(name = "userName") String userName,
+                           @RequestParam(name = "userPassword") String userPassword,
                            Map<String, Object> map,
                            HttpSession session) throws Exception {
         /*
@@ -56,15 +56,15 @@ public class LoginController {
             return "redirect:/toRegister";
         User user = new User();
         user.setUserCode(userCode);
-        user.setPassword(password);
+        user.setUserPassword(userPassword);
         userMapper.insertUser(user);
         System.out.println(user.getUserId());
         UserInfo userinfo = new UserInfo();
         userinfo.setUserId(user.getUserId());
-        userinfo.setUsername(username);
+        userinfo.setUserName(userName);
         userInfoMapper.insertInfo(userinfo);
         if(userMapper.findUserByCode(userCode) != null) {
-            login(userCode, password, map, session);
+            login(userCode, userPassword, map, session);
             return "redirect:/index.html";
         }
         else {

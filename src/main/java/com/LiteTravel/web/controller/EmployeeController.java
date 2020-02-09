@@ -1,3 +1,4 @@
+// 教程Controller案例，当前网站不需要
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.mapper.EmployeeMapper;

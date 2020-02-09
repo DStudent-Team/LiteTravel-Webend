@@ -4,8 +4,18 @@ package com.LiteTravel.web.po;
 public class User {
     public Integer userId;
     public String userCode;
-    public String password;
-    public Integer state;
+    public String userPassword;
+    public Integer userState;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userCode='" + userCode + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userState=" + userState +
+                '}';
+    }
 
     public Integer getUserId() {
         return userId;
@@ -23,29 +33,19 @@ public class User {
         this.userCode = userCode;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getUserState() {
+        return userState;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + userId +
-                ", user_code='" + userCode + '\'' +
-                ", password='" + password + '\'' +
-                ", user_state=" + state +
-                '}';
+    public void setUserState(Integer userState) {
+        this.userState = userState;
     }
 }
