@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="">
+    <list default="true" id="a98a680e-dd15-4e47-b992-0e8148f606d4" name="Default Changelist" comment="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表">
+      <change afterPath="$PROJECT_DIR$/档案文件夹/轻旅·数据库-未完成-20.2.9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/档案文件夹/轻旅·数据库-未完成-20.2.8.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -328,7 +331,7 @@
       <workItem from="1580962360026" duration="9443000" />
       <workItem from="1581077126521" duration="327000" />
       <workItem from="1581143725204" duration="9528000" />
-      <workItem from="1581227705007" duration="3697000" />
+      <workItem from="1581227705007" duration="4592000" />
     </task>
     <task id="LOCAL-00001" summary="Localization Update">
       <created>1571500851604</created>
@@ -491,7 +494,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581233690859</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表">
+      <created>1581236237162</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1581236237162</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
