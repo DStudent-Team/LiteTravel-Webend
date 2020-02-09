@@ -63,3 +63,4 @@ logging.level.org.springframework.security: DEBUG
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
+# mybatis-pageHelper插件配置

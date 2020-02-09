@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.LiteTravel.web.mapper.UserInfoMapper">
     <insert id="insertInfo" parameterType="UserInfo">
-        INSERT INTO travel_user_info(user_id, username)
-        VALUES (#{userId}, #{username});
+        INSERT INTO travel_user_info(user_id, username, avatarUri)
+        VALUES (#{userId}, #{username}, '/avatar.jpg');
     </insert>
     <update id="updateUserInfo">
         UPDATE travel_user_info

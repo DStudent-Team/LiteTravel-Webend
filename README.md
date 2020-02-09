@@ -21,6 +21,8 @@
 - devtools
 - slf4j
 - mybatis
+- mybatis插件
+  - pageHelper
 - Jquery
 ## 已经部署的功能有
 - 登陆&注册

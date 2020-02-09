@@ -1,60 +1,80 @@
 package com.LiteTravel.web.po;
 
 public class Hotel {
-    public Integer id;
-    public String name;
-    public String description;
-    public String phone;
-    public String address;
+    public Integer hotelId;
+    public String hotelName;
+    public Integer hotelMinPrice;
+    public String hotelDesc;
+    public String hotelTel;
+    public String hotelAddress;
+    public String hotelImgUri;
 
     @Override
     public String toString() {
         return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
+                "hotelId=" + hotelId +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelMinPrice=" + hotelMinPrice +
+                ", hotelDesc='" + hotelDesc + '\'' +
+                ", hotelTel='" + hotelTel + '\'' +
+                ", hotelAddress='" + hotelAddress + '\'' +
+                ", hotelImgUri='" + hotelImgUri + '\'' +
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getHotelId() {
+        return hotelId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public String getName() {
-        return name;
+    public String getHotelName() {
+        return hotelName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getHotelMinPrice() {
+        return hotelMinPrice;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setHotelMinPrice(Integer hotelMinPrice) {
+        this.hotelMinPrice = hotelMinPrice;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getHotelDesc() {
+        return hotelDesc;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setHotelDesc(String hotelDesc) {
+        this.hotelDesc = hotelDesc;
     }
 
-    public String getAddress() {
-        return address;
+    public String getHotelTel() {
+        return hotelTel;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setHotelTel(String hotelTel) {
+        this.hotelTel = hotelTel;
+    }
+
+    public String getHotelAddress() {
+        return hotelAddress;
+    }
+
+    public void setHotelAddress(String hotelAddress) {
+        this.hotelAddress = hotelAddress;
+    }
+
+    public String getHotelImgUri() {
+        return hotelImgUri;
+    }
+
+    public void setHotelImgUri(String hotelImgUri) {
+        this.hotelImgUri = hotelImgUri;
     }
 }
