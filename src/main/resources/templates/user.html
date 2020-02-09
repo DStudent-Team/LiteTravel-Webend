@@ -30,8 +30,11 @@
 </head>
 
 <body>
+
 <div th:replace="~{commons/bar::topBar(activeUri='User')}"></div>
+
 <div th:replace="~{commons/BG::sectionBG(sectionName=(${info!=null}?${info.username}:'User'))}"></div>
+
 <section class="ftco-section">
     <div class="container">
         <div class="row">
@@ -105,7 +108,9 @@
         </div>
     </div>
 </section>
+
 <div th:replace="~{commons/Footer::subscriber}"></div>
+
 <div th:replace="~{commons/Footer::webFooter}"></div>
 
 <div id="ftco-loader" class="show fullscreen">
