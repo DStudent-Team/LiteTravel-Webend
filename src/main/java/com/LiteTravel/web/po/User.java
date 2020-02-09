@@ -1,3 +1,7 @@
+/*
+* 用户账号Po
+* 用于存储关于登陆注册，账户安全相关信息的
+* */
 package com.LiteTravel.web.po;
 
 

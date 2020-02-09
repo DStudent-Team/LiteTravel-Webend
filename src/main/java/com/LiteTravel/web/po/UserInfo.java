@@ -1,3 +1,7 @@
+/*
+* 用户个人信息Po
+* 用于保存用户的基本个人信息
+* */
 package com.LiteTravel.web.po;
 
 import java.util.Date;
