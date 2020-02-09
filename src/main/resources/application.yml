@@ -1,5 +1,17 @@
+# SpringCloud Service配置
+server:
+  port: 8001
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 # DataBase配置
 spring:
+  application:
+    name: provider-ticket
   datasource:
     url: jdbc:mysql://122.51.98.193:3306/travel_database?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: root
@@ -63,4 +75,3 @@ logging.level.org.springframework.security: DEBUG
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
-# mybatis-pageHelper插件配置
