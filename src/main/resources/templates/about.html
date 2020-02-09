@@ -8,24 +8,24 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" th:href="@{/asserts/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/animate.css}">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" th:href="@{/asserts/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/magnific-popup.css}">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" th:href="@{/asserts/css/aos.css}">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" th:href="@{/asserts/css/ionicons.min.css}">
 
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/asserts/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
   </head>
   <body>
     
@@ -49,8 +49,7 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
-    
-    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');">
+    <div class="hero-wrap js-fullheight" th:style="'background-image: url('+@{/img/bg_1.jpg}+');'">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -87,7 +86,7 @@
     	</div>
     </section>
 
-    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+    <section class="ftco-section ftco-counter img" id="section-counter" th:style="'background-image: url('+@{/img/bg_1.jpg}+');'" data-stellar-background-ratio="0.5">
     	<div class="container">
     		<div class="row justify-content-center">
     			<div class="col-md-10">
@@ -131,7 +130,7 @@
     </section>
 		
 		<section class="ftco-about d-md-flex">
-    	<div class="one-half img" style="background-image: url(images/about.jpg);"></div>
+    	<div class="one-half img" th:style="'background-image: url('+@{/img/about.jpg}+');'"></div>
     	<div class="one-half ftco-animate">
         <div class="heading-section ftco-animate ">
           <h2 class="mb-4">The Best Travel Agency</h2>
@@ -155,7 +154,7 @@
             <div class="carousel-testimony owl-carousel ftco-owl">
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_1.jpg}+');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -169,7 +168,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_2.jpg)">
+                  <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_2.jpg}+');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -183,7 +182,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
+                  <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_3.jpg}+');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -197,7 +196,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_1.jpg}+');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -211,7 +210,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-5" th:style="'background-image: url('+ @{/img/person_1.jpg} +');'">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -366,23 +365,23 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
+<script th:src="@{/asserts/js/jquery.min.js}"></script>
+<script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/asserts/js/popper.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/asserts/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/asserts/js/owl.carousel.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/asserts/js/aos.js}"></script>
+<script th:src="@{/asserts/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/asserts/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/asserts/js/scrollax.min.js}"></script>
 
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+<script th:src="@{/asserts/js/google-map.js}"></script>
+<script th:src="@{/asserts/js/main.js}"></script>
     
   </body>
 </html>

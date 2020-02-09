@@ -7,11 +7,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/档案文件夹/轻旅·数据库-未完成-20.2.8.png" beforeDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -152,9 +154,16 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1SJr9VZPBJ0rdRO4jOqrlElte94" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
@@ -165,18 +174,19 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="10" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TicketService" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="nodejs_interpreter_path" value="$APPLICATION_CONFIG_DIR$/node/node-v10.16.0-win-x64/node" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -213,16 +223,6 @@
       <set>
         <option value="SpringBootApplicationConfigurationType" />
       </set>
-    </option>
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.LiteTravelWebApplication">
@@ -556,6 +556,52 @@
     <MESSAGE value="酒店单页展示：&#10;1. 添加动态数据&#10;2. 增加基础推荐算法请求(未写推荐算法, 仅仅只是留了一个接口)&#10;未完成部分:&#10;1. 正文部分&#10;2. 地址跳转?&#10;3. 房间部分&#10;4. 房间跳转&#10;5. 房间页面&#10;6. 评价部分" />
     <MESSAGE value="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表" />
     <option name="LAST_COMMIT_MESSAGE" value="Debug：&#10;修改了依赖，去除了spring cloud eureka的dependency, 等到之后接入注册中心后再写回来&#10;文档:&#10;1.更新了数据库文档&#10;2.更新了任务完成表" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="603" y="227" key="FileChooserDialogImpl" timestamp="1581145642409">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="603" y="227" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1581145642409" />
+    <state width="804" height="155" key="GridCell.Tab.0.bottom" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.0.center" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.0.left" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.0.right" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.1.bottom" timestamp="1581148692329">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581148692329" />
+    <state width="804" height="155" key="GridCell.Tab.1.center" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.1.left" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state width="804" height="155" key="GridCell.Tab.1.right" timestamp="1581148692328">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="804" height="155" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1581148692328" />
+    <state x="324" y="115" key="SettingsEditor" timestamp="1581148284530">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="324" y="115" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1581148284530" />
+    <state x="504" y="297" key="com.intellij.ide.util.TipDialog" timestamp="1581145534742">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="504" y="297" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1581145534742" />
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
