@@ -15,8 +15,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../LiteTravel-Webend/target/classes" />
-    <output-test url="file://$MODULE_DIR$/../LiteTravel-Webend/target/test-classes" />
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
@@ -106,6 +106,10 @@
     <orderEntry type="library" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:2.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:2.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-starter:1.2.13" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.13" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:2.0" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid-spring-boot-starter:1.1.13" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.13" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.28" level="project" />
