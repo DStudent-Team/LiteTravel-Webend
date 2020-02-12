@@ -1,6 +1,7 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.mapper.HotelMapper;
+import com.LiteTravel.web.po.Comment;
 import com.LiteTravel.web.po.Hotel;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

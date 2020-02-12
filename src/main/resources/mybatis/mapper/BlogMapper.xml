@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.LiteTravel.web.mapper.BlogMapper">
+<!--    <select id="getAllBlog" resultMap="blogCollection">
+/*        SELECT b.blog_id, b.blog_title,
+               b.blog_post_time, b.blog_poster_id,
+               b.blog_poster_name,
+               blog_comment_num,
+               t.tag_name
+        FROM (SELECT p.*, u.user_name blog_poster_name, blog_comment_num
+              FROM travel_blog p,
+                   travel_user_info u,
+                   (SELECT COUNT(r.blog_id) blog_comment_num
+                    FROM travel_blog_comment r
+                    WHERE p.blog_id = r.blog_id) re
+              WHERE p.blog_poster_id = u.user_id
+              AND p.blog_id = r.blog_id) b
+        JOIN travel_blog_tags t
+        ON b.blog_id = t.blog_id*/
+        SELECT p.blog_id,
+               blog_title,
+               blog_post_time,
+               blog_poster_id,
+               u.user_name blog_poster_name,
+               blog_comment_num
+              FROM travel_blog p,
+                   travel_user_info u,
+                   (SELECT COUNT(c.blog_id) blog_comment_num
+                    FROM travel_blog_comment c
+                    WHERE p.blog_id = r.blog_id
+                    GROUP BY c.blog_id) re
+              WHERE p.blog_poster_id = u.user_id
+              AND p.blog_id = r.blog_id
+        </select>-->
+<!--    <select id="getAllBlog" resultType="Blog">-->
+<!--        SELECT * FROM travel_forum_post-->
+<!--    </select>-->
+<!--    <resultMap id="blogCollection" type="Blog">
+        <id property="blogId" column="blog_id" jdbcType="Integer"/>
+        <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
+        <result property="blogPosterId" column="blog_poster_id" jdbcType="INTEGER"/>
+        <result property="blogPosterName" column="blog_poster_name" jdbcType="VARCHAR"/>
+        <result property="blogPostTime" column="blog_post_time" jdbcType="DATE"/>
+        <result property="blogCommentNum" column="blog_comment_num" jdbcType="INTEGER"/>
+&lt;!&ndash;        <collection property="blogTags" ofType="Tag" javaType="ArrayList">
+            <result property="tagName" column="tag_name" jdbcType="VARCHAR"/>
+        </collection>&ndash;&gt;
+    </resultMap>-->
+
+</mapper>

@@ -42,6 +42,7 @@
             <!--筛选模块-->
             <div class="col-lg-3 sidebar order-md-last ftco-animate">
                 <div class="sidebar-wrap ftco-animate">
+                    <!-- 查找特定城市中的酒店 -->
                     <h3 class="heading mb-4">Find City</h3>
                     <form action="#">
                         <div class="fields">
@@ -49,6 +50,7 @@
                                 <input type="text" class="form-control" placeholder="Destination, City">
                             </div>
                             <div class="form-group">
+                                <!-- 地址选择 -->
                                 <div class="select-wrap one-third">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     <select name="" id="" class="form-control" placeholder="Keyword search">
@@ -68,12 +70,15 @@
                                 <input type="text" id="checkout_date" class="form-control checkout_date"
                                        placeholder="Date to">
                             </div>
+                            <!-- 金额拖动栏 -->
                             <div class="form-group">
                                 <div class="range-slider">
 		              		<span>
+                                    <!-- 文字金额标识 -->
 									    <input type="number" value="25000" min="0" max="120000"/>	-
 										    <input type="number" value="50000" min="0" max="120000"/>
 										  </span>
+                                    <!-- 拖动栏 -->
                                     <input value="1000" min="0" max="120000" step="500" type="range"/>
                                     <input value="50000" min="0" max="120000" step="500" type="range"/>
                                     </svg>
@@ -85,6 +90,8 @@
                         </div>
                     </form>
                 </div>
+                <!-- 筛选结束 -->
+                <!-- 页面内评分星级筛选 -->
                 <div class="sidebar-wrap ftco-animate">
                     <h3 class="heading mb-4">Star Rating</h3>
                     <form method="post" class="star-rating">
@@ -146,7 +153,7 @@
                                     <span class="icon-link"></span>
                                 </div>
                             </a>
-                            <!-- 文字极少部分 -->
+                            <!-- 文字概览部分 -->
                             <div class="text p-3">
                                 <div class="d-flex">
                                     <div class="one">
@@ -154,12 +161,15 @@
                                         <h3><a href="#" th:text="${hotel.hotelName}">New Orleans, LA</a></h3>
                                         <!-- 评分(/评级?) -->
                                         <p class="rate">
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star-o"></i>
-                                            <span>8 Rating</span>
+                                            <!-- 评分星星展示 -->
+                                            <i class="icon-star"
+                                               th:if="${hotel.hotelLevel}>0"
+                                               th:each="i:${#numbers.sequence(1, (hotel.hotelLevel / 2))}">
+                                            </i><i class="icon-star-o"
+                                                   th:if="${hotel.hotelLevel}<10"
+                                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelLevel / 2)))}">
+                                            </i>
+                                            <span>[[${hotel.hotelCommentCount}]] Rating</span>
                                         </p>
                                     </div>
                                     <!-- 价格 格式:($40 /night)-->
@@ -168,7 +178,7 @@
                                     </div>
                                 </div>
                                 <!-- 介绍 -->
-                                <p th:text="${hotel.hotelDesc}">Far far away, behind the word mountains, far from the countries</p>
+                                <p th:text="${hotel.hotelDescription}">Far far away, behind the word mountains, far from the countries</p>
                                 <hr>
                                 <!-- 尾栏，补充提示栏 -->
                                 <p class="bottom-area d-flex">
@@ -218,23 +228,7 @@
                     </div>-->
                 </div>
                 <!-- 分页页码展示块 -->
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <!-- 上一页 -->
-                                <li th:if="${pageInfo.isFirstPage} == false"><a th:href="@{'/hotels/' + ${pageInfo.getPageNum() - 1}}">&lt;</a></li>
-                                <!-- 展示Navigate跳转页面 -->
-                                <li th:each="pageNum : ${pageInfo.getNavigatepageNums()}"
-                                    th:class="${pageInfo.getPageNum() == pageNum?'active':''}">
-                                    <a th:href="@{'/hotels/' + ${pageNum}}" th:text="${pageNum}"></a>
-                                </li>
-                                <!-- 下一页 -->
-                                <li th:if="${pageInfo.isLastPage} == false"><a th:href="@{'/hotels/' + ${pageInfo.getPageNum() + 1}}">&gt;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <div th:replace="~{commons/navigation::navigationBar(redirect = 'hotels')}"></div>
             </div> <!-- .col-md-8 -->
         </div>
     </div>
@@ -249,13 +243,7 @@
 
 
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
+<div th:replace="~{commons/Footer::loader}"></div>
 
 <script th:src="@{/asserts/js/jquery.min.js}"></script>
 <script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>

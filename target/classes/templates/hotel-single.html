@@ -152,12 +152,12 @@
                     </div>
                     <!-- 文字区 -->
                     <div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                        <!-- 一句话介绍? -->
+                        <!-- todo 一句话介绍? -->
                         <span>Our Best hotels &amp; Rooms</span>
                         <!-- 酒店名 -->
                         <h2 th:text="${hotel.hotelName}">Luxury Hotel in Paris</h2>
                         <p class="rate mb-5">
-                            <!-- 详细地址-->
+                            <!-- todo 详细地址-->
                             <!-- 可跳转, 跳转至地点介绍? 不对, 地图展示? 会更复杂, 不然先设计跳转至通过地址筛选酒店的列表? 好像可行, 先这么做着 -->
                             <span class="loc"><a href="#"><i class="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
                             <!-- 用户评分 -->
@@ -170,7 +170,7 @@
                                 <!-- 评价数? -->
     							8 Rating</span>
                         </p>
-                        <!-- 主要文本(不太懂原来是写啥的, 到时要修改成介绍酒店属性部分) -->
+                        <!-- todo 主要文本(不太懂原来是写啥的, 到时要修改成介绍酒店属性部分) -->
                         <p>When she reached the first hills of the Italic Mountains, she had a last view back on the
                             skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of
                             her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she
@@ -195,7 +195,7 @@
                             continued her way.</p>
                         <!-- 主要文字部分结束 -->
                     </div>
-                    <!-- 视频介绍? 到时不需要. 看看改成啥 -->
+                    <!-- todo 视频介绍? 到时不需要. 看看改成啥 -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <h4 class="mb-4">Take A Tour</h4>
                         <div class="block-16">
@@ -206,7 +206,78 @@
                             </figure>
                         </div>
                     </div>
-                    <!-- 酒店单间介绍 -->
+                    <!-- todo 检查是否可以预约, 以及预定?? 我们的展示应该是选择好日期再展示酒店房间有无剩余 -->
+                    <!-- 实际上我们的正文部分还是需要修改的 -->
+                    <!-- 格式需要修改 -->
+                    <!-- 使用js发送请求，并刷新客房展示 -->
+                    <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                        <h4 class="mb-5">Check Availability &amp; Booking</h4>
+                        <div class="fields">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+                                <!-- 入店时间 -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control checkin_date" placeholder="Date from">
+                                    </div>
+                                </div>
+                                <!-- 离店时间 -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control checkout_date" placeholder="Date to">
+                                    </div>
+                                </div>
+                                <!-- 旅客数 -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="select-wrap one-third">
+                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                            <select name="" id="" class="form-control" placeholder="Guest">
+                                                <option value="0">Guest</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 小孩数 -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="select-wrap one-third">
+                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                            <select name="" id="" class="form-control" placeholder="Children">
+                                                <option value="0">Children</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Check Availability" class="btn btn-primary py-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- todo
+                             酒店单间介绍
+                             默认按当天入店, 第二天离店搜索可用房间
+                    -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <h4 class="mb-4">Our Rooms</h4>
                         <div class="row">
@@ -243,7 +314,7 @@
                                         <p class="bottom-area d-flex">
                                             <!-- 地址? 为什么房间也有地址??? 搞不懂, 肯定要改 -->
                                             <!-- If: 在这个位置设置显示空房数 -->
-                                            <span><i class="icon-map-o"></i> Miami, Fl</span>
+                                            <span><i class="icon-bed"></i>3</span>
                                             <!-- 预约房间跳转按钮, 跳转预定支付界面 -->
                                             <span class="ml-auto"><a href="#">Book Now</a></span>
                                         </p>
@@ -313,69 +384,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 检查是否可以预约, 以及预定?? 我们的展示应该是选择好日期再展示酒店房间有无剩余 -->
-                    <!-- 实际上我们的正文部分还是需要修改的 -->
-                    <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                        <h4 class="mb-5">Check Availability &amp; Booking</h4>
-                        <div class="fields">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control checkin_date" placeholder="Date from">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control checkout_date" placeholder="Date to">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control" placeholder="Guest">
-                                                <option value="0">Guest</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control" placeholder="Children">
-                                                <option value="0">Children</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="submit" value="Check Availability" class="btn btn-primary py-3">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 评价区, 只有评分, 好怪 -->
+
+                    <!-- todo 评价区, 只有评分, 好怪 -->
                     <!-- 应该设计一个跳转评价按钮, 跳转至Blog-Writing板块, 用于写评价, 当然, 提交完评价要跳回原酒店处. -->
                     <!-- 评价完, 数据库应该自动刷新数据, 同时更新展示数据 -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
@@ -551,15 +561,8 @@
 <!--重用footer-->
 <footer th:replace="~{commons/Footer::webFooter}"></footer>
 
-
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
+<div th:replace="~{commons/Footer::loader}"></div>
 
 <script th:src="@{/asserts/js/jquery.min.js}"></script>
 <script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>

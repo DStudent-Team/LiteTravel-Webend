@@ -48,7 +48,7 @@
             </div>
             <div class="col-md-4">
                 <div class="intro">
-                    <h3><span>02</span> Experience</h3>
+                    root@122.51.98.193<h3><span>02</span> Experience</h3>
                     <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
                         is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
                 </div>
@@ -268,16 +268,8 @@
 <!--重用footer-->
 <footer th:replace="~{commons/Footer::webFooter}"></footer>
 
-
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
-
+<div th:replace="~{commons/Footer::loader}"></div>
 
 <script th:src="@{/asserts/js/jquery.min.js}"></script>
 <script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>

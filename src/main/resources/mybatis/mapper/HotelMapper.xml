@@ -4,7 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.LiteTravel.web.mapper.HotelMapper">
     <select id="getHotels" resultType="Hotel">
-        SELECT * FROM travel_hotel
+        SELECT h.*, m.hotel_comment_count
+        FROM travel_hotel h,
+             (SELECT h.hotel_id, COUNT(1) hotel_comment_count
+              FROM travel_hotel h
+                       LEFT JOIN travel_hotel_manager hm
+                                 ON h.hotel_manager_id = hm.hotel_manager_id
+              GROUP BY h.hotel_id) m
+        WHERE h.hotel_id = m.hotel_id
     </select>
     <select id="getHotelById" resultType="Hotel">
         SELECT * FROM travel_hotel WHERE hotel_id = #{hotelId}
