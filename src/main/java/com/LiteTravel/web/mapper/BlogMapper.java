@@ -5,5 +5,5 @@ import com.LiteTravel.web.po.Blog;
 import java.util.List;
 
 public interface BlogMapper {
-//    public List<Blog> getAllBlog();
+    public List<Blog> getAllBlog();
 }

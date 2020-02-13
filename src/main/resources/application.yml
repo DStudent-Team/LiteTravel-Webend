@@ -75,3 +75,9 @@ logging.level.org.springframework.security: DEBUG
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
+logging:
+  level:
+    com.LiteTravel.web.Mapper: debug
+
+
+# cache配置

@@ -4,6 +4,11 @@ public class Tag {
     public String tagId;
     public String tagName;
 
+    @Override
+    public String toString() {
+        return tagName;
+    }
+
     public String getTagId() {
         return tagId;
     }

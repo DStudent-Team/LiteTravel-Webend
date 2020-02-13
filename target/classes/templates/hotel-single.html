@@ -159,7 +159,7 @@
                         <p class="rate mb-5">
                             <!-- todo 详细地址-->
                             <!-- 可跳转, 跳转至地点介绍? 不对, 地图展示? 会更复杂, 不然先设计跳转至通过地址筛选酒店的列表? 好像可行, 先这么做着 -->
-                            <span class="loc"><a href="#"><i class="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
+                            <span class="loc"><a href="#"><i class="icon-map"></i> [[${hotel.hotelAddress}]]</a></span>
                             <!-- 用户评分 -->
                             <span class="star">
     							<i class="icon-star"></i>
@@ -396,24 +396,24 @@
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate">
-                                                <span>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <!-- 当前分数的评价数 -->
-                                                        100 Ratings
-                                                </span></p>
+                                            <p class="rate"><!-- 当前分数的评价数 -->
+                                                <span><i class="icon-star">
+                                                </i><i class="icon-star">
+                                                </i><i class="icon-star">
+                                                </i><i class="icon-star">
+                                                </i><i class="icon-star">
+                                                </i>100 Ratings</span></p>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                    class="icon-star"></i><i class="icon-star"></i><i
-                                                    class="icon-star-o"></i> 30 Ratings</span></p>
+                                            <p class="rate"><span><i class="icon-star">
+                                            </i><i class="icon-star">
+                                            </i><i class="icon-star">
+                                            </i><i class="icon-star">
+                                            </i><i class="icon-star-o">
+                                            </i> 30 Ratings</span></p>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -474,7 +474,7 @@
                                             </div>
                                         </div>
                                         <!-- 简单介绍 -->
-                                        <p th:text="${relatedHotel.hotelDesc}">Far far away, behind the word mountains,
+                                        <p th:text="${relatedHotel.hotelDescription}">Far far away, behind the word mountains,
                                             far from the countries</p>
                                         <hr>
                                         <p class="bottom-area d-flex">
@@ -484,67 +484,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 剩余酒店单块 -->
-                            <!--<div class="col-md-4">
-                                <div class="destination">
-                                    <a href="hotel-single.html" class="img img-2"
-                                       th:style="'background-image: url(' + @{/img/hotel-2.jpg} + ');'"></a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
-                                            <div class="one">
-                                                <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                <p class="rate">
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star-o"></i>
-                                                    <span>8 Rating</span>
-                                                </p>
-                                            </div>
-                                            <div class="two">
-                                                <span class="price per-price">$40<br><small>/night</small></span>
-                                            </div>
-                                        </div>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                        <hr>
-                                        <p class="bottom-area d-flex">
-                                            <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="destination">
-                                    <a href="hotel-single.html" class="img img-2"
-                                       th:style="'background-image: url(' + @{/img/hotel-3.jpg} + ');'"></a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
-                                            <div class="one">
-                                                <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                <p class="rate">
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star-o"></i>
-                                                    <span>8 Rating</span>
-                                                </p>
-                                            </div>
-                                            <div class="two">
-                                                <span class="price per-price">$40<br><small>/night</small></span>
-                                            </div>
-                                        </div>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                        <hr>
-                                        <p class="bottom-area d-flex">
-                                            <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>-->
                         </div>
                     </div>
 
