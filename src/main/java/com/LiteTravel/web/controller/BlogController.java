@@ -33,11 +33,11 @@ public class BlogController {
         PageInfo<Blog> info = new PageInfo<>(blogs, 5);
 
         model.addAttribute("blogs",blogs);
-        System.out.println(blogs.size());
+/*        System.out.println(blogs.size());
         for (Blog blog: blogs
              ) {
             System.out.println(blog.toString());
-        }
+        }*/
         model.addAttribute("pageInfo", info);
     }
 }
