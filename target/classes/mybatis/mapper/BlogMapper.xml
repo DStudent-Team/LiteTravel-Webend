@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.LiteTravel.web.mapper.BlogMapper">
+    <select id="getAllBlog" resultMap="blogCollection">
+        SELECT p.blog_id,
+               blog_title,
+               blog_post_time,
+               blog_poster_id,
+               blog_like_count,
+               blog_comment_num,
+               blog_img_uri,
+               u.user_name blog_poster_name,
+               blog_comment_num
+        FROM travel_blog p,
+             travel_user_info u,
+             (SELECT parent_id, COUNT(r.parent_id) blog_comment_num
+              FROM travel_blog_comment r
+              WHERE r.parent_type = '0') re
+        WHERE p.blog_poster_id = u.user_id
+        AND  p.blog_id = re.parent_id
+    </select>
+    <resultMap id="blogCollection" type="Blog">
+        <id property="blogId" column="blog_id" jdbcType="INTEGER"/>
+        <result property="blogTitle" column="blog_title" jdbcType="VARCHAR"/>
+        <result property="blogPosterId" column="blog_poster_id" jdbcType="INTEGER"/>
+        <result property="blogPosterName" column="blog_poster_name" jdbcType="VARCHAR"/>
+        <result property="blogPostTime" column="blog_post_time" jdbcType="DATE"/>
+        <result property="blogLikeCount" column="blog_like_count" jdbcType="INTEGER"/>
+        <result property="blogCommentNum" column="blog_comment_num" jdbcType="INTEGER"/>
+        <result property="blogImgUri" column="blog_img_uri" jdbcType="VARCHAR"/>
+        <collection column="{blog_id=blog_id}" property="blogTags" ofType="Tag" select="getAllTags"/>
+    </resultMap>
+    <select id="getAllTags" resultMap="tagCollection">
+        SELECT tag_name
+        FROM travel_blog_tags bt, travel_tag t
+        WHERE bt.tag_id = t.tag_id
+        AND blog_id = #{blog_id, jdbcType = INTEGER}
+    </select>
+    <resultMap id="tagCollection" type="Tag">
+        <result property="tagName" column="tag_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+</mapper>

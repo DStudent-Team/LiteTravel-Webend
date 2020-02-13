@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>navigation</title>
+</head>
+<body>
+    <div class="row mt-5" th:fragment="navigationBar">
+        <div class="col text-center">
+            <div class="block-27">
+                <ul>
+                    <!-- 上一页 -->
+                    <li th:if="${pageInfo.isFirstPage} == false"><a th:href="@{'/' + ${redirect} + '/' + ${pageInfo.getPageNum() - 1}}">&lt;</a></li>
+                    <!-- 展示Navigate跳转页面 -->
+                    <li th:each="pageNum : ${pageInfo.getNavigatepageNums()}"
+                        th:class="${pageInfo.getPageNum() == pageNum?'active':''}">
+                        <a th:href="@{'/'+ ${redirect} +'/' + ${pageNum}}" th:text="${pageNum}"></a>
+                    </li>
+                    <!-- 下一页 -->
+                    <li th:if="${pageInfo.isLastPage} == false"><a th:href="@{'/' + ${redirect} + '/' + ${pageInfo.getPageNum() + 1}}">&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

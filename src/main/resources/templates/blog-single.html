@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Adventure - Free Bootstrap 4 Template by Colorlib</title>
+    <title>轻旅·博客</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -35,11 +35,12 @@
 
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Blog')}"></div>
-
+<!-- 正文部分 -->
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
         <div class="row">
             <div class="col-md-8 ftco-animate">
+                <!-- 标题 -->
                 <h2 class="mb-3">10 Tips For The Traveler</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit,
                     quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro
@@ -47,12 +48,15 @@
                     enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta
                     architecto tempora.</p>
                 <p>
+                    <!-- 图片? -->
                     <img th:src="@{/img/image_7.jpg}" alt="" class="img-fluid">
                 </p>
+
                 <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt
                     doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo
                     eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis
                     ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p>
+
                 <h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
                 <p>Temporibus ad error suscipit exercitationem hic molestiae totam obcaecati rerum, eius aut, in.
                     Exercitationem atque quidem tempora maiores ex architecto voluptatum aut officia doloremque. Error
@@ -79,6 +83,7 @@
                     alias laborum sint dolore. Dolores, iure, reprehenderit. Error provident, pariatur cupiditate soluta
                     doloremque aut ratione. Harum voluptates mollitia illo minus praesentium, rerum ipsa debitis,
                     inventore?</p>
+                <!-- 博客已被标记上的标签 -->
                 <div class="tag-widget post-tag-container mb-5 mt-5">
                     <div class="tagcloud">
                         <a href="#" class="tag-cloud-link">Life</a>
@@ -87,7 +92,7 @@
                         <a href="#" class="tag-cloud-link">Travel</a>
                     </div>
                 </div>
-
+                <!-- 博客发布人介绍块 -->
                 <div class="about-author d-flex p-4 bg-light">
                     <div class="bio mr-5">
                         <img th:src="@{/img/person_1.jpg}" alt="Image placeholder" class="img-fluid mb-4">
@@ -100,15 +105,19 @@
                     </div>
                 </div>
 
-
+                <!-- 回复部分 -->
                 <div class="pt-5 mt-5">
+                    <!-- 回复数 -->
                     <h3 class="mb-5">6 Comments</h3>
                     <ul class="comment-list">
+                        <!-- Level1回复 -->
                         <li class="comment">
                             <div class="vcard bio">
+                                <!-- 回复人头像 -->
                                 <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
                             </div>
                             <div class="comment-body">
+                                <!-- 回复人 -->
                                 <h3>John Doe</h3>
                                 <div class="meta">October 03, 2018 at 2:21pm</div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
@@ -117,7 +126,7 @@
                                 <p><a href="#" class="reply">Reply</a></p>
                             </div>
                         </li>
-
+                        <!-- Level1回复 -->
                         <li class="comment">
                             <div class="vcard bio">
                                 <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
@@ -130,7 +139,7 @@
                                     iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
                                 <p><a href="#" class="reply">Reply</a></p>
                             </div>
-
+                            <!-- Level2回复 -->
                             <ul class="children">
                                 <li class="comment">
                                     <div class="vcard bio">
@@ -146,7 +155,7 @@
                                         <p><a href="#" class="reply">Reply</a></p>
                                     </div>
 
-
+                                    <!-- Level3回复 -->
                                     <ul class="children">
                                         <li class="comment">
                                             <div class="vcard bio">
@@ -161,7 +170,7 @@
                                                     impedit necessitatibus, nihil?</p>
                                                 <p><a href="#" class="reply">Reply</a></p>
                                             </div>
-
+                                            <!-- Level4回复 -->
                                             <ul class="children">
                                                 <li class="comment">
                                                     <div class="vcard bio">
@@ -183,7 +192,7 @@
                                 </li>
                             </ul>
                         </li>
-
+                        <!-- Level1回复 -->
                         <li class="comment">
                             <div class="vcard bio">
                                 <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
@@ -199,10 +208,12 @@
                         </li>
                     </ul>
                     <!-- END comment-list -->
-
+                    <!-- 提交回复列表 -->
                     <div class="comment-form-wrap pt-5">
+                        <!-- 提示 -->
                         <h3 class="mb-5">Leave a comment</h3>
-                        <form action="#" class="p-5 bg-light">
+                        <form th:action="@{/blog/comment/post}" class="p-5 bg-light">
+
                             <div class="form-group">
                                 <label for="name">Name *</label>
                                 <input type="text" class="form-control" id="name">
@@ -229,18 +240,23 @@
                 </div>
 
             </div> <!-- .col-md-8 -->
+            <!-- 右侧栏 -->
             <div class="col-md-4 sidebar ftco-animate">
+                <!-- 搜索栏 -->
                 <div class="sidebar-box">
-                    <form action="#" class="search-form">
+                    <form th:action="@{/blog/search}" class="search-form">
                         <div class="form-group">
                             <span class="icon icon-search"></span>
                             <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
                         </div>
                     </form>
                 </div>
+                <!-- 分类陈列栏 -->
                 <div class="sidebar-box ftco-animate">
                     <div class="categories">
+                        <!-- 提示 -->
                         <h3>Categories</h3>
+                        <!-- 分类，对应分类博客数 -->
                         <li><a href="#">Tour <span>(12)</span></a></li>
                         <li><a href="#">Hotel <span>(22)</span></a></li>
                         <li><a href="#">Coffee <span>(37)</span></a></li>
@@ -249,21 +265,29 @@
                         <li><a href="#">Travel <span>(140)</span></a></li>
                     </div>
                 </div>
-
+                <!-- 博客推荐 -->
                 <div class="sidebar-box ftco-animate">
                     <h3>Recent Blog</h3>
+                    <!-- 推荐博客单块 -->
                     <div class="block-21 mb-4 d-flex">
+                        <!-- 博客图片 -->
                         <a class="blog-img mr-4" th:style="'background-image: url('+@{/img/image_1.jpg}+');'"></a>
                         <div class="text">
+                            <!-- 博客标题 -->
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
                                 blind texts</a></h3>
+                            <!-- 博客属性 -->
                             <div class="meta">
+                                <!-- 发布时间 -->
                                 <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                <!-- 发布人 -->
                                 <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <!-- 评论数 -->
                                 <div><a href="#"><span class="icon-chat"></span> 19</a></div>
                             </div>
                         </div>
                     </div>
+                    <!-- 推荐博客单块结束 -->
                     <div class="block-21 mb-4 d-flex">
                         <a class="blog-img mr-4" th:style="'background-image: url('+@{/img/image_2.jpg}+');'"></a>
                         <div class="text">
@@ -289,7 +313,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- 标签推荐块? -->
                 <div class="sidebar-box ftco-animate">
                     <h3>Tag Cloud</h3>
                     <div class="tagcloud">
@@ -303,7 +327,7 @@
                         <a href="#" class="tag-cloud-link">drinks</a>
                     </div>
                 </div>
-
+                <!-- 最后一小段文字块 -->
                 <div class="sidebar-box ftco-animate">
                     <h3>Paragraph</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus
@@ -324,14 +348,7 @@
 <footer th:replace="~{commons/Footer::webFooter}"></footer>
 
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
-
+<div th:replace="~{commons/Footer::loader}"></div>
 
 <script th:src="@{/asserts/js/jquery.min.js}"></script>
 <script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>

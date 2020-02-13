@@ -26,13 +26,14 @@
     <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
-
 </head>
 <body>
+
 
 <!--重用topBar-->
 <div th:replace="~{commons/bar::topBar(activeUri='Contact')}"></div>
 <!-- END nav -->
+
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Contact')}"></div>
 
@@ -95,14 +96,7 @@
 <footer th:replace="~{commons/Footer::webFooter}"></footer>
 
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
-
+<div th:replace="~{commons/Footer::loader}"></div>
 
 <script th:src="@{/asserts/js/jquery.min.js}"></script>
 <script th:src="@{/asserts/js/jquery-migrate-3.0.1.min.js}"></script>

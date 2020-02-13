@@ -9,24 +9,14 @@ public class Hotel {
     public Integer hotelId;
     public String hotelName;
     public Integer hotelMinPrice;
-    public String hotelDesc;
-    public String hotelTel;
+    public String hotelPhone;
+    public Integer hotelLevel;
+    public String hotelDescription;
     public String hotelAddress;
     public String hotelImgUri;
-
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "hotelId=" + hotelId +
-                ", hotelName='" + hotelName + '\'' +
-                ", hotelMinPrice=" + hotelMinPrice +
-                ", hotelDesc='" + hotelDesc + '\'' +
-                ", hotelTel='" + hotelTel + '\'' +
-                ", hotelAddress='" + hotelAddress + '\'' +
-                ", hotelImgUri='" + hotelImgUri + '\'' +
-                '}';
-    }
-
+    public Integer hotelCommentCount;
+    // 需要添加评论概览数据?
+    //
     public Integer getHotelId() {
         return hotelId;
     }
@@ -51,20 +41,28 @@ public class Hotel {
         this.hotelMinPrice = hotelMinPrice;
     }
 
-    public String getHotelDesc() {
-        return hotelDesc;
+    public String getHotelPhone() {
+        return hotelPhone;
     }
 
-    public void setHotelDesc(String hotelDesc) {
-        this.hotelDesc = hotelDesc;
+    public void setHotelPhone(String hotelPhone) {
+        this.hotelPhone = hotelPhone;
     }
 
-    public String getHotelTel() {
-        return hotelTel;
+    public Integer getHotelLevel() {
+        return hotelLevel;
     }
 
-    public void setHotelTel(String hotelTel) {
-        this.hotelTel = hotelTel;
+    public void setHotelLevel(Integer hotelLevel) {
+        this.hotelLevel = hotelLevel;
+    }
+
+    public String getHotelDescription() {
+        return hotelDescription;
+    }
+
+    public void setHotelDescription(String hotelDescription) {
+        this.hotelDescription = hotelDescription;
     }
 
     public String getHotelAddress() {
@@ -82,4 +80,13 @@ public class Hotel {
     public void setHotelImgUri(String hotelImgUri) {
         this.hotelImgUri = hotelImgUri;
     }
+
+    public Integer getHotelCommentCount() {
+        return hotelCommentCount;
+    }
+
+    public void setHotelCommentCount(Integer hotelCommentCount) {
+        this.hotelCommentCount = hotelCommentCount;
+    }
+
 }

@@ -80,4 +80,20 @@ public class LoginController {
     @GetMapping("/toLogin")
     public String toLogin(){ return "login"; }
 
+
+    @ResponseBody//返回给jsp字符串格式
+    @PostMapping(value = "/checkName")
+    public String checkName(@RequestParam("userCode") String userCode) {
+        String msg;
+        //根据用户名查询是否存在该用户名
+        User user = userMapper.findUserByCode(userCode);
+        //当对象不为空，说明用户名存在
+        if(userCode != null && user == null) {
+            msg = "{\"msg\":\"true\"}";
+        }
+        else {
+            msg = "{\"msg\":\"false\"}";
+        }
+        return msg;
+    }
 }

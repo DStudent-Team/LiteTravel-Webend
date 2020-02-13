@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Adventure - Free Bootstrap 4 Template by Colorlib</title>
+    <title>轻旅·博客</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -26,6 +26,7 @@
     <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
+    <link rel="stylesheet" th:href="@{/asserts/css/Blogs.css}">
 </head>
 <body>
 
@@ -36,28 +37,82 @@
 
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Blog')}"></div>
-
+<!--
+    todo
+        博客列表
+        Po和Mapper已经跟进,
+        尚未测试是否可用,
+        数据库尚未更新属性设计
+ -->
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row d-flex">
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20"
-                       th:style="'background-image: url(' + @{/img/image_1.jpg}+');'">
+            <!-- 博客展示单块 -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate" th:each="blog:${blogs}">
+                <div class="blog-entry align-self-stretch defaultBlockWidth">
+                    <!-- 展示图片 -->
+                    <a th:href="@{'/blog/' + ${blog.blogId}}"
+                       class="block-20"
+                       th:style="'background-image: url(' + @{'/img/' + ${blog.blogImgUri}}+');'">
                     </a>
+                    <!-- 文字概览区 -->
                     <div class="text">
-                        <span class="tag">Tips, Travel</span>
-                        <h3 class="heading mt-3"><a href="#">8 Best homestay in Philippines that you don't miss out</a>
+                        <!-- 标签 -->
+                        <span class="tag"
+                              th:text="${#strings.abbreviate(
+                                         #strings.capitalize(
+                                         #strings.arrayJoin(blog.blogTags, ', ')), 30)}">
+                            Tips, Travel
+                        </span>
+                        <!-- 标题 -->
+                        <h3 class="heading mt-3">
+                            <a th:href="@{'/blog/' + ${blog.blogId}}"
+                               th:text="${#strings.abbreviate(
+                                          #strings.capitalize(blog.blogTitle), 200)}">
+                                8 Best homestay in Philippines that you don't miss out
+                            </a>
                         </h3>
                         <div class="meta mb-3">
-                            <div><a href="#">October 3, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                            <!-- blog发布时间 -->
+                            <div>
+                                <p class="blogCalender" th:text="${#dates.monthName(blog.blogPostTime) + ' ' +
+                                              #dates.day(blog.blogPostTime) + ', ' +
+                                              #dates.year(blog.blogPostTime)}">
+                                October 3, 2018</p>
+                            </div>
+                            <!-- blog发布人 -->
+                            <div><a th:href="@{'/user/' + ${blog.blogPosterId}}"
+                                    th:text="${blog.blogPosterName}">Admin</a>
+                            </div>
+                            <!--
+                                todo
+                                    blog回复数
+                                    直接先跳转至博客页面
+                            -->
+                            <div><a th:href="@{'/blog/' + ${blog.blogId}}"
+                                    class="meta-chat">
+                                <span class="icon-chat"></span> [[${blog.blogCommentNum}]]</a>
+                            </div>
+                            <!-- todo
+                                    点赞数
+                                    可以直接发送点赞请求
+                             -->
+                            <div class="text-right"><p
+                                    class="meta-chat">
+                                <span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</p>
+                            </div>
+                            <!--
+                                todo
+                                    编辑按钮
+                                    判断是否为登陆人发布的blog
+                                    若是, 则展示编辑按钮, 并跳转至编辑页面
+                            -->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 d-flex ftco-animate">
+            <!-- 博客展示单块结束 -->
+<!--            <div class="col-md-4 d-flex ftco-animate">
                 <div class="blog-entry align-self-stretch">
                     <a href="blog-single.html" class="block-20"
                        th:style="'background-image: url('+@{/img/image_2.jpg}+');'">
@@ -142,23 +197,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        </div>-->
     </div>
+
+    <!-- 导航栏 -->
+    <div th:replace="~{commons/navigation::navigationBar(redirect = 'blogs')}"></div>
 </section>
 
 
@@ -170,13 +213,7 @@
 <footer th:replace="~{commons/Footer::webFooter}"></footer>
 
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
+<div th:replace="~{commons/Footer::loader}"></div>
 
 
 <script th:src="@{/asserts/js/jquery.min.js}"></script>
