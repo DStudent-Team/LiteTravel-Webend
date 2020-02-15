@@ -134,7 +134,7 @@
                                     <!-- 点赞 -->
                                     <a href="#" class="reply meta-chat comment-react"><span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</a>
                                     <!-- 回复 -->
-                                    <a href="#" class="reply meta-chat comment-react" onclick=""><span class="icon-chat"></span> 回复 </a>
+                                    <a href="#commentPost" class="reply meta-chat comment-react" onclick=""><span class="icon-chat"></span> 回复 </a>
                                     <!-- 回复时间 -->
                                     <span class="meta float-right" th:text="${#dates.format(comment.commentPostTime, 'dd.MMM.yy')}"></span>
                                 </div>
@@ -241,7 +241,7 @@
                     </ul>
                     <!-- END comment-list -->
                     <!-- 提交回复列表 -->
-                    <div class="comment-form-wrap pt-5">
+                    <div id="commentPost" class="comment-form-wrap pt-5">
                         <form action="" class="postBox bg-light">
                             <!-- 个人信息简栏：头像+名字 -->
                             <div class="media mt-3">

@@ -116,6 +116,8 @@
                 <div class="pt-5 mt-5">
                     <!-- 回复数 -->
                     <h3 class="mb-5">[[${blog.blogCommentCount}]] Comments</h3>
+                    <!-- 跳跃至回复框 -->
+                    <a href="#commentPost">回复一句!</a>
                     <!-- 回复列表 -->
                     <ul class="comment-list">
                         <!-- Level1回复 -->
@@ -241,7 +243,7 @@
                     </ul>
                     <!-- END comment-list -->
                     <!-- 提交回复列表 -->
-                    <div class="comment-form-wrap pt-5">
+                    <div id="commentPost" class="comment-form-wrap pt-5">
                         <form action="" class="postBox bg-light">
                             <!-- 个人信息简栏：头像+名字 -->
                             <div class="media mt-3">
