@@ -1,7 +1,7 @@
 // 教程Controller案例，当前网站不需要
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.po.Department;
+import com.LiteTravel.web.Model.Department;
 import com.LiteTravel.web.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

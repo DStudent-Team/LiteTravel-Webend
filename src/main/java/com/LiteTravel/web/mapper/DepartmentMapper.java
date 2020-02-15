@@ -1,6 +1,6 @@
 package com.LiteTravel.web.mapper;
 
-import com.LiteTravel.web.po.Department;
+import com.LiteTravel.web.Model.Department;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Collection;

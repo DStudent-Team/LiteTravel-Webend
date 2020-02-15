@@ -1042,6 +1042,14 @@
 
 <script th:src="@{/asserts/js/google-map.js}"></script>
 <script th:src="@{/asserts/js/main.js}"></script>
-
+<script type="text/javascript">
+    window.onload = function () {
+        var closable = window.localStorage.getItem("closable");
+        if(closable === "true"){
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    }
+</script>
 </body>
 </html>

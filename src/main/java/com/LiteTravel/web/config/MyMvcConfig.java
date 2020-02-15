@@ -39,6 +39,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addViewController("/hotels.html").setViewName("hotels");
                 registry.addViewController("/hotel-single.html").setViewName("hotel");
                 registry.addViewController("/blogs.html").setViewName("blogs");
+                registry.addViewController("/blog-single.html").setViewName("blog");
             }
 
             //注册拦截器
@@ -58,6 +59,10 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
                 //图片文件
                 registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/asserts/img/");
+                //css文件
+                registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/asserts/css/");
+                //字体文件
+                registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/asserts/fonts/");
             }
 
         };

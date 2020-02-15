@@ -8,24 +8,25 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
 
-    <link rel="stylesheet" th:href="@{/asserts/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/asserts/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
 
-    <link rel="stylesheet" th:href="@{/asserts/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/asserts/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/asserts/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
 
-    <link rel="stylesheet" th:href="@{/asserts/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
 
-    <link rel="stylesheet" th:href="@{/asserts/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
 
-    <link rel="stylesheet" th:href="@{/asserts/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/asserts/css/jquery.timepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
 
 
-    <link rel="stylesheet" th:href="@{/asserts/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/asserts/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/asserts/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/blog-single.css}">
 </head>
 <body>
 
@@ -35,14 +36,15 @@
 
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Blog')}"></div>
-<!-- 正文部分 -->
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
         <div class="row">
+            <!-- 正文部分 -->
             <div class="col-md-8 ftco-animate">
                 <!-- 标题 -->
-                <h2 class="mb-3">10 Tips For The Traveler</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit,
+                <h2 class="mb-3" th:text="${#strings.capitalize(blog.blogTitle)}">10 Tips For The Traveler</h2>
+                <p th:text="${blog.blogContent}">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit,
                     quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro
                     adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis,
                     enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta
@@ -83,50 +85,80 @@
                     alias laborum sint dolore. Dolores, iure, reprehenderit. Error provident, pariatur cupiditate soluta
                     doloremque aut ratione. Harum voluptates mollitia illo minus praesentium, rerum ipsa debitis,
                     inventore?</p>
-                <!-- 博客已被标记上的标签 -->
+                <!-- 文章正文结束 -->
+
+                <!-- 博客已被标记上的标签列 -->
                 <div class="tag-widget post-tag-container mb-5 mt-5">
                     <div class="tagcloud">
-                        <a href="#" class="tag-cloud-link">Life</a>
-                        <a href="#" class="tag-cloud-link">Sport</a>
-                        <a href="#" class="tag-cloud-link">Tech</a>
-                        <a href="#" class="tag-cloud-link">Travel</a>
+                        <a th:each="tag:${blog.blogTags}"
+                           th:href="@{'/blog/tag/' + ${tag.tagId}}"
+                           class="tag-cloud-link"
+                           th:text="${tag.tagName}">Life</a>
                     </div>
+                </div>
+                <!-- 文章点赞数 -->
+                <div><p class="meta-chat">
+                    <span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</p>
                 </div>
                 <!-- 博客发布人介绍块 -->
                 <div class="about-author d-flex p-4 bg-light">
                     <div class="bio mr-5">
-                        <img th:src="@{/img/person_1.jpg}" alt="Image placeholder" class="img-fluid mb-4">
+                        <img th:src="@{'/img/' + ${userInfo.userAvatarUri}}" alt="Image UserAvatar" class="img-fluid mb-4" width="70px">
                     </div>
                     <div class="desc">
-                        <h3>George Washington</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
-                            necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente
-                            consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                        <h3 th:text="${userInfo.userName}"></h3>
+                        <!-- 用户一句话介绍 -->
+                        <p></p>
                     </div>
                 </div>
 
-                <!-- 回复部分 -->
+                <!-- 回复部分 回复展示和提交回复 -->
                 <div class="pt-5 mt-5">
                     <!-- 回复数 -->
-                    <h3 class="mb-5">6 Comments</h3>
+                    <h3 class="mb-5">[[${blog.blogCommentCount}]] Comments</h3>
+                    <!-- 回复列表 -->
                     <ul class="comment-list">
                         <!-- Level1回复 -->
-                        <li class="comment">
+                        <li class="comment" th:each="comment:${comments}">
                             <div class="vcard bio">
                                 <!-- 回复人头像 -->
-                                <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
+                                <img th:src="@{'/img/' + ${comment.userInfo.userAvatarUri}}" alt="Image placeholder" width="70px">
                             </div>
                             <div class="comment-body">
                                 <!-- 回复人 -->
-                                <h3>John Doe</h3>
-                                <div class="meta">October 03, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                    necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
-                                    iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply">Reply</a></p>
+                                <h3 th:text="${comment.userInfo.userName}">John Doe</h3>
+                                <!-- 回复内容 -->
+                                <p th:text="${comment.commentContent}"></p>
+                                <!-- 对该回复发出回复请求 -->
+                                <div>
+                                    <!-- 点赞 -->
+                                    <a href="#" class="reply meta-chat comment-react"><span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</a>
+                                    <!-- 回复 -->
+                                    <a href="#" class="reply meta-chat comment-react" onclick=""><span class="icon-chat"></span> 回复 </a>
+                                    <!-- 回复时间 -->
+                                    <span class="meta float-right" th:text="${#dates.format(comment.commentPostTime, 'dd.MMM.yy')}"></span>
+                                </div>
                             </div>
+                            <!-- 子回复 -->
+                            <!--<ul class="children" th:each="childComment:${comment.childs}">
+                                <li class="comment">
+                                    <div class="vcard bio">
+                                        <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
+                                    </div>
+                                    <div class="comment-body">
+                                        <h3>John Doe</h3>
+                                        <div class="meta">October 03, 2018 at 2:21pm</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem
+                                            laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe
+                                            enim sapiente iste iure! Quam voluptas earum impedit necessitatibus,
+                                            nihil?</p>
+                                        <p><a href="#" class="reply">Reply</a></p>
+                                    </div>
+                                </li>
+                            </ul>-->
                         </li>
-                        <!-- Level1回复 -->
+                        <!-- 剩余的模版块 -->
+<!--                        &lt;!&ndash; Level1回复 &ndash;&gt;
                         <li class="comment">
                             <div class="vcard bio">
                                 <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
@@ -139,7 +171,7 @@
                                     iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
                                 <p><a href="#" class="reply">Reply</a></p>
                             </div>
-                            <!-- Level2回复 -->
+                            &lt;!&ndash; Level2回复 &ndash;&gt;
                             <ul class="children">
                                 <li class="comment">
                                     <div class="vcard bio">
@@ -155,7 +187,7 @@
                                         <p><a href="#" class="reply">Reply</a></p>
                                     </div>
 
-                                    <!-- Level3回复 -->
+                                    &lt;!&ndash; Level3回复 &ndash;&gt;
                                     <ul class="children">
                                         <li class="comment">
                                             <div class="vcard bio">
@@ -170,7 +202,7 @@
                                                     impedit necessitatibus, nihil?</p>
                                                 <p><a href="#" class="reply">Reply</a></p>
                                             </div>
-                                            <!-- Level4回复 -->
+                                            &lt;!&ndash; Level4回复 &ndash;&gt;
                                             <ul class="children">
                                                 <li class="comment">
                                                     <div class="vcard bio">
@@ -192,7 +224,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- Level1回复 -->
+                        &lt;!&ndash; Level1回复 &ndash;&gt;
                         <li class="comment">
                             <div class="vcard bio">
                                 <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
@@ -205,40 +237,25 @@
                                     iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
                                 <p><a href="#" class="reply">Reply</a></p>
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                     <!-- END comment-list -->
                     <!-- 提交回复列表 -->
                     <div class="comment-form-wrap pt-5">
-                        <!-- 提示 -->
-                        <h3 class="mb-5">Leave a comment</h3>
-                        <form th:action="@{/blog/comment/post}" class="p-5 bg-light">
-
-                            <div class="form-group">
-                                <label for="name">Name *</label>
-                                <input type="text" class="form-control" id="name">
+                        <form action="" class="postBox bg-light">
+                            <!-- 个人信息简栏：头像+名字 -->
+                            <div class="media mt-3">
+                                <img th:src="@{'/img/' + ${session.user.userAvatarUri}}" class="align-self-center mr-3 rounded-circle" width="70px">
+                                <div class="media-body">
+                                    <h4 th:text="${session.user.userName}"></h4>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" class="form-control" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="website">Website</label>
-                                <input type="url" class="form-control" id="website">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                            </div>
-
+                            <input type="hidden" id="blogId" th:value="${blog.blogId}">
+                            <textarea class="form-control postContent" cols="30" id="commentContent" rows="10"></textarea>
+                            <button type="button" class="btn btn-outline-success postButton" onclick="postComment()">回复</button>
                         </form>
                     </div>
                 </div>
-
             </div> <!-- .col-md-8 -->
             <!-- 右侧栏 -->
             <div class="col-md-4 sidebar ftco-animate">
@@ -247,7 +264,7 @@
                     <form th:action="@{/blog/search}" class="search-form">
                         <div class="form-group">
                             <span class="icon icon-search"></span>
-                            <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                            <input id="searchBox" type="text" class="form-control" placeholder="Type a keyword and hit enter">
                         </div>
                     </form>
                 </div>
@@ -257,12 +274,14 @@
                         <!-- 提示 -->
                         <h3>Categories</h3>
                         <!-- 分类，对应分类博客数 -->
-                        <li><a href="#">Tour <span>(12)</span></a></li>
-                        <li><a href="#">Hotel <span>(22)</span></a></li>
-                        <li><a href="#">Coffee <span>(37)</span></a></li>
-                        <li><a href="#">Drinks <span>(42)</span></a></li>
-                        <li><a href="#">Foods <span>(14)</span></a></li>
-                        <li><a href="#">Travel <span>(140)</span></a></li>
+                        <ol>
+                            <li><a href="#">Tour <span>(12)</span></a></li>
+                            <li><a href="#">Hotel <span>(22)</span></a></li>
+                            <li><a href="#">Coffee <span>(37)</span></a></li>
+                            <li><a href="#">Drinks <span>(42)</span></a></li>
+                            <li><a href="#">Foods <span>(14)</span></a></li>
+                            <li><a href="#">Travel <span>(140)</span></a></li>
+                        </ol>
                     </div>
                 </div>
                 <!-- 博客推荐 -->
@@ -301,12 +320,12 @@
                         </div>
                     </div>
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" th:style="'background-image: url('+@{img/image_3.jpg}+');'"></a>
+                        <a class="blog-img mr-4" th:style="'background-image: url(' + @{/img/image_3.jpg} + ');'"></a>
                         <div class="text">
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
                                 blind texts</a></h3>
                             <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                <div><a href="#"><span class="icon-calender"></span> July 12, 2018</a></div>
                                 <div><a href="#"><span class="icon-person"></span> Admin</a></div>
                                 <div><a href="#"><span class="icon-chat"></span> 19</a></div>
                             </div>
@@ -335,7 +354,6 @@
                         similique, inventore eos fugit cupiditate numquam!</p>
                 </div>
             </div>
-
         </div>
     </div>
 </section> <!-- .section -->
@@ -367,6 +385,6 @@
 
 <script th:src="@{/asserts/js/google-map.js}"></script>
 <script th:src="@{/asserts/js/main.js}"></script>
-
+<script th:src="@{/asserts/js/blogSingle.js}"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.LiteTravel.web.mapper;
 
-import com.LiteTravel.web.po.Hotel;
+import com.LiteTravel.web.Model.Hotel;
 
 import java.util.List;
 

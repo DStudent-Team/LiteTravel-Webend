@@ -2,8 +2,8 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.mapper.EmployeeMapper;
-import com.LiteTravel.web.po.Department;
-import com.LiteTravel.web.po.Employee;
+import com.LiteTravel.web.Model.Department;
+import com.LiteTravel.web.Model.Employee;
 import com.LiteTravel.web.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

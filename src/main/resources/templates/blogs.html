@@ -72,6 +72,7 @@
                                 8 Best homestay in Philippines that you don't miss out
                             </a>
                         </h3>
+                        <!-- 附属信息 -->
                         <div class="meta mb-3">
                             <!-- blog发布时间 -->
                             <div>
@@ -81,7 +82,8 @@
                                 October 3, 2018</p>
                             </div>
                             <!-- blog发布人 -->
-                            <div><a th:href="@{'/user/' + ${blog.blogPosterId}}"
+                            <div>
+                                <a th:href="@{'/user/' + ${blog.blogPosterId}}"
                                     th:text="${blog.blogPosterName}">Admin</a>
                             </div>
                             <!--
@@ -89,24 +91,25 @@
                                     blog回复数
                                     直接先跳转至博客页面
                             -->
-                            <div><a th:href="@{'/blog/' + ${blog.blogId}}"
+                            <div class="float-right"><a th:href="@{'/blog/' + ${blog.blogId}}"
                                     class="meta-chat">
-                                <span class="icon-chat"></span> [[${blog.blogCommentNum}]]</a>
+                                <span class="icon-chat"></span> [[${blog.blogCommentCount}]]</a>
                             </div>
                             <!-- todo
                                     点赞数
                                     可以直接发送点赞请求
                              -->
-                            <div class="text-right"><p
-                                    class="meta-chat">
+                            <div class="float-right"><p class="meta-chat">
                                 <span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</p>
                             </div>
-                            <!--
-                                todo
-                                    编辑按钮
-                                    判断是否为登陆人发布的blog
-                                    若是, 则展示编辑按钮, 并跳转至编辑页面
-                            -->
+                            <div>
+                                <!--
+                                    todo
+                                        编辑按钮
+                                        判断是否为登陆人发布的blog
+                                        若是, 则展示编辑按钮, 并跳转至编辑页面
+                                -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,11 +199,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>-->
+            </div>-->
+        </div>
     </div>
 
-    <!-- 导航栏 -->
+    <!-- 页面导航栏 -->
     <div th:replace="~{commons/navigation::navigationBar(redirect = 'blogs')}"></div>
 </section>
 

@@ -23,6 +23,7 @@
 - mybatis
 - mybatis插件
   - pageHelper
+  - mybatis generator
 - Jquery
 ## 已经部署的功能有
 - 登陆&注册
@@ -31,7 +32,7 @@
 - 页面展示全球化
 - 分布式注册
 - 数据增删改查(mybatis)(user) 
-- 数据库存储内容补全(user, user_info, hotel) 
+- 数据库存储内容补全(user, user_info, hotel, blog, comment) 
 - 自定义错误跳转
 - *待补全*
 ## 需要补全的内容还有

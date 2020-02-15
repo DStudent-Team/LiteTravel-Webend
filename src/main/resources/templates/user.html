@@ -49,9 +49,12 @@
                     <input name="_method" th:if="${info}!=null" type="hidden" value="PUT">
                     <!-- id -->
                     <input name="userId" th:if="${info!=null}" th:value="${info.userId}" type="hidden">
-					<!-- AvatarForm -->
-					<input class="form-control" name="avatarUri" placeholder="/avatar.jpg"
-							   th:value="${info}!=null?${info.userAvatarUri}:'/avatar.jpg'" type="hidden">
+					<!-- No idea on how to let it work -->
+                    <!-- AvatarForm -->
+					<input class="form-control"
+                           name="avatarUri"
+                           th:value="${info}!=null?${info.userAvatarUri}:'avatar.jpg'"
+                           type="hidden">
 					<!-- AvatarDisplay -->
 					<div class="text-center" th:if="${info}!=null">
                         <a th:href="@{'/changeAvatar/' + ${info.userId}}">

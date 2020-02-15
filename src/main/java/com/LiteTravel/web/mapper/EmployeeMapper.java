@@ -1,6 +1,6 @@
 package com.LiteTravel.web.mapper;
 
-import com.LiteTravel.web.po.Employee;
+import com.LiteTravel.web.Model.Employee;
 
 import java.util.Collection;
 

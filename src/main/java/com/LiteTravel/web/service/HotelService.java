@@ -1,7 +1,7 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.mapper.HotelMapper;
-import com.LiteTravel.web.po.Hotel;
+import com.LiteTravel.web.Model.Hotel;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

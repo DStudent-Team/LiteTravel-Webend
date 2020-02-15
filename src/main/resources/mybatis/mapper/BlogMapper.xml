@@ -7,19 +7,15 @@
         SELECT p.blog_id,
                blog_title,
                blog_post_time,
+               blog_modify_time,
                blog_poster_id,
-               blog_like_count,
-               blog_comment_num,
                blog_img_uri,
-               u.user_name blog_poster_name,
-               blog_comment_num
+               blog_like_count,
+               blog_comment_count,
+               u.user_name blog_poster_name
         FROM travel_blog p,
-             travel_user_info u,
-             (SELECT parent_id, COUNT(r.parent_id) blog_comment_num
-              FROM travel_blog_comment r
-              WHERE r.parent_type = '0') re
+             travel_user_info u
         WHERE p.blog_poster_id = u.user_id
-        AND  p.blog_id = re.parent_id
     </select>
     <resultMap id="blogCollection" type="Blog">
         <id property="blogId" column="blog_id" jdbcType="INTEGER"/>
@@ -28,18 +24,31 @@
         <result property="blogPosterName" column="blog_poster_name" jdbcType="VARCHAR"/>
         <result property="blogPostTime" column="blog_post_time" jdbcType="DATE"/>
         <result property="blogLikeCount" column="blog_like_count" jdbcType="INTEGER"/>
-        <result property="blogCommentNum" column="blog_comment_num" jdbcType="INTEGER"/>
+        <result property="blogCommentCount" column="blog_comment_count" jdbcType="INTEGER"/>
         <result property="blogImgUri" column="blog_img_uri" jdbcType="VARCHAR"/>
-        <collection column="{blog_id=blog_id}" property="blogTags" ofType="Tag" select="getAllTags"/>
+        <collection column="{blogId=blog_id}" property="blogTags" ofType="Tag" select="getAllTags"/>
     </resultMap>
     <select id="getAllTags" resultMap="tagCollection">
-        SELECT tag_name
+        SELECT t.tag_id, tag_name
         FROM travel_blog_tags bt, travel_tag t
         WHERE bt.tag_id = t.tag_id
-        AND blog_id = #{blog_id, jdbcType = INTEGER}
+        AND blog_id = #{blogId, jdbcType = INTEGER}
     </select>
     <resultMap id="tagCollection" type="Tag">
+        <id property="tagId" column="tag_id" jdbcType="INTEGER"/>
         <result property="tagName" column="tag_name" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <select id="getBlog" resultMap="blogCollection">
+        SELECT *
+        FROM travel_blog p
+        WHERE p.blog_id = #{blogId}
+    </select>
+
+    <insert id="insertBlog" useGeneratedKeys="true" keyProperty="blogId">
+        INSERT INTO travel_blog(blog_title, blog_post_time, blog_modify_time, blog_poster_id,
+                                blog_content, blog_img_uri, blog_like_count, blog_comment_count)
+        VALUES (#{blogTitle}, #{blogPostTime}, #{blogModifyTime}, #{blogPosterId},
+                #{blogContent}, #{blogImgUri}, #{blogLikeCount}, #{blogCommentCount})
+    </insert>
 </mapper>

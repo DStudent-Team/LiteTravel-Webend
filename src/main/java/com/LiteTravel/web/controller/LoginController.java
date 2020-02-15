@@ -1,9 +1,9 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.mapper.UserInfoMapper;
-import com.LiteTravel.web.po.User;
-import com.LiteTravel.web.po.UserInfo;
-import com.LiteTravel.web.mapper.UserMapper;
+import com.LiteTravel.web.DTO.UserDTO;
+import com.LiteTravel.web.Model.User;
+import com.LiteTravel.web.Model.UserInfo;
+import com.LiteTravel.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,27 +11,29 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 @Controller
 public class LoginController {
     @Autowired
-    UserMapper userMapper;
-    @Autowired
-    UserInfoMapper userInfoMapper;
-
+    UserService userService;
     @PostMapping(value = "/user/login")
     public String login(@RequestParam("userCode") String userCode,
                         @RequestParam("userPassword") String userPassword,
                         Map<String, Object> map,
                         HttpSession session){
-        User user = userMapper.findUser(userCode, userPassword);
-        if(!StringUtils.isEmpty(userCode) && user != null) {
-            //获取用户信息
-            Integer userId = user.getUserId();
-            session.setAttribute("userId",
-                    userId);
-            session.setAttribute("userName",
-                    userInfoMapper.findInfoById(userId).getUserName());
+        /* Mybatis Generator 生成的筛选条件器 */
+        List<User> users = userService.checkUserValid(userCode, userPassword);
+        if(!StringUtils.isEmpty(userCode) && users.size() != 0) {
+            // 获取用户信息
+            UserInfo userInfo = userService.selectInfoByUserId(users.get(0).getUserId());
+            // 写入数据至前端页面
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUserId(userInfo.getUserId());
+            userDTO.setUserName(userInfo.getUserName());
+            userDTO.setUserAvatarUri(userInfo.getUserAvatarUri());
+            session.setAttribute("user", userDTO);
             //需要重定向
             return "redirect:/index.html";
         }
@@ -52,18 +54,25 @@ public class LoginController {
          * 此处需要检查注册合理性，重名，重账号等
          * 重账号用js直接Post请求完成
          * */
-        if(userMapper.findUserByCode(userCode) != null)
+//        设置筛选条件 : userCode
+        if(userService.selectByCode(userCode).size() != 0)
             return "redirect:/toRegister";
         User user = new User();
+//        写入账号密码
         user.setUserCode(userCode);
         user.setUserPassword(userPassword);
-        userMapper.insertUser(user);
-        System.out.println(user.getUserId());
+        userService.insert(user);
+//        写入账号信息
         UserInfo userinfo = new UserInfo();
         userinfo.setUserId(user.getUserId());
         userinfo.setUserName(userName);
-        userInfoMapper.insertInfo(userinfo);
-        if(userMapper.findUserByCode(userCode) != null) {
+//        设置信息初始化值
+        userinfo.setUserGender(0);
+        userinfo.setUserBirth(new Date());
+        userinfo.setUserAvatarUri("avatar.jpg");
+        userService.insert(userinfo);
+//        自动跳转登陆
+        if(userService.selectByCode(userCode).size() != 0) {
             login(userCode, userPassword, map, session);
             return "redirect:/index.html";
         }
@@ -81,17 +90,19 @@ public class LoginController {
     public String toLogin(){ return "login"; }
 
 
-    @ResponseBody//返回给jsp字符串格式
+    @ResponseBody//返回给jsp 字符串/json 格式
     @PostMapping(value = "/checkName")
     public String checkName(@RequestParam("userCode") String userCode) {
         String msg;
         //根据用户名查询是否存在该用户名
-        User user = userMapper.findUserByCode(userCode);
+        List<User> users = userService.selectByCode(userCode);
         //当对象不为空，说明用户名存在
-        if(userCode != null && user == null) {
+        if(userCode != null && users.size() != 0)
+        {
             msg = "{\"msg\":\"true\"}";
         }
-        else {
+        else
+        {
             msg = "{\"msg\":\"false\"}";
         }
         return msg;
