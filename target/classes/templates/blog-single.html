@@ -113,9 +113,11 @@
                 </div>
 
                 <!-- 回复部分 回复展示和提交回复 -->
-                <div class="pt-5 mt-5">
+                <div id="commentList" class="pt-5 mt-5">
                     <!-- 回复数 -->
                     <h3 class="mb-5">[[${blog.blogCommentCount}]] Comments</h3>
+                    <!-- 跳跃至回复框 -->
+                    <a href="#commentPost">回复一句!</a>
                     <!-- 回复列表 -->
                     <ul class="comment-list">
                         <!-- Level1回复 -->
@@ -134,7 +136,7 @@
                                     <!-- 点赞 -->
                                     <a href="#" class="reply meta-chat comment-react"><span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</a>
                                     <!-- 回复 -->
-                                    <a href="#commentPost" class="reply meta-chat comment-react" onclick=""><span class="icon-chat"></span> 回复 </a>
+                                    <a href="#" class="reply meta-chat comment-react" onclick=""><span class="icon-chat"></span> 回复 </a>
                                     <!-- 回复时间 -->
                                     <span class="meta float-right" th:text="${#dates.format(comment.commentPostTime, 'dd.MMM.yy')}"></span>
                                 </div>

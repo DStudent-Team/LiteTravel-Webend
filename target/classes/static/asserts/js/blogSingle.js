@@ -23,7 +23,8 @@ function postComment() {
                 alert("回复成功");
                 window.location.reload();
                 $("#commentContent").val("");
-
+                var bottomBox = document.getElementById("commentList");
+                bottomBox.scrollIntoView();  //点击后地址栏url不会变化，可多次点击
             } else {
                 //  回复失败
                 //  未登录, 虽然在这个项目中不会出现, 因为拦截器强制拦截了所有网页.

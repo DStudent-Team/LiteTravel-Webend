@@ -16,7 +16,6 @@ public class BlogService {
         return blogMapper.getBlog(blogId);
     }
 
-
     public List<Blog> selectAll() {
         return blogMapper.getAllBlog();
     }
