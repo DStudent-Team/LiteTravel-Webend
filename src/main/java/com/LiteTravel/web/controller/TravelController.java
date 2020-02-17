@@ -2,8 +2,8 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.mapper.AgencyMapper;
 import com.LiteTravel.web.mapper.LineMapper;
-import com.LiteTravel.web.po.Agency;
-import com.LiteTravel.web.po.Line;
+import com.LiteTravel.web.Model.Agency;
+import com.LiteTravel.web.Model.Line;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

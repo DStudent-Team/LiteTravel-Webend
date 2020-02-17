@@ -1,3 +1,4 @@
+// 自定义报错信息, 在目前的项目中暂未用到
 package com.LiteTravel.web.component;
 
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;

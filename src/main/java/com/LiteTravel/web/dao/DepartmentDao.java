@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.LiteTravel.web.po.Department;
+import com.LiteTravel.web.Model.Department;
 import org.springframework.stereotype.Repository;
 
 

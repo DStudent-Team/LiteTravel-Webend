@@ -39,6 +39,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addViewController("/hotels.html").setViewName("hotels");
                 registry.addViewController("/hotel-single.html").setViewName("hotel");
                 registry.addViewController("/blogs.html").setViewName("blogs");
+                registry.addViewController("/blog-single.html").setViewName("blog");
             }
 
             //注册拦截器
@@ -46,7 +47,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 //此处的ExcludePathPatterns排除特殊关键字被拦截的情况，例如静态资源，登录/注册页面，错误页面等。
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns( "/", "/login.html", "/cover", "/user/login",  "/toRegister/**", "/user/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
+                        .excludePathPatterns( "/", "/login.html", "/cover", "/login",  "/toRegister/**", "/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
             }
 
             //静态文件
@@ -58,6 +59,10 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
                 //图片文件
                 registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/asserts/img/");
+                //css文件
+                registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/asserts/css/");
+                //字体文件
+                registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/asserts/fonts/");
             }
 
         };

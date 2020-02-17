@@ -8,13 +8,13 @@
             value (#{lastName}, #{email}, #{gender}, #{departmentId}, #{birth})
     </insert>
 
-    <select id="getEmployeeById" resultType="com.LiteTravel.web.po.Employee">
+    <select id="getEmployeeById" resultType="com.LiteTravel.web.Model.Employee">
         select *
         from sqlconnect.employee
         where id = #{id}
     </select>
 
-    <select id="getEmployees" resultType="com.LiteTravel.web.po.Employee">
+    <select id="getEmployees" resultType="com.LiteTravel.web.Model.Employee">
         select *
         from sqlconnect.employee
     </select>

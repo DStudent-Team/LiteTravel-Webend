@@ -162,13 +162,15 @@
                             <span class="loc"><a href="#"><i class="icon-map"></i> [[${hotel.hotelAddress}]]</a></span>
                             <!-- 用户评分 -->
                             <span class="star">
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star"></i>
-    							<i class="icon-star-o"></i>
+    							<i class="icon-star"
+                                   th:if="${hotel.hotelReplyLevel}>0"
+                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
+                                </i><i class="icon-star-o"
+                                   th:if="${hotel.hotelReplyLevel}<10"
+                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
+                                </i>
                                 <!-- 评价数? -->
-    							8 Rating</span>
+    							[[${hotelReplyCount}]] Rating</span>
                         </p>
                         <!-- todo 主要文本(不太懂原来是写啥的, 到时要修改成介绍酒店属性部分) -->
                         <p>When she reached the first hills of the Italic Mountains, she had a last view back on the
@@ -214,16 +216,6 @@
                         <h4 class="mb-5">Check Availability &amp; Booking</h4>
                         <div class="fields">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
                                 <!-- 入店时间 -->
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -279,19 +271,22 @@
                              默认按当天入店, 第二天离店搜索可用房间
                     -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+                        <!-- Tips -->
                         <h4 class="mb-4">Our Rooms</h4>
                         <div class="row">
                             <!--Room 单块-->
-                            <div class="col-md-4">
+                            <div class="col-md-4" th:each="room:${hotel.rooms}">
                                 <div class="destination">
                                     <!-- 房间展示单块 -->
-                                    <a href="hotel-single.html" class="img img-2"
+                                    <a th:href="@{'/hotel/' + ${hotel.hotelId} + '/book/' + ${room.roomId}}"
+                                       class="img img-2"
                                        th:style="'background-image: url(' + @{/img/room-4.jpg} + ');'"></a>
                                     <div class="text p-3">
                                         <div class="d-flex">
                                             <div class="one">
                                                 <!-- 房间名 -->
-                                                <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
+                                                <h3><a th:href="@{'/hotel/' + ${hotel.hotelId} + '/book/' + ${room.roomId}}"
+                                                       th:text="${room.roomName}">Hotel, Italy</a></h3>
                                                 <!-- 房间评分? -->
                                                 <p class="rate">
                                                     <i class="icon-star"></i>
@@ -304,25 +299,26 @@
                                             </div>
                                             <!-- 房间价格 -->
                                             <div class="two">
-                                                <span class="price per-price">$40<br><small>/night</small></span>
+                                                <span class="price per-price">$[[${room.roomPrice}]]<br><small>/night</small></span>
                                             </div>
                                         </div>
                                         <!-- 房间介绍 -->
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
+                                        <p th:text="${room.roomDescription}">Far far away, behind the word mountains, far from the countries</p>
                                         <hr>
                                         <!-- 其他属性 -->
                                         <p class="bottom-area d-flex">
                                             <!-- 地址? 为什么房间也有地址??? 搞不懂, 肯定要改 -->
                                             <!-- If: 在这个位置设置显示空房数 -->
-                                            <span><i class="icon-bed"></i>3</span>
+                                            <span><i class="icon-bed"></i>剩余 [[${room.roomRemaining}]] 间</span>
                                             <!-- 预约房间跳转按钮, 跳转预定支付界面 -->
-                                            <span class="ml-auto"><a href="#">Book Now</a></span>
+                                            <span class="ml-auto"><a
+                                                    th:href="@{'/hotel/' + ${hotel.hotelId} + '/book/' + ${room.roomId}}">立即预约</a></span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <!-- 剩余房间单块 -->
-                            <div class="col-md-4">
+<!--                            <div class="col-md-4">
                                 <div class="destination">
                                     <a href="hotel-single.html" class="img img-2"
                                        th:style="'background-image: url(' + @{/img/room-5.jpg} + ');'"></a>
@@ -381,7 +377,7 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
 
