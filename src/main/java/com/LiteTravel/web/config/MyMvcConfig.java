@@ -47,7 +47,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 //此处的ExcludePathPatterns排除特殊关键字被拦截的情况，例如静态资源，登录/注册页面，错误页面等。
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns( "/", "/login.html", "/cover", "/user/login",  "/toRegister/**", "/user/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
+                        .excludePathPatterns( "/", "/login.html", "/cover", "/login",  "/toRegister/**", "/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
             }
 
             //静态文件

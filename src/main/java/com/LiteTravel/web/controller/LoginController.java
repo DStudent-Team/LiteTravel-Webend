@@ -18,7 +18,8 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     UserService userService;
-    @PostMapping(value = "/user/login")
+
+    @PostMapping(value = "/login")
     public String login(@RequestParam("userCode") String userCode,
                         @RequestParam("userPassword") String userPassword,
                         Map<String, Object> map,
@@ -34,8 +35,9 @@ public class LoginController {
             userDTO.setUserName(userInfo.getUserName());
             userDTO.setUserAvatarUri(userInfo.getUserAvatarUri());
             session.setAttribute("user", userDTO);
+
             //需要重定向
-            return "redirect:/index.html";
+            return "redirect:index";
         }
         else{
             map.put("msg","用户名密码错误");
@@ -44,7 +46,7 @@ public class LoginController {
     }
 
     @Transactional
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@RequestParam(name = "userCode") String userCode,
                            @RequestParam(name = "userName") String userName,
                            @RequestParam(name = "userPassword") String userPassword,

@@ -23,7 +23,7 @@ public class UserService {
         userExample.createCriteria()
                 .andUserCodeEqualTo(userCode)
                 .andUserPasswordEqualTo(userPassword)
-                .andUserStateEqualTo("1");
+                .andUserStateEqualTo(1);
         return userMapper.selectByExample(userExample);
     }
     public UserInfo selectInfoByUserId(Integer userId){
