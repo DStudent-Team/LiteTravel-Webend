@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>轻旅·酒店</title>
@@ -163,13 +164,13 @@
                                         <p class="rate">
                                             <!-- 评分星星展示 -->
                                             <i class="icon-star"
-                                               th:if="${hotel.hotelLevel}>0"
-                                               th:each="i:${#numbers.sequence(1, (hotel.hotelLevel / 2))}">
+                                               th:if="${hotel.hotelReplyLevel}>0"
+                                               th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
                                             </i><i class="icon-star-o"
-                                                   th:if="${hotel.hotelLevel}<10"
-                                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelLevel / 2)))}">
+                                                   th:if="${hotel.hotelReplyLevel}<10"
+                                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
                                             </i>
-                                            <span>[[${hotel.hotelCommentCount}]] Rating</span>
+                                            <span>[[${hotel.hotelReplyCount}]] Rating</span>
                                         </p>
                                     </div>
                                     <!-- 价格 格式:($40 /night)-->

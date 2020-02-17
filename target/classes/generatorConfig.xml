@@ -31,6 +31,13 @@
         <!--要生成的表结构-->
         <table tableName="travel_user_account" domainObjectName="User"/>
         <table tableName="travel_user_info" domainObjectName="UserInfo"/>
+        <table tableName="travel_hotel" domainObjectName="Hotel"/>
+        <table tableName="travel_hotel_room" domainObjectName="Room"/>
+        <table tableName="travel_bed" domainObjectName="Bed"/>
+        <table tableName="travel_room_bed" domainObjectName="RoomBedMap"/>
+        <table tableName="travel_blog" domainObjectName="Blog"/>
+        <table tableName="travel_blog_tags" domainObjectName="BlogTagMap"/>
+        <table tableName="travel_tag" domainObjectName="Tag"/>
         <table tableName="travel_blog_comment" domainObjectName="Comment"/>
     </context>
 

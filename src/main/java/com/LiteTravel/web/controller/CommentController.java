@@ -37,8 +37,8 @@ public class CommentController {
 //        写入数据
         Comment comment = new Comment();
         comment.setCommentPosterId(userDTO.getUserId());
-        comment.setParentId(commentCreateDTO.parentId);
-        comment.setParentType(commentCreateDTO.parentType);
+        comment.setParentId(commentCreateDTO.getParentId());
+        comment.setParentType(commentCreateDTO.getParentType());
         comment.setCommentContent(commentCreateDTO.getCommentContent());
         comment.setCommentPostTime(new Date());
         comment.setCommentModifyTime(new Date());

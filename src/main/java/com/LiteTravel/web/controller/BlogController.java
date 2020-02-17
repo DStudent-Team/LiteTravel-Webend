@@ -1,7 +1,7 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.BlogDTO;
 import com.LiteTravel.web.DTO.CommentDTO;
-import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.service.BlogService;
 import com.LiteTravel.web.service.CommentService;
@@ -36,8 +36,8 @@ public class BlogController {
     }
     private void setBlogPage(Integer page, ModelMap model){
         PageHelper.startPage(page, 6);
-        List<Blog> blogs = blogService.selectAll();
-        PageInfo<Blog> info = new PageInfo<>(blogs, 5);
+        List<BlogDTO> blogs = blogService.selectAll();
+        PageInfo<BlogDTO> info = new PageInfo<>(blogs, 5);
 
         model.addAttribute("blogs",blogs);
         model.addAttribute("pageInfo", info);
@@ -45,8 +45,8 @@ public class BlogController {
     @GetMapping("/blog/{blogId}")
     public String BlogInfoPage(@PathVariable("blogId") Integer blogId,
                                ModelMap model){
-        Blog blog = blogService.selectByPrimaryId(blogId);
-        UserInfo userInfo = userService.selectInfoByUserId(blog.blogPosterId);
+        BlogDTO blog = blogService.selectByPrimaryId(blogId);
+        UserInfo userInfo = userService.selectInfoByUserId(blog.getBlogPosterId());
 //        todo 获取回复信息
         List<CommentDTO> comments = commentService.listByBlogId(blogId);
 //        todo 获取推荐标签海

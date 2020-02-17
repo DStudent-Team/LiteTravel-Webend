@@ -84,7 +84,7 @@
                             <!-- blog发布人 -->
                             <div>
                                 <a th:href="@{'/user/' + ${blog.blogPosterId}}"
-                                    th:text="${blog.blogPosterName}">Admin</a>
+                                    th:text="${blog.blogPosterInfo.userName}">Admin</a>
                             </div>
                             <!--
                                 todo

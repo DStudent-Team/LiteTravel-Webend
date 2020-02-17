@@ -23,20 +23,21 @@ function postComment() {
                 alert("回复成功");
                 window.location.reload();
                 $("#commentContent").val("");
+                // 定点跳转至指定位置
+                // todo 希望能做成滑动形式
                 var bottomBox = document.getElementById("commentList");
-                bottomBox.scrollIntoView();  //点击后地址栏url不会变化，可多次点击
+                bottomBox.scrollIntoView();
             } else {
                 //  回复失败
                 //  未登录, 虽然在这个项目中不会出现, 因为拦截器强制拦截了所有网页.
                 if (response.code === 2003) {
                     //检测是否点击跳转登陆页面
-                    // todo 做一个跳转页面确实很重要, 但是如何打开登陆页面呢, 这是一个问题
                     var isAccepted = confirm(response.message);
                     if (isAccepted) {
                         //如何跳转至内部服务器的主页呢?
                         //先这样试试, 好像也不是很大问题
                         var win = window.open("http://localhost:8080");
-                        win.localStorage.setItem("closable", true);
+                        win.localStorage.setItem("closable", "true");
                     }
                 }
                 alert(response.message);

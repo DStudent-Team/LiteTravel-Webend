@@ -103,10 +103,10 @@
                 <!-- 博客发布人介绍块 -->
                 <div class="about-author d-flex p-4 bg-light">
                     <div class="bio mr-5">
-                        <img th:src="@{'/img/' + ${userInfo.userAvatarUri}}" alt="Image UserAvatar" class="img-fluid mb-4" width="70px">
+                        <img th:src="@{'/img/' + ${blog.blogPosterInfo.userAvatarUri}}" alt="Image UserAvatar" class="img-fluid mb-4" width="70px">
                     </div>
                     <div class="desc">
-                        <h3 th:text="${userInfo.userName}"></h3>
+                        <h3 th:text="${blog.blogPosterInfo.userName}"></h3>
                         <!-- 用户一句话介绍 -->
                         <p></p>
                     </div>

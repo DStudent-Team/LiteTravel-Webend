@@ -54,12 +54,12 @@ public class CommentService {
             commentMapper.insert(comment);
         }
         else {
-            Blog dbBlog = blogMapper.getBlog(comment.getParentId());
+            Blog dbBlog = blogMapper.selectByPrimaryKey(comment.getParentId());
             if(dbBlog == null)
                 throw new CustomizeException(CustomizeErrorCode.BLOG_NOT_FOUND);
             commentMapper.insert(comment);
             Blog blog = new Blog();
-            blog.setBlogId(dbBlog.blogId);
+            blog.setBlogId(dbBlog.getBlogId());
             blog.setBlogCommentCount(1);
             blogExtMapper.incCommentCount(blog);
         }
@@ -77,8 +77,7 @@ public class CommentService {
             return new ArrayList<>();
         /* 获得所有的UserId, 去掉重复的 */
         Set<Integer> posters = comments.stream().map(Comment::getCommentPosterId).collect(Collectors.toSet());
-        List<Integer> userIds = new ArrayList<>();
-        userIds.addAll(posters);
+        List<Integer> userIds = new ArrayList<>(posters);
         UserInfoExample userInfoExample = new UserInfoExample();
         userInfoExample.createCriteria()
                 .andUserIdIn(userIds);
