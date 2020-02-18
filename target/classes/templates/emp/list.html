@@ -15,7 +15,7 @@
 		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" th:href="@{/asserts/css/dashboard.css}">
+		<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -91,47 +91,10 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" th:src="@{/asserts/js/jquery-3.4.1.slim.min.js}"></script>
-		<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}"></script>
-		<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
-		<!-- Icons -->
-		<script type="text/javascript" th:src="@{/asserts/js/feather.min.js}"></script>
-		<script>
-			feather.replace()
-		</script>
-
-		<!-- Graphs -->
-		<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}"></script>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-					datasets: [{
-						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: false
-							}
-						}]
-					},
-					legend: {
-						display: false,
-					}
-				}
-			});
-		</script>
 
 	</body>
 

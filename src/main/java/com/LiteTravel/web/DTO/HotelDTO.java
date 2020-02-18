@@ -12,7 +12,8 @@ public class HotelDTO {
     private Integer hotelManagerId;
     private String hotelPhone;
     private Integer hotelReplyLevel;
-    private String hotelAddress;
+    private Integer hotelAddress;
+    private String hotelAddressString;
     private String hotelAddressSpecific;
     private String hotelImgUri;
     private Integer hotelReplyCount;

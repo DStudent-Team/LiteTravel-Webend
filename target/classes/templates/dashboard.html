@@ -11,10 +11,10 @@
 
 		<title>轻旅·后台</title>
 		<!-- Bootstrap core CSS -->
-		<link th:href="@{/asserts/css/bootstrap.min.css}" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
-		<link th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<link th:href="@{/css/dashboard.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -82,18 +82,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" th:src="@{/asserts/js/jquery-3.4.1.slim.min.js}" ></script>
-		<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}" ></script>
-		<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/popper.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
 
 		<!-- Icons -->
-		<script type="text/javascript" th:src="@{/asserts/js/feather.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/feather.min.js}" ></script>
 		<script>
 			feather.replace()
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/static/js/Chart.min.js}" ></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {
