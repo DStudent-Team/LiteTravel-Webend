@@ -15,11 +15,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/travel_database?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: root
-    password: root3306
+    password: chao1998
     schema-username: root
-    schema-password: root3306
+    schema-password: chao1998
     data-username: root
-    data-password: root3306
+    data-password: chao1998
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    schema:
     #      - classpath:department.sql
