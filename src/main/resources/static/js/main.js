@@ -317,13 +317,38 @@
   });
 
 
-  $('.checkin_date, .checkout_date').datepicker({
-	  'format': 'm/d/yyyy',
-	  'autoclose': true
+  $('.checkin_date').datepicker({
+	  todayHighlight : true,
+	  startDate : new Date(),
+	  initialDate : new Date(),
+	  'format' : 'yyyy-m-d',
+	  'autoclose' : true,
+	  'type': 'date',
+	  'onSelect' : function (dateText, inst) {
+		  var checkOut = Date.parse($('.checkout_date').val().replace(/-/g, "/"));
+		  var checkIn = Date.parse(dateText.replace(/-/g, "/"));
+		  if(checkOut < checkIn)
+		  {
+			  $('.checkin_date').val(new Date(checkIn - 24 * 60 * 60 * 1000));
+		  }
+	  }
 	});
-
-
-
+  $('.checkout_date').datepicker({
+	  'todayHighlight' : true,
+	  'startDate' : new Date(),
+	  'initialDate' : new Date(),
+	  'format' : 'yyyy-m-d',
+	  'autoclose' : true,
+	  'type': 'date',
+	  'onSelect' : function (dateText, inst) {
+	  	var checkIn = Date.parse($('.checkin_date').val().replace(/-/g, "/"));
+	  	var checkOut = Date.parse(dateText.replace(/-/g, "/"));
+	  	if(checkOut < checkIn)
+	  	{
+	  		$('.checkout_date').val(new Date(checkIn + 24 * 60 * 60 * 1000));
+	  	}
+	  }
+  })
 
 })(jQuery);
 

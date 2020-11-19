@@ -25,6 +25,7 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/hotel-single.css}">
 </head>
 <body>
 
@@ -219,26 +220,32 @@
                                 <!-- 入店时间 -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control checkin_date" placeholder="Date from">
+                                        <!--入住时间，默认为当天-->
+                                        <label for="checkIn">入店时间</label>
+                                        <input id="checkIn" readonly="readonly" type="text" class="form-control checkin_date"
+                                               th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
                                     </div>
                                 </div>
                                 <!-- 离店时间 -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control checkout_date" placeholder="Date to">
+                                        <label for="checkOut">离店时间</label>
+                                        <input id="checkOut" readonly="readonly" type="text" class="form-control checkout_date"
+                                               th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
                                     </div>
                                 </div>
                                 <!-- 旅客数 -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control" placeholder="Guest">
-                                                <option value="0">Guest</option>
+                                            <!--<div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
+                                            <label for="travelers">旅客数</label>
+                                            <select name="travelers" id="travelers" class="form-control" placeholder="Guest">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                         </div>
                                     </div>
@@ -247,13 +254,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="" class="form-control" placeholder="Children">
-                                                <option value="0">Children</option>
+<!--                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
+                                            <label for="children">孩童数</label>
+                                            <select name="children" id="children" class="form-control" placeholder="Children">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                         </div>
                                     </div>
@@ -273,19 +281,22 @@
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <!-- Tips -->
                         <h4 class="mb-4">Our Rooms</h4>
+                        <input type="hidden" id="hotelId" name="hotelId" th:value="${hotel.hotelId}">
+                        <input type="hidden" id="userId" name="userId" th:value="${session.user.userId}">
                         <div class="row">
                             <!--Room 单块-->
                             <div class="col-md-4" th:each="room:${hotel.rooms}">
                                 <div class="destination">
                                     <!-- 房间展示单块 -->
-                                    <a th:href="@{'/hotel/' + ${hotel.hotelId} + '/book/' + ${room.roomId}}"
-                                       class="img img-2"
+                                    <a th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'"
+                                       class="img img-2" type="button"
                                        th:style="'background-image: url(' + @{/img/room-4.jpg} + ');'"></a>
                                     <div class="text p-3">
                                         <div class="d-flex">
                                             <div class="one">
                                                 <!-- 房间名 -->
-                                                <h3><a th:href="@{'/hotel/' + ${hotel.hotelId} + '/book/' + ${room.roomId}}"
+                                                <h3><a th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'"
+                                                       type="button"
                                                        th:text="${room.roomName}">Hotel, Italy</a></h3>
                                                 <!-- 房间评分? -->
                                                 <p class="rate">
@@ -299,6 +310,7 @@
                                             </div>
                                             <!-- 房间价格 -->
                                             <div class="two">
+                                                <input type="hidden" id="price" th:value="${room.roomPrice}">
                                                 <span class="price per-price">$[[${room.roomPrice}]]<br><small>/night</small></span>
                                             </div>
                                         </div>
@@ -311,8 +323,7 @@
                                             <!-- If: 在这个位置设置显示空房数 -->
                                             <span><i class="icon-bed"></i>剩余 [[${room.roomRemaining}]] 间</span>
                                             <!-- 预约房间跳转按钮, 跳转预定支付界面 -->
-                                            <span class="ml-auto"><a
-                                                    th:href="@{'/hotel/' + ${hotel.hotelId} + '/book/' + ${room.roomId}}">立即预约</a></span>
+                                            <span class="ml-auto"><a class="bookRoom" type="button" th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'">立即预约</a></span>
                                         </p>
                                     </div>
                                 </div>
@@ -483,5 +494,6 @@
 
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/hotel-single.js}"></script>
 </body>
 </html>

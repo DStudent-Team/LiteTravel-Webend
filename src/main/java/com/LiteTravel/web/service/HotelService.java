@@ -71,8 +71,8 @@ public class HotelService {
     }
 
     // 展现酒店单页
-    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId")
-    public HotelDTO getHotelById(Integer hotelId){
+    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId + '[' + #roomFlag + ']'")
+    public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag){
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
         HotelDTO hotelDTO = new HotelDTO();
         // 获得基本数据
@@ -85,40 +85,47 @@ public class HotelService {
         if(regions.size() > 0){
             hotelDTO.setHotelAddressString(regions.get(0).getMername());
         }
-        // 获得Room数据
-        RoomExample roomExample = new RoomExample();
-        roomExample.createCriteria()
-                .andHotelIdEqualTo(hotelId);
-        List<Room> rooms = roomMapper.selectByExample(roomExample);
-        List<RoomDTO> roomDTOs = rooms.stream().map(room -> {
-            RoomDTO roomDTO = new RoomDTO();
-            // 写入room 基本数据
-            BeanUtils.copyProperties(room, roomDTO);
-            // 获取roomBedMap
-            RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
-            roomBedMapExample.createCriteria()
-                    .andRoomIdEqualTo(room.getRoomId());
-            List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
-            List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
-            // 获取bed
-            BedExample bedExample = new BedExample();
-            bedExample.createCriteria()
-                    .andBedIdIn(bedIds);
-            List<Bed> bedList = bedMapper.selectByExample(bedExample);
-            // 获取bedCount
-            Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
-            // bed和bedCount写入bedDTO
-            List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
-                BedDTO bedDTO = new BedDTO();
-                BeanUtils.copyProperties(bed, bedDTO);
-                bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
-                return bedDTO;
-            }).collect(Collectors.toList());
-            roomDTO.setBeds(bedDTOs);
-            return roomDTO;
-        }).collect(Collectors.toList());
-        hotelDTO.setRooms(roomDTOs);
+        // 判断是否需要room数据, 借此获得Room数据
+        if(roomFlag){
+            RoomExample roomExample = new RoomExample();
+            roomExample.createCriteria()
+                    .andHotelIdEqualTo(hotelId);
+            List<Room> rooms = roomMapper.selectByExample(roomExample);
+            List<RoomDTO> roomDTOs = rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
+            hotelDTO.setRooms(roomDTOs);
+        }
         return hotelDTO;
     }
 
+    public RoomDTO selectRoomById(Integer roomId){
+        return getRoomDTO(roomMapper.selectByPrimaryKey(roomId));
+    }
+
+    private RoomDTO getRoomDTO(Room room){
+        RoomDTO roomDTO = new RoomDTO();
+        BeanUtils.copyProperties(room, roomDTO);
+
+        // 获取roomBedMap
+        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+        roomBedMapExample.createCriteria()
+                .andRoomIdEqualTo(room.getRoomId());
+        List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
+        List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
+        // 获取bed
+        BedExample bedExample = new BedExample();
+        bedExample.createCriteria()
+                .andBedIdIn(bedIds);
+        List<Bed> bedList = bedMapper.selectByExample(bedExample);
+        // 获取bedCount
+        Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
+        // bed和bedCount写入bedDTO
+        List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
+            BedDTO bedDTO = new BedDTO();
+            BeanUtils.copyProperties(bed, bedDTO);
+            bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
+            return bedDTO;
+        }).collect(Collectors.toList());
+        roomDTO.setBeds(bedDTOs);
+        return roomDTO;
+    }
 }
