@@ -76,8 +76,7 @@ public class CommentService {
         if(comments.size() == 0)
             return new ArrayList<>();
         /* 获得所有的UserId, 去掉重复的 */
-        Set<Integer> posters = comments.stream().map(Comment::getCommentPosterId).collect(Collectors.toSet());
-        List<Integer> userIds = new ArrayList<>(posters);
+        List<Integer> userIds = comments.stream().map(Comment::getCommentPosterId).distinct().collect(Collectors.toList());
         UserInfoExample userInfoExample = new UserInfoExample();
         userInfoExample.createCriteria()
                 .andUserIdIn(userIds);

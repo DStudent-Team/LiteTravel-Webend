@@ -50,8 +50,7 @@ public class BlogService {
         blogTagMapExample.createCriteria()
                 .andBlogIdEqualTo(blog.getBlogId());
         List<BlogTagMap> blogTagMapList = blogTagMapMapper.selectByExample(blogTagMapExample);
-        Set<Integer> tags = blogTagMapList.stream().map(BlogTagMap::getTagId).collect(Collectors.toSet());
-        List<Integer> tagIds = new ArrayList<>(tags);
+        List<Integer> tagIds = blogTagMapList.stream().map(BlogTagMap::getTagId).distinct().collect(Collectors.toList());
         TagExample tagExample = new TagExample();
         tagExample.createCriteria()
                 .andTagIdIn(tagIds);

@@ -9,14 +9,14 @@
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 		<!-- Custom styles for this template -->
-		<link rel="stylesheet" th:href="@{/asserts/css/signin.css}">
+		<link rel="stylesheet" th:href="@{/css/signin.css}">
 
 	</head>
 
 	<body class="text-center">
 
 		<form class="form-signin" th:action="@{/register}" method="post" onsubmit="return checkDuplicate()">
-			<img alt="" class="mb-4" height="72" th:src="@{/asserts/img/bootstrap-solid.svg}" width="72" >
+			<img alt="" class="mb-4" height="72" th:src="@{/static/img/bootstrap-solid.svg}" width="72" >
 
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{register.tip}">Please sign up</h1>
 

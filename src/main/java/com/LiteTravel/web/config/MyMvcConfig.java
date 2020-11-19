@@ -47,7 +47,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 //此处的ExcludePathPatterns排除特殊关键字被拦截的情况，例如静态资源，登录/注册页面，错误页面等。
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns( "/", "/login.html", "/cover", "/login",  "/toRegister/**", "/register", "/checkName", "/static/asserts/**", "/asserts/**", "/webjars/**", "/error");
+                        .excludePathPatterns( "/", "/login.html", "/login",  "/toRegister/**", "/register", "/checkName","/img/**", "/css/**", "/fonts/**", "/js/**", "/static/**", "/webjars/**", "/error");
             }
 
             //静态文件
@@ -58,11 +58,13 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 //webjar文件
                 registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
                 //图片文件
-                registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/asserts/img/");
+                registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
                 //css文件
-                registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/asserts/css/");
+                registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
                 //字体文件
-                registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/asserts/fonts/");
+                registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
+                //js文件
+                registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
             }
 
         };

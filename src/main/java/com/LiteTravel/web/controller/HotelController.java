@@ -66,7 +66,7 @@ public class HotelController {
 
         /* 设置推荐酒店基本信息数据 */
         /* todo 设计推荐算法 */
-        model.addAttribute("relatedHotels", relatedHotels);
+        model.addAttribute("hotels", relatedHotels);
 
         return "hotel-single";
     }

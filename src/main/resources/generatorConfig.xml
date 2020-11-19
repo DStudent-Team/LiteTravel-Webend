@@ -39,6 +39,7 @@
         <table tableName="travel_blog_tags" domainObjectName="BlogTagMap"/>
         <table tableName="travel_tag" domainObjectName="Tag"/>
         <table tableName="travel_blog_comment" domainObjectName="Comment"/>
+        <table tableName="global_region" domainObjectName="Region"/>
     </context>
 
 </generatorConfiguration>

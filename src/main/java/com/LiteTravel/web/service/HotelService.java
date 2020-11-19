@@ -4,20 +4,15 @@ import com.LiteTravel.web.DTO.BedDTO;
 import com.LiteTravel.web.DTO.HotelDTO;
 import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.Model.*;
-import com.LiteTravel.web.mapper.BedMapper;
-import com.LiteTravel.web.mapper.HotelMapper;
-import com.LiteTravel.web.mapper.RoomBedMapMapper;
-import com.LiteTravel.web.mapper.RoomMapper;
+import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +29,9 @@ public class HotelService {
 
     @Autowired
     public BedMapper bedMapper;
+
+    @Autowired
+    public RegionMapper regionMapper;
     // 默认酒店列表
     @Cacheable(cacheNames = {"hotels"}, key = "#page")
     public List<HotelDTO> getHotels(Integer page, Integer pageSize){
@@ -56,9 +54,18 @@ public class HotelService {
          * 参数2: 每页展示几个数据 */
         PageHelper.startPage(page, pageSize);
         List<Hotel> hotels = hotelMapper.selectByExampleWithBLOBs(hotelExample);
+        List<Integer> addressIds = hotels.stream().map(Hotel::getHotelAddress).distinct().collect(Collectors.toList());
+        RegionExample regionExample = new RegionExample();
+        regionExample.createCriteria()
+                .andIdIn(addressIds);
+        List<Region> regions = regionMapper.selectByExample(regionExample);
+        Map<Integer, String> addressMap = regions.stream().collect(Collectors.toMap(Region::getId, Region::getMername));
         return hotels.stream().map(hotel -> {
             HotelDTO hotelDTO = new HotelDTO();
             BeanUtils.copyProperties(hotel, hotelDTO);
+            // 写入地址数据 hotelTotalAddress;
+            String addressString = addressMap.get(hotel.getHotelAddress());
+            hotelDTO.setHotelAddressString(addressString.substring(addressString.indexOf("省,") + 2));
             return hotelDTO;
         }).collect(Collectors.toList());
     }
@@ -70,6 +77,14 @@ public class HotelService {
         HotelDTO hotelDTO = new HotelDTO();
         // 获得基本数据
         BeanUtils.copyProperties(hotel, hotelDTO);
+        // 写入地址信息
+        RegionExample regionExample = new RegionExample();
+        regionExample.createCriteria()
+                .andIdEqualTo(hotel.getHotelAddress());
+        List<Region> regions = regionMapper.selectByExample(regionExample);
+        if(regions.size() > 0){
+            hotelDTO.setHotelAddressString(regions.get(0).getMername());
+        }
         // 获得Room数据
         RoomExample roomExample = new RoomExample();
         roomExample.createCriteria()
@@ -84,8 +99,7 @@ public class HotelService {
             roomBedMapExample.createCriteria()
                     .andRoomIdEqualTo(room.getRoomId());
             List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
-            Set<Integer> bedSet = roomBedMaps.stream().map(RoomBedMapKey::getBedId).collect(Collectors.toSet());
-            List<Integer> bedIds = new ArrayList<>(bedSet);
+            List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
             // 获取bed
             BedExample bedExample = new BedExample();
             bedExample.createCriteria()
