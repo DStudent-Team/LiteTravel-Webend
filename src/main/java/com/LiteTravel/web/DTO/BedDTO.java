@@ -9,4 +9,7 @@ public class BedDTO {
     private String bedName;
     private BigDecimal bedSize;
     private Integer bedCount;
+
+    public void setBedCount(Integer integer) {
+    }
 }

@@ -15,4 +15,7 @@ public class CommentDTO {
     private Integer commentLikeCount;
     private String commentContent;
     private UserInfo userInfo;
+
+    public void setUserInfo(UserInfo userInfo) {
+    }
 }

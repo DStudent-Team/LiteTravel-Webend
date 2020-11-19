@@ -19,4 +19,10 @@ public class HotelDTO {
     private Integer hotelReplyCount;
     private String hotelDescription;
     private List<RoomDTO> rooms;
+
+    public void setHotelAddressString(String substring) {
+    }
+
+    public void setRooms(List<RoomDTO> roomDTOs) {
+    }
 }

@@ -2,9 +2,12 @@ package com.LiteTravel.web.mapper;
 
 import com.LiteTravel.web.Model.Department;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+@Mapper
+@Component
 public interface DepartmentMapper {
     @Select("select * from department where id = #{id}")
     public Department getDepartmentById(Integer id);

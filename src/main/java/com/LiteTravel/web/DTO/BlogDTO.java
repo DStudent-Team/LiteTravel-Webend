@@ -20,4 +20,10 @@ public class BlogDTO {
     private Integer blogCommentCount;
     private String blogContent;
     private List<Tag> blogTags;
+
+    public void setBlogTags(List<Tag> tagList) {
+    }
+
+    public void setBlogPosterInfo(UserInfo userInfo) {
+    }
 }

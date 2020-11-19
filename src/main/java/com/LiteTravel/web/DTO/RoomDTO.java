@@ -21,4 +21,6 @@ public class RoomDTO {
     private String roomDescription;
     private List<BedDTO> beds;
 
+    public void setBeds(List<BedDTO> bedDTOs) {
+    }
 }
