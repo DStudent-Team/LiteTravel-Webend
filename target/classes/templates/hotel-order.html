@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>轻旅·订单</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+
+<!--重用topBar-->
+<div th:replace="~{commons/bar::topBar(activeUri='Hotels')}"></div>
+<!-- END nav -->
+
+
+<div th:replace="~{commons/BG::sectionBG(sectionName='Orders')}"></div>
+
+<section class="ftco-section contact-section ftco-degree-bg">
+    <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="col-md-12 mb-4">
+                <h2 class="h4">订单确认</h2>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-3">
+                <p><span>酒店名称:</span> <span th:text="${hotelOrder.hotel.hotelName}"></span></p>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md align-items-end">
+                    <div class="form-group">
+                        <label for="checkInLabel">入住时间</label>
+                        <div id="checkInLabel" class="form-field">
+                            <div class="icon"><span class="icon-calendar"></span></div>
+                            <input type="text" id="checkIn" class="form-control checkin_date" placeholder="Check In"
+                                   th:value="${hotelOrder.checkIn}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md align-items-end">
+                    <div class="form-group">
+                        <label for="checkOutLabel">离店时间</label>
+                        <div id="checkOutLabel" class="form-field">
+                            <div class="icon"><span class="icon-calendar"></span></div>
+                            <input type="text" id="checkOut" class="form-control checkout_date" placeholder="Check In"
+                                   th:value="${hotelOrder.checkOut}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>旅客人数</label><span class="totalPeople"></span>
+                <input class="addBtn min" type="button" value="-" />
+                <input class="amount" type="text" th:value="${hotelOrder.travelers}" />
+                <input class="addBtn add" type="button" value="+" />
+                <div class="col-md-3">
+                    <label>儿童人数</label><span class="totalPeople"></span>
+                    <input class="childAmount" type="text" th:value="${hotelOrder.children}" />
+                </div>
+            <div>
+                <h5><span>总价</span>[[${hotelOrder.total}]]</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--重用-->
+<div th:replace="~{commons/Footer::subscriber}"></div>
+<!--End Subscribe-->
+
+<!--重用footer-->
+<footer th:replace="~{commons/Footer::webFooter}"></footer>
+
+<!-- loader -->
+<div th:replace="~{commons/Footer::loader}"></div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/hotel-order.js}"></script>
+</body>
+</html>

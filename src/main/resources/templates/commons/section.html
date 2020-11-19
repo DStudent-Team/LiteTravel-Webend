@@ -7,7 +7,9 @@
 <body>
 
 <!-- 酒店展示单块 -->
-<div th:fragment="hotelBlock" th:class="${isIndex}?'col-sm col-md-6 col-lg ftco-animate':'col-sm col-md-6 col-lg-4 ftco-animate'" th:each="hotel,stat:${hotels}">
+<div th:fragment="hotelBlock"
+     th:class="${isIndex}?'col-sm col-md-6 col-lg ftco-animate':'col-sm col-md-6 col-lg-4 ftco-animate'"
+     th:each="hotel,stat:${hotels}">
     <div th:class="${isIndex}?(${stat.odd}?'destination':'destination d-md-flex flex-column-reverse'):'destination'">
         <a th:href="@{'/hotel/' + ${hotel.hotelId}}"
            class="img img-2 d-flex justify-content-center align-items-center"

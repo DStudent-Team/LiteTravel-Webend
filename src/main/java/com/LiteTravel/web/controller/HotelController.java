@@ -1,16 +1,18 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelDTO;
-import com.LiteTravel.web.mapper.HotelMapper;
-import com.LiteTravel.web.Model.Hotel;
+import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.exception.CustomizeErrorCode;
+import com.LiteTravel.web.exception.CustomizeException;
 import com.LiteTravel.web.service.HotelService;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -51,7 +53,7 @@ public class HotelController {
     @GetMapping("/hotel/{hotelId}")
     public String Hotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
         /* 获取酒店基本信息 */
-        HotelDTO hotel = hotelService.getHotelById(hotelId);
+        HotelDTO hotel = hotelService.selectHotelById(hotelId, true);
 
         /* todo 获取酒店具体介绍数据 */
         /* done 获取房间块展示数据 */
@@ -71,4 +73,18 @@ public class HotelController {
         return "hotel-single";
     }
 
+    @PostMapping("/book")
+    @Transactional
+    public String bookHotel(@RequestBody HotelOrderDTO hotelOrderDTO,
+                            ModelMap model){
+        System.out.println(hotelOrderDTO.toString());
+        HotelOrderCreateDTO hotelOrderCreateDTO = new HotelOrderCreateDTO();
+        BeanUtils.copyProperties(hotelOrderDTO, hotelOrderCreateDTO);
+        hotelOrderCreateDTO.setHotel(hotelService.selectHotelById(hotelOrderCreateDTO.getHotelId(), false));
+        hotelOrderCreateDTO.setRoom(hotelService.selectRoomById(hotelOrderCreateDTO.getRoomId()));
+        hotelOrderCreateDTO.setTotal(hotelOrderDTO.getPrice() * hotelOrderDTO.getDays() * hotelOrderDTO.getTravelers());
+        System.out.println(hotelOrderCreateDTO.toString());
+        model.addAttribute("hotelOrder", hotelOrderCreateDTO);
+        return "hotel-order";
+    }
 }
