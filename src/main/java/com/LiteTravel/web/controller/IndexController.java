@@ -19,7 +19,7 @@ public class IndexController {
     @Autowired
     BlogService blogService;
 
-    @GetMapping("/index")
+    @GetMapping(path = {"/index", "/index.html"})
     public String indexPage(ModelMap model){
         /*  获取推荐酒店信息 */
         List<HotelDTO> hotelDTOs = hotelService.getHotels(1, 5);

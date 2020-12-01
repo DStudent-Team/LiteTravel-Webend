@@ -47,10 +47,10 @@ public class BlogController {
                                ModelMap model){
         BlogDTO blog = blogService.selectByPrimaryId(blogId);
         UserInfo userInfo = userService.selectInfoByUserId(blog.getBlogPosterId());
-//        todo 获取回复信息
+        //        todo 获取回复信息
         List<CommentDTO> comments = commentService.listByBlogId(blogId);
-//        todo 获取推荐标签海
-//        todo 获取推荐博客信息
+        //        todo 获取推荐标签海
+        //        todo 获取推荐博客信息
         model.addAttribute("blog", blog);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);

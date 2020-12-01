@@ -29,8 +29,25 @@
              data-scrollax-parent="true">
             <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a th:href="@{/index.html}">Home</a></span> <span th:text="${sectionName}">TEST</span></p>
+                        class="mr-2"><a th:href="@{/index}">Home</a></span> <span th:text="${sectionName}">TEST</span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="${sectionName}">TEST</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/img/bg_1.jpg} + ');'" th:fragment="userBG">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+             data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
+                        class="mr-2"><a th:href="@{/index}">Home</a></span> <span th:text="${userName}">TEST</span></p>
+                <img th:src="@{'/img/' + ${avatar}}" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"
+                     class="align-self-center mr-3 rounded-circle" width="30%">
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="${userName}">TEST</h1>
+                <p class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="个人信息页面">TEST</p>
             </div>
         </div>
     </div>

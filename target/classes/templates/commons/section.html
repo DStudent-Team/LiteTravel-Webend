@@ -8,7 +8,7 @@
 
 <!-- 酒店展示单块 -->
 <div th:fragment="hotelBlock"
-     th:class="${isIndex}?'col-sm col-md-6 col-lg ftco-animate':'col-sm col-md-6 col-lg-4 ftco-animate'"
+     th:class="${isIndex}?'col-sm-12 col-md-6 col-lg ftco-animate':'col-sm-12 col-md-6 col-lg-4 ftco-animate'"
      th:each="hotel,stat:${hotels}">
     <div th:class="${isIndex}?(${stat.odd}?'destination':'destination d-md-flex flex-column-reverse'):'destination'">
         <a th:href="@{'/hotel/' + ${hotel.hotelId}}"
@@ -40,12 +40,12 @@
                     <span class="price per-price">$[[${hotel.hotelMinPrice}]]<br><small>/night</small></span>
                 </div>
             </div>
-            <p th:text="${hotel.hotelDescription}">Far far away, behind the word mountains, far from the countries</p>
+            <p class="textAutoCollapse" th:text="${hotel.hotelDescription}">Far far away, behind the word mountains, far from the countries</p>
+            <span class="rowAutoCollapse"><i class="icon-map-o"></i> [[${hotel.hotelAddressString}]]</span>
             <hr>
-            <p class="bottom-area d-flex">
-                <span><i class="icon-map-o"></i> [[${hotel.hotelAddressString}]]</span>
-                <span class="ml-auto"><a th:href="@{'/hotel/' + ${hotel.hotelId}}">Book Now</a></span>
-            </p>
+            <div class="bottom-area">
+                <a class="btn btn-default btn-primary" th:href="@{'/hotel/' + ${hotel.hotelId}}">Book Now</a>
+            </div>
         </div>
     </div>
 </div>

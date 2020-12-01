@@ -73,18 +73,18 @@ public class HotelController {
         return "hotel-single";
     }
 
-    @PostMapping("/book")
-    @Transactional
-    public String bookHotel(@RequestBody HotelOrderDTO hotelOrderDTO,
-                            ModelMap model){
-        System.out.println(hotelOrderDTO.toString());
-        HotelOrderCreateDTO hotelOrderCreateDTO = new HotelOrderCreateDTO();
-        BeanUtils.copyProperties(hotelOrderDTO, hotelOrderCreateDTO);
-        hotelOrderCreateDTO.setHotel(hotelService.selectHotelById(hotelOrderCreateDTO.getHotelId(), false));
-        hotelOrderCreateDTO.setRoom(hotelService.selectRoomById(hotelOrderCreateDTO.getRoomId()));
-        hotelOrderCreateDTO.setTotal(hotelOrderDTO.getPrice() * hotelOrderDTO.getDays() * hotelOrderDTO.getTravelers());
-        System.out.println(hotelOrderCreateDTO.toString());
-        model.addAttribute("hotelOrder", hotelOrderCreateDTO);
-        return "hotel-order";
-    }
+//    @PostMapping("/hotel/book")
+//    @Transactional
+//    public String bookHotel(@RequestBody HotelOrderDTO hotelOrderDTO,
+//                            ModelMap model){
+//        System.out.println(hotelOrderDTO.toString());
+//        HotelOrderCreateDTO hotelOrderCreateDTO = new HotelOrderCreateDTO();
+//        BeanUtils.copyProperties(hotelOrderDTO, hotelOrderCreateDTO);
+//        hotelOrderCreateDTO.setHotel(hotelService.selectHotelById(hotelOrderCreateDTO.getHotelId(), false));
+//        hotelOrderCreateDTO.setRoom(hotelService.selectRoomById(hotelOrderCreateDTO.getRoomId()));
+//        hotelOrderCreateDTO.setTotal(hotelOrderDTO.getPrice() * hotelOrderDTO.getDays() * hotelOrderDTO.getTravelers());
+//        System.out.println(hotelOrderCreateDTO.toString());
+//        model.addAttribute("hotelOrder", hotelOrderCreateDTO);
+//        return "hotel-order";
+//    }
 }

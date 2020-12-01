@@ -3,9 +3,15 @@ package com.LiteTravel.web.DTO;
 import com.LiteTravel.web.exception.CustomizeErrorCode;
 import com.LiteTravel.web.exception.CustomizeException;
 
-public class ResponseDTO {
+import java.io.Serializable;
+
+public class ResponseDTO<T> implements Serializable {
+    //请求代码
     public Integer code;
+    //请求信息
     public String message;
+    //传输的数据
+    public T data;
 
     public static ResponseDTO errorOf(Integer code, String message){
         ResponseDTO responseDTO = new ResponseDTO();
@@ -31,6 +37,13 @@ public class ResponseDTO {
         responseDTO.setMessage("请求成功");
         return responseDTO;
     }
+    public static ResponseDTO<Object> success(Object object){
+        ResponseDTO<Object> responseDTO = new ResponseDTO<>();
+        responseDTO.setCode(200);
+        responseDTO.setMessage("请求成功");
+        responseDTO.setData(object);
+        return responseDTO;
+    }
 
     public Integer getCode() {
         return code;
@@ -48,4 +61,7 @@ public class ResponseDTO {
         this.message = message;
     }
 
+    public void setData(T data){
+        this.data = data;
+    }
 }
