@@ -1,5 +1,5 @@
 # Lite-Travel-WebApplication
-!image[https://github.com/DStudent-Team/LiteTravel-Webend/blob/master/%E6%A1%A3%E6%A1%88%E6%96%87%E4%BB%B6%E5%A4%B9/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.png]
+!image[](https://github.com/DStudent-Team/LiteTravel-Webend/blob/master/%E6%A1%A3%E6%A1%88%E6%96%87%E4%BB%B6%E5%A4%B9/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84.png)
 **大学生创新创业项目 - 分布式旅行平台下的 前台网站前后端系统**
 # tips:最首要任务目标已经上传至Projects的项目工作表中，可以进行查看
 
