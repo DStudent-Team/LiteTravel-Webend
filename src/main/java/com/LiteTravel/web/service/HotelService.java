@@ -33,12 +33,12 @@ public class HotelService {
     @Autowired
     public RegionMapper regionMapper;
     // 默认酒店列表
-    @Cacheable(cacheNames = {"hotels"}, key = "#page")
+//    @Cacheable(cacheNames = {"hotels"}, key = "#page")
     public List<HotelDTO> getHotels(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelExample());
     }
     // 推荐酒店
-    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
+//    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
     public List<HotelDTO> getHotels(Integer hotelId, Integer page, Integer pageSize)
     {
         HotelExample hotelExample = new HotelExample();
@@ -53,7 +53,7 @@ public class HotelService {
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
         PageHelper.startPage(page, pageSize);
-        List<Hotel> hotels = hotelMapper.selectByExampleWithBLOBs(hotelExample);
+        List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
         List<Integer> addressIds = hotels.stream().map(Hotel::getHotelAddress).distinct().collect(Collectors.toList());
         RegionExample regionExample = new RegionExample();
         regionExample.createCriteria()
@@ -71,7 +71,7 @@ public class HotelService {
     }
 
     // 展现酒店单页
-    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId + '[' + #roomFlag + ']'")
+//    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId + '[' + #roomFlag + ']'")
     public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag){
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
         HotelDTO hotelDTO = new HotelDTO();
@@ -97,10 +97,16 @@ public class HotelService {
         return hotelDTO;
     }
 
-    public RoomDTO selectRoomById(Integer roomId){
+    public RoomDTO getRoomDTO(Integer roomId){
         return getRoomDTO(roomMapper.selectByPrimaryKey(roomId));
     }
 
+    public List<RoomDTO> getRoomDTObyIds(List<Integer> roomIds) {
+        RoomExample roomExample = new RoomExample();
+        roomExample.createCriteria()
+                .andRoomIdIn(roomIds);
+        return getRoomDTOs(roomMapper.selectByExample(roomExample));
+    }
     private RoomDTO getRoomDTO(Room room){
         RoomDTO roomDTO = new RoomDTO();
         BeanUtils.copyProperties(room, roomDTO);
@@ -127,5 +133,8 @@ public class HotelService {
         }).collect(Collectors.toList());
         roomDTO.setBeds(bedDTOs);
         return roomDTO;
+    }
+    private List<RoomDTO> getRoomDTOs(List<Room> rooms){
+        return rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
     }
 }

@@ -39,6 +39,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 registry.addViewController("/hotels.html").setViewName("hotels");
                 registry.addViewController("/hotel-single.html").setViewName("hotel");
                 registry.addViewController("/hotel-order.html").setViewName("book");
+                registry.addViewController("/orders.html").setViewName("orders");
+                registry.addViewController("/order.html").setViewName("order");
                 registry.addViewController("/blogs.html").setViewName("blogs");
                 registry.addViewController("/blog-single.html").setViewName("blog");
                 registry.addViewController("/places.html").setViewName("places");
@@ -54,7 +56,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 //此处的ExcludePathPatterns排除特殊关键字被拦截的情况，例如静态资源，登录/注册页面，错误页面等。
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns( "/", "/login.html", "/login",  "/toRegister/**", "/register", "/checkName","/img/**", "/css/**", "/fonts/**", "/js/**", "/static/**", "/webjars/**", "/error");
+                        .excludePathPatterns( "/", "/login.html", "/login",  "/toRegister/**", "/register", "/checkName","/img/**", "/css/**", "/fonts/**", "/js/**", "/static/**", "/webjars/**", "/error", "/index", "/index.html");
             }
 
             //静态文件

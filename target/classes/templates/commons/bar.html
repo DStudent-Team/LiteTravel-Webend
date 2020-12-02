@@ -148,7 +148,7 @@
 <!-- 目前使用的模版的通用模板块topBar 使用th:replace="~{common/bar::topBar(activeUri=="XXX")}" activeUri为模块内需要使用到的必要参数, 具体赋值看内部构造 -->
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" th:fragment="topBar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/index.html}">轻旅</a>
+        <a class="navbar-brand" th:href="@{/index}">轻旅</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -157,20 +157,26 @@
             <ul class="navbar-nav ml-auto">
                 <li th:class="${activeUri=='Index'?'nav-item active':'nav-item'}">
                     <a th:href="@{/index.html}" class="nav-link">Home</a></li>
-                <li th:class="${activeUri=='About'?'nav-item active':'nav-item'}">
+<!--                <li th:class="${activeUri=='About'?'nav-item active':'nav-item'}">
                     <a th:href="@{/about.html}" class="nav-link">About</a></li>
                 <li th:class="${activeUri=='Flight'?'nav-item active':'nav-item'}">
                     <a th:href="@{/flight.html}" class="nav-link">Flight</a></li>
                 <li th:class="${activeUri=='Places'?'nav-item active':'nav-item'}">
-                    <a th:href="@{/places.html}" class="nav-link">Places</a></li>
+                    <a th:href="@{/places.html}" class="nav-link">Places</a></li>-->
                 <li th:class="${activeUri=='Hotels'?'nav-item active':'nav-item'}">
                     <a th:href="@{/hotels}" class="nav-link">Hotels</a></li>
                 <li th:class="${activeUri=='Blog'?'nav-item active':'nav-item'}">
                     <a th:href="@{/blogs}" class="nav-link">Blog</a></li>
-                <li th:class="${activeUri=='Contact'?'nav-item active':'nav-item'}">
-                    <a th:href="@{/contact.html}" class="nav-link">Contact</a></li>
-                <li th:class="${activeUri=='User'?'nav-item active':'nav-item'}">
-                    <a th:href="@{/user/} + ${session.user.userId}" class="nav-link">[[${session.user.userName}]]</a></li>
+                <li th:if="${session.user != null}"
+                    th:class="${activeUri=='Order'?'nav-item active':'nav-item'}">
+                    <a th:href="@{/orders}" class="nav-link">Order</a></li>
+<!--                <li th:class="${activeUri=='Contact'?'nav-item active':'nav-item'}">
+                    <a th:href="@{/contact.html}" class="nav-link">Contact</a></li>-->
+                <!--用户界面或登陆页面跳转-->
+                <li th:switch="${session.user != null} " th:class="${activeUri=='User'?'nav-item active':'nav-item'}">
+                    <a th:case="true" th:href="@{/user/} + ${session.user.userId}" class="nav-link">[[${session.user.userName}]]</a>
+                    <a th:case="false" th:href="@{/}" class="nav-link">Login</a>
+                </li>
             </ul>
         </div>
     </div>

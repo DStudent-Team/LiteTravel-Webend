@@ -1,31 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·酒店介绍</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
-
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
-
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/hotel-single.css}">
+    <link rel="stylesheet" th:href="@{/css/custom/AutoCollapse.css}">
 </head>
 <body>
 
@@ -221,16 +199,16 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!--入住时间，默认为当天-->
-                                        <label for="checkIn">入店时间</label>
-                                        <input id="checkIn" readonly="readonly" type="text" class="form-control checkin_date"
+                                        <label for="checkInQuery">入店时间</label>
+                                        <input id="checkInQuery" readonly="readonly" type="text" class="form-control checkin_date"
                                                th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
                                     </div>
                                 </div>
                                 <!-- 离店时间 -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="checkOut">离店时间</label>
-                                        <input id="checkOut" readonly="readonly" type="text" class="form-control checkout_date"
+                                        <label for="checkOutQuery">离店时间</label>
+                                        <input id="checkOutQuery" readonly="readonly" type="text" class="form-control checkout_date"
                                                th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
                                     </div>
                                 </div>
@@ -257,6 +235,7 @@
 <!--                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
                                             <label for="children">孩童数</label>
                                             <select name="children" id="children" class="form-control" placeholder="Children">
+                                                <option value="0">0</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -281,22 +260,25 @@
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <!-- Tips -->
                         <h4 class="mb-4">Our Rooms</h4>
-                        <input type="hidden" id="hotelId" name="hotelId" th:value="${hotel.hotelId}">
-                        <input type="hidden" id="userId" name="userId" th:value="${session.user.userId}">
                         <div class="row">
                             <!--Room 单块-->
                             <div class="col-md-4" th:each="room:${hotel.rooms}">
+                                <form th:name="${hotel.hotelId} + 'book' + ${room.roomId}" method="post" th:action="@{/hotel/book}">
+                                <input type="hidden" name="hotelId" th:value="${hotel.hotelId}">
+                                <input type="hidden" name="roomId" th:value="${room.roomId}">
+                                <input type="hidden" name="userId" th:value="${session.user.userId}">
+                                <input type="hidden" name="checkIn" th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
+                                <input type="hidden" name="checkOut" th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
+                                <input type="hidden" name="roomCount" th:value=1>
                                 <div class="destination">
                                     <!-- 房间展示单块 -->
-                                    <a th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'"
-                                       class="img img-2" type="button"
+                                    <a class="img img-2" type="button"
                                        th:style="'background-image: url(' + @{/img/room-4.jpg} + ');'"></a>
                                     <div class="text p-3">
                                         <div class="d-flex">
                                             <div class="one">
                                                 <!-- 房间名 -->
-                                                <h3><a th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'"
-                                                       type="button"
+                                                <h3><a type="button"
                                                        th:text="${room.roomName}">Hotel, Italy</a></h3>
                                                 <!-- 房间评分? -->
                                                 <p class="rate">
@@ -310,7 +292,7 @@
                                             </div>
                                             <!-- 房间价格 -->
                                             <div class="two">
-                                                <input type="hidden" id="price" th:value="${room.roomPrice}">
+                                                <input type="hidden" name="price" th:value="${room.roomPrice}">
                                                 <span class="price per-price">$[[${room.roomPrice}]]<br><small>/night</small></span>
                                             </div>
                                         </div>
@@ -318,15 +300,17 @@
                                         <p th:text="${room.roomDescription}">Far far away, behind the word mountains, far from the countries</p>
                                         <hr>
                                         <!-- 其他属性 -->
-                                        <p class="bottom-area d-flex">
+                                        <p class="bottom-area d-flex ">
                                             <!-- 地址? 为什么房间也有地址??? 搞不懂, 肯定要改 -->
+                                            <!-- 预约房间跳转按钮, 跳转预定支付界面 -->
+<!--                                            <span class="ml-auto"><a class="bookRoom" type="submit" th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'">立即预约</a></span>-->
+                                            <input class="btn" type="submit" value="预定">
                                             <!-- If: 在这个位置设置显示空房数 -->
                                             <span><i class="icon-bed"></i>剩余 [[${room.roomRemaining}]] 间</span>
-                                            <!-- 预约房间跳转按钮, 跳转预定支付界面 -->
-                                            <span class="ml-auto"><a class="bookRoom" type="button" th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'">立即预约</a></span>
                                         </p>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                             <!-- 剩余房间单块 -->
 <!--                            <div class="col-md-4">
@@ -477,23 +461,8 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
 
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/hotel-single.js}"></script>
 </body>
 </html>
