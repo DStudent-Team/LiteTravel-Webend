@@ -8,10 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -123,6 +120,21 @@ public class HotelOrderService {
             hotelOrderDetailMapper.insert(hotelOrderDetail);
         }
         return insertId;
+    }
+    /*
+    * 更新订单
+    * */
+    public int updateHotelOrder(HotelOrder hotelOrder){
+        //支付日期
+        Date pay_date = new Date();
+        HotelOrderExample hotelOrderExample = new HotelOrderExample();
+        hotelOrderExample.createCriteria()
+                .andOrderIdEqualTo(hotelOrder.getOrderId())
+                .andPayDateIsNull()
+                .andStatusEqualTo("0");
+        hotelOrder.setPayDate(pay_date);
+        hotelOrder.setStatus("1");
+        return hotelOrderMapper.updateByExampleSelective(hotelOrder, hotelOrderExample);
     }
 
 }
