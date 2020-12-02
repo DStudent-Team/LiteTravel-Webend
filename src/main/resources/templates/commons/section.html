@@ -50,6 +50,58 @@
     </div>
 </div>
 
+<!-- 订单展示单块 -->
+<div th:fragment="orderBlock"
+     class="col-sm-12 col-md-6 col-lg-4 ftco-animate"
+     th:each="order,stat:${orders}">
+    <div class="destination">
+        <a th:href="@{'/order/' + ${order.orderId}}"
+           class="img img-2 d-flex justify-content-center align-items-center"
+           th:style="'background-image:url(' + @{'/img/' + ${order.hotelImgUri}} + ');'">
+            <div class="icon d-flex justify-content-center align-items-center">
+                <span class="icon-link"></span>
+            </div>
+        </a>
+        <div class="text p-3">
+            <div class="d-flex">
+                <div class="one">
+                    <h3><a th:href="@{'/order/' + ${order.orderId}}"
+                           th:text="${order.hotelName}">New Orleans, Hotel</a></h3>
+                    <!-- 评分(/评级?) -->
+                    <!--仅在已经离店并评价后展示评分-->
+                    <p th:if="${order.status == '4'}" class="rate">
+                        <!-- 评分星星展示 -->
+                        <i class="icon-star"
+                           th:if="${order.replyLevel}>0"
+                           th:each="i:${#numbers.sequence(1, (order.replyLevel / 2))}">
+                        </i><i class="icon-star-o"
+                               th:if="${order.replyLevel}<10"
+                               th:each="j:${#numbers.sequence(1, (5 - (order.replyLevel / 2)))}">
+                    </i>
+                        <span>查看评价</span>
+                    </p>
+                    <p>
+                        <p>入店时间: [[${order.checkIn}]]</p>
+                        <p>入店时间: [[${order.checkOut}]]</p>
+                    </p>
+                </div>
+                <div class="two">
+                    <span class="price per-price">总价$[[${order.total}]]<br>元</span>
+                </div>
+            </div>
+            <hr>
+            <!--各种状态切换按钮-->
+            <div class="bottom-area">
+                <a th:if="${order.status == '0'}" class="btn btn-primary" th:href="@{'/order/pay/' + ${order.orderId}}">支付</a>
+                <a th:if="${order.status == '1'}" class="btn btn-primary" th:href="@{'/order/checkIn/' + ${order.orderId}}">入店确认</a>
+                <a th:if="${order.status == '2'}" class="btn btn-primary" th:href="@{'/order/checkOut/' + ${order.orderId}}">离店确认</a>
+                <a th:if="${order.status == '3'}" class="btn btn-primary" th:href="@{'/order/reply/' + ${order.orderId}}">评价</a>
+                <a th:if="${order.status == '4'}" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">详情</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div th:fragment="blogBlock" class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate" th:each="blog:${blogs}">
     <div class="blog-entry align-self-stretch defaultBlockWidth">
         <!-- 展示图片 -->

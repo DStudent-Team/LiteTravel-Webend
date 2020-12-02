@@ -157,18 +157,21 @@
             <ul class="navbar-nav ml-auto">
                 <li th:class="${activeUri=='Index'?'nav-item active':'nav-item'}">
                     <a th:href="@{/index.html}" class="nav-link">Home</a></li>
-                <li th:class="${activeUri=='About'?'nav-item active':'nav-item'}">
+<!--                <li th:class="${activeUri=='About'?'nav-item active':'nav-item'}">
                     <a th:href="@{/about.html}" class="nav-link">About</a></li>
                 <li th:class="${activeUri=='Flight'?'nav-item active':'nav-item'}">
                     <a th:href="@{/flight.html}" class="nav-link">Flight</a></li>
                 <li th:class="${activeUri=='Places'?'nav-item active':'nav-item'}">
-                    <a th:href="@{/places.html}" class="nav-link">Places</a></li>
+                    <a th:href="@{/places.html}" class="nav-link">Places</a></li>-->
                 <li th:class="${activeUri=='Hotels'?'nav-item active':'nav-item'}">
                     <a th:href="@{/hotels}" class="nav-link">Hotels</a></li>
                 <li th:class="${activeUri=='Blog'?'nav-item active':'nav-item'}">
                     <a th:href="@{/blogs}" class="nav-link">Blog</a></li>
-                <li th:class="${activeUri=='Contact'?'nav-item active':'nav-item'}">
-                    <a th:href="@{/contact.html}" class="nav-link">Contact</a></li>
+                <li th:if="${session.user != null}"
+                    th:class="${activeUri=='Order'?'nav-item active':'nav-item'}">
+                    <a th:href="@{/orders}" class="nav-link">Order</a></li>
+<!--                <li th:class="${activeUri=='Contact'?'nav-item active':'nav-item'}">
+                    <a th:href="@{/contact.html}" class="nav-link">Contact</a></li>-->
                 <!--用户界面或登陆页面跳转-->
                 <li th:switch="${session.user != null} " th:class="${activeUri=='User'?'nav-item active':'nav-item'}">
                     <a th:case="true" th:href="@{/user/} + ${session.user.userId}" class="nav-link">[[${session.user.userName}]]</a>
