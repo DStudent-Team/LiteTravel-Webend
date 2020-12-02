@@ -44,7 +44,7 @@
         <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
         <div class="row block-9">
             <div class="col-md-6 order-md-last pr-md-5">
-                <form method="post" th:action="@{'/hotel/pay/' + ${order.orderId}}">
+                <form method="post" th:action="@{/hotel/pay/}">
                     <input id="orderId" name="orderId" type="hidden" th:value="${order.orderId}">
                     <div class="form-group">
                         <label>用户真实姓名:</label>
@@ -64,7 +64,8 @@
                                   placeholder="Note"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">
+                        <button type="button" onclick="payOrder()" class="btn btn-primary py-3 px-5">支付</button>
+<!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
                         <button type="button" class="btn btn-secondary py-3 px-5" th:href="@{'/order/cancel/' + ${order.orderId}}">取消</button>
                     </div>
                 </form>
@@ -85,6 +86,8 @@
 <div th:replace="~{commons/Footer::loader}"></div>
 
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
+<!--加入订单支付脚本数据-->
+<script th:src="@{/js/hotel-pay.js}"></script>
 
 </body>
 </html>
