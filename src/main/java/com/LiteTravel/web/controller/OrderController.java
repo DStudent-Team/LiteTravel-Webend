@@ -59,6 +59,7 @@ public class OrderController {
             hotelOrderDetailDTO.setRoomName(roomDTO.getRoomName());
             hotelOrderDetailDTO.setRoomWifi(roomDTO.getRoomWifi());
             hotelOrderDetailDTO.setBeds(roomDTO.getBeds());
+
         }).collect(Collectors.toList()));
         System.out.println(hotelOrderInfoDTO.toString());
         model.addAttribute("order", hotelOrderInfoDTO);
