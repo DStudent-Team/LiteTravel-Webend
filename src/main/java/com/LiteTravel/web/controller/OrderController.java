@@ -1,37 +1,67 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelOrderCreateDTO;
-import com.LiteTravel.web.DTO.HotelOrderDTO;
-import com.LiteTravel.web.DTO.ResponseDTO;
+import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
+import com.LiteTravel.web.DTO.HotelOrderInfoDTO;
+import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
-import org.springframework.beans.BeanUtils;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@RestController
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Controller
 public class OrderController {
+    @Autowired
+    HotelService hotelService;
     @Autowired
     HotelOrderService hotelOrderService;
 
-    @Autowired
-    HotelService hotelService;
+    @GetMapping("/orders")
+    public String OrderList(ModelMap model){
+        setPageHotelOrder(1, model);
+        return "orders";
+    }
+    /* 点击页面数切换 分页显示酒店列表 */
+    @GetMapping("/orders/{page}")
+    public String OrderPage(@PathVariable("page") Integer page, ModelMap model){
+        setPageHotelOrder(page, model);
+        return "orders";
+    }
 
-    @PostMapping("/hotel/book")
-    @Transactional
-    public ResponseDTO bookHotel(@RequestBody HotelOrderDTO hotelOrderDTO){
-        System.out.println(hotelOrderDTO.toString());
-        HotelOrderCreateDTO hotelOrderCreateDTO = new HotelOrderCreateDTO();
-        BeanUtils.copyProperties(hotelOrderDTO, hotelOrderCreateDTO);
-        hotelOrderCreateDTO.setHotel(hotelService.selectHotelById(hotelOrderCreateDTO.getHotelId(), false));
-        hotelOrderCreateDTO.setRoom(hotelService.selectRoomById(hotelOrderCreateDTO.getRoomId()));
-        hotelOrderCreateDTO.setTotal(hotelOrderDTO.getPrice() * hotelOrderDTO.getDays() * hotelOrderDTO.getTravelers());
-        System.out.println(hotelOrderCreateDTO.toString());
-//        model.addAttribute("hotelOrder", hotelOrderCreateDTO);
-//        生成订单信息，成功则跳转至订单页面
-        return ResponseDTO.success(hotelOrderCreateDTO);
+    /* 使用PageHelper获得并设置 分页数据 */
+    private void setPageHotelOrder(Integer page, ModelMap model){
+        /* 向service层分发请求处理 */
+        List<HotelOrderBlockDTO> hotelOrders = hotelOrderService.getOrders(page, 6);
+        /* 分页信息类
+         * 参数1：数据集合
+         * 参数2：需要展示的最大导航页数*/
+        PageInfo<HotelOrderBlockDTO> info = new PageInfo<>(hotelOrders, 5);
+        /* 设置筛选页面的筛选项目为Hotel */
+        model.addAttribute("category", "hotel");
+        /* 放入数据 */
+        /* 放入hotel列表数据 */
+        model.addAttribute("orders", hotelOrders);
+        /* 放入页面信息数据 */
+        model.addAttribute("pageInfo", info);
+    }
+    @GetMapping("/order/{orderId}")
+    public String getHotelOrderInfo(@PathVariable("orderId") Integer orderId, ModelMap model){
+        HotelOrderInfoDTO hotelOrderInfoDTO = hotelOrderService.selectByOrderId(orderId);
+        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelOrderInfoDTO.getHotelId(), false));
+        hotelOrderInfoDTO.setRooms(hotelOrderInfoDTO.getRooms().stream().peek(hotelOrderDetailDTO -> {
+            RoomDTO roomDTO = hotelService.getRoomDTO(hotelOrderDetailDTO.getRoomId());
+            hotelOrderDetailDTO.setRoomName(roomDTO.getRoomName());
+            hotelOrderDetailDTO.setRoomWifi(roomDTO.getRoomWifi());
+            hotelOrderDetailDTO.setBeds(roomDTO.getBeds());
+        }).collect(Collectors.toList()));
+        System.out.println(hotelOrderInfoDTO.toString());
+        model.addAttribute("order", hotelOrderInfoDTO);
+        return "order";
     }
 }

@@ -199,16 +199,16 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <!--入住时间，默认为当天-->
-                                        <label for="checkIn">入店时间</label>
-                                        <input id="checkIn" readonly="readonly" type="text" class="form-control checkin_date"
+                                        <label for="checkInQuery">入店时间</label>
+                                        <input id="checkInQuery" readonly="readonly" type="text" class="form-control checkin_date"
                                                th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
                                     </div>
                                 </div>
                                 <!-- 离店时间 -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="checkOut">离店时间</label>
-                                        <input id="checkOut" readonly="readonly" type="text" class="form-control checkout_date"
+                                        <label for="checkOutQuery">离店时间</label>
+                                        <input id="checkOutQuery" readonly="readonly" type="text" class="form-control checkout_date"
                                                th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
                                     </div>
                                 </div>
@@ -264,9 +264,12 @@
                             <!--Room 单块-->
                             <div class="col-md-4" th:each="room:${hotel.rooms}">
                                 <form th:name="${hotel.hotelId} + 'book' + ${room.roomId}" method="post" th:action="@{/hotel/book}">
-                                <input type="hidden" id="hotelId" name="hotelId" th:value="${hotel.hotelId}">
-                                <input type="hidden" id="roomId" name="roomId" th:value="${room.roomId}">
-                                <input type="hidden" id="userId" name="userId" th:value="${session.user.userId}">
+                                <input type="hidden" name="hotelId" th:value="${hotel.hotelId}">
+                                <input type="hidden" name="roomId" th:value="${room.roomId}">
+                                <input type="hidden" name="userId" th:value="${session.user.userId}">
+                                <input type="hidden" name="checkIn" th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
+                                <input type="hidden" name="checkOut" th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
+                                <input type="hidden" name="roomCount" th:value=1>
                                 <div class="destination">
                                     <!-- 房间展示单块 -->
                                     <a class="img img-2" type="button"
@@ -289,7 +292,7 @@
                                             </div>
                                             <!-- 房间价格 -->
                                             <div class="two">
-                                                <input type="hidden" id="price" th:value="${room.roomPrice}">
+                                                <input type="hidden" name="price" th:value="${room.roomPrice}">
                                                 <span class="price per-price">$[[${room.roomPrice}]]<br><small>/night</small></span>
                                             </div>
                                         </div>
@@ -300,8 +303,8 @@
                                         <p class="bottom-area d-flex ">
                                             <!-- 地址? 为什么房间也有地址??? 搞不懂, 肯定要改 -->
                                             <!-- 预约房间跳转按钮, 跳转预定支付界面 -->
-                                            <span class="ml-auto"><a class="bookRoom" type="submit" th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'">立即预约</a></span>
-<!--                                            <input class="btn" type="submit" value="预定">-->
+<!--                                            <span class="ml-auto"><a class="bookRoom" type="submit" th:onclick="'javascript:bookRoom(' + ${room.roomId} + ')'">立即预约</a></span>-->
+                                            <input class="btn" type="submit" value="预定">
                                             <!-- If: 在这个位置设置显示空房数 -->
                                             <span><i class="icon-bed"></i>剩余 [[${room.roomRemaining}]] 间</span>
                                         </p>
@@ -461,56 +464,5 @@
 
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/hotel-single.js}"></script>
-<script type="text/javascript" th:inline="javascript">
-    function bookRoom(roomId) {
-        var checkIn = $('#checkIn').val();
-        var checkOut = $('#checkOut').val();
-        checkIn = new Date(Date.parse(checkIn.replace(/-/g, "/")));
-        checkOut = new Date(Date.parse(checkOut.replace(/-/g, "/")));
-        if(checkIn.length === 0 || checkOut.length === 0){
-            checkOut.setTime(checkOut.getTime() + 24 * 60 * 60 * 1000);
-        }
-        var days = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
-        console.log('Days diff: ' + days);
-        if(days <= 0){
-            alert("输入的时间不正确!");
-            return;
-        }
-        var hotelId = $('#hotelId').val();
-        var userId = $('#userId').val();
-        var travelers = document.getElementById('travelers').value;
-        var children = document.getElementById('children').value;
-        var price = $('#price').val();
-        var successHref= /*[[@{/hotel-order}]]*/"arclist/";
-        $.ajax({
-            url: "/hotel/book",
-            type: "post",
-            data: JSON.stringify({
-                'hotelId' : parseInt(hotelId),
-                'roomId' : parseInt(roomId),
-                'userId' : parseInt(userId),
-                'checkIn' : checkIn,
-                'checkOut' : checkOut,
-                'travelers' : parseInt(travelers),
-                'children' : parseInt(children),
-                'days' : days,
-                'price' : parseFloat(price),
-            }), //json数据格式的用户名从jsp传递给controller
-            dataType: "html",
-            contentType: "application/json", //修改contentType，使@RequestParam可以接收数据。
-            async: false, //让ajax执行代码顺序同步
-            success: function(response){
-                //done
-                console.log(response);
-                location.href = successHref;
-            },
-            error:function (response) {
-                console.log(response);
-                return response
-            }
-        });
-    }
-
-</script>
 </body>
 </html>
