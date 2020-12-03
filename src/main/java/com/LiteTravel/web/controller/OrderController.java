@@ -2,6 +2,7 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
 import com.LiteTravel.web.DTO.HotelOrderInfoDTO;
+import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,11 +39,12 @@ public class OrderController {
     /* 使用PageHelper获得并设置 分页数据 */
     private void setPageHotelOrder(Integer page, ModelMap model){
         /* 向service层分发请求处理 */
-        List<HotelOrderBlockDTO> hotelOrders = hotelOrderService.getOrders(page, 6);
+        ResultVO<HotelOrderBlockDTO> resultVO = hotelOrderService.getOrders(page, 6);
+        List<HotelOrderBlockDTO> hotelOrders = resultVO.resultList;
         /* 分页信息类
          * 参数1：数据集合
          * 参数2：需要展示的最大导航页数*/
-        PageInfo<HotelOrderBlockDTO> info = new PageInfo<>(hotelOrders, 5);
+        PageInfo<HotelOrderBlockDTO> info = resultVO.info;
         /* 设置筛选页面的筛选项目为Hotel */
         model.addAttribute("category", "hotel");
         /* 放入数据 */

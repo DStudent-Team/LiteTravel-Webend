@@ -2,13 +2,14 @@ package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.BedDTO;
 import com.LiteTravel.web.DTO.HotelDTO;
+import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,12 +35,12 @@ public class HotelService {
     public RegionMapper regionMapper;
     // 默认酒店列表
 //    @Cacheable(cacheNames = {"hotels"}, key = "#page")
-    public List<HotelDTO> getHotels(Integer page, Integer pageSize){
+    public ResultVO<HotelDTO> getHotels(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelExample());
     }
     // 推荐酒店
 //    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
-    public List<HotelDTO> getHotels(Integer hotelId, Integer page, Integer pageSize)
+    public ResultVO<HotelDTO> getHotels(Integer hotelId, Integer page, Integer pageSize)
     {
         HotelExample hotelExample = new HotelExample();
 //      todo 推荐算法尚未写好
@@ -48,19 +49,20 @@ public class HotelService {
         return selectByExample(page, pageSize, hotelExample);
     }
 
-    private List<HotelDTO> selectByExample(Integer page, Integer pageSize, HotelExample hotelExample){
+    private ResultVO<HotelDTO> selectByExample(Integer page, Integer pageSize, HotelExample hotelExample){
         /* 分页：
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
         PageHelper.startPage(page, pageSize);
         List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
+        PageInfo<Hotel> info = new PageInfo<>(hotels, 5);
         List<Integer> addressIds = hotels.stream().map(Hotel::getHotelAddress).distinct().collect(Collectors.toList());
         RegionExample regionExample = new RegionExample();
         regionExample.createCriteria()
                 .andIdIn(addressIds);
         List<Region> regions = regionMapper.selectByExample(regionExample);
         Map<Integer, String> addressMap = regions.stream().collect(Collectors.toMap(Region::getId, Region::getMername));
-        return hotels.stream().map(hotel -> {
+        List<HotelDTO> data = hotels.stream().map(hotel -> {
             HotelDTO hotelDTO = new HotelDTO();
             BeanUtils.copyProperties(hotel, hotelDTO);
             // 写入地址数据 hotelTotalAddress;
@@ -68,6 +70,7 @@ public class HotelService {
             hotelDTO.setHotelAddressString(addressString.substring(addressString.indexOf("省,") + 2));
             return hotelDTO;
         }).collect(Collectors.toList());
+        return new ResultVO(data, info);
     }
 
     // 展现酒店单页

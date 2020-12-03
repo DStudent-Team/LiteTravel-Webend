@@ -35,11 +35,12 @@ public class HotelController {
     /* 使用PageHelper获得并设置 分页数据 */
     private void setPageHotel(Integer page, ModelMap model){
         /* 向service层分发请求处理 */
-        List<HotelDTO> hotels = hotelService.getHotels(page, 6);
-        /* 分页信息类
+        ResultVO<HotelDTO> resultVO = hotelService.getHotels(page, 6);
+        List<HotelDTO> hotels = resultVO.resultList;
+         /* 分页信息类
         * 参数1：数据集合
         * 参数2：需要展示的最大导航页数*/
-        PageInfo<HotelDTO> info = new PageInfo<>(hotels, 5);
+        PageInfo<HotelDTO> info = resultVO.info;
         /* 设置筛选页面的筛选项目为Hotel */
 //        model.addAttribute("category", "hotel");
         /* 放入数据 */
@@ -58,7 +59,8 @@ public class HotelController {
         /* done 获取房间块展示数据 */
         /* todo 获取房间可折叠展示块信息 */
 
-        List<HotelDTO> relatedHotels = hotelService.getHotels(hotelId, 1, 3);
+        ResultVO<HotelDTO> resultVO = hotelService.getHotels(hotelId, 1, 3);
+        List<HotelDTO> relatedHotels = resultVO.resultList;
         /* 设置酒店基本信息数据 */
         model.addAttribute("hotel", hotel);
         /* todo 设置酒店具体介绍数据 */
