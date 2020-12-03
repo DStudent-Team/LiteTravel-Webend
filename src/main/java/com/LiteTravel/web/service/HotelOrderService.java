@@ -137,4 +137,36 @@ public class HotelOrderService {
         return hotelOrderMapper.updateByExampleSelective(hotelOrder, hotelOrderExample);
     }
 
+    public int deleteOrder(Integer orderId) {
+        HotelOrderDetailExample hotelOrderDetailExample = new HotelOrderDetailExample();
+        hotelOrderDetailExample.createCriteria()
+                .andOrderIdEqualTo(orderId);
+        int i = hotelOrderDetailMapper.deleteByExample(hotelOrderDetailExample);
+        return i & hotelOrderMapper.deleteByPrimaryKey(orderId);
+    }
+
+    public int confirmOrder(Integer orderId) {
+        HotelOrder hotelOrder = hotelOrderMapper.selectByPrimaryKey(orderId);
+        String status = hotelOrder.getStatus();
+        HotelOrder modified = new HotelOrder();
+        modified.setOrderId(orderId);
+        switch (status){
+            case "1":
+                Date checkIn = new Date();
+                modified.setConfirmCheckIn(checkIn);
+                modified.setStatus("2");
+                break;
+            case "2":
+                Date checkOut = new Date();
+                if (hotelOrder.getConfirmCheckIn() == null){
+                    modified.setConfirmCheckIn(checkOut);
+                }
+                modified.setConfirmCheckOut(checkOut);
+                modified.setStatus("3");
+                break;
+            default:
+                break;
+        }
+        return hotelOrderMapper.updateByPrimaryKeySelective(modified);
+    }
 }

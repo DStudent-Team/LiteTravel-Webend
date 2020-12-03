@@ -1,7 +1,6 @@
 # SpringCloud Service配置
 server:
   port: 8001
-
 #eureka:
 #  instance:
 #    prefer-ip-address: true
@@ -10,6 +9,10 @@ server:
 #      defaultZone: http://localhost:8761/eureka/
 # DataBase配置
 spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   application:
     name: frontend
   datasource:

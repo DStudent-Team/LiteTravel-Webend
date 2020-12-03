@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController
+//@RestController
 public class payController {
     @Autowired
     HotelOrderService hotelOrderService;
 
-    @PostMapping("/order/pay")
+/*    @PostMapping("/order/pay")
     @Transactional
     public ResponseDTO payOrder(@RequestBody HotelOrderPayDTO hotelOrderPayDTO){
         HotelOrder hotelOrder = new HotelOrder();
@@ -30,5 +30,5 @@ public class payController {
         System.out.println(id);
         return ResponseDTO.success(hotelOrderPayDTO.getOrderId());
 
-    }
+    }*/
 }
