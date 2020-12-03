@@ -30,8 +30,7 @@ public class OrderPostController {
     @PostMapping("/book/submit")
     @Transactional
     public ResponseDTO bookHotel(@RequestBody HotelOrderConfirmDTO hotelOrderConfirmDTO){
-//        System.out.println(hotelOrderConfirmDTO.toString());
-//        生成订单信息，成功则跳转至订单页面
+        //生成订单信息，成功则跳转至订单页面
         HotelOrder hotelOrder = new HotelOrder();
         BeanUtils.copyProperties(hotelOrderConfirmDTO, hotelOrder);
         hotelOrder.setStatus("0");
@@ -46,7 +45,6 @@ public class OrderPostController {
         }
 
         Integer orderId = hotelOrderService.insertHotelOrder(hotelOrder, hotelOrderDetails);
-//        Integer orderId = -1;
         return ResponseDTO.success(orderId);
     }
 
