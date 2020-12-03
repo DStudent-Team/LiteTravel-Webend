@@ -23,4 +23,5 @@
 hs_err_pid*
 # Configuration Files
 /.idea/workspace.xml
-.idea/dataSources.xml
+/.idea/dataSources.xml
+/target/

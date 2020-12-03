@@ -42,7 +42,7 @@
             </div>
         </div>
         <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
-        <div class="row block-9">
+        <div th:if="${order.status == '0'}" class="row block-9">
             <div class="col-md-6 order-md-last pr-md-5">
                 <form method="post" th:action="@{/hotel/pay/}">
                     <input id="orderId" name="orderId" type="hidden" th:value="${order.orderId}">
@@ -71,6 +71,10 @@
                 </form>
             </div>
         </div>
+        <div th:if="${order.status == '1'}"><p>已支付，等待用户入住</p></div>
+        <div th:if="${order.status == '2'}"><p>已入住</p></div>
+        <div th:if="${order.status == '3'}"><p>已离店，等待用户评价</p></div>
+        <div th:if="${order.status == '4'}"><p>订单结束</p></div>
     </div>
 </section>
 

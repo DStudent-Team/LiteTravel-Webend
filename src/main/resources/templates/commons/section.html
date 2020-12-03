@@ -92,9 +92,9 @@
             <hr>
             <!--各种状态切换按钮-->
             <div class="bottom-area">
-                <a th:if="${order.status == '0'}" class="btn btn-primary" th:href="@{'/order/pay/' + ${order.orderId}}">支付</a>
-                <a th:if="${order.status == '1'}" class="btn btn-primary" th:href="@{'/order/checkIn/' + ${order.orderId}}">入店确认</a>
-                <a th:if="${order.status == '2'}" class="btn btn-primary" th:href="@{'/order/checkOut/' + ${order.orderId}}">离店确认</a>
+                <a th:if="${order.status == '0'}" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">支付</a>
+                <a th:if="${order.status == '1'}" class="btn btn-outline-info" style="cursor:not-allowed">等待入住</a>
+                <a th:if="${order.status == '2'}" class="btn btn-outline-info" style="cursor:not-allowed">已入住，未离店</a>
                 <a th:if="${order.status == '3'}" class="btn btn-primary" th:href="@{'/order/reply/' + ${order.orderId}}">评价</a>
                 <a th:if="${order.status == '4'}" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">详情</a>
             </div>
