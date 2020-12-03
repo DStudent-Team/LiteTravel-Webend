@@ -1,7 +1,6 @@
 # SpringCloud Service配置
 server:
   port: 8001
-
 #eureka:
 #  instance:
 #    prefer-ip-address: true
@@ -10,16 +9,20 @@ server:
 #      defaultZone: http://localhost:8761/eureka/
 # DataBase配置
 spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   application:
     name: frontend
   datasource:
-    url: jdbc:mysql://localhost:3306/travel_database?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    url: jdbc:mysql://106.52.223.207:3306/travel_database?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: root
-    password: chao1998
-    schema-username: root
-    schema-password: chao1998
-    data-username: root
-    data-password: chao1998
+    password: "#Huang888666"
+#    schema-username: root
+#    schema-password: /#Huang888666
+#    data-username: root
+#    data-password: /#Huang888666
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    schema:
     #      - classpath:department.sql

@@ -43,12 +43,7 @@
             <div class="col-md-8 ftco-animate">
                 <!-- 标题 -->
                 <h2 class="mb-3" th:text="${#strings.capitalize(blog.blogTitle)}">10 Tips For The Traveler</h2>
-                <p th:text="${blog.blogContent}">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit,
-                    quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro
-                    adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis,
-                    enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta
-                    architecto tempora.</p>
+                <p th:text="${blog.blogContent}"></p>
                 <p>
                     <!-- 图片? -->
                     <img th:src="@{/img/image_7.jpg}" alt="" class="img-fluid">
@@ -159,87 +154,6 @@
                                 </li>
                             </ul>-->
                         </li>
-                        <!-- 剩余的模版块 -->
-<!--                        &lt;!&ndash; Level1回复 &ndash;&gt;
-                        <li class="comment">
-                            <div class="vcard bio">
-                                <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3>John Doe</h3>
-                                <div class="meta">October 03, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                    necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
-                                    iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-                            &lt;!&ndash; Level2回复 &ndash;&gt;
-                            <ul class="children">
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>John Doe</h3>
-                                        <div class="meta">October 03, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem
-                                            laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe
-                                            enim sapiente iste iure! Quam voluptas earum impedit necessitatibus,
-                                            nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-
-                                    &lt;!&ndash; Level3回复 &ndash;&gt;
-                                    <ul class="children">
-                                        <li class="comment">
-                                            <div class="vcard bio">
-                                                <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
-                                            </div>
-                                            <div class="comment-body">
-                                                <h3>John Doe</h3>
-                                                <div class="meta">October 03, 2018 at 2:21pm</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
-                                                    quidem laborum necessitatibus, ipsam impedit vitae autem, eum
-                                                    officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                                                    impedit necessitatibus, nihil?</p>
-                                                <p><a href="#" class="reply">Reply</a></p>
-                                            </div>
-                                            &lt;!&ndash; Level4回复 &ndash;&gt;
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="vcard bio">
-                                                        <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <h3>John Doe</h3>
-                                                        <div class="meta">October 03, 2018 at 2:21pm</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Pariatur quidem laborum necessitatibus, ipsam impedit vitae
-                                                            autem, eum officia, fugiat saepe enim sapiente iste iure!
-                                                            Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                        <p><a href="#" class="reply">Reply</a></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        &lt;!&ndash; Level1回复 &ndash;&gt;
-                        <li class="comment">
-                            <div class="vcard bio">
-                                <img th:src="@{/img/person_1.jpg}" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3>John Doe</h3>
-                                <div class="meta">October 03, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                    necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
-                                    iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-                        </li>-->
                     </ul>
                     <!-- END comment-list -->
                     <!-- 提交回复列表 -->

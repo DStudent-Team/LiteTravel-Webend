@@ -4,6 +4,7 @@ import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,44 +30,41 @@ public class HotelOrderService {
     @Autowired
     public RegionMapper regionMapper;
 
-    public List<HotelOrderBlockDTO> getOrders(Integer page, Integer pageSize){
+    public ResultVO<HotelOrderBlockDTO> getOrders(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
 
-    private List<HotelOrderBlockDTO> selectByExample(Integer page, Integer pageSize, HotelOrderExample hotelOrderExample) {
+    private ResultVO selectByExample(Integer page, Integer pageSize, HotelOrderExample hotelOrderExample) {
         /* 分页：
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
         PageHelper.startPage(page, pageSize);
         List<HotelOrder> hotelOrders = hotelOrderMapper.selectByExample(hotelOrderExample);
-        if (hotelOrders.size() > 0){
-            List<Integer> hotelIds = hotelOrders.stream().map(HotelOrder::getHotelId).distinct().collect(Collectors.toList());
-            Map<Integer, String> hotelNameMap;
-            Map<Integer, String> hotelUriMap;
-            if (hotelIds.size() > 0){
-                HotelExample hotelExample = new HotelExample();
-                hotelExample.createCriteria()
-                        .andHotelIdIn(hotelIds);
-                List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
-                hotelNameMap = hotels.stream().collect(Collectors.toMap(Hotel::getHotelId, Hotel::getHotelName));
-                hotelUriMap = hotels.stream().collect(Collectors.toMap(Hotel::getHotelId, Hotel::getHotelImgUri));
-            }else {
-                hotelNameMap = new HashMap<>();
-                hotelUriMap = new HashMap<>();
-            }
-            return hotelOrders.stream().map(hotelOrder -> {
-                HotelOrderBlockDTO hotelOrderDTO = new HotelOrderBlockDTO();
-                BeanUtils.copyProperties(hotelOrder, hotelOrderDTO);
-                String hotelName = hotelNameMap.get(hotelOrder.getHotelId());;
-                String hotelUri = hotelUriMap.get(hotelOrder.getHotelId());
-                hotelOrderDTO.setHotelName(hotelName);
-                hotelOrderDTO.setHotelImgUri(hotelUri);
-                return hotelOrderDTO;
-            }).collect(Collectors.toList());
+        PageInfo<HotelOrder> info = new PageInfo<>(hotelOrders, 5);
+        List<Integer> hotelIds = hotelOrders.stream().map(HotelOrder::getHotelId).distinct().collect(Collectors.toList());
+        Map<Integer, String> hotelNameMap;
+        Map<Integer, String> hotelUriMap;
+        if (hotelIds.size() > 0){
+            HotelExample hotelExample = new HotelExample();
+            hotelExample.createCriteria()
+                    .andHotelIdIn(hotelIds);
+            List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
+            hotelNameMap = hotels.stream().collect(Collectors.toMap(Hotel::getHotelId, Hotel::getHotelName));
+            hotelUriMap = hotels.stream().collect(Collectors.toMap(Hotel::getHotelId, Hotel::getHotelImgUri));
+        }else {
+            hotelNameMap = new HashMap<>();
+            hotelUriMap = new HashMap<>();
         }
-        else {
-            return new ArrayList<>();
-        }
+        List<HotelOrderBlockDTO> data = hotelOrders.stream().map(hotelOrder -> {
+            HotelOrderBlockDTO hotelOrderDTO = new HotelOrderBlockDTO();
+            BeanUtils.copyProperties(hotelOrder, hotelOrderDTO);
+            String hotelName = hotelNameMap.get(hotelOrder.getHotelId());;
+            String hotelUri = hotelUriMap.get(hotelOrder.getHotelId());
+            hotelOrderDTO.setHotelName(hotelName);
+            hotelOrderDTO.setHotelImgUri(hotelUri);
+            return hotelOrderDTO;
+        }).collect(Collectors.toList());
+        return new ResultVO(data, info);
     }
 
 
@@ -137,4 +135,36 @@ public class HotelOrderService {
         return hotelOrderMapper.updateByExampleSelective(hotelOrder, hotelOrderExample);
     }
 
+    public int deleteOrder(Integer orderId) {
+        HotelOrderDetailExample hotelOrderDetailExample = new HotelOrderDetailExample();
+        hotelOrderDetailExample.createCriteria()
+                .andOrderIdEqualTo(orderId);
+        int i = hotelOrderDetailMapper.deleteByExample(hotelOrderDetailExample);
+        return i & hotelOrderMapper.deleteByPrimaryKey(orderId);
+    }
+
+    public int confirmOrder(Integer orderId) {
+        HotelOrder hotelOrder = hotelOrderMapper.selectByPrimaryKey(orderId);
+        String status = hotelOrder.getStatus();
+        HotelOrder modified = new HotelOrder();
+        modified.setOrderId(orderId);
+        switch (status){
+            case "1":
+                Date checkIn = new Date();
+                modified.setConfirmCheckIn(checkIn);
+                modified.setStatus("2");
+                break;
+            case "2":
+                Date checkOut = new Date();
+                if (hotelOrder.getConfirmCheckIn() == null){
+                    modified.setConfirmCheckIn(checkOut);
+                }
+                modified.setConfirmCheckOut(checkOut);
+                modified.setStatus("3");
+                break;
+            default:
+                break;
+        }
+        return hotelOrderMapper.updateByPrimaryKeySelective(modified);
+    }
 }

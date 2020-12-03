@@ -8,11 +8,12 @@
 <body>
 <!-- 模板源自带，跟随教程转放至此 -->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/main.html}" >[[${session.loginUser}]]</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/main.html}" >[[${session.user.userName}]]</a>
     <input aria-label="Search" class="form-control form-control-dark w-100" placeholder="Search"
            th:placeholder="#{bar.search}" type="text">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
+
             <a class="nav-link" href="#" th:href="@{/login}" th:text="#{bar.Signout}">Sign out</a>
         </li>
     </ul>
@@ -33,13 +34,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" th:href="@{/travel/lines}"
-                   th:class="${activeUri=='lines'?'nav-link active':'nav-link'}">
+                <a class="nav-link" href="#" th:href="@{/manage/orders}"
+                   th:class="${activeUri=='orders'?'nav-link active':'nav-link'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                         <polyline points="13 2 13 9 20 9"></polyline>
                     </svg>
-                    [[#{bar.lines}]]
+                    [[#{bar.order}]]
                 </a>
             </li>
             <li class="nav-item">
