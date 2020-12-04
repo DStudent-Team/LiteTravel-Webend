@@ -1,19 +1,23 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
-import com.LiteTravel.web.DTO.HotelOrderInfoDTO;
-import com.LiteTravel.web.DTO.ResultVO;
-import com.LiteTravel.web.DTO.RoomDTO;
+import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
+import javax.xml.transform.Source;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +27,43 @@ public class OrderController {
     HotelService hotelService;
     @Autowired
     HotelOrderService hotelOrderService;
+
+
+    @PostMapping("/order")
+    @Transactional
+    public String bookHotel(@RequestParam("hotelId") Integer hotelId,
+                            @RequestParam("roomId") Integer roomId,
+                            @RequestParam("userId") Integer userId,
+                            @RequestParam("checkIn") String checkIn,
+                            @RequestParam("checkOut") String checkOut,
+                            @RequestParam("roomCount") Integer roomCount,
+                            @RequestParam("price") float price, ModelMap model) throws ParseException {
+        /*应该全部整理进service中去*/
+        HotelOrderInfoDTO hotelOrderInfoDTO = new HotelOrderInfoDTO();
+        hotelOrderInfoDTO.setHotelId(hotelId);
+        hotelOrderInfoDTO.setUserId(userId);
+        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelId, false));
+        hotelOrderInfoDTO.setDetails(hotelService.getHotelOrderDetailByRoomIds(Collections.singletonList(roomId)));
+        for (HotelOrderDetailDTO detail: hotelOrderInfoDTO.getDetails()){
+            detail.setRoomPrice(price);
+            detail.setRoomCount(roomCount);
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
+        Date checkInDate = dateFormat.parse(checkIn);
+        Date checkOutDate = dateFormat.parse(checkOut);
+        hotelOrderInfoDTO.setCheckIn(checkInDate);
+        hotelOrderInfoDTO.setCheckOut(checkOutDate);
+        Integer days = (int)((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));//计算时间
+        hotelOrderInfoDTO.setDays(days);
+        /*总价需重新计算*/
+        float total = 0;
+        for (HotelOrderDetailDTO detail: hotelOrderInfoDTO.getDetails()) {
+            total += detail.getRoomCount() * detail.getRoomPrice();
+        }
+        hotelOrderInfoDTO.setTotal(total);
+        model.addAttribute("order", hotelOrderInfoDTO);
+        return "hotel-order";
+    }
 
     @GetMapping("/orders")
     public String OrderList(ModelMap model){
@@ -55,9 +96,9 @@ public class OrderController {
     }
     @GetMapping("/order/{orderId}")
     public String getHotelOrderInfo(@PathVariable("orderId") Integer orderId, ModelMap model){
-        HotelOrderInfoDTO hotelOrderInfoDTO = hotelOrderService.selectByOrderId(orderId);
+        HotelOrderInfoDTO hotelOrderInfoDTO = hotelOrderService.getHotelOrderInfoById(orderId);
         hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelOrderInfoDTO.getHotelId(), false));
-        hotelOrderInfoDTO.setRooms(hotelOrderInfoDTO.getRooms().stream().peek(hotelOrderDetailDTO -> {
+        hotelOrderInfoDTO.setDetails(hotelOrderInfoDTO.getDetails().stream().peek(hotelOrderDetailDTO -> {
             RoomDTO roomDTO = hotelService.getRoomDTO(hotelOrderDetailDTO.getRoomId());
             hotelOrderDetailDTO.setRoomName(roomDTO.getRoomName());
             hotelOrderDetailDTO.setRoomWifi(roomDTO.getRoomWifi());

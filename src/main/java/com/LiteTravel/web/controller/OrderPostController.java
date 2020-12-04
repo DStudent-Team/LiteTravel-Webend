@@ -26,7 +26,9 @@ public class OrderPostController {
 
     @Autowired
     HotelService hotelService;
-
+    /**
+     * 在发起订单页面 确认订单信息并提交酒店订单业务，申请新订单
+     * **/
     @PostMapping("/book/submit")
     @Transactional
     public ResponseDTO bookHotel(@RequestBody HotelOrderConfirmDTO hotelOrderConfirmDTO){
@@ -43,7 +45,7 @@ public class OrderPostController {
             System.out.println(hotelOrderDetail.toString());
             hotelOrderDetails.add(hotelOrderDetail);
         }
-
+        /*插入新数据*/
         Integer orderId = hotelOrderService.insertHotelOrder(hotelOrder, hotelOrderDetails);
         return ResponseDTO.success(orderId);
     }

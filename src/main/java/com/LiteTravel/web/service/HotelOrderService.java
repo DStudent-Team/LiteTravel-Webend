@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/*要将HotelOrderService整合进HotelService, 高强度耦合*/
 @Service
 public class HotelOrderService {
 
@@ -76,7 +77,7 @@ public class HotelOrderService {
         }).collect(Collectors.toList());
     }
 
-    public HotelOrderInfoDTO selectByOrderId(Integer orderId){
+    public HotelOrderInfoDTO getHotelOrderInfoById(Integer orderId){
         //最终返回的数据类型
         HotelOrderInfoDTO hotelOrderDTO = new HotelOrderInfoDTO();
 
@@ -104,7 +105,7 @@ public class HotelOrderService {
             /*获取房间信息和对应床型数据*/
             return hotelOrderDetailDTO;
         }).collect(Collectors.toList());
-        hotelOrderDTO.setRooms(hotelOrderDetailDTOs);
+        hotelOrderDTO.setDetails(hotelOrderDetailDTOs);
         return hotelOrderDTO;
     }
     /*

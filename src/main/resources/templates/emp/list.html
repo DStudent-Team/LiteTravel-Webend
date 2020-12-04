@@ -75,7 +75,6 @@
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
 										<form th:action="@{/emp/}+${emp.id}" method="post">
-											<!--         下面这句话基本等于毫无卵用           -->
 											<input name="_method" type="hidden" value="delete"/>
                                             <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                         </form>
