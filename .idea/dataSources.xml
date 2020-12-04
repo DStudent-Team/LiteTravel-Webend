@@ -35,5 +35,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/sqlconnect</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="106.52.233.207" uuid="14bc856f-8f31-4b20-97fa-595e487f6501">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://106.52.233.207:3306/travel_database</jdbc-url>
+    </data-source>
   </component>
 </project>
