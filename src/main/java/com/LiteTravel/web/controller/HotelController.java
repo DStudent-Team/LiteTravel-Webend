@@ -1,6 +1,7 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,35 +73,5 @@ public class HotelController {
         model.addAttribute("hotels", relatedHotels);
 
         return "hotel-single";
-    }
-
-    @PostMapping("/hotel/book")
-    @Transactional
-    public String bookHotel(@RequestParam("hotelId") Integer hotelId,
-                            @RequestParam("roomId") Integer roomId,
-                            @RequestParam("userId") Integer userId,
-                            @RequestParam("checkIn") String checkIn,
-                            @RequestParam("checkOut") String checkOut,
-                            @RequestParam("roomCount") Integer roomCount,
-                            @RequestParam("price") float price, ModelMap model) throws ParseException {
-        HotelOrderSubmitDTO hotelOrderSubmitDTO = new HotelOrderSubmitDTO();
-        hotelOrderSubmitDTO.setHotelId(hotelId);
-        hotelOrderSubmitDTO.setUserId(userId);
-        hotelOrderSubmitDTO.setHotel(hotelService.selectHotelById(hotelId, false));
-        hotelOrderSubmitDTO.setRooms(hotelService.getRoomDTObyIds(Collections.singletonList(roomId)));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
-        Date checkInDate = dateFormat.parse(checkIn);
-        Date checkOutDate = dateFormat.parse(checkOut);
-        hotelOrderSubmitDTO.setCheckIn(checkInDate);
-        hotelOrderSubmitDTO.setCheckOut(checkOutDate);
-        hotelOrderSubmitDTO.setPrice(price);
-        Integer days = (int)((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));//计算时间
-        hotelOrderSubmitDTO.setDays(days);
-        hotelOrderSubmitDTO.setPrice(price);
-        hotelOrderSubmitDTO.setRoomCount(roomCount);
-        hotelOrderSubmitDTO.setTotal(price * days * roomCount);
-//        System.out.println(hotelOrderSubmitDTO.toString());
-        model.addAttribute("hotelOrder", hotelOrderSubmitDTO);
-        return "hotel-order";
     }
 }

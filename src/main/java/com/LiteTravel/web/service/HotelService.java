@@ -1,9 +1,6 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.BedDTO;
-import com.LiteTravel.web.DTO.HotelDTO;
-import com.LiteTravel.web.DTO.ResultVO;
-import com.LiteTravel.web.DTO.RoomDTO;
+import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -102,6 +100,15 @@ public class HotelService {
 
     public RoomDTO getRoomDTO(Integer roomId){
         return getRoomDTO(roomMapper.selectByPrimaryKey(roomId));
+    }
+
+    public List<HotelOrderDetailDTO> getHotelOrderDetailByRoomIds(List<Integer> roomIds) {
+        List<RoomDTO> roomDTOs = getRoomDTObyIds(roomIds);
+        return roomDTOs.stream().map(roomDTO -> {
+            HotelOrderDetailDTO hotelOrderDetailDTO = new HotelOrderDetailDTO();
+            BeanUtils.copyProperties(roomDTO, hotelOrderDetailDTO);
+            return hotelOrderDetailDTO;
+        }).collect(Collectors.toList());
     }
 
     public List<RoomDTO> getRoomDTObyIds(List<Integer> roomIds) {

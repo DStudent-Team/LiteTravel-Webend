@@ -1,10 +1,10 @@
+<!-- todo 该页面要合并到order单页中去，省的浪费一个DTO和页面来把整个系统弄得太复杂-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{commons/includes/common_head::common_head(~{::title},~{ })}">
     <title>轻旅·订单</title>
 </head>
 <body>
-
 
 <!--重用topBar-->
 <div th:replace="~{commons/bar::topBar(activeUri='Hotels')}"></div>
@@ -21,18 +21,17 @@
             </div>
             <div class="w-100"></div>
             <div class="col-md-12">
-                <input type="hidden" id="hotelId" name="hotelId" th:value="${hotelOrder.hotelId}">
+                <input type="hidden" id="hotelId" name="hotelId" th:value="${order.hotelId}">
                 <input type="hidden" id="userId" name="userId" th:value="${session.user.userId}">
-                <p><span>酒店名称:</span><span th:text="${hotelOrder.hotel.hotelName}"></span></p>
+                <p><span>酒店名称:</span><span th:text="${order.hotel.hotelName}"></span></p>
             </div>
             <div class="col-md-12">
                 <div class="col-md align-items-end">
                     <div class="form-group">
-                        <label for="checkInLabel">入住时间</label>
                         <div id="checkInLabel" class="form-field">
-                            <div class="icon"><span class="icon-calendar"></span></div>
+                            <div class="icon"><span class="icon-calendar"></span><label>入住时间</label></div>
                             <input type="text" id="checkIn" class="form-control checkin_date" placeholder="Check In"
-                                   th:value="${#dates.format(hotelOrder.checkIn, 'yyyy-M-d')}">
+                                   th:value="${#dates.format(order.checkIn, 'yyyy-M-d')}">
                         </div>
                     </div>
                 </div>
@@ -40,18 +39,17 @@
             <div class="col-md-12">
                 <div class="col-md align-items-end">
                     <div class="form-group">
-                        <label for="checkOutLabel">离店时间</label>
                         <div id="checkOutLabel" class="form-field">
-                            <div class="icon"><span class="icon-calendar"></span></div>
+                            <div class="icon"><span class="icon-calendar"></span><label>离店时间</label></div>
                             <input type="text" id="checkOut" class="form-control checkout_date" placeholder="Check Out"
-                                   th:value="${#dates.format(hotelOrder.checkOut, 'yyyy-M-d')}">
+                                   th:value="${#dates.format(order.checkOut, 'yyyy-M-d')}">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
                 <p><span>预定内容:</span></p>
-                <div th:each="room:${hotelOrder.rooms}">
+                <div th:each="room:${order.details}">
                     <input id="roomId" th:value="${room.roomId}" type="hidden">
                     <p><span>房间名称:</span><span th:text="${room.roomName}"></span></p>
                     <p><span>房间单价:</span><span id="price" th:text="${room.roomPrice}"></span></p>
@@ -61,19 +59,21 @@
                     <p th:each="bed:${room.beds}"><span
                             th:text="${bed.bedCount} + '张' + ${bed.bedName}"></span></p>
                     <p><label>预定数(最大预订数:[[${room.roomRemaining}]])</label></p>
-                    <button id="min" class="btn btn-primary" type="button">-</button>
-                    <input id="roomCount" type="text" th:value="${hotelOrder.roomCount}"/>
-                    <button id="add" class="btn btn-primary" type="button">+</button>
+<!--                    <button id="min" class="btn btn-primary" type="button">-</button>-->
+                    <button class="btn btn-primary" type="button" th:onclick="'javascript:changeCount(0, ' + ${room.roomRemaining} + ');'">-</button>
+                    <input id="roomCount" type="number" th:value="${room.roomCount}" th:onkeyup=""/>
+                    <button class="btn btn-primary" type="button" th:onclick="'javascript:changeCount(1, ' + ${room.roomRemaining} + ');'">+</button>
                 </div>
             </div>
             <div class="col-md-12">
                 <h5><label>总价</label>
-                    <p id="total" th:text="${hotelOrder.total} + '(入住' + ${hotelOrder.days} + '天)'"></p></h5>
+                    <p id="total" th:text="${order.total} + '(入住' + ${order.days} + '天)'"></p></h5>
             </div>
             <div class="col-md-12">
                 <button type="button" onclick="submitOrder()">确认订单</button>
             </div>
         </div>
+    </div>
 </section>
 
 
@@ -88,9 +88,10 @@
 <div th:replace="~{commons/Footer::loader}"></div>
 
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<script th:inline="javascript">
+</script>
 <script th:src="@{/js/hotel-order.js}"></script>
 <script th:inline="javascript">
-    // $("#checkIn").attr('max', $("#checkOut").val());
     $(function () {
         $("#checkIn").change(function () {
             var checkIn = $(this).val();
@@ -111,39 +112,6 @@
                 $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
             }
             updateTotal();  //显示总金额
-        });
-        $("#add").click(function () {
-            var amountBox = $("#roomCount");
-            if (amountBox.val() < [[${hotelOrder.rooms[0].roomRemaining}]]){
-                amountBox.val(parseInt(amountBox.val()) + 1); //点击加号输入框数值加1
-            }
-            else {
-                amountBox.val([[${hotelOrder.rooms[0].roomRemaining}]]); //点击加号输入框数值加1
-            }
-
-            updateTotal();  //显示总金额
-        });
-        $("#min").click(function () {
-            var amountBox = $("#roomCount");
-            if (amountBox.val() > 0) {
-                amountBox.val(parseInt(amountBox.val()) - 1); //点击减号输入框数值减1
-            }
-            else{
-                amountBox.val(1); //最小值为1
-            }
-            updateTotal();
-        });
-        $("#roomCount").keyup(function () {
-            var clickBox = $(this);
-            if (/[^\d]/.test(clickBox.val())) {//替换非数字字符
-                const count = clickBox.val().replace(/[^\d]/g, '');
-                $(this).val(count);
-            }
-            //限制数据
-            if ( $(this).val() > [[${hotelOrder.rooms[0].roomRemaining}]]){
-                $(this).val([[${hotelOrder.rooms[0].roomRemaining}]])
-            }
-            updateTotal();  //手动输入数值金额随之改变
         });
     });
 </script>

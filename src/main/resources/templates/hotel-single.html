@@ -263,7 +263,7 @@
                         <div class="row">
                             <!--Room 单块-->
                             <div class="col-md-4" th:each="room:${hotel.rooms}">
-                                <form th:name="${hotel.hotelId} + 'book' + ${room.roomId}" method="post" th:action="@{/hotel/book}">
+                                <form method="post" th:action="@{/order}">
                                 <input type="hidden" name="hotelId" th:value="${hotel.hotelId}">
                                 <input type="hidden" name="roomId" th:value="${room.roomId}">
                                 <input type="hidden" name="userId" th:value="${session.user.userId}">
@@ -312,67 +312,6 @@
                                 </div>
                                 </form>
                             </div>
-                            <!-- 剩余房间单块 -->
-<!--                            <div class="col-md-4">
-                                <div class="destination">
-                                    <a href="hotel-single.html" class="img img-2"
-                                       th:style="'background-image: url(' + @{/img/room-5.jpg} + ');'"></a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
-                                            <div class="one">
-                                                <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                <p class="rate">
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star-o"></i>
-                                                    <span>8 Rating</span>
-                                                </p>
-                                            </div>
-                                            <div class="two">
-                                                <span class="price per-price">$40<br><small>/night</small></span>
-                                            </div>
-                                        </div>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                        <hr>
-                                        <p class="bottom-area d-flex">
-                                            <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="destination">
-                                    <a href="hotel-single.html" class="img img-2"
-                                       th:style="'background-image: url(' + @{/img/room-6.jpg} + ');'"></a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
-                                            <div class="one">
-                                                <h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-                                                <p class="rate">
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star"></i>
-                                                    <i class="icon-star-o"></i>
-                                                    <span>8 Rating</span>
-                                                </p>
-                                            </div>
-                                            <div class="two">
-                                                <span class="price per-price">$40<br><small>/night</small></span>
-                                            </div>
-                                        </div>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                        <hr>
-                                        <p class="bottom-area d-flex">
-                                            <span><i class="icon-map-o"></i> Miami, Fl</span>
-                                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>-->
                         </div>
                     </div>
 
