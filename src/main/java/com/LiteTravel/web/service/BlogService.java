@@ -36,7 +36,6 @@ public class BlogService {
     }
 
     public List<BlogDTO> selectAll() {
-
         List<Blog> blogs = blogMapper.selectByExample(new BlogExample());
         return blogs.stream().map(this::getBlogDTO).collect(Collectors.toList());
     }
