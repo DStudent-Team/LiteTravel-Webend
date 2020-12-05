@@ -4,7 +4,7 @@ function payOrder() {
     const phone = $('#phone').val();
     const arrived = $('#arrived').val();
     const note = $('#note').val();
-
+    alert(name);
     $.ajax({
         url: "/order/pay",
         type: "post",
