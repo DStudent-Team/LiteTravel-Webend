@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <p><span>入住时间:</span>[[${order.checkIn}]]</p>
-                <p><span>离店时间:</span>[[${order.checkOut}]]</p>
+                <p><span>入住时间:</span>[[${#dates.format(order.checkIn, 'yyyy-M-d')}]]</p>
+                <p><span>离店时间:</span>[[${#dates.format(order.checkOut, 'yyyy-M-d')}]]</p>
             </div>
         </div>
         <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
