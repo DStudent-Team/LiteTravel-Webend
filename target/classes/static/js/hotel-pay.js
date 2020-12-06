@@ -20,7 +20,7 @@ function payOrder() {
         async: false,
         success: function (response) {
             //do
-            console.log(response);
+            console.log(response)
             alert("支付成功！");
             window.location.reload();
         },
