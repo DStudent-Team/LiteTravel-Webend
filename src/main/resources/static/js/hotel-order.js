@@ -1,11 +1,23 @@
+//修改数量
+function changeCount(method, remain){
+    var countBox = $("#roomCount");
+    if (method === 0){
+        countBox.val(Math.max.call(0, parseInt(countBox.val()) - 1));
+    }
+    else if (method === 1){
+        countBox.val(Math.min.call(remain, parseInt(countBox.val()) + 1));
+    }
+    updateTotal();
+
+}
 //更新总价
 function updateTotal(){
-    var amountBox = $("#price");//单价
+    var priceBox = $("#price");//单价
     var roomCountBox = $("#roomCount");//房间数
     var checkInBox = $("#checkIn");//入住时间
     var checkOutBox = $("#checkOut");//离店时间
     var daysDiff = Math.floor(Math.abs(Date.parse(checkOutBox.val()) - Date.parse(checkInBox.val())) / (24 * 3600 * 1000));//天数
-    var priceValue = (amountBox.text() * roomCountBox.val() * daysDiff).toString();//总价
+    var priceValue = (priceBox.text() * roomCountBox.val() * daysDiff).toString();//总价
     var totalBox = $("#total");//总价栏
     //输入框中的份额数与每份金额数相乘得到总金额
     totalBox.text(priceValue + "(入住" + daysDiff + "天)");

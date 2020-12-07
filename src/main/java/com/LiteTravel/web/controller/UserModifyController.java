@@ -14,18 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserModifyController {
     @Autowired
-    UserService userService = new UserService();
+    UserService userService;
 
     //    修改用户信息
     @PostMapping("/user/modify")
     @Transactional
-    public ResponseDTO madifyUser(@RequestBody UserInfoDTO userInfoDTO){
+    public ResponseDTO modifyUserInfo(@RequestBody UserInfoDTO userInfoDTO){
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(userInfoDTO,userInfo);
-//        System.out.println("dsjdh"+userInfo);
-//        System.out.println(userInfoDTO);
         int id = userService.modifyInfo(userInfoDTO);
         return ResponseDTO.success(id);
-
     }
 }

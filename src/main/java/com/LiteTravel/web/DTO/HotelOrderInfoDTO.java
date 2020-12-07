@@ -11,11 +11,10 @@ public class HotelOrderInfoDTO {
     private Integer hotelId;
     private String status;
     private HotelDTO hotel;
-    private List<HotelOrderDetailDTO> rooms;
+    private List<HotelOrderDetailDTO> details;
     private Integer userId;
     private Date checkIn;
     private Date checkOut;
     private Integer days;
-    private float price;
     private float total;
 }
