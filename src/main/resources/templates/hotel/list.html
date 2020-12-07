@@ -59,10 +59,14 @@
                                     </td>
                                     <td th:text="${hotel.hotelAddressString}"></td>
 									<td th:text="${hotel.hotelAddressSpecific}"></td>
-									<td><a class="btn btn-block" th:href="@{'/manage/room/' + ${hotel.hotelId}}" th:text="${hotel.roomCount}"></a></td>
 									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${order.orderId}}">修改</a>
-                                        <form th:action="@{'/manage/hotel/' + ${order.orderId}}" method="post">
+										(暂无数据)
+										<!--尚未传址-->
+<!--										<a class="btn btn-block" th:href="@{'/manage/room/' + ${hotel.hotelId}}" th:text="${hotel.roomCount}"></a>-->
+									</td>
+									<td>
+										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${hotel.hotelId}}">修改</a>
+                                        <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post">
 											<input name="_method" type="hidden" value="delete"/>
                                             <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                         </form>

@@ -8,7 +8,7 @@ public class UserInfoDTO {
     private String userName;
     private Integer userGender;
     private String userBirth;
-    private Integer userPhone;
+    private String userPhone;
     private String userEmail;
     private String userAddressSpecific;
 

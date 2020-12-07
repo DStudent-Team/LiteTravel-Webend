@@ -74,4 +74,10 @@ public class HotelController {
 
         return "hotel-single";
     }
+
+    @GetMapping("/manage/hotels")
+    public String MangeHotelList(ModelMap model){
+        setPageHotel(1, model);
+        return "hotel/list";
+    }
 }
