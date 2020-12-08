@@ -56,7 +56,11 @@ public class BlogController {
         model.addAttribute("comments", comments);
         return "blog-single";
     }
-    /*跳转到博客发布页面进行编辑博客*/
+
+    /**
+     * 跳转到博客发布页面进行编辑博客
+     * @return
+     */
     @GetMapping("/blog/publish")
     public String ToBlogPublish(){
         return "blog-publish";
