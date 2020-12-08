@@ -15,7 +15,6 @@
     </data-source>
     <data-source name="106.52.233.207" uuid="14bc856f-8f31-4b20-97fa-595e487f6501">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <user-name>root</user-name>
       <schema-mapping />
     </data-source>
   </component>
