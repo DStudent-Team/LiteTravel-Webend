@@ -102,7 +102,9 @@
     </div>
 </div>
 
-<div th:fragment="blogBlock" class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate" th:each="blog:${blogs}">
+<div th:fragment="blogBlock"
+     class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate"
+     th:each="blog:${blogs}">
     <div class="blog-entry align-self-stretch defaultBlockWidth">
         <!-- 展示图片 -->
         <a th:href="@{'/blog/' + ${blog.blogId}}"
@@ -141,10 +143,8 @@
                     <a th:href="@{'/user/' + ${blog.blogPosterId}}"
                        th:text="${blog.blogPosterInfo.userName}">Admin</a>
                 </div>
-                <!--
-                    todo
-                        blog回复数
-                        直接先跳转至博客页面
+                <!-- blog回复数
+                     直接先跳转至博客页面
                 -->
                 <div class="float-right"><a th:href="@{'/blog/' + ${blog.blogId}}"
                                             class="meta-chat">

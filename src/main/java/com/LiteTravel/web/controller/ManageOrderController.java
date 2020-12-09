@@ -3,7 +3,6 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.service.HotelOrderService;
-import com.LiteTravel.web.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +18,8 @@ public class ManageOrderController {
 
     @GetMapping("/manage/orders")
     public String list(ModelMap model){
-        ResultVO<HotelOrderBlockDTO> resultVO = hotelOrderService.getOrders(1, 10);
-        List<HotelOrderBlockDTO> orders = resultVO.resultList;
-        model.addAttribute("orders", orders);
+        ResultVO resultVO = hotelOrderService.getOrders(1, 10);
+        model.addAttribute("orders", resultVO.data);
         return "order/list";
     }
 

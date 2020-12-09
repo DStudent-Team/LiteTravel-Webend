@@ -30,8 +30,9 @@
 </head>
 
 -->
-<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{})}">
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·主页</title>
+    <link rel="stylesheet" th:href="@{/css/Blogs.css}">
 </head>
 <body>
 
