@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.xml.transform.Source;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -80,19 +79,17 @@ public class OrderController {
     /* 使用PageHelper获得并设置 分页数据 */
     private void setPageHotelOrder(Integer page, ModelMap model){
         /* 向service层分发请求处理 */
-        ResultVO<HotelOrderBlockDTO> resultVO = hotelOrderService.getOrders(page, 6);
-        List<HotelOrderBlockDTO> hotelOrders = resultVO.resultList;
+        ResultVO resultVO = hotelOrderService.getOrders(page, 6);
         /* 分页信息类
          * 参数1：数据集合
          * 参数2：需要展示的最大导航页数*/
-        PageInfo<HotelOrderBlockDTO> info = resultVO.info;
         /* 设置筛选页面的筛选项目为Hotel */
         model.addAttribute("category", "hotel");
         /* 放入数据 */
         /* 放入hotel列表数据 */
-        model.addAttribute("orders", hotelOrders);
+        model.addAttribute("orders", resultVO.data);
         /* 放入页面信息数据 */
-        model.addAttribute("pageInfo", info);
+        model.addAttribute("pageInfo", resultVO.info);
     }
     @GetMapping("/order/{orderId}")
     public String getHotelOrderInfo(@PathVariable("orderId") Integer orderId, ModelMap model){

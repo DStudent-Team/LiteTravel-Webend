@@ -23,11 +23,10 @@ public class IndexController {
     @GetMapping(path = {"/index", "/index.html"})
     public String indexPage(ModelMap model){
         /*  获取推荐酒店信息 */
-        ResultVO<HotelDTO> resultVO = hotelService.getHotels(1, 5);
-        List<HotelDTO> hotelDTOs = resultVO.resultList;
-        model.addAttribute("hotels", hotelDTOs);
-        List<BlogDTO> blogDTOS = blogService.selectAll();
-        model.addAttribute("blogs", blogDTOS);
+        ResultVO hotelResult = hotelService.getHotels(1, 5);
+        model.addAttribute("hotels", hotelResult.data);
+        ResultVO blogResult = blogService.selectAll(1, 3);
+        model.addAttribute("blogs", blogResult.data);
         return "index";
     }
 }
