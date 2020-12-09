@@ -2,12 +2,11 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.BlogDTO;
 import com.LiteTravel.web.DTO.CommentDTO;
+import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.service.BlogService;
 import com.LiteTravel.web.service.CommentService;
 import com.LiteTravel.web.service.UserService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,12 +34,9 @@ public class BlogController {
         return "blogs";
     }
     private void setBlogPage(Integer page, ModelMap model){
-        PageHelper.startPage(page, 6);
-        List<BlogDTO> blogs = blogService.selectAll();
-        PageInfo<BlogDTO> info = new PageInfo<>(blogs, 5);
-
-        model.addAttribute("blogs",blogs);
-        model.addAttribute("pageInfo", info);
+        ResultVO result = blogService.selectAll(page, 6);
+        model.addAttribute("blogs",result.data);
+        model.addAttribute("pageInfo", result.info);
     }
     @GetMapping("/blog/{blogId}")
     public String BlogInfoPage(@PathVariable("blogId") Integer blogId,
