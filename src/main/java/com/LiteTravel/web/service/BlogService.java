@@ -13,10 +13,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
+import javax.websocket.server.PathParam;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +49,7 @@ public class BlogService {
     }
 
     private BlogDTO getBlogDTO(Blog blog) {
+
         BlogDTO blogDTO = new BlogDTO();
         BeanUtils.copyProperties(blog, blogDTO);
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(blog.getBlogPosterId());
@@ -56,7 +58,7 @@ public class BlogService {
         blogTagMapExample.createCriteria()
                 .andBlogIdEqualTo(blog.getBlogId());
         List<BlogTagMap> blogTagMapList = blogTagMapMapper.selectByExample(blogTagMapExample);
-        if(blogTagMapList.size() > 0){
+        if(blogTagMapList.size() > 0) {
             List<Integer> tagIds = blogTagMapList.stream().map(BlogTagMap::getTagId).distinct().collect(Collectors.toList());
             TagExample tagExample = new TagExample();
             tagExample.createCriteria()
@@ -65,5 +67,20 @@ public class BlogService {
             blogDTO.setBlogTags(tagList);
         }
         return blogDTO;
+    }
+
+    @PostMapping("/publish")
+    public int insertBlog(@PathParam("title") String title, @PathParam("blog_text")String blog_text, int id){
+
+        Blog blog = new Blog();
+        blog.setBlogImgUri("image_1.jpg");
+        blog.setBlogTitle(title);
+        blog.setBlogContent(blog_text);
+        blog.setBlogModifyTime(new Date());
+        blog.setBlogPostTime(new Date());
+        blog.setBlogCommentCount(0);
+        blog.setBlogLikeCount(0);
+        blog.setBlogPosterId(id);
+        return blogMapper.insert(blog);
     }
 }
