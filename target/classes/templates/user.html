@@ -44,11 +44,11 @@
                 </section>
                 <div class="col-3 sidebar ftco-animate">
                     <ul class="list-group">
-                        <li class="list-group-item"><a href="#">所有订单</a></li>
+                        <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
                         <li class="list-group-item"><a href="#">我的酒店</a></li>
                         <li class="list-group-item"><a href="#">我的机票</a></li>
-                        <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
-                        <li class="list-group-item"><a href="#">我的攻略</a></li>
+                        <li class="list-group-item"><a href="#">我的博客</a></li>
+                        <li class="list-group-item"><a th:href="@{/blog/publish}">发布博客</a></li>
                     </ul>
                 </div>
             </div>

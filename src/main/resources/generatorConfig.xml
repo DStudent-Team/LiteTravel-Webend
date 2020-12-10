@@ -43,9 +43,14 @@
         <table tableName="travel_hotel_room" domainObjectName="Room"/>
         <table tableName="travel_bed" domainObjectName="Bed"/>
         <table tableName="travel_room_bed" domainObjectName="RoomBedMap"/>
-        <table tableName="travel_blog" domainObjectName="Blog"/>
+        <table tableName="travel_blog" domainObjectName="Blog">
+            <generatedKey column="blog_id" sqlStatement="Mysql" identity="true"/>
+        </table>
         <table tableName="travel_blog_tags" domainObjectName="BlogTagMap"/>
-        <table tableName="travel_tag" domainObjectName="Tag"/>
+        <!--如果重置了travel_tags, 注意看blogs页面的标签显示是否正确, 否则就不要打开这个重置-->
+        <table tableName="travel_tag" domainObjectName="Tag">
+            <generatedKey column="tag_id" sqlStatement="Mysql" identity="true"/>
+        </table>
         <table tableName="travel_blog_comment" domainObjectName="Comment"/>
         <table tableName="global_region" domainObjectName="Region"/>
     </context>
