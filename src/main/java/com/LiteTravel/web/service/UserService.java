@@ -1,19 +1,23 @@
 package com.LiteTravel.web.service;
 
+import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
+import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.UserInfoDTO;
-import com.LiteTravel.web.Model.User;
-import com.LiteTravel.web.Model.UserExample;
-import com.LiteTravel.web.Model.UserInfo;
-import com.LiteTravel.web.Model.UserInfoExample;
+import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.UserInfoMapper;
 import com.LiteTravel.web.mapper.UserMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -60,5 +64,16 @@ public class UserService {
         int id =  userInfoMapper.updateByPrimaryKeySelective(userInfo);
 //        System.out.println(id);
         return id;
+    }
+
+    private ResultVO selectByExample(Integer page, Integer pageSize, UserExample userExample) {
+        /* 分页：
+         * 参数1: 第几页
+         * 参数2: 每页展示几个数据 */
+        PageHelper.startPage(page, pageSize);
+        List<User> userList = userMapper.selectByExample(userExample);
+        System.out.println(userList);
+        PageInfo<User> info = new PageInfo<>(userList, 5);
+        return new ResultVO(userList, info);
     }
 }
