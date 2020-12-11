@@ -62,8 +62,7 @@ public class BlogService {
         return blogDTO;
     }
 
-    @PostMapping("/publish")
-    public int insertBlog(@PathParam("title") String title, @PathParam("blog_text")String blog_text, int id){
+    public int insertBlog(String title, String blog_text, int id){
 
         Blog blog = new Blog();
         blog.setBlogImgUri("image_1.jpg");
