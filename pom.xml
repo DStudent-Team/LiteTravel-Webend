@@ -103,12 +103,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--         分布式服务依赖               -->
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
-<!--        </dependency>-->
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -124,18 +118,6 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.cloud</groupId>-->
-<!--                <artifactId>spring-cloud-dependencies</artifactId>-->
-<!--                <version>Greenwich.SR3</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>runtime</scope>-->
-<!--            </dependency>-->
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>

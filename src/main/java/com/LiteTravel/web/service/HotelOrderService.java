@@ -31,7 +31,7 @@ public class HotelOrderService {
     @Autowired
     public RegionMapper regionMapper;
 
-    public ResultVO<HotelOrderBlockDTO> getOrders(Integer page, Integer pageSize){
+    public ResultVO getOrders(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
 
