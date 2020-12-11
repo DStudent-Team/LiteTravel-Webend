@@ -1,17 +1,13 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -36,19 +32,17 @@ public class HotelController {
     /* 使用PageHelper获得并设置 分页数据 */
     private void setPageHotel(Integer page, ModelMap model){
         /* 向service层分发请求处理 */
-        ResultVO<HotelDTO> resultVO = hotelService.getHotels(page, 6);
-        List<HotelDTO> hotels = resultVO.resultList;
+        ResultVO  resultVO = hotelService.getHotels(page, 6);
          /* 分页信息类
         * 参数1：数据集合
         * 参数2：需要展示的最大导航页数*/
-        PageInfo<HotelDTO> info = resultVO.info;
         /* 设置筛选页面的筛选项目为Hotel */
 //        model.addAttribute("category", "hotel");
         /* 放入数据 */
         /* 放入hotel列表数据 */
-        model.addAttribute("hotels", hotels);
+        model.addAttribute("hotels", resultVO.data);
         /* 放入页面信息数据 */
-        model.addAttribute("pageInfo", info);
+        model.addAttribute("pageInfo", resultVO.info);
     }
 
     @GetMapping("/hotel/{hotelId}")
@@ -60,8 +54,7 @@ public class HotelController {
         /* done 获取房间块展示数据 */
         /* todo 获取房间可折叠展示块信息 */
 
-        ResultVO<HotelDTO> resultVO = hotelService.getHotels(hotelId, 1, 3);
-        List<HotelDTO> relatedHotels = resultVO.resultList;
+        ResultVO result = hotelService.getHotels(hotelId, 1, 3);
         /* 设置酒店基本信息数据 */
         model.addAttribute("hotel", hotel);
         /* todo 设置酒店具体介绍数据 */
@@ -70,8 +63,13 @@ public class HotelController {
 
         /* 设置推荐酒店基本信息数据 */
         /* todo 设计推荐算法 */
-        model.addAttribute("hotels", relatedHotels);
-
+        model.addAttribute("hotels", result.data);
         return "hotel-single";
+    }
+
+    @GetMapping("/manage/hotels")
+    public String MangeHotelList(ModelMap model){
+        setPageHotel(1, model);
+        return "hotel/list";
     }
 }
