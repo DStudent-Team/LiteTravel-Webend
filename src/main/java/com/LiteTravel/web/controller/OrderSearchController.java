@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class SearchController {
+public class OrderSearchController {
 
     @Autowired
     SearchService searchService;
