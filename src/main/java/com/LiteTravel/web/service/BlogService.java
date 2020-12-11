@@ -1,11 +1,14 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.BlogDTO;
+import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.BlogMapper;
 import com.LiteTravel.web.mapper.BlogTagMapMapper;
 import com.LiteTravel.web.mapper.TagMapper;
 import com.LiteTravel.web.mapper.UserInfoMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,15 +33,19 @@ public class BlogService {
 
     @Autowired
     private TagMapper tagMapper;
-    @Cacheable(cacheNames = {"blog"}, key = "#blogId")
+
+//    @Cacheable(cacheNames = {"blog"}, key = "#blogId")
     public BlogDTO selectByPrimaryId(Integer blogId){
         Blog blog = blogMapper.selectByPrimaryKey(blogId);
         return getBlogDTO(blog);
     }
 
-    public List<BlogDTO> selectAll() {
+    public ResultVO selectAll(Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
         List<Blog> blogs = blogMapper.selectByExample(new BlogExample());
-        return blogs.stream().map(this::getBlogDTO).collect(Collectors.toList());
+        PageInfo<Blog> info = new PageInfo<>(blogs, 5);
+        List<BlogDTO> data = blogs.stream().map(this::getBlogDTO).collect(Collectors.toList());
+        return new ResultVO(data, info);
     }
 
     private BlogDTO getBlogDTO(Blog blog) {

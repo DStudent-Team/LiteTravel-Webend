@@ -5,20 +5,20 @@ import com.github.pagehelper.PageInfo;
 import java.io.Serializable;
 import java.util.List;
 
-public class ResultVO<T> implements Serializable {
-    public List<T> resultList;
-    public PageInfo<T> info;
+public class ResultVO implements Serializable {
+    public List data;
+    public PageInfo info;
 
-    public ResultVO(List<T> data, PageInfo<T> info){
-        this.setResultList(data);
+    public ResultVO(List data, PageInfo info){
+        this.setData(data);
         this.setPageInfo(info);
     }
 
-    private void setPageInfo(PageInfo<T> info) {
+    private void setPageInfo(PageInfo info) {
         this.info = info;
     }
 
-    private void setResultList(List<T> data){
-        this.resultList = data;
+    private void setData(List data){
+        this.data = data;
     }
 }
