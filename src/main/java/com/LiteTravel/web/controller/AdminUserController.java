@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class ManageUserController {
+public class AdminUserController {
     @Autowired
     UserService userService;
-    @GetMapping("/manage/users")
-    public String userList(ModelMap model){
-        List<User> userList = userService.getUsers();
-        model.addAttribute("orders", resultVO.data);
-        return "user/list";
-    }
+//    @GetMapping("/manage/users")
+//    public String userList(ModelMap model){
+//        List<User> userList = userService.getUsers();
+//        model.addAttribute("orders", resultVO.data);
+//        return "user/list";
+//    }
 }

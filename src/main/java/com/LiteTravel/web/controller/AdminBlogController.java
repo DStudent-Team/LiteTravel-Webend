@@ -23,8 +23,8 @@ public class AdminBlogController {
 
     /**
      * 1. 只需要发送/admin/blogs?pageNum=1&pageSize=6,就可以获取到数据 1和6要自己改变
-     * 2. model传输的对象，在视图层直接使用:${allBlogs}即可获取数据
-     * 3. admin_blog: 要跳转的页面，自定义(我不知道实际的页面)
+     * 2. model传输的对象，在视图层直接使用:${blogs}即可获取数据
+     * 3. /admin/blog: 要跳转的页面，自定义(我不知道实际的页面)
      *
      * 分页查找博客
      *
@@ -35,8 +35,8 @@ public class AdminBlogController {
      */
     @GetMapping("/blogs")
     public String toAdmin(@PathParam("pageNum") Integer pageNum, @PathParam("pageSize") Integer pageSize, Model model){
-        model.addAttribute("allBlogs", adminBlogService.listBlog(pageNum, pageSize));
-        return "admin_blog";
+        model.addAttribute("blogs", adminBlogService.listBlog(pageNum, pageSize));
+        return "/admin/blog";
     }
 
     /**

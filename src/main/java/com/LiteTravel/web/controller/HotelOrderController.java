@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,22 +18,34 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class OrderController {
+public class HotelOrderController {
     @Autowired
     HotelService hotelService;
     @Autowired
     HotelOrderService hotelOrderService;
 
-
+    /***
+     * 生成预约订单信息
+     * @param hotelId
+     * @param roomId
+     * @param userId
+     * @param checkIn
+     * @param checkOut
+     * @param roomCount
+     * @param price
+     * @param model
+     * @return
+     * @throws ParseException
+     */
     @PostMapping("/order")
     @Transactional
-    public String bookHotel(@RequestParam("hotelId") Integer hotelId,
-                            @RequestParam("roomId") Integer roomId,
-                            @RequestParam("userId") Integer userId,
-                            @RequestParam("checkIn") String checkIn,
-                            @RequestParam("checkOut") String checkOut,
-                            @RequestParam("roomCount") Integer roomCount,
-                            @RequestParam("price") float price, ModelMap model) throws ParseException {
+    public String submitBook(@RequestParam("hotelId") Integer hotelId,
+                             @RequestParam("roomId") Integer roomId,
+                             @RequestParam("userId") Integer userId,
+                             @RequestParam("checkIn") String checkIn,
+                             @RequestParam("checkOut") String checkOut,
+                             @RequestParam("roomCount") Integer roomCount,
+                             @RequestParam("price") float price, ModelMap model) throws ParseException {
         /*应该全部整理进service中去*/
         HotelOrderInfoDTO hotelOrderInfoDTO = new HotelOrderInfoDTO();
         hotelOrderInfoDTO.setHotelId(hotelId);
@@ -75,7 +84,26 @@ public class OrderController {
         setPageHotelOrder(page, model);
         return "orders";
     }
+    @PostMapping("/orders")
+    public String getResult(HotelOrderQueryDTO hotelOrderQueryDTO,
+                            ModelMap model) {
+//        System.out.println(hotelOrderQueryDTO.toString());//测试
+        setPageHotelOrder(1, hotelOrderQueryDTO, model);
 
+        //暂无页面
+        return "orders";
+    }
+
+    @PostMapping("/orders/{page}")
+    public String getResultByPages(@PathVariable("page") Integer page,
+                                   @RequestBody HotelOrderQueryDTO hotelOrderQueryDTO,
+                                   ModelMap model) {
+
+        setPageHotelOrder(page, hotelOrderQueryDTO, model);
+
+        //暂无页面
+        return "orders";
+    }
     /* 使用PageHelper获得并设置 分页数据 */
     private void setPageHotelOrder(Integer page, ModelMap model){
         /* 向service层分发请求处理 */
@@ -88,6 +116,23 @@ public class OrderController {
         /* 放入数据 */
         /* 放入hotel列表数据 */
         model.addAttribute("orders", resultVO.data);
+        /* 放入页面信息数据 */
+        model.addAttribute("pageInfo", resultVO.info);
+    }
+    /* 有搜索条件的前提下进行分页 */
+    private void setPageHotelOrder(Integer page, HotelOrderQueryDTO hotelOrderQueryDTO, ModelMap model){
+        /* 向service层分发请求处理 */
+        ResultVO resultVO = hotelOrderService.getOrders(page, 6, hotelOrderQueryDTO);
+        /* 分页信息类
+         * 参数1：数据集合
+         * 参数2：需要展示的最大导航页数*/
+        /* 设置筛选页面的筛选项目为Hotel */
+        model.addAttribute("category", "hotel");
+        /* 放入数据 */
+        /* 放入hotel列表数据 */
+        model.addAttribute("orders", resultVO.data);
+        /* 放入查询信息数据 */
+        model.addAttribute("search", hotelOrderQueryDTO);
         /* 放入页面信息数据 */
         model.addAttribute("pageInfo", resultVO.info);
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class ManageOrderController {
+public class AdminHotelOrderController {
     @Autowired
     HotelOrderService hotelOrderService;
 
