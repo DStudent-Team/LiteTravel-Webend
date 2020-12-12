@@ -22,18 +22,18 @@
         <div>
             <div class="row">
                 <!-- 个人信息栏 -->
-                <section class="col-9 ftco-animate">
-                    <div class="col-12 border" style="margin-bottom: 15px;">
+                <section class="col-lg-9 col-md-9 col-xs-12 ftco-animate">
+                    <div class="col-lg-12 border" style="margin-bottom: 15px;">
                         <h3 class="text-center">个人信息</h3>
                         <!-- 个人信息面板 -->
-                        <div class="col-9 media sidebar">
+                        <div class="col-lg-9 col-md-9 col-xs-12 media sidebar">
                             <img th:src="@{'/img/' + ${info.userAvatarUri}}" class="align-self-center mr-3 rounded"
                                  width="70px">
                             <div class="media-body text-center sidebar">
                                 <h4 th:text="${info.userName}"></h4>
                             </div>
                         </div>
-                        <div class="col-9" style="padding: 15px 0;">
+                        <div class="col-lg-9 col-md-9 col-xs-12" style="padding: 15px 0;">
                             <span th:text="'性别:' + ${(info.userGender==1)?'男':'女'}"></span>
                             <br/>
                             <span th:text="'电话:' + ${info.userPhone}"></span>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </section>
-                <div class="col-3 sidebar ftco-animate">
+                <div class="col-lg-3 col-md-12 col-xs-12 sidebar ftco-animate">
                     <ul class="list-group">
                         <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
                         <li class="list-group-item"><a href="#">我的酒店</a></li>
@@ -70,7 +70,7 @@
 
             <main role="main" class="col-12">
                 <div class="row">
-                    <div class="col-9 ftco-animate border">
+                    <div class="col-12 ftco-animate border">
 
                         <h1 style="padding: 10px 10px;">最近订单</h1>
                         <!-- 最近的订单信息单块 -->
