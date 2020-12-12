@@ -35,7 +35,7 @@ public class HotelOrderService {
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
 
-    private ResultVO selectByExample(Integer page, Integer pageSize, HotelOrderExample hotelOrderExample) {
+    public ResultVO selectByExample(Integer page, Integer pageSize, HotelOrderExample hotelOrderExample) {
         /* 分页：
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
