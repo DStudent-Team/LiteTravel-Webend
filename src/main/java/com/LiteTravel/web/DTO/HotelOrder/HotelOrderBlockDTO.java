@@ -1,4 +1,4 @@
-package com.LiteTravel.web.DTO;
+package com.LiteTravel.web.DTO.HotelOrder;
 
 import lombok.Data;
 

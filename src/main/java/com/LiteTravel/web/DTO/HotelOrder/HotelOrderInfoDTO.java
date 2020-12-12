@@ -1,5 +1,6 @@
-package com.LiteTravel.web.DTO;
+package com.LiteTravel.web.DTO.HotelOrder;
 
+import com.LiteTravel.web.DTO.HotelDTO;
 import lombok.Data;
 
 import java.util.Date;

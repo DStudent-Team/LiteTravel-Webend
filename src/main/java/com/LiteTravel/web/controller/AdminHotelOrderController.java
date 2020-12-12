@@ -1,6 +1,5 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.service.HotelOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-public class ManageOrderController {
+public class AdminHotelOrderController {
     @Autowired
     HotelOrderService hotelOrderService;
 

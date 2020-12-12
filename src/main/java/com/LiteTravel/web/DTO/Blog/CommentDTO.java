@@ -1,4 +1,4 @@
-package com.LiteTravel.web.DTO;
+package com.LiteTravel.web.DTO.Blog;
 
 import com.LiteTravel.web.Model.UserInfo;
 import lombok.Data;
