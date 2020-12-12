@@ -1,6 +1,10 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderBlockDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderInfoDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;

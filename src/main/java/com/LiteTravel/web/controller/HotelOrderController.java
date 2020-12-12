@@ -1,9 +1,12 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderInfoDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderSubmitDTO;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -25,40 +27,28 @@ public class HotelOrderController {
     HotelOrderService hotelOrderService;
 
     /***
-     * 生成预约订单信息
-     * @param hotelId
-     * @param roomId
-     * @param userId
-     * @param checkIn
-     * @param checkOut
-     * @param roomCount
-     * @param price
-     * @param model
-     * @return
+     * 提交订单请求
+     * @param submitDTO 请求数据
+     * @param model 请求model
+     * @return 返回url
      * @throws ParseException
      */
     @PostMapping("/order")
     @Transactional
-    public String submitBook(@RequestParam("hotelId") Integer hotelId,
-                             @RequestParam("roomId") Integer roomId,
-                             @RequestParam("userId") Integer userId,
-                             @RequestParam("checkIn") String checkIn,
-                             @RequestParam("checkOut") String checkOut,
-                             @RequestParam("roomCount") Integer roomCount,
-                             @RequestParam("price") float price, ModelMap model) throws ParseException {
+    public String submitBook(HotelOrderSubmitDTO submitDTO, ModelMap model) throws ParseException {
         /*应该全部整理进service中去*/
         HotelOrderInfoDTO hotelOrderInfoDTO = new HotelOrderInfoDTO();
-        hotelOrderInfoDTO.setHotelId(hotelId);
-        hotelOrderInfoDTO.setUserId(userId);
-        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelId, false));
-        hotelOrderInfoDTO.setDetails(hotelService.getHotelOrderDetailByRoomIds(Collections.singletonList(roomId)));
+        hotelOrderInfoDTO.setHotelId(submitDTO.getHotelId());
+        hotelOrderInfoDTO.setUserId(submitDTO.getUserId());
+        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(submitDTO.getHotelId(), false));
+        hotelOrderInfoDTO.setDetails(hotelService.getHotelOrderDetailByRoomIds(Collections.singletonList(submitDTO.getRoomId())));
         for (HotelOrderDetailDTO detail: hotelOrderInfoDTO.getDetails()){
-            detail.setRoomPrice(price);
-            detail.setRoomCount(roomCount);
+            detail.setRoomPrice(submitDTO.getPrice());
+            detail.setRoomCount(submitDTO.getRoomCount());
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
-        Date checkInDate = dateFormat.parse(checkIn);
-        Date checkOutDate = dateFormat.parse(checkOut);
+        Date checkInDate = dateFormat.parse(submitDTO.getCheckIn());
+        Date checkOutDate = dateFormat.parse(submitDTO.getCheckOut());
         hotelOrderInfoDTO.setCheckIn(checkInDate);
         hotelOrderInfoDTO.setCheckOut(checkOutDate);
         Integer days = (int)((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));//计算时间

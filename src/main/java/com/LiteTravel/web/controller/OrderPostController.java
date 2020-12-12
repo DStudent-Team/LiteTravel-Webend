@@ -1,9 +1,9 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelOrderConfirmDTO;
-import com.LiteTravel.web.DTO.HotelOrderPayDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderConfirmDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderPayDTO;
 import com.LiteTravel.web.DTO.ResponseDTO;
-import com.LiteTravel.web.DTO.HotelOrderDetailDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
 import com.LiteTravel.web.Model.HotelOrder;
 import com.LiteTravel.web.Model.HotelOrderDetail;
 import com.LiteTravel.web.service.HotelOrderService;
@@ -55,8 +55,7 @@ public class OrderPostController {
     public ResponseDTO payOrder(@RequestBody HotelOrderPayDTO hotelOrderPayDTO){
         HotelOrder hotelOrder = new HotelOrder();
         BeanUtils.copyProperties(hotelOrderPayDTO, hotelOrder);
-        int id = hotelOrderService.updateHotelOrder(hotelOrder);
-        System.out.println(id);
+        hotelOrderService.updateHotelOrder(hotelOrder);
         return ResponseDTO.success(hotelOrderPayDTO.getOrderId());
 
     }

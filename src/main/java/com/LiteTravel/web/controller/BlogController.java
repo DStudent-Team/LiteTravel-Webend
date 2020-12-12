@@ -1,7 +1,7 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.BlogDTO;
-import com.LiteTravel.web.DTO.CommentDTO;
+import com.LiteTravel.web.DTO.Blog.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.CommentDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.UserInfo;
@@ -25,14 +25,9 @@ public class BlogController {
     CommentService commentService;
     @Autowired
     UserService userService;
-    @GetMapping(value = "/blogs")
-    public String getBlogs(ModelMap model){
-        setBlogPage(1, model);
-        return "blogs";
-    }
 
-    @GetMapping(value = "/blogs/{page}")
-    public String getBlogs(@PathVariable(value = "page") Integer page, ModelMap model){
+    @GetMapping("/blogs")
+    public String getBlogs(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
         setBlogPage(page, model);
         return "blogs";
     }

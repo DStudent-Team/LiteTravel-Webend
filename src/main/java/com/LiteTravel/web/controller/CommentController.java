@@ -1,6 +1,6 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.CommentCreateDTO;
+import com.LiteTravel.web.DTO.Blog.CommentCreateDTO;
 import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.exception.CustomizeErrorCode;

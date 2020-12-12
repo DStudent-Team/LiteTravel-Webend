@@ -1,6 +1,6 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
@@ -8,16 +8,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.constraints.AssertFalse;
-import javax.websocket.server.PathParam;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 @Service

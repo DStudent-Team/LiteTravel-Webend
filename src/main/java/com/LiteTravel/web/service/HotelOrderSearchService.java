@@ -1,15 +1,7 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.HotelOrderQueryDTO;
-import com.LiteTravel.web.DTO.ResultVO;
-import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 //@Service
 public class HotelOrderSearchService {
