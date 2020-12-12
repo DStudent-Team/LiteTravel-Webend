@@ -74,29 +74,17 @@ public class HotelOrderController {
     }
 
     @GetMapping("/orders")
-    public String OrderList(ModelMap model){
-        setPageHotelOrder(1, model);
-        return "orders";
-    }
-    /* 点击页面数切换 分页显示酒店列表 */
-    @GetMapping("/orders/{page}")
-    public String OrderPage(@PathVariable("page") Integer page, ModelMap model){
+    public String OrderList(@RequestParam(value = "page", defaultValue = "1")Integer page,
+                            ModelMap model){
         setPageHotelOrder(page, model);
         return "orders";
     }
+
     @PostMapping("/orders")
-    public String OrderSearchList(HotelOrderQueryDTO hotelOrderQueryDTO,
+    public String OrderSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                  HotelOrderQueryDTO hotelOrderQueryDTO,
                                   ModelMap model) {
         System.out.println("searchTest");
-        setPageHotelOrder(1, hotelOrderQueryDTO, model);
-        return "orders";
-    }
-
-    @PostMapping("/orders/{page}")
-    public String OrderSearchPage(@PathVariable("page") Integer page,
-                                  @RequestBody HotelOrderQueryDTO hotelOrderQueryDTO,
-                                  ModelMap model) {
-        System.out.println("searchTestWithPage" + page);
         setPageHotelOrder(page, hotelOrderQueryDTO, model);
         return "orders";
     }
