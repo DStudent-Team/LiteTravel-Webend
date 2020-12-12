@@ -18,7 +18,7 @@ public class HotelOrderQueryDTO {
     String status;
     //酒店地址，格式 中国,xx省,xx市
     /*实际使用时, 肯定不是传输全名, 而是传输一个数字代码, 因此也非常简单*/
-    Integer hotelAddress;
+    Integer address;
     /*后续还可以添加排序功能*/
 
     @Override
@@ -29,7 +29,7 @@ public class HotelOrderQueryDTO {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", status=" + status +
-                ", hotelAddress=" + hotelAddress +
+                ", address=" + address +
                 '}';
     }
 }

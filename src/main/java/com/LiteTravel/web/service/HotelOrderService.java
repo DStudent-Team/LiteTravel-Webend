@@ -180,7 +180,7 @@ public class HotelOrderService {
         Date startTime = query.getStartDate();
         Date endTime = query.getEndDate();
         String status = query.getStatus();
-        Integer hotelAddress = query.getHotelAddress();
+        Integer hotelAddress = query.getAddress();
 
         HotelOrderExample hotelOrderExample = new HotelOrderExample();
         HotelExample hotelExample = new HotelExample();

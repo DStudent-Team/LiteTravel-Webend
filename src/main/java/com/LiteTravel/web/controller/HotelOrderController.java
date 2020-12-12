@@ -85,23 +85,19 @@ public class HotelOrderController {
         return "orders";
     }
     @PostMapping("/orders")
-    public String getResult(HotelOrderQueryDTO hotelOrderQueryDTO,
-                            ModelMap model) {
-//        System.out.println(hotelOrderQueryDTO.toString());//测试
+    public String OrderSearchList(HotelOrderQueryDTO hotelOrderQueryDTO,
+                                  ModelMap model) {
+        System.out.println("searchTest");
         setPageHotelOrder(1, hotelOrderQueryDTO, model);
-
-        //暂无页面
         return "orders";
     }
 
     @PostMapping("/orders/{page}")
-    public String getResultByPages(@PathVariable("page") Integer page,
-                                   @RequestBody HotelOrderQueryDTO hotelOrderQueryDTO,
-                                   ModelMap model) {
-
+    public String OrderSearchPage(@PathVariable("page") Integer page,
+                                  @RequestBody HotelOrderQueryDTO hotelOrderQueryDTO,
+                                  ModelMap model) {
+        System.out.println("searchTestWithPage" + page);
         setPageHotelOrder(page, hotelOrderQueryDTO, model);
-
-        //暂无页面
         return "orders";
     }
     /* 使用PageHelper获得并设置 分页数据 */

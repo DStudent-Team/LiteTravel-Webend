@@ -22,11 +22,13 @@
                 <div class="sidebar-wrap ftco-animate">
                     <!-- 查找特定城市中的酒店 -->
                     <h3 class="heading mb-4">Find City</h3>
-                    <form id="primitiveSearch" method="post" th:action="@{/orders}">
+                    <form id="search" method="post" th:action="@{/orders}">
                         <div class="fields">
                             <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
                             <div class="form-group">
-                                <input type="text" id="keyword" name="keyword" class="form-control" placeholder="关键字搜索">
+                                <input type="text" id="keyword" name="keyword"
+                                       class="form-control" placeholder="关键字搜索"
+                                       th:value="${search != null}?${search.keyword}:null">
                             </div>
                             <!--<div class="form-group">
                                 &lt;!&ndash; 地址选择 &ndash;&gt;
@@ -43,17 +45,24 @@
                             </div>-->
                             <div class="form-group">
                                 <!--<div class="icon"><span class="icon-calendar"></span><label>订单最早时间</label></div>-->
-                                <input type="text" id="startDate" class="form-control checkin_date" placeholder="起始时间">
+                                <input type="text" id="startDate"
+                                       class="form-control checkin_date" placeholder="起始时间"
+                                       th:value="${search != null}?${#dates.format(search.startDate, 'yyyy-M-d')}:null">
                             </div>
                             <div class="form-group">
                                 <!--<div class="icon"><span class="icon-calendar"></span><label>订单最晚时间</label></div>-->
-                                <input type="text" id="endDate" class="form-control checkout_date" placeholder="结束时间">
+                                <input type="text" id="endDate" class="form-control checkout_date" placeholder="结束时间"
+                                       th:value="${search != null}?${#dates.format(search.endDate, 'yyyy-M-d')}:null">
                             </div>
                             <div class="form-group">
-                                <input type="text" id="hotelAddress" class="form-control" placeholder="地点选择">
+                                <input type="text" id="address"
+                                       class="form-control" placeholder="地点选择" hidden="hidden"
+                                       th:value="${search != null}?${search.address}:null">
                             </div>
                             <div class="form-group">
-                                <input type="text" id="status" class="form-control" placeholder="状态选择">
+                                <input type="text" id="status" class="form-control"
+                                       placeholder="状态选择" hidden="hidden"
+                                       th:value="${search != null}?${search.status}:null">
                             </div>
                             <!-- 金额拖动栏 -->
                             <!--<div class="form-group">
@@ -154,6 +163,19 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
-<script th:src="@{/js/hotelOrder-Search.js}"></script>
+<!--<script th:src="@{/js/hotelOrder-Search.js}"></script>-->
+<script type="text/javascript" th:inline="javascript">
+if ([[${search != null}]]){
+    console.log("test");
+    $(".navigationHref").click(function () {
+        var $search = $('#search');
+        $search.action = this.href;
+        console.log("action is " + $search.action);
+        this.href = "#";
+        $search.submit();
+        return false;
+    });
+}
+</script>
 </body>
 </html>
