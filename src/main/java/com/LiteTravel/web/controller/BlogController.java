@@ -1,7 +1,7 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.BlogDTO;
-import com.LiteTravel.web.DTO.CommentDTO;
+import com.LiteTravel.web.DTO.Blog.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.CommentDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.UserInfo;
@@ -25,14 +25,9 @@ public class BlogController {
     CommentService commentService;
     @Autowired
     UserService userService;
-    @GetMapping(value = "/blogs")
-    public String getBlogs(ModelMap model){
-        setBlogPage(1, model);
-        return "blogs";
-    }
 
-    @GetMapping(value = "/blogs/{page}")
-    public String getBlogs(@PathVariable(value = "page") Integer page, ModelMap model){
+    @GetMapping("/blogs")
+    public String getBlogs(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
         setBlogPage(page, model);
         return "blogs";
     }
@@ -46,11 +41,11 @@ public class BlogController {
                                ModelMap model){
         BlogDTO blog = blogService.selectByPrimaryId(blogId);
         UserInfo userInfo = userService.selectInfoByUserId(blog.getBlogPosterId());
-        //        todo 获取回复信息
+        //获取回复信息
         List<CommentDTO> comments = commentService.listByBlogId(blogId);
+        //获取推荐博客信息
         ResultVO recentBlogs = blogService.getBlogs(blogId, 1, 3);
-        //        todo 获取推荐标签海
-        //        todo 获取推荐博客信息
+        // todo 获取推荐标签海
         model.addAttribute("blog", blog);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);

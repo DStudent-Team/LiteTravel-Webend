@@ -1,8 +1,6 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
 import com.LiteTravel.web.DTO.ResultVO;
-import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.UserInfoDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.UserInfoMapper;
@@ -14,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {

@@ -16,16 +16,9 @@ public class HotelController {
     @Autowired
     public HotelService hotelService;
 
-    /* todo 酒店列表实际上用了两个接口来接受两个不同的请求, 冗余了, 试试可不可以更加尽可能的重用 */
-    /* 默认第一页 */
-    @GetMapping("/hotels")
-    public String HotelList(ModelMap model){
-        setPageHotel(1, model);
-        return "hotels";
-    }
     /* 点击页面数切换 分页显示酒店列表 */
-    @GetMapping("/hotels/{page}")
-    public String HotelPage(@PathVariable("page") Integer page, ModelMap model){
+    @GetMapping("/hotels")
+    public String HotelPage(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model){
         setPageHotel(page, model);
         return "hotels";
     }
@@ -66,6 +59,7 @@ public class HotelController {
         model.addAttribute("hotels", result.data);
         return "hotel-single";
     }
+
 
     @GetMapping("/manage/hotels")
     public String MangeHotelList(ModelMap model){
