@@ -84,7 +84,6 @@ public class HotelOrderController {
     public String OrderSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   HotelOrderQueryDTO hotelOrderQueryDTO,
                                   ModelMap model) {
-        System.out.println("searchTest");
         setPageHotelOrder(page, hotelOrderQueryDTO, model);
         return "orders";
     }
