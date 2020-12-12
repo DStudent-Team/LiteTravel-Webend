@@ -39,7 +39,7 @@ public class BlogController {
     @GetMapping("/blog/{blogId}")
     public String BlogInfoPage(@PathVariable("blogId") Integer blogId,
                                ModelMap model){
-        BlogDTO blog = blogService.selectByPrimaryId(blogId);
+        BlogDTO blog = blogService.getBlogById(blogId);
         UserInfo userInfo = userService.selectInfoByUserId(blog.getBlogPosterId());
         //获取回复信息
         List<CommentDTO> comments = commentService.listByBlogId(blogId);
@@ -63,12 +63,42 @@ public class BlogController {
     }
 
     @PostMapping("/publish")
-    public String publish(@PathParam("title") String title,
-                          @PathParam("blog_text") String blog_text,
-                          @PathParam("blog_tags") String blog_tags,
+    public String publish(@PathParam("blogTitle") String blogTitle,
+                          @PathParam("blogContent") String blogContent,
+                          @PathParam("blogTags") String blogTags,
                           HttpSession session){
         UserDTO user = (UserDTO) session.getAttribute("user");
-        blogService.insertBlog(title, blog_text, blog_tags, user.userId);
+        blogService.insertBlog(blogTitle, blogContent, blogTags, user.userId);
+        return "redirect:/blogs";
+    }
+
+    /***
+     * 转入编辑博客页面
+     * @param blogId
+     * @param model
+     * @return
+     */
+    @GetMapping("/blog/publish/{blogId}")
+    public String toEditPage(@PathVariable("blogId") Integer blogId, ModelMap model){
+        BlogDTO blog = blogService.getBlogById(blogId);
+        model.addAttribute("blog",blog);
+        return "blog-publish";
+    }
+
+    //在springboot2.0后，需要配置spring.mvc.hiddenmethod.enabled = true(默认为false), put和delete请求才能生效
+    @PutMapping("/publish")
+    public String updateBlog(@PathParam("blogId") Integer blogId,
+                             @PathParam("blogTitle") String blogTitle,
+                             @PathParam("blogContent") String blogContent,
+                             @PathParam("blogTags") String blogTags){
+        blogService.updateBlog(blogId, blogTitle, blogContent, blogTags);
+        return "redirect:/blog/" + blogId;
+    }
+
+
+    @DeleteMapping("/blog/{blogId}")
+    public String deleteBlog(@PathVariable("blogId") Integer blogId) {
+        blogService.deleteBlogById(blogId);
         return "redirect:/blogs";
     }
 }
