@@ -114,7 +114,7 @@
         <!-- 文字概览区 -->
         <div class="text">
             <!-- 标签 -->
-            <span class="tag"
+            <span th:if="${blog.blogTags != null}" class="tag"
                   th:text="${#strings.abbreviate(
                                          #strings.capitalize(
                                          #strings.arrayJoin(blog.blogTags, ', ')), 30)}">

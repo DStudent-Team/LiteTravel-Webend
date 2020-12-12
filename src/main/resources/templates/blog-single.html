@@ -43,43 +43,7 @@
             <div class="col-md-8 ftco-animate">
                 <!-- 标题 -->
                 <h2 class="mb-3" th:text="${#strings.capitalize(blog.blogTitle)}">10 Tips For The Traveler</h2>
-                <p th:text="${blog.blogContent}"></p>
-                <p>
-                    <!-- 图片? -->
-                    <img th:src="@{/img/image_7.jpg}" alt="" class="img-fluid">
-                </p>
-
-                <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt
-                    doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo
-                    eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis
-                    ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p>
-
-                <h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
-                <p>Temporibus ad error suscipit exercitationem hic molestiae totam obcaecati rerum, eius aut, in.
-                    Exercitationem atque quidem tempora maiores ex architecto voluptatum aut officia doloremque. Error
-                    dolore voluptas, omnis molestias odio dignissimos culpa ex earum nisi consequatur quos odit quasi
-                    repellat qui officiis reiciendis incidunt hic non? Debitis commodi aut, adipisci.</p>
-                <p>
-                    <img th:src="@{/img/image_8.jpg}" alt="" class="img-fluid">
-                </p>
-                <p>Quisquam esse aliquam fuga distinctio, quidem delectus veritatis reiciendis. Nihil explicabo quod,
-                    est eos ipsum. Unde aut non tenetur tempore, nisi culpa voluptate maiores officiis quis vel ab
-                    consectetur suscipit veritatis nulla quos quia aspernatur perferendis, libero sint. Error, velit,
-                    porro. Deserunt minus, quibusdam iste enim veniam, modi rem maiores.</p>
-                <p>Odit voluptatibus, eveniet vel nihil cum ullam dolores laborum, quo velit commodi rerum eum quidem
-                    pariatur! Quia fuga iste tenetur, ipsa vel nisi in dolorum consequatur, veritatis porro explicabo
-                    soluta commodi libero voluptatem similique id quidem? Blanditiis voluptates aperiam non magni.
-                    Reprehenderit nobis odit inventore, quia laboriosam harum excepturi ea.</p>
-                <p>Adipisci vero culpa, eius nobis soluta. Dolore, maxime ullam ipsam quidem, dolor distinctio similique
-                    asperiores voluptas enim, exercitationem ratione aut adipisci modi quod quibusdam iusto, voluptates
-                    beatae iure nemo itaque laborum. Consequuntur et pariatur totam fuga eligendi vero dolorum
-                    provident. Voluptatibus, veritatis. Beatae numquam nam ab voluptatibus culpa, tenetur
-                    recusandae!</p>
-                <p>Voluptas dolores dignissimos dolorum temporibus, autem aliquam ducimus at officia adipisci quasi nemo
-                    a perspiciatis provident magni laboriosam repudiandae iure iusto commodi debitis est blanditiis
-                    alias laborum sint dolore. Dolores, iure, reprehenderit. Error provident, pariatur cupiditate soluta
-                    doloremque aut ratione. Harum voluptates mollitia illo minus praesentium, rerum ipsa debitis,
-                    inventore?</p>
+                <div th:utext="${blog.blogContent}"></div>
                 <!-- 文章正文结束 -->
 
                 <!-- 博客已被标记上的标签列 -->
@@ -202,51 +166,37 @@
                 </div>
                 <!-- 博客推荐 -->
                 <div class="sidebar-box ftco-animate">
-                    <h3>Recent Blog</h3>
+                    <h3>近期博客</h3>
                     <!-- 推荐博客单块 -->
-                    <div class="block-21 mb-4 d-flex">
+                    <div th:each="recentBlog:${recentBlogs}" class="block-21 mb-4 d-flex">
                         <!-- 博客图片 -->
-                        <a class="blog-img mr-4" th:style="'background-image: url('+@{/img/image_1.jpg}+');'"></a>
+                        <a class="blog-img mr-4"
+                           th:href="@{'/blog/' + ${recentBlog.blogId}}"
+                           th:style="'background-image: url(' + @{'/img/' + ${recentBlog.blogImgUri}}+');'"></a>
                         <div class="text">
                             <!-- 博客标题 -->
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
+                            <h3 class="heading">
+                                <a th:href="@{'/blog/' + ${recentBlog.blogId}}"
+                                   th:text="${#strings.abbreviate(
+                                   #strings.capitalize(recentBlog.blogTitle), 200)}"></a>
+                            </h3>
                             <!-- 博客属性 -->
                             <div class="meta">
                                 <!-- 发布时间 -->
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                <div><a href="#"><span class="icon-calendar"></span>
+                                    <span th:text="${#dates.monthName(recentBlog.blogPostTime) + ' ' +
+                                              #dates.day(recentBlog.blogPostTime) + ', ' +
+                                              #dates.year(recentBlog.blogPostTime)}"></span></a></div>
                                 <!-- 发布人 -->
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a th:href="@{'/user/' + ${recentBlog.blogPosterId}}"
+                                        th:text="${recentBlog.blogPosterInfo.userName}"><span class="icon-person"></span> Admin</a></div>
                                 <!-- 评论数 -->
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                                <div><a th:href="@{'/blog/' + ${recentBlog.blogId}}"
+                                        class="meta-chat"><span class="icon-chat"></span> [[${recentBlog.blogCommentCount}]]</a></div>
                             </div>
                         </div>
                     </div>
                     <!-- 推荐博客单块结束 -->
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" th:style="'background-image: url('+@{/img/image_2.jpg}+');'"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" th:style="'background-image: url(' + @{/img/image_3.jpg} + ');'"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calender"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- 标签推荐块? -->
                 <div class="sidebar-box ftco-animate">

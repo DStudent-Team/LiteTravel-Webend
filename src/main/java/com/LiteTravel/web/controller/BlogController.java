@@ -48,11 +48,13 @@ public class BlogController {
         UserInfo userInfo = userService.selectInfoByUserId(blog.getBlogPosterId());
         //        todo 获取回复信息
         List<CommentDTO> comments = commentService.listByBlogId(blogId);
+        ResultVO recentBlogs = blogService.getBlogs(blogId, 1, 3);
         //        todo 获取推荐标签海
         //        todo 获取推荐博客信息
         model.addAttribute("blog", blog);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);
+        model.addAttribute("recentBlogs", recentBlogs.data);
         return "blog-single";
     }
 
@@ -66,9 +68,12 @@ public class BlogController {
     }
 
     @PostMapping("/publish")
-    public String publish(@PathParam("title") String title, @PathParam("blog_text") String blog_text, HttpSession session){
+    public String publish(@PathParam("title") String title,
+                          @PathParam("blog_text") String blog_text,
+                          @PathParam("blog_tags") String blog_tags,
+                          HttpSession session){
         UserDTO user = (UserDTO) session.getAttribute("user");
-        blogService.insertBlog(title, blog_text, user.userId);
+        blogService.insertBlog(title, blog_text, blog_tags, user.userId);
         return "redirect:/blogs";
     }
 }
