@@ -19,49 +19,68 @@
 -->
 <section class="ftco-section">
     <div class="container">
-        <div class="row">
-            <!-- 个人信息栏 -->
-            <section class="col-3 sidebar ftco-animate">
-                <div class="col-12 border" style="margin-bottom: 15px;">
-                    <h3 class="text-center">个人信息</h3>
-                    <!-- 个人信息面板 -->
-                    <div class="col-12 media">
-                        <img th:src="@{'/img/' + ${info.userAvatarUri}}" class="align-self-center mr-3 rounded"
-                             width="70px">
-                        <div class="media-body text-center">
-                            <h4 th:text="${info.userName}"></h4>
+        <div>
+            <div class="row">
+                <!-- 个人信息栏 -->
+                <section class="col-lg-9 col-md-9 col-xs-12 ftco-animate">
+                    <div class="col-lg-12 border" style="margin-bottom: 15px;">
+                        <h3 class="text-center">个人信息</h3>
+                        <!-- 个人信息面板 -->
+                        <div class="col-lg-9 col-md-9 col-xs-12 media sidebar">
+                            <img th:src="@{'/img/' + ${info.userAvatarUri}}" class="align-self-center mr-3 rounded"
+                                 width="70px">
+                            <div class="media-body text-center sidebar">
+                                <h4 th:text="${info.userName}"></h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-xs-12" style="padding: 15px 0;">
+                            <span th:text="'性别:' + ${(info.userGender==1)?'男':'女'}"></span>
+                            <br/>
+                            <span th:text="'电话:' + ${info.userPhone}"></span>
+                            <br/>
+                            <span th:text="'邮箱:' + ${info.userEmail}"></span>
                         </div>
                     </div>
-                    <div class="col-12" style="padding: 15px 0;">
-                        <span th:text="'性别:' + ${(info.userGender==1)?'男':'女'}"></span>
-                        <br/>
-                        <span th:text="'电话:' + ${info.userPhone}"></span>
-                        <br/>
-                        <span th:text="'邮箱:' + ${info.userEmail}"></span>
-                    </div>
+                </section>
+                <div class="col-lg-3 col-md-12 col-xs-12 sidebar ftco-animate">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
+                        <li class="list-group-item">
+                            <a href="javascript:vo(0);" class="submitHref">我的酒店</a>
+                            <form id="order" name="order" method="post" th:action="@{/orders}">
+                                <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
+                                <input type="submit" value="我的酒店" hidden="hidden">
+                            </form>
+                        </li>
+                        <li class="list-group-item"><a href="#">我的机票</a></li>
+                        <li class="list-group-item"><a href="#">我的博客</a></li>
+                        <li class="list-group-item"><a th:href="@{/blog/publish}">发布博客</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-12 border" style="margin: 15px 0;">
+            </div>
+
+                <!--<div class="col-12 border" style="margin: 15px 0;">
                     <h4 class="text-center">常用旅客信息</h4>
-                    <!-- 常用旅客信息单栏 -->
-                    <div class="col-md-12 border" style="margin: 15px 0; padding: 15px 5px">
+                    &lt;!&ndash; 常用旅客信息单栏 &ndash;&gt;
+                    <div class="col-12 border" style="margin: 15px 0; padding: 15px 5px">
                         <h6 th:text="'姓名:' + ${info.userName}"></h6>
                         <h6 th:text="'性别:' + ${(info.userGender==1)?'男':'女'}"></h6>
                         <h6 th:text="'电话:' + ${info.userPhone}"></h6>
                     </div>
-                    <div class="col-md-12 border" style="margin: 15px 0; padding: 15px 5px">
+                    <div class="col-12 border" style="margin: 15px 0; padding: 15px 5px">
                         <h6 th:text="'姓名:' + ${info.userName}"></h6>
                         <h6 th:text="'性别:' + ${(info.userGender==1)?'男':'女'}"></h6>
                         <h6 th:text="'电话:' + ${info.userPhone}"></h6>
                     </div>
-                </div>
-            </section>
-            <main role="main" class="col-8">
+                </div>-->
+
+            <main role="main" class="col-12">
                 <div class="row">
-                    <div class="col-9 ftco-animate border">
+                    <div class="col-12 ftco-animate border">
 
                         <h1 style="padding: 10px 10px;">最近订单</h1>
                         <!-- 最近的订单信息单块 -->
-                        <div class="col-5 border" style="padding: 10px 10px; margin: 5px 0">
+                        <div class="col-6 border" style="padding: 10px 10px; margin: 5px 0">
                             <div>
                                 <a href="#"
                                    class="img img-2 d-flex justify-content-center align-items-center">
@@ -78,7 +97,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-5 border" style="padding-top: 5px; margin: 5px 0">
+                        <div class="col-6 border" style="padding-top: 5px; margin: 5px 0">
                             <div>
                                 <a href="#"
                                    class="img img-2 d-flex justify-content-center align-items-center">
@@ -95,88 +114,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-3 sidebar ftco-animate">
-                        <ul class="list-group">
-                            <li class="list-group-item"><a href="#">所有订单</a></li>
-                            <li class="list-group-item"><a href="#">我的酒店</a></li>
-                            <li class="list-group-item"><a href="#">我的机票</a></li>
-                            <li class="list-group-item"><a href="#">我的信息</a></li>
-                            <li class="list-group-item"><a href="#">我的攻略</a></li>
-                        </ul>
                     </div>
                 </div>
-
-                <!--                <button class="btn btn-primary" th:text="#{list.modify}" onclick="modifyInfo()"></button>-->
-                <!--                <form method="post" th:action="@{/user}">
-                                    <input name="_method" th:if="${info}!=null" type="hidden" value="PUT">
-                                    &lt;!&ndash; id &ndash;&gt;
-                                    <input name="userId" th:if="${info!=null}" th:value="${info.userId}" type="hidden">
-                                    &lt;!&ndash; No idea on how to let it work &ndash;&gt;
-                                    &lt;!&ndash; AvatarForm &ndash;&gt;
-                                    <input class="form-control"
-                                           name="avatarUri"
-                                           th:value="${info}!=null?${info.userAvatarUri}:'avatar.jpg'"
-                                           type="hidden">
-                                    &lt;!&ndash; AvatarDisplay &ndash;&gt;
-                                    <div class="text-center" th:if="${info}!=null">
-                                        <a th:href="@{'/changeAvatar/' + ${info.userId}}">
-                                            <img th:src="@{'/img/' + ${info.userAvatarUri}}"
-                                                 class="img-thumbnail rounded avatarImg" alt="..."/>
-                                        </a>
-                                    </div>
-                                    &lt;!&ndash; Tips&ndash;&gt;
-                                    &lt;!&ndash;<p class="text-center" style="color:black" th:if="${msg}!=null" th:text="${msg}"></p>&ndash;&gt;
-                                    &lt;!&ndash; username &ndash;&gt;
-                                    <div class="form-group">
-                                        <label th:text="#{list.username}">username</label>
-                                        <input class="form-control" name="username" placeholder="zhangsan"
-                                               th:value="${info}!=null?${info.userName}:''" type="text">
-                                    </div>
-                                    &lt;!&ndash; gender(selection) &ndash;&gt;
-                                    <div class="form-group">
-                                        <label th:text="#{list.gender}">Gender</label><br/>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" name="gender"
-                                                   th:checked="${info}!=null?${info.userGender}==1:false" type="radio" value="1">
-                                            <label class="form-check-label" th:text="#{global.male}">男</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" name="gender"
-                                                   th:checked="${info}!=null?${info.userGender}==0:false" type="radio" value="0">
-                                            <label class="form-check-label" th:text="#{global.female}">女</label>
-                                        </div>
-                                    </div>
-                                    &lt;!&ndash; Birth &ndash;&gt;
-                                    <div class="form-group">
-                                        <label th:text="#{list.birth}">Birth</label>
-                                        <input class="form-control" name="birth" placeholder="1999-01-03"
-                                               th:value="${info}!=null?${#dates.format(info.userBirth,'yyyy-MM-dd')}:''" type="text">
-                                    </div>
-                                    &lt;!&ndash; Phone &ndash;&gt;
-                                    <div class="form-group">
-                                        <label th:text="#{list.phone}">Phone</label>
-                                        <input class="form-control" name="phone" placeholder="1234567890"
-                                               th:value="${info}!=null?${info.userPhone}:''">
-                                    </div>
-                                    &lt;!&ndash; Email &ndash;&gt;
-                                    <div class="form-group">
-                                        <label th:text="#{list.email}">Email</label>
-                                        <input class="form-control" name="email" placeholder="zhangsan@atguigu.com"
-                                               th:value="${info}!=null?${info.userEmail}:''" type="email">
-                                    </div>
-                                    &lt;!&ndash; Address &ndash;&gt;
-                                    <div class="form-group">
-                                        <label th:text="#{list.address}">Address</label>
-                                        <input class="form-control" name="address" placeholder="北京市"
-                                               th:value="${info}!=null?${info.userAddress}:''">
-                                    </div>
-
-                                    <button class="btn btn-primary" th:text="${info}!=null?#{list.modify}:#{list.insert}"
-                                            type="submit">添加/修改
-                                    </button>
-                                </form>-->
             </main>
         </div>
     </div>
@@ -190,5 +129,10 @@
 
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/user.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+$(".submitHref").click(function () {
+    $('#order').submit();
+});
+</script>
 </body>
 </html>

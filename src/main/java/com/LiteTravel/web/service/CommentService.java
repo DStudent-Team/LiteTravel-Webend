@@ -1,6 +1,6 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.CommentDTO;
+import com.LiteTravel.web.DTO.Blog.CommentDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.enums.CommentTypeEnum;
 import com.LiteTravel.web.exception.CustomizeErrorCode;
@@ -11,15 +11,12 @@ import com.LiteTravel.web.mapper.CommentMapper;
 import com.LiteTravel.web.mapper.UserInfoMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

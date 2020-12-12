@@ -1,27 +1,22 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelOrderBlockDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.service.HotelOrderService;
-import com.LiteTravel.web.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-public class ManageOrderController {
+public class AdminHotelOrderController {
     @Autowired
     HotelOrderService hotelOrderService;
 
     @GetMapping("/manage/orders")
     public String list(ModelMap model){
-        ResultVO<HotelOrderBlockDTO> resultVO = hotelOrderService.getOrders(1, 10);
-        List<HotelOrderBlockDTO> orders = resultVO.resultList;
-        model.addAttribute("orders", orders);
+        ResultVO resultVO = hotelOrderService.getOrders(1, 10);
+        model.addAttribute("orders", resultVO.data);
         return "order/list";
     }
 

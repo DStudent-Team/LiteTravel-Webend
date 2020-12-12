@@ -1,6 +1,7 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
@@ -9,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,12 +33,12 @@ public class HotelService {
     public RegionMapper regionMapper;
     // 默认酒店列表
 //    @Cacheable(cacheNames = {"hotels"}, key = "#page")
-    public ResultVO<HotelDTO> getHotels(Integer page, Integer pageSize){
+    public ResultVO getHotels(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelExample());
     }
     // 推荐酒店
 //    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
-    public ResultVO<HotelDTO> getHotels(Integer hotelId, Integer page, Integer pageSize)
+    public ResultVO getHotels(Integer hotelId, Integer page, Integer pageSize)
     {
         HotelExample hotelExample = new HotelExample();
 //      todo 推荐算法尚未写好
@@ -47,7 +47,7 @@ public class HotelService {
         return selectByExample(page, pageSize, hotelExample);
     }
 
-    private ResultVO<HotelDTO> selectByExample(Integer page, Integer pageSize, HotelExample hotelExample){
+    private ResultVO selectByExample(Integer page, Integer pageSize, HotelExample hotelExample){
         /* 分页：
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */

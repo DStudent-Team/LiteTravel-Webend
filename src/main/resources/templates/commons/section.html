@@ -81,8 +81,8 @@
                         <span>查看评价</span>
                     </p>
                     <p>
-                        <p>入店时间: [[${order.checkIn}]]</p>
-                        <p>离店时间: [[${order.checkOut}]]</p>
+                        <p><span>入住时间:</span>[[${#dates.format(order.checkIn, 'yyyy-M-d')}]]</p>
+                        <p><span>离店时间:</span>[[${#dates.format(order.checkOut, 'yyyy-M-d')}]]</p>
                     </p>
                 </div>
                 <div class="two">
@@ -102,7 +102,9 @@
     </div>
 </div>
 
-<div th:fragment="blogBlock" class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate" th:each="blog:${blogs}">
+<div th:fragment="blogBlock"
+     class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate"
+     th:each="blog:${blogs}">
     <div class="blog-entry align-self-stretch defaultBlockWidth">
         <!-- 展示图片 -->
         <a th:href="@{'/blog/' + ${blog.blogId}}"
@@ -112,7 +114,7 @@
         <!-- 文字概览区 -->
         <div class="text">
             <!-- 标签 -->
-            <span class="tag"
+            <span th:if="${blog.blogTags != null}" class="tag"
                   th:text="${#strings.abbreviate(
                                          #strings.capitalize(
                                          #strings.arrayJoin(blog.blogTags, ', ')), 30)}">
@@ -141,10 +143,8 @@
                     <a th:href="@{'/user/' + ${blog.blogPosterId}}"
                        th:text="${blog.blogPosterInfo.userName}">Admin</a>
                 </div>
-                <!--
-                    todo
-                        blog回复数
-                        直接先跳转至博客页面
+                <!-- blog回复数
+                     直接先跳转至博客页面
                 -->
                 <div class="float-right"><a th:href="@{'/blog/' + ${blog.blogId}}"
                                             class="meta-chat">

@@ -4,4 +4,6 @@
 # Default ignored files
 /workspace.xml
 /dataSources.xml
+/dataSources.local.xml
+/dataSources-error.xml
 /target/

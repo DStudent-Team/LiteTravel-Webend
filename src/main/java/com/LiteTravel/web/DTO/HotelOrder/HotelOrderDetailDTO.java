@@ -1,9 +1,9 @@
-package com.LiteTravel.web.DTO;
+package com.LiteTravel.web.DTO.HotelOrder;
 
+import com.LiteTravel.web.DTO.BedDTO;
 import lombok.Data;
 
 import java.util.List;
-/*todo 合并进RoomDTO中去*/
 @Data
 public class HotelOrderDetailDTO {
     private Integer roomId;
