@@ -89,7 +89,6 @@ public class BlogService {
 
     @Transactional
     public int insertBlog(String blog_title, String blog_content, String blog_tags, int userId){
-
         Blog blog = new Blog();
         blog.setBlogImgUri("image_1.jpg");
         blog.setBlogTitle(blog_title);
