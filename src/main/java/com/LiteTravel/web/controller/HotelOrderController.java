@@ -73,7 +73,7 @@ public class HotelOrderController {
     @PostMapping("/orders")
     public String OrderSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   HotelOrderQueryDTO hotelOrderQueryDTO,
-                                  ModelMap model) {
+                                  ModelMap model) throws ParseException {
         setPageHotelOrder(page, hotelOrderQueryDTO, model);
         return "orders";
     }
@@ -93,7 +93,7 @@ public class HotelOrderController {
         model.addAttribute("pageInfo", resultVO.info);
     }
     /* 有搜索条件的前提下进行分页 */
-    private void setPageHotelOrder(Integer page, HotelOrderQueryDTO hotelOrderQueryDTO, ModelMap model){
+    private void setPageHotelOrder(Integer page, HotelOrderQueryDTO hotelOrderQueryDTO, ModelMap model) throws ParseException {
         /* 向service层分发请求处理 */
         ResultVO resultVO = hotelOrderService.getOrders(page, 6, hotelOrderQueryDTO);
         /* 分页信息类

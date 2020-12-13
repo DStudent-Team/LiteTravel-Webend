@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,21 +62,24 @@ HotelService {
         PageHelper.startPage(page, pageSize);
         List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
         PageInfo<Hotel> info = new PageInfo<>(hotels, 5);
-        List<Integer> addressIds = hotels.stream().map(Hotel::getHotelAddress).distinct().collect(Collectors.toList());
-        RegionExample regionExample = new RegionExample();
-        regionExample.createCriteria()
-                .andIdIn(addressIds);
-        List<Region> regions = regionMapper.selectByExample(regionExample);
-        Map<Integer, String> addressMap = regions.stream().collect(Collectors.toMap(Region::getId, Region::getMername));
-        List<HotelDTO> data = hotels.stream().map(hotel -> {
-            HotelDTO hotelDTO = new HotelDTO();
-            BeanUtils.copyProperties(hotel, hotelDTO);
-            // 写入地址数据 hotelTotalAddress;
-            String addressString = addressMap.get(hotel.getHotelAddress());
-            hotelDTO.setHotelAddressString(addressString.substring(addressString.indexOf("省,") + 2));
-            return hotelDTO;
-        }).collect(Collectors.toList());
-        return new ResultVO(data, info);
+        if (hotels.size() > 0) {
+            List<Integer> addressIds = hotels.stream().map(Hotel::getHotelAddress).distinct().collect(Collectors.toList());
+            RegionExample regionExample = new RegionExample();
+            regionExample.createCriteria()
+                    .andIdIn(addressIds);
+            List<Region> regions = regionMapper.selectByExample(regionExample);
+            Map<Integer, String> addressMap = regions.stream().collect(Collectors.toMap(Region::getId, Region::getMername));
+            List<HotelDTO> data = hotels.stream().map(hotel -> {
+                HotelDTO hotelDTO = new HotelDTO();
+                BeanUtils.copyProperties(hotel, hotelDTO);
+                // 写入地址数据 hotelTotalAddress;
+                String addressString = addressMap.get(hotel.getHotelAddress());
+                hotelDTO.setHotelAddressString(addressString.substring(addressString.indexOf("省,") + 2));
+                return hotelDTO;
+            }).collect(Collectors.toList());
+            return new ResultVO(data, info);
+        }
+        return new ResultVO((List<HotelDTO>) new ArrayList(), info);
     }
 
     // 展现酒店单页
@@ -157,7 +161,7 @@ HotelService {
 
     private  HotelExample getHotelExample(HotelQueryDTO query) {
 
-        String keyWord = query.getKeyword();
+        String keyword = query.getKeyword();
         Integer minPrice = query.getMinPrice();
         Integer maxPrice = query.getMaxPrice();
 
@@ -165,10 +169,10 @@ HotelService {
         HotelExample.Criteria hotelExampleCriteria = hotelExample.createCriteria();
         HotelExample.Criteria hotelExampleCriteria1 = hotelExample.createCriteria();
 
-        if (keyWord != null) {
+        if (keyword != null) {
 
-            hotelExampleCriteria.andHotelNameLike("%" + keyWord + "%");
-            hotelExampleCriteria1.andHotelDescriptionLike("%" + keyWord + "%");
+            hotelExampleCriteria.andHotelNameLike("%" + keyword + "%");
+            hotelExampleCriteria1.andHotelDescriptionLike("%" + keyword + "%");
         }
         if (minPrice != null) {
             hotelExampleCriteria.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
@@ -178,6 +182,7 @@ HotelService {
             hotelExampleCriteria.andHotelMinPriceLessThanOrEqualTo(maxPrice);
             hotelExampleCriteria1.andHotelMinPriceLessThanOrEqualTo(maxPrice);
         }
+        hotelExample.or(hotelExampleCriteria);
         hotelExample.or(hotelExampleCriteria1);
         return hotelExample;
     }

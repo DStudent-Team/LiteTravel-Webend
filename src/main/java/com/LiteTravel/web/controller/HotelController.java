@@ -49,7 +49,7 @@ public class HotelController {
         /* 放入hotel列表数据 */
         model.addAttribute("hotels", resultVO.data);
         /* 放入查询条件 */
-        model.addAttribute(hotelQueryDTO);
+        model.addAttribute("search", hotelQueryDTO);
         /* 放入页面信息数据 */
         model.addAttribute("pageInfo", resultVO.info);
     }
