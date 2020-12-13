@@ -33,21 +33,31 @@
         </javaClientGenerator>
         <!--要生成的表结构-->
         <!--默认将已经生成的表关闭，防止误覆盖-->
-        <table tableName="travel_user_account" domainObjectName="User"/>
-        <table tableName="travel_user_info" domainObjectName="UserInfo"/>
-        <table tableName="travel_hotel" domainObjectName="Hotel"/>
-        <table tableName="travel_hotel_orders" domainObjectName="HotelOrder">
-            <generatedKey column="order_id" sqlStatement="Mysql" identity="true"/>
+        <table tableName="travel_user_account" domainObjectName="User">
+            <generatedKey column="user_id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="travel_hotel_orders_detail" domainObjectName="HotelOrderDetail"/>
-        <table tableName="travel_hotel_room" domainObjectName="Room"/>
-        <table tableName="travel_bed" domainObjectName="Bed"/>
-        <table tableName="travel_room_bed" domainObjectName="RoomBedMap"/>
-        <table tableName="travel_blog" domainObjectName="Blog"/>
-        <table tableName="travel_blog_tags" domainObjectName="BlogTagMap"/>
-        <table tableName="travel_tag" domainObjectName="Tag"/>
-        <table tableName="travel_blog_comment" domainObjectName="Comment"/>
-        <table tableName="global_region" domainObjectName="Region"/>
+<!--        <table tableName="travel_user_info" domainObjectName="UserInfo"/>-->
+<!--        <table tableName="travel_hotel" domainObjectName="Hotel"/>-->
+<!--        <table tableName="travel_hotel_orders" domainObjectName="HotelOrder">-->
+<!--            <generatedKey column="order_id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="travel_hotel_orders_detail" domainObjectName="HotelOrderDetail"/>-->
+<!--        <table tableName="travel_hotel_room" domainObjectName="Room"/>-->
+<!--        <table tableName="travel_bed" domainObjectName="Bed"/>-->
+<!--        <table tableName="travel_room_bed" domainObjectName="RoomBedMap"/>-->
+<!--        <table tableName="travel_blog" domainObjectName="Blog">-->
+<!--            <generatedKey column="blog_id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="travel_blog_tags" domainObjectName="BlogTagMap"/>-->
+<!--        &lt;!&ndash;如果重置了travel_tags, 注意看blogs页面的标签显示是否正确, 否则就不要打开这个重置&ndash;&gt;-->
+<!--        <table tableName="travel_tag" domainObjectName="Tag">-->
+<!--            <generatedKey column="tag_id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table tableName="travel_blog_comment" domainObjectName="Comment"/>-->
+<!--        <table tableName="global_region" domainObjectName="Region"/>-->
+        <table tableName="travel_flight" domainObjectName="Flight">
+            <generatedKey column="flight_id" sqlStatement="Mysql" identity="true"/>
+        </table>
     </context>
 
 </generatorConfiguration>
