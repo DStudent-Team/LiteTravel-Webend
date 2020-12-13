@@ -2,6 +2,7 @@ package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
+import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
@@ -15,7 +16,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class HotelService {
+public class
+HotelService {
 
     @Autowired
     public HotelMapper hotelMapper;
@@ -36,6 +38,11 @@ public class HotelService {
     public ResultVO getHotels(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelExample());
     }
+
+    public ResultVO getHotels(Integer page, Integer pageSize, HotelQueryDTO hotelQueryDTO){
+        return selectByExample(page, pageSize, getHotelExample(hotelQueryDTO));
+    }
+
     // 推荐酒店
 //    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
     public ResultVO getHotels(Integer hotelId, Integer page, Integer pageSize)
@@ -146,5 +153,32 @@ public class HotelService {
     }
     private List<RoomDTO> getRoomDTOs(List<Room> rooms){
         return rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
+    }
+
+    private  HotelExample getHotelExample(HotelQueryDTO query) {
+
+        String keyWord = query.getKeyword();
+        Integer minPrice = query.getMinPrice();
+        Integer maxPrice = query.getMaxPrice();
+
+        HotelExample hotelExample = new HotelExample();
+        HotelExample.Criteria hotelExampleCriteria = hotelExample.createCriteria();
+        HotelExample.Criteria hotelExampleCriteria1 = hotelExample.createCriteria();
+
+        if (keyWord != null) {
+
+            hotelExampleCriteria.andHotelNameLike("%" + keyWord + "%");
+            hotelExampleCriteria1.andHotelDescriptionLike("%" + keyWord + "%");
+        }
+        if (minPrice != null) {
+            hotelExampleCriteria.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
+            hotelExampleCriteria1.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
+        }
+        if (maxPrice != null) {
+            hotelExampleCriteria.andHotelMinPriceLessThanOrEqualTo(maxPrice);
+            hotelExampleCriteria1.andHotelMinPriceLessThanOrEqualTo(maxPrice);
+        }
+        hotelExample.or(hotelExampleCriteria1);
+        return hotelExample;
     }
 }

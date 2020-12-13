@@ -1,10 +1,7 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderBlockDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderInfoDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
+import com.LiteTravel.web.DTO.HotelOrder.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
@@ -216,7 +213,7 @@ public class HotelOrderService {
         if (status != null && status.length() > 0) {
             hotelOrderExampleCriteria.andStatusIn(Arrays.asList(status.split(",")));
         }
-        hotelIds.add(-1);// 防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
+        hotelIds.add(-1); // 防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
         hotelOrderExampleCriteria.andHotelIdIn(hotelIds);
         return hotelOrderExample;
     }
