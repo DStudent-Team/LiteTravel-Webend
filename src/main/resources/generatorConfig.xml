@@ -58,6 +58,9 @@
         <table tableName="travel_flight" domainObjectName="Flight">
             <generatedKey column="flight_id" sqlStatement="Mysql" identity="true"/>
         </table>
+        <table tableName="travel_flight_ticket" domainObjectName="FlightTicket">
+            <generatedKey column="ticket_id" sqlStatement="Mysql" identity="true"/>
+        </table>
     </context>
 
 </generatorConfiguration>

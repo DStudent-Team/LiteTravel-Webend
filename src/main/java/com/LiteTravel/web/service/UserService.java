@@ -29,6 +29,15 @@ public class UserService {
                 .andUserStateEqualTo(1);
         return userMapper.selectByExample(userExample);
     }
+    public List<User> checkPasswordValid(Integer userId, String userPassword){
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andUserIdEqualTo(userId)
+                .andUserPasswordEqualTo(userPassword)
+                .andUserStateEqualTo(1);
+        return userMapper.selectByExample(userExample);
+    }
+
     public UserInfo selectInfoByUserId(Integer userId){
         return userInfoMapper.selectByPrimaryKey(userId);
     }

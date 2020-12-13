@@ -329,7 +329,7 @@
 		  var checkIn = Date.parse(dateText.replace(/-/g, "/"));
 		  if(checkOut < checkIn)
 		  {
-			  $('.checkin_date').val(new Date(checkIn - 24 * 60 * 60 * 1000));
+			  $('.checkin_date').val(new Date(checkOut - 24 * 60 * 60 * 1000));
 		  }
 	  }
 	});

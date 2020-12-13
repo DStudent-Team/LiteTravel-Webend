@@ -73,6 +73,7 @@ public class HotelOrderService {
             hotelOrderDTO.setHotelImgUri(hotelUri);
             return hotelOrderDTO;
         }).collect(Collectors.toList());
+
         return new ResultVO(data, info);
     }
 
