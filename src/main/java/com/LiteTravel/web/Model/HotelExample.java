@@ -833,6 +833,11 @@ public class HotelExample {
             addCriterion("hotel_reply_count not between", value1, value2, "hotelReplyCount");
             return (Criteria) this;
         }
+
+        public Criteria andHotelDescriptionLike(String value) {
+            addCriterion("hotel_description like", value, "hotelDescription");
+            return (Criteria) this;
+        }
     }
 
     /**
