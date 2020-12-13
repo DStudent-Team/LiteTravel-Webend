@@ -39,7 +39,8 @@ public class UserService {
     public void insert(UserInfo info) {
         userInfoMapper.insert(info);
     }
-    @Cacheable("users")
+
+
     public List<User> selectByCode(String userCode) {
         UserExample userExample = new UserExample();
         userExample.createCriteria()
