@@ -63,6 +63,7 @@ public class LoginController {
 //        写入账号密码
         user.setUserCode(userCode);
         user.setUserPassword(userPassword);
+        user.setUserState(1);
         userService.insert(user);
 //        写入账号信息
         UserInfo userinfo = new UserInfo();
@@ -76,7 +77,7 @@ public class LoginController {
 //        自动跳转登陆
         if(userService.selectByCode(userCode).size() != 0) {
             login(userCode, userPassword, map, session);
-            return "redirect:/index.html";
+            return "redirect:/index";
         }
         else {
             return "redirect:/toRegister";

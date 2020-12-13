@@ -31,19 +31,22 @@
             <div class="row block-9">
                 <div class="col-md-9 order-md-last pr-md-5">
                     <form method="post" th:action="@{/publish}">
+                        <input name="_method" th:if="${blog}!=null" type="hidden" value="PUT">
+                        <input name="blogId" th:if="${blog}!=null" type="hidden" th:value="${blog.blogId}">
                         <div class="form-group">
                             <h3>标题：</h3>
-                            <input id="title" name="title" type="text" class="form-control" placeholder="输入标题">
+                            <input id="blogTitle" name="blogTitle" type="text" class="form-control" placeholder="输入标题" th:value="${blog != null && blog.blogTitle != null ? blog.blogTitle : ''}">
                         </div>
                         <!--                <input id="orderId" name="orderId" type="hidden" th:value="${order.orderId}">-->
                         <div class="form-group">
                             <!--使用插件，满足富文本输入需求-->
                             <h3>正文:</h3>
                             <div id="editor">
+                                <div th:if="${blog != null && blog.blogContent != null}" th:utext="${blog.blogContent}"></div>
                             </div>
-                            <textarea id="blog_text" name="blog_text" hidden="hidden"></textarea>
+                            <textarea id="blogContent" name="blogContent" hidden="hidden" th:value="${blog != null && blog.blogContent != null ? blog.blogContent : ''}"></textarea>
                         </div>
-                        <input id="blog_tags" name="blog_tags" type="text" hidden="hidden">
+                        <input id="blogTags" name="blogTags" type="text" hidden="hidden" th:value="${blog != null && blog.blogTags != null ? #strings.arrayJoin(blog.blogTags, ', ') : ''}">
                         <div class="form-group">
                             <input type="submit" value="发布" class="btn btn-primary py-3 px-5">
                         </div>
@@ -58,7 +61,7 @@
                         <div class="navbar-toggler"><span class="oi oi-tags"></span> 博客标签</div>
                         <hr/>
                         <input id="tagEditor" name="tagEditor" type="text" class="form-control-sm"
-                               placeholder="输入标签, 以,分割"/>
+                               placeholder="输入标签, 以,分割" th:value="${blog != null && blog.blogTags != null ? #strings.arrayJoin(blog.blogTags, ', ') : ''}"/>
                     </div>
                     <br/>
                     <!--最近使用过的标签-->
@@ -114,16 +117,17 @@
     const E = window.wangEditor;
     const editor = new E('#editor');
     editor.config.height = 666;
-    const $blog_text = $('#blog_text');
+
+    const $blog_text = $('#blogContent');
     editor.config.onchange = function (html) {
         $blog_text.val(html)
     };
     const $tagsEditor = $('#tagEditor');
-    const $tags = $('#blog_tags');
+    const $tags = $('#blogTags');
     $tagsEditor.change(function () {
         $tags.val($tagsEditor.val());
         console.log($tags.val());
     });
-    editor.create()
+    editor.create();
 </script>
 </html>
