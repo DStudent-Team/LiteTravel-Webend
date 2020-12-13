@@ -19,8 +19,8 @@ public class ManageUserController {
     UserService userService;
     @GetMapping("/manage/users")
     public String userList(ModelMap model){
-        List<User> userList = userService.getUsers();
-        model.addAttribute("orders", resultVO.data);
+        ResultVO resultVO = userService.getUsers(1, 5);
+        model.addAttribute("users", resultVO.data);
         return "user/list";
     }
 }
