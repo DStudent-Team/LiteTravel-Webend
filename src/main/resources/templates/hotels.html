@@ -20,49 +20,57 @@
             <div class="col-lg-3 sidebar order-md-last ftco-animate">
                 <div class="sidebar-wrap ftco-animate">
                     <!-- 查找特定城市中的酒店 -->
-                    <h3 class="heading mb-4">Find City</h3>
-                    <form action="#">
+                    <h3 class="heading mb-4">Find Hotel</h3>
+                    <form id="search" name="search" method="post" th:action="@{/hotels}">
                         <div class="fields">
                             <div class="form-group">
-                                <input type="text" id="keyword" class="form-control" placeholder="关键字搜索">
+                                <input type="text" id="keyword" name="keyword"
+                                       class="form-control" placeholder="关键字搜索"
+                                       th:value="${search != null}?${search.keyword}:null">
                             </div>
-                            <div class="form-group">
-                                <!-- 地址选择 -->
-                                <div class="select-wrap one-third">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="city" id="city" class="form-control" placeholder="目标城市">
-                                        <option value="">Select Location</option>
-                                        <option value="">San Francisco USA</option>
-                                        <option value="">Berlin Germany</option>
-                                        <option value="">Lodon United Kingdom</option>
-                                        <option value="">Paris Italy</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control checkin_date"
-                                       placeholder="Date from">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="checkout_date" class="form-control checkout_date"
-                                       placeholder="Date to">
-                            </div>
+<!--                            <div class="form-group">-->
+<!--                                &lt;!&ndash; 地址选择 &ndash;&gt;-->
+<!--                                <div class="select-wrap one-third">-->
+<!--                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
+<!--                                    <select name="city" id="city" class="form-control" placeholder="目标城市">-->
+<!--                                        <option value="">Select Location</option>-->
+<!--                                        <option value="">San Francisco USA</option>-->
+<!--                                        <option value="">Berlin Germany</option>-->
+<!--                                        <option value="">Lodon United Kingdom</option>-->
+<!--                                        <option value="">Paris Italy</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" id="checkin_date" class="form-control checkin_date"-->
+<!--                                       placeholder="Date from">-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" id="checkout_date" class="form-control checkout_date"-->
+<!--                                       placeholder="Date to">-->
+<!--                            </div>-->
                             <!-- 金额拖动栏 -->
                             <div class="form-group">
                                 <div class="range-slider">
-		              		<span>
+		              		        <span>
                                     <!-- 文字金额标识 -->
-									    <input type="number" value="25000" min="0" max="120000"/>	-
-										    <input type="number" value="50000" min="0" max="120000"/>
-										  </span>
+									    <input type="number" id="minPrice" name="minPrice"
+                                               placeholder="最低" min="0" max="2000"
+                                               th:value="${search != null}?${search.minPrice}:null"/>	-
+                                        <input type="number" id="maxPrice" name="maxPrice"
+                                               placeholder="最高" min="0" max="2000"
+                                               th:value="${search != null}?${search.maxPrice}:null"/>
+							        </span>
                                     <!-- 拖动栏 -->
-                                    <input value="1000" min="0" max="120000" step="500" type="range"/>
-                                    <input value="50000" min="0" max="120000" step="500" type="range"/>
+                                        <input value="200" min="0" max="2000" step="100" type="range"/>
+                                        <input value="600" min="0" max="2000" step="100" type="range"/>
                                     </svg>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+                                <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
+                                <br>
+                                <input type="button" value="重置" onclick="clearInput()" class="btn btn-info py-3 px-5">
                             </div>
                         </div>
                     </form>
@@ -142,26 +150,43 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
-<!--
+<script type="text/javascript" th:inline="javascript">
+    if ([[${search != null}]]){
+        console.log("test");
+        $(".navigationHref").click(function () {
+            $('#search').attr('action',this.href);
+            console.log("action is " +  this.href);
+            this.href = "javascript:vo(0);";
+            $('#search').submit();
+            return false;
+        });
+    }
+    function clearInput() {
+        $('#minPrice').val('');
+        $('#maxPrice').val('');
+        $('#keyword').val('')
+    }
+</script>
+<!--&lt;!&ndash;-->
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
+<!--<script th:src="@{/js/jquery.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>-->
+<!--<script th:src="@{/js/popper.min.js}"></script>-->
+<!--<script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery.easing.1.3.js}"></script>-->
+<!--<script th:src="@{/js/jquery.waypoints.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery.stellar.min.js}"></script>-->
+<!--<script th:src="@{/js/owl.carousel.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>-->
+<!--<script th:src="@{/js/aos.js}"></script>-->
+<!--<script th:src="@{/js/jquery.animateNumber.min.js}"></script>-->
+<!--<script th:src="@{/js/bootstrap-datepicker.js}"></script>-->
+<!--<script th:src="@{/js/jquery.timepicker.min.js}"></script>-->
+<!--<script th:src="@{/js/scrollax.min.js}"></script>-->
 
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<!--<script th:src="@{/js/google-map.js}"></script>-->
+<!--<script th:src="@{/js/main.js}"></script>-->
 
--->
+<!--&ndash;&gt;-->
 </body>
 </html>
