@@ -63,6 +63,7 @@ public class UserService {
         return id;
     }
 
+//    获取用户分页信息数据
     public ResultVO getUsers(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new UserInfoExample());
     }
@@ -104,6 +105,53 @@ public class UserService {
             return userManageDTO;
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
+    }
+
+    /*后台添加用户信息(tag=insert)和更新用户信息(tag=update) 添加两个表  */
+    public void addUserByManeger(UserManageDTO userManageDTO, String tag){
+        /*user_account*/
+        User user = new User();
+        user.setUserCode(userManageDTO.getUserCode());
+        user.setUserPassword(userManageDTO.getUserPassword());
+        user.setUserState(1);
+
+
+        /*user_info*/
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName(userManageDTO.getUserName());
+        userInfo.setUserGender(0);
+        userInfo.setUserBirth(userManageDTO.getUserBirth());
+        userInfo.setUserEmail(userManageDTO.getUserEmail());
+        userInfo.setUserPhone(userManageDTO.getUserPhone());
+        userInfo.setUserAddressSpecific(userManageDTO.getUserAddressSpecific());
+        userInfo.setUserAvatarUri("avatar.jpg");
+
+        if(tag.equals("insert")){
+            insert(user);
+            userInfo.setUserId(user.getUserId());
+            insert(userInfo);
+            System.out.println("保存成功！"+user);
+        }
+        else if(tag.equals("update")){
+            user.setUserId(userManageDTO.getUserId());
+            userInfo.setUserId(userManageDTO.getUserId());
+            userMapper.updateByPrimaryKeySelective(user);
+            userInfoMapper.updateByPrimaryKeySelective(userInfo);
+            System.out.println("修改成功！"+user);
+        }
+    }
+
+    /*后台更新用户信息*/
+
+    /*删除用户信息 包括账号信息和具体信息*/
+    public int deleteUser(Integer userId){
+        int id = userMapper.deleteByPrimaryKey(userId);
+        int infoId = userInfoMapper.deleteByPrimaryKey(userId);
+        if(id == 1 && infoId == 1){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
 

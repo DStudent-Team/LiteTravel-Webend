@@ -41,18 +41,9 @@ function modifyInfo () {
 }
 
 // 后台删除用户提示框
-function deleteUser (userId) {
-    let x;
-    let r=confirm("按下按钮!");
-    if (r===true){
-        alert("修改成功！");
-        window.location.reload();
-        console.log(userId);
-    }
-    else{
-        x="你按下了\"取消\"按钮!";
-    }
-
+function deleteByUserId (userId) {
+    $('#deleteId').val(userId);
+    console.log(userId);
 }
 
 // 暂时没办法了，只能用这种办法传。。
@@ -74,7 +65,6 @@ function editUser (userId, userCode, userPassword,
     // $('#myModal').modal("hide");
     $("#myModalLabel").text("新增");
     $('#myModal').modal();
-    console.log("有毒啊"+userId+userCode+userPassword+userName+userBirth+userEmail+userPhone+userAddressSpecific+userState);
     //向模态框中传值
     $('#userId').val(userId);
     $('#userCode').val(userCode);
@@ -85,12 +75,11 @@ function editUser (userId, userCode, userPassword,
     $('#userPhone').val(userPhone);
     $('#userAddressSpecific').val(userAddressSpecific);
     $('#userState').val(userState);
-    $('#putMethod').val("PUT");
+    $('#putMethod').removeAttr("disabled");
+    console.log(userId)
 }
 
 function clearUser(){
-    // console.log("有毒啊"+userId+userCode+userPassword+userName+userBirth+userEmail+userPhone+userAddressSpecific+userState);
-    //向模态框中传值
     $('#userId').val("");
     $('#userCode').val("");
     $('#userPassword').val("");
@@ -99,6 +88,8 @@ function clearUser(){
     $('#userEmail').val("");
     $('#userPhone').val("");
     $('#userAddressSpecific').val("");
-    $('#userState').val("");
-    $('#putMethod').val("post");
+    $('#userState').attr("disabled",true);
+    // $('#putMethod').val("");
+
+
 }
