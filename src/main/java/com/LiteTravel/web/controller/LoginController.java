@@ -1,5 +1,6 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
@@ -109,5 +110,19 @@ public class LoginController {
             msg = "{\"msg\":\"false\"}";
         }
         return msg;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/checkPassword")
+    public ResponseDTO checkPassword(@RequestParam("userPassword") String userPassword, HttpSession session){
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        Integer userId = user.getUserId();
+        List<User> users = userService.checkPasswordValid(userId, userPassword);
+        if (userPassword != null && users.size() > 0){
+            return ResponseDTO.successOf();
+        }
+        else{
+            return ResponseDTO.errorOf(2003, "输入密码有误! 请重新输入!");
+        }
     }
 }

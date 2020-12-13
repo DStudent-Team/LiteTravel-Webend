@@ -46,14 +46,20 @@
                     <ul class="list-group">
                         <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
                         <li class="list-group-item">
-                            <a href="javascript:vo(0);" class="submitHref">我的酒店</a>
+                            <a href="javascript:vo(0);" class="userHotelOrders">我的酒店</a>
                             <form id="order" name="order" method="post" th:action="@{/orders}">
-                                <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
+                                <input name="userId" th:value="${session.user.userId}" hidden="hidden">
                                 <input type="submit" value="我的酒店" hidden="hidden">
                             </form>
                         </li>
                         <li class="list-group-item"><a href="#">我的机票</a></li>
-                        <li class="list-group-item"><a href="#">我的博客</a></li>
+                        <li class="list-group-item">
+                            <a href="javascript:vo(0);" class="userBlogs">我的博客</a>
+                            <form id="blog" name="blog" method="post" th:action="@{/blogs}">
+                                <input name="userId" th:value="${session.user.userId}" hidden="hidden">
+                                <input type="submit" value="我的博客" hidden="hidden">
+                            </form>
+                        </li>
                         <li class="list-group-item"><a th:href="@{/blog/publish}">发布博客</a></li>
                     </ul>
                 </div>
@@ -130,8 +136,11 @@
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/user.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-$(".submitHref").click(function () {
+$(".userHotelOrders").click(function () {
     $('#order').submit();
+});
+$(".userBlogs").click(function () {
+    $('#blog').submit();
 });
 </script>
 </body>
