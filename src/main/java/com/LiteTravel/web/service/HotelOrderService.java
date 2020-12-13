@@ -1,18 +1,20 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderBlockDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderInfoDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
+import com.LiteTravel.web.DTO.HotelOrder.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.expression.Dates;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,7 +41,7 @@ public class HotelOrderService {
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
 
-    public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO){
+    public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO) throws ParseException {
         return selectByExample(page, pageSize, getHotelOrderExample(hotelOrderQueryDTO));
     }
 
@@ -178,7 +180,7 @@ public class HotelOrderService {
         return hotelOrderMapper.updateByPrimaryKeySelective(modified);
     }
 
-    private HotelOrderExample getHotelOrderExample(HotelOrderQueryDTO query) {
+    private HotelOrderExample getHotelOrderExample(HotelOrderQueryDTO query) throws ParseException {
         //获取查询条件
         Integer userId = query.getUserId();
         String hotelName = query.getKeyword();
@@ -187,11 +189,13 @@ public class HotelOrderService {
         String status = query.getStatus();
         Integer hotelAddress = query.getAddress();
 
+
         HotelOrderExample hotelOrderExample = new HotelOrderExample();
         HotelExample hotelExample = new HotelExample();
         HotelExample.Criteria hotelExampleCriteria = hotelExample.createCriteria();
 
         HotelOrderExample.Criteria hotelOrderExampleCriteria = hotelOrderExample.createCriteria();
+
         if (hotelName != null) {
             hotelExampleCriteria.andHotelNameLike("%" + hotelName + "%");
         }
@@ -201,24 +205,42 @@ public class HotelOrderService {
             /*范围查询*/
             hotelExampleCriteria.andHotelAddressBetween(regionId * 100, regionId * 100 + 99);
         }
+
         List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
         List<Integer> hotelIds = hotels.stream().map(Hotel::getHotelId).distinct().collect(Collectors.toList());
+
         if (userId != null) {
             hotelOrderExampleCriteria.andUserIdEqualTo(userId);
         }
         //根据起止时间和订单状态找到订单
         if (startTime != null){
+            //转成数据库的dataTime类型也不行
+            startTime = new Timestamp(startTime.getTime());
+            System.out.println(startTime);
             hotelOrderExampleCriteria.andCreateDateGreaterThanOrEqualTo(startTime);
         }
-        if (endTime != null)
-        {
+        if (endTime != null) {
+            //转成数据库的dataTime类型也不行
+            endTime = new Timestamp(endTime.getTime() + (60 * 60 * 24 - 1) * 1000);
+            System.out.println(endTime);
             hotelOrderExampleCriteria.andCreateDateLessThanOrEqualTo(endTime);
         }
+
         if (status != null && status.length() > 0) {
             hotelOrderExampleCriteria.andStatusIn(Arrays.asList(status.split(",")));
         }
-        hotelIds.add(-1);// 防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
+        // 防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
+        hotelIds.add(-1);
         hotelOrderExampleCriteria.andHotelIdIn(hotelIds);
+        List<HotelOrder> orders = hotelOrderMapper.selectByExample(hotelOrderExample);
+        for (HotelOrder orderId: orders) {
+            System.out.println(orderId.getOrderId());
+        }
+//        Date s = new java.util.Date();
+//        System.out.println(s);
+//        System.out.println(new java.sql.Date(s.getTime()));
+//        System.out.println(new Timestamp(s.getTime()));
         return hotelOrderExample;
+
     }
 }
