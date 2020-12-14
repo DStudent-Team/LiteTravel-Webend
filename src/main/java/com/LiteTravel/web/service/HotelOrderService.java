@@ -6,15 +6,12 @@ import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.expression.Dates;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -180,7 +177,7 @@ public class HotelOrderService {
         return hotelOrderMapper.updateByPrimaryKeySelective(modified);
     }
 
-    private HotelOrderExample getHotelOrderExample(HotelOrderQueryDTO query) throws ParseException {
+    private HotelOrderExample getHotelOrderExample(HotelOrderQueryDTO query) {
         //获取查询条件
         Integer userId = query.getUserId();
         String hotelName = query.getKeyword();
@@ -215,13 +212,14 @@ public class HotelOrderService {
         //根据起止时间和订单状态找到订单
         if (startTime != null){
             //转成数据库的dataTime类型也不行
+//            startTime = new Date(startTime.getTime());
             startTime = new Timestamp(startTime.getTime());
             System.out.println(startTime);
             hotelOrderExampleCriteria.andCreateDateGreaterThanOrEqualTo(startTime);
         }
         if (endTime != null) {
             //转成数据库的dataTime类型也不行
-            endTime = new Timestamp(endTime.getTime() + (60 * 60 * 24 - 1) * 1000);
+            endTime = new Timestamp(endTime.getTime() + (60 * 60 * 24) * 1000);
             System.out.println(endTime);
             hotelOrderExampleCriteria.andCreateDateLessThanOrEqualTo(endTime);
         }
@@ -232,10 +230,10 @@ public class HotelOrderService {
         // 防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
         hotelIds.add(-1);
         hotelOrderExampleCriteria.andHotelIdIn(hotelIds);
-        List<HotelOrder> orders = hotelOrderMapper.selectByExample(hotelOrderExample);
-        for (HotelOrder orderId: orders) {
-            System.out.println(orderId.getOrderId());
-        }
+//        List<HotelOrder> orders = hotelOrderMapper.selectByExample(hotelOrderExample);
+//        for (HotelOrder orderId: orders) {
+//            System.out.println(orderId.getOrderId());
+//        }
 //        Date s = new java.util.Date();
 //        System.out.println(s);
 //        System.out.println(new java.sql.Date(s.getTime()));

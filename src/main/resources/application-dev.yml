@@ -8,7 +8,7 @@ spring:
   application:
     name: frontend
   datasource:
-    url: jdbc:mysql://106.52.223.207/travel_database?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    url: jdbc:mysql://106.52.223.207/travel_database?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&serverTimezone=GMT%2B8
     username: root
     password: "#Huang888666"
     schema-username: root
@@ -65,4 +65,4 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 logging:
   level:
-    com.LiteTravel.web.Mapper: debug
+    com.LiteTravel.web.mapper: debug
