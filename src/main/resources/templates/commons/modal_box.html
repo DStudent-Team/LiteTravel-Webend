@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Footer</title>
+</head>
+<body>
+
+<!--删除用户提示的模态框-->
+<!--使用方法 在模态框修改id，如id="deleteUserModal"，其余保持一致
+----在按钮处使用 data-toggle="modal" data-target="#deleteUserModal"
+----#deleteUserModal为模态框id
+-->
+
+<!-- 目前使用的模版的通用模板块，用于展示原模版中一直在页尾前出现的订阅板块 使用th:replace="~{commons/Footer::deleteModal}"  -->
+<section class="ftco-section-parallax" th:fragment="deleteModal">
+    <form method="post" th:action="@{/manage/deleteUser}" class="form-horizontal" role="form" id="delete_data" style="margin: 20px;">
+        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title" id="deleteUser">
+                            是否确认删除用户信息
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--deleteId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <!--隐藏用户id 再传输给后台-->
+                                    <input type="hidden" class="form-control" id="deleteId" name="userId">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+
+
+<!--删除用户提示的模态框-->
+<!--使用方法 在模态框修改id，如id="addUserModal"，其余保持一致
+----在按钮处使用 data-toggle="modal" data-target="#addUserModal"
+----#addUserModal为模态框id
+-->
+<!-- 用户信息编辑模态框示例（Modal） -->
+<section class="ftco-section-parallax" th:fragment="editModal">
+    <form method="post" th:action="@{/manage/user}" class="form-horizontal" onsubmit="return checkValid()" role="form" id="form_data" style="margin: 20px;">
+        <input id="putMethod" name="_method" type="hidden" value="PUT" disabled>
+        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                            用户信息
+                        </h4>
+                        <button type="button" class="close" onclick="clearUser()" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--userId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="userId" name="userId">
+                                </div>
+                            </div>
+                            <!--userCode-->
+                            <div class="form-group form-inline">
+                                <label for="userCode" class="col-sm-2 control-label">账号</label>
+                                <input type="text" class="form-control col-sm-9" id="userCode" name="userCode"
+                                       placeholder="请输入用户账号(必填)">
+                            </div>
+                            <!--userPassword-->
+                            <div class="form-group form-inline">
+                                <label for="userPassword" class="col-sm-2 control-label">密码</label>
+                                <input type="password" class="form-control col-sm-9" id="userPassword" name="userPassword"
+                                       placeholder="请输入用户密码(必填)">
+                            </div>
+                            <!--userName-->
+                            <div class="form-group form-inline">
+                                <label for="userName" class="col-sm-2 control-label">昵称</label>
+                                <input type="text" class="form-control col-sm-9" id="userName" name="userName"
+                                       placeholder="请输入用户昵称(必填)">
+                            </div>
+                            <!--userBirth-->
+                            <div class="form-group form-inline">
+                                <label for="userBirth" class="col-sm-2 control-label">生日</label>
+                                <input th:type="date" class="form-control  col-sm-9 checkin_date" id="userBirth" name="userBirth"
+                                       placeholder="请输入生日(选填)">
+                            </div>
+
+                            <!--userEmail-->
+                            <div class="form-group form-inline">
+                                <label for="userEmail" class="col-sm-2 control-label">邮箱</label>
+                                <input type="text" class="form-control col-sm-9" id="userEmail" name="userEmail"
+                                       placeholder="请输入邮箱(选填)">
+                            </div>
+                            <!--userPhone-->
+                            <div class="form-group form-inline">
+                                <label for="userPhone" class="col-sm-2 control-label">电话</label>
+                                <input type="text" class="form-control col-sm-9" id="userPhone" name="userPhone"
+                                       placeholder="请输入电话(选填)">
+                            </div>
+                            <!--userAddressSpecific-->
+                            <div class="form-group form-inline">
+                                <label for="userAddressSpecific" class="col-sm-2 control-label">地址</label>
+                                <input type="text" class="form-control col-sm-9" id="userAddressSpecific" name="userAddressSpecific"
+                                       placeholder="请输入地址(选填)">
+                            </div>
+                            <br/>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                                                                                            <!--调用user.js方法-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearUser()">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button><span id="tip"> </span>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+
+<!--调用用户脚本-->
+<script type="text/javascript" th:src="@{/js/user.js}"></script>
+</body>
+</html>
