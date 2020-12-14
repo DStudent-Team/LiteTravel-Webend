@@ -44,6 +44,7 @@
 								</tr>
 							</thead>
 							<tbody>
+
 								<tr th:each="user:${users}">
 									<td th:text="${user.userId}" name="user_id" id="user_id"></td>
 									<td th:text="${user.userCode}"></td>
@@ -53,13 +54,16 @@
 									<td th:text="${user.userEmail}"></td>
 									<td th:text="${user.userPhone}"></td>
 									<td th:text="${user.userAddressSpecific}"></td>
-<!--									<td th:text="${user.state}"></td>-->
+									<!-- <td th:text="${user.state}"></td> -->
 									<td>
 										<a th:if="${user.userState == 1}">可用</a>
 										<a th:if="${user.userState == 0}">不可用</a>
 									</td>
-									<!--床底参数给user.js 文件下的方法-->
+									<!-- 床底参数给user.js 文件下的方法 -->
 									<!--不知道怎么传整个列表过去，只能一个个传了-->
+									<!--传值到模态框-->
+									<!--报错不用管，不知道怎么回事，就是这样用的-->
+									<!--to : user.js  下的 editUser(..)-->
 									<td class="form-inline">
 										<button type="submit" class="btn btn-sm btn-primary"
 												th:onclick="editUser(
@@ -74,6 +78,7 @@
 												[[${user.userState}]]
 												)"
 												data-toggle="modal" data-target="#addUserModal">编辑</button>
+										<!--调用user.js下的方法-->
 										<button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal" th:onclick="deleteByUserId([[${user.userId}]])">删除</button>
 									</td>
 								</tr>
@@ -84,130 +89,19 @@
 			</div>
 		</div>
 
-		<!-- 个人信息页面导航栏  暂无样式-->
+		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
 		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
 
-		<!--删除用户提示的模态框-->
-		<form method="post" th:action="@{/manage/deleteUser}" class="form-horizontal" role="form" id="delete_data" style="margin: 20px;">
-			<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="deleteUser">
-								是否确认删除用户信息
-							</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-								&times;
-							</button>
-						</div>
-						<div class="modal-body">
-							<form class="form-horizontal" role="form" method="post">
-								<!--deleteId-->
-								<div class="form-group">
-<!--									<label for="deleteId" class="col-sm-3 control-label">用户id</label>-->
-									<div class="col-sm-9">
-										<input type="hidden" class="form-control" id="deleteId" name="userId"
-											   placeholder="请输入用户id">
-									</div>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-							</button>
-							<button type="submit" class="btn btn-primary">
-								确认
-							</button><span id="tip"> </span>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal -->
-			</div>
-		</form>
+		<!--  删除用户模态框  调用commons/modal_box.html ->  th:fragment-->
+		<!--脚本调用文件为static/js/user.js-->
+		<div th:replace="~{commons/modal_box::deleteModal}"></div>
 
-		<!-- 用户信息编辑模态框示例（Modal） -->
-		<form method="post" th:action="@{/manage/user}" class="form-horizontal" onsubmit="return checkValid()" role="form" id="form_data" style="margin: 20px;">
-			<input id="putMethod" name="_method" type="hidden" value="PUT" disabled>
-			<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">
-								用户信息
-							</h4>
-							<button type="button" class="close" onclick="clearUser()" data-dismiss="modal" aria-hidden="true">
-								&times;
-							</button>
-						</div>
-						<div class="modal-body">
-							<form class="form-horizontal" role="form" method="post">
-								<!--userId-->
-<!--								<input id="userId" name="userId" type="hidden">-->
-								<div class="form-group">
-<!--									<label for="userId" class="col-sm-3 control-label">用户id</label>-->
-									<div class="col-sm-9">
-										<input type="hidden" class="form-control" id="userId" name="userId"
-											   placeholder="请输入用户id">
-									</div>
-								</div>
-								<!--userCode-->
-								<div class="form-group form-inline">
-									<label for="userCode" class="col-sm-2 control-label">账号</label>
-									<input type="text" class="form-control col-sm-9" id="userCode" name="userCode"
-										   placeholder="请输入用户账号(必填)">
-								</div>
-								<!--userPassword-->
-								<div class="form-group form-inline">
-									<label for="userPassword" class="col-sm-2 control-label">密码</label>
-									<input type="password" class="form-control col-sm-9" id="userPassword" name="userPassword"
-										   placeholder="请输入用户密码(必填)">
-								</div>
-								<!--userName-->
-								<div class="form-group form-inline">
-									<label for="userName" class="col-sm-2 control-label">昵称</label>
-									<input type="text" class="form-control col-sm-9" id="userName" name="userName"
-										   placeholder="请输入用户昵称(必填)">
-								</div>
-								<!--userBirth-->
-								<div class="form-group form-inline">
-									<label for="userBirth" class="col-sm-2 control-label">生日</label>
-									<input type="text" class="form-control checkin_date col-sm-9" id="userBirth" name="userBirth"
-										   placeholder="请输入生日(选填)">
-								</div>
-
-								<!--userEmail-->
-								<div class="form-group form-inline">
-									<label for="userEamil" class="col-sm-2 control-label">邮箱</label>
-									<input type="text" class="form-control col-sm-9" id="userEmail" name="userEmail"
-										   placeholder="请输入邮箱(选填)">
-								</div>
-								<!--userPhone-->
-								<div class="form-group form-inline">
-									<label for="userPhone" class="col-sm-2 control-label">电话</label>
-									<input type="text" class="form-control col-sm-9" id="userPhone" name="userPhone"
-										   placeholder="请输入电话(选填)">
-								</div>
-								<!--userAddressSpecific-->
-								<div class="form-group form-inline">
-									<label for="userAddressSpecific" class="col-sm-2 control-label">地址</label>
-									<input type="text" class="form-control col-sm-9" id="userAddressSpecific" name="userAddressSpecific"
-										   placeholder="请输入地址(选填)">
-								</div>
-								<br/>
+		<!-- 用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
+		<div th:replace="~{commons/modal_box::editModal}"></div>
 
 
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearUser()">关闭
-							</button>
-							<button type="submit" class="btn btn-primary">
-								提交
-							</button><span id="tip"> </span>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal -->
-			</div>
-		</form>
+
+
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
@@ -216,44 +110,6 @@
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 		<!--调用用户脚本-->
 		<script type="text/javascript" th:src="@{/js/user.js}"></script>
-		<script type="text/javascript" th:inline="javascript">
-			/*判断输入框输入是否为空*/
-			function checkValid(){
-			//	userCode, userPassword, userName
-				console.log("TEst");
-
-				var flagCode = !checkBlank($("#userCode").val());
-				if(flagCode === false){
-					$("#userCode").css('borderColor','red');
-				}else {
-					$("#userCode").css('borderColor','#ced4da')
-				}
-				var flagPassword = !checkBlank($("#userPassword").val());
-				if(flagPassword === false){
-					$("#userPassword").css('borderColor','red');
-				}else {
-					$("#userPassword").css('borderColor','#ced4da')
-				}
-				var flagName = !checkBlank($("#userName").val());
-				if(flagName === false){
-					$("#userName").css('borderColor','red');
-				}else {
-					$("#userName").css('borderColor','#ced4da')
-				}
-				if (flagCode && flagPassword && flagName){
-					return true;
-				}
-				else{
-					alert("账户名，用户名，密码均不能为空")
-					return false;
-				}
-
-			}
-			function checkBlank(value){
-				return value === null || value.toString().trim().length === 0
-			}
-		</script>
-
 	</body>
 
 </html>
