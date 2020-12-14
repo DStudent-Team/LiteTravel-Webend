@@ -94,6 +94,7 @@ public class HotelOrderController {
     }
     /* 有搜索条件的前提下进行分页 */
     private void setPageHotelOrder(Integer page, HotelOrderQueryDTO hotelOrderQueryDTO, ModelMap model) throws ParseException {
+        System.out.println(hotelOrderQueryDTO.getTest());
         /* 向service层分发请求处理 */
         ResultVO resultVO = hotelOrderService.getOrders(page, 6, hotelOrderQueryDTO);
         /* 分页信息类

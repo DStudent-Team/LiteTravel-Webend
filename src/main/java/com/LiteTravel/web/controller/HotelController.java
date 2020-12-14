@@ -58,6 +58,7 @@ public class HotelController {
     public String HotelSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   HotelQueryDTO hotelQueryDTO, ModelMap model) {
         setPageHotel(page, hotelQueryDTO, model);
+        System.out.println(hotelQueryDTO.getAddress());
         return "hotels";
     }
 

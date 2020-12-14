@@ -164,16 +164,30 @@ HotelService {
         String keyword = query.getKeyword();
         Integer minPrice = query.getMinPrice();
         Integer maxPrice = query.getMaxPrice();
+        String address = query.getAddress();
 
         HotelExample hotelExample = new HotelExample();
+        RegionExample regionExample = new RegionExample();
+
+        //写两个是因为要做关键字的并列查询（酒店名和简介）,keyword存在时将两个条件并列返回，否则只返回一个条件
         HotelExample.Criteria hotelExampleCriteria = hotelExample.createCriteria();
         HotelExample.Criteria hotelExampleCriteria1 = hotelExample.createCriteria();
 
-        if (keyword != null) {
 
-            hotelExampleCriteria.andHotelNameLike("%" + keyword + "%");
-            hotelExampleCriteria1.andHotelDescriptionLike("%" + keyword + "%");
+
+        if (address != null && address.length() > 0) {
+
+            //格式化地址选择器传来的地址信息，只取城市
+            address = address.split("/")[1];
+            regionExample.createCriteria().andNameLike("%" + address + "%");
+
+            //获取4位地址id，通过范围选择包括下面的区县
+            int regionId = regionMapper.selectByExample(regionExample).get(0).getId() / 100;
+            hotelExampleCriteria.andHotelAddressBetween(regionId * 100, regionId * 100 + 99);
+            hotelExampleCriteria1.andHotelAddressBetween(regionId * 100, regionId * 100 + 99);
+
         }
+
         if (minPrice != null) {
             hotelExampleCriteria.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
             hotelExampleCriteria1.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
@@ -182,8 +196,12 @@ HotelService {
             hotelExampleCriteria.andHotelMinPriceLessThanOrEqualTo(maxPrice);
             hotelExampleCriteria1.andHotelMinPriceLessThanOrEqualTo(maxPrice);
         }
-        hotelExample.or(hotelExampleCriteria);
-        hotelExample.or(hotelExampleCriteria1);
+
+        if (keyword != null) {
+            hotelExampleCriteria.andHotelNameLike("%" + keyword + "%");
+            hotelExampleCriteria1.andHotelDescriptionLike("%" + keyword + "%");
+            hotelExample.or(hotelExampleCriteria1);
+        }
         return hotelExample;
     }
 }

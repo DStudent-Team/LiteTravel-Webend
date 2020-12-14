@@ -28,6 +28,24 @@
                                        class="form-control" placeholder="关键字搜索"
                                        th:value="${search != null}?${search.keyword}:null">
                             </div>
+
+
+                            <div class="form-group">
+                                <div style="position: relative;">
+
+                                    <!-- 二级地址选择器 -->
+                                    <input class="form-control" id="address" style="border: 1px solid #e6e6e6;"
+                                           name="address" type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                           data-level="city" th:value="${search != null}?${search.address}:null">
+
+                                    <!-- 三级地址选择器 -->
+<!--                                    <input class="form-control" style="border: 1px solid #e6e6e6;" name="test"-->
+<!--                                           type="text" data-toggle="city-picker" placeholder="请选择省/市">-->
+                                </div>
+                            </div>
+
+
+
 <!--                            <div class="form-group">-->
 <!--                                &lt;!&ndash; 地址选择 &ndash;&gt;-->
 <!--                                <div class="select-wrap one-third">-->
@@ -75,6 +93,11 @@
                         </div>
                     </form>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <!-- 筛选结束 -->
                 <!-- 页面内评分星级筛选 -->
                 <div class="sidebar-wrap ftco-animate">
@@ -164,9 +187,18 @@
     function clearInput() {
         $('#minPrice').val('');
         $('#maxPrice').val('');
-        $('#keyword').val('')
+        $('#keyword').val('');
+        $('#address').val('');
     }
 </script>
+
+<!-- 地址选择器引用的js -->
+<link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/city-picker.data.js}"></script>
+<script th:src="@{/js/city-picker.js}"></script>
+
+
 <!--&lt;!&ndash;-->
 
 <!--<script th:src="@{/js/jquery.min.js}"></script>-->
