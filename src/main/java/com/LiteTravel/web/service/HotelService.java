@@ -173,8 +173,6 @@ HotelService {
         HotelExample.Criteria hotelExampleCriteria = hotelExample.createCriteria();
         HotelExample.Criteria hotelExampleCriteria1 = hotelExample.createCriteria();
 
-
-
         if (address != null && address.length() > 0) {
 
             //格式化地址选择器传来的地址信息，只取城市
@@ -185,9 +183,7 @@ HotelService {
             int regionId = regionMapper.selectByExample(regionExample).get(0).getId() / 100;
             hotelExampleCriteria.andHotelAddressBetween(regionId * 100, regionId * 100 + 99);
             hotelExampleCriteria1.andHotelAddressBetween(regionId * 100, regionId * 100 + 99);
-
         }
-
         if (minPrice != null) {
             hotelExampleCriteria.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
             hotelExampleCriteria1.andHotelMinPriceGreaterThanOrEqualTo(minPrice);
@@ -196,7 +192,6 @@ HotelService {
             hotelExampleCriteria.andHotelMinPriceLessThanOrEqualTo(maxPrice);
             hotelExampleCriteria1.andHotelMinPriceLessThanOrEqualTo(maxPrice);
         }
-
         if (keyword != null) {
             hotelExampleCriteria.andHotelNameLike("%" + keyword + "%");
             hotelExampleCriteria1.andHotelDescriptionLike("%" + keyword + "%");

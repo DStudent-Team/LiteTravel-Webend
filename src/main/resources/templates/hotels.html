@@ -34,7 +34,7 @@
                                 <div style="position: relative;">
 
                                     <!-- 二级地址选择器 -->
-                                    <input class="form-control" id="address" style="border: 1px solid #e6e6e6;"
+                                    <input id="address" style="border: 1px solid #e6e6e6;" class="form-control"
                                            name="address" type="text" data-toggle="city-picker" placeholder="请选择省/市"
                                            data-level="city" th:value="${search != null}?${search.address}:null">
 
@@ -188,7 +188,7 @@
         $('#minPrice').val('');
         $('#maxPrice').val('');
         $('#keyword').val('');
-        $('#address').val('');
+        $('#address').citypicker("reset");
     }
 </script>
 
@@ -198,6 +198,10 @@
 <script th:src="@{/js/city-picker.data.js}"></script>
 <script th:src="@{/js/city-picker.js}"></script>
 
+
+<script type="text/javascript">
+    $("#address").citypicker();
+</script>
 
 <!--&lt;!&ndash;-->
 
