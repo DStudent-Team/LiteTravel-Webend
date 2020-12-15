@@ -20,7 +20,7 @@
             <div class="col-lg-3 sidebar order-md-last ftco-animate">
                 <div class="sidebar-wrap ftco-animate">
                     <!-- 查找特定城市中的酒店 -->
-                    <h3 class="heading mb-4">Find Hotel</h3>
+                    <h3 class="heading mb-4">Find Hotels</h3>
                     <form id="search" name="search" method="post" th:action="@{/hotels}">
                         <div class="fields">
                             <div class="form-group">
@@ -33,6 +33,7 @@
                             <div class="form-group">
                                 <div style="position: relative;">
 
+                                    <label for="address">酒店地址</label>
                                     <!-- 二级地址选择器 -->
                                     <input id="address" style="border: 1px solid #e6e6e6;" class="form-control"
                                            name="address" type="text" data-toggle="city-picker" placeholder="请选择省/市"
@@ -190,6 +191,7 @@
         $('#keyword').val('');
         $('#address').citypicker("reset");
     }
+    $('#address').citypicker();
 </script>
 
 <!-- 地址选择器引用的js -->
@@ -199,9 +201,7 @@
 <script th:src="@{/js/city-picker.js}"></script>
 
 
-<script type="text/javascript">
-    $("#address").citypicker();
-</script>
+
 
 <!--&lt;!&ndash;-->
 
