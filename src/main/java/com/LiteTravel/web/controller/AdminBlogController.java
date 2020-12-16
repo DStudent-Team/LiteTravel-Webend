@@ -33,7 +33,7 @@ public class AdminBlogController {
      * @param model model
      * @return String
      */
-    @GetMapping("/blogs")
+    @GetMapping("/manage/blogs")
     public String toAdmin(@PathParam("pageNum") Integer pageNum, @PathParam("pageSize") Integer pageSize, Model model){
         model.addAttribute("blogs", adminBlogService.listBlog(pageNum, pageSize));
         return "/admin/blog";
