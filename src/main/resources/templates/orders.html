@@ -5,7 +5,7 @@
     <title>轻旅·订单</title>
     <link rel="stylesheet" th:href="@{/css/custom/AutoCollapse.css}">
 </head>
-<body>
+<body onload="load()">
 
 <!--重用topBar-->
 <div th:replace="~{commons/bar::topBar(activeUri='Order')}"></div>
@@ -57,6 +57,15 @@
                                     <!--                                           type="text" data-toggle="city-picker" placeholder="请选择省/市">-->
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label>订单状态</label>
+                                <br>
+                                <input type="checkbox" id="waitConfirm" name="statusList" value="0">&nbsp;待支付&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="waitComplete" name="statusList" value="1">&nbsp;待入住&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="completed" name="statusList" value="3">&nbsp;已完成&nbsp;&nbsp;&nbsp;
+                            </div>
+
                             <div class="form-group">
                                 <label for="startDate">订单最早时间</label>
                                 <input type="date" id="startDate" name="startDate"
@@ -74,11 +83,11 @@
 <!--                                       class="form-control" placeholder="地点选择" hidden="hidden"-->
 <!--                                       th:value="${search != null}?${search.address}:null">-->
 <!--                            </div>-->
-                            <div class="form-group">
-                                <input type="text" id="status" name="status"
-                                       class="form-control" placeholder="状态选择" hidden="hidden"
-                                       th:value="${search != null}?${search.status}:null">
-                            </div>
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" id="status" name="status"-->
+<!--                                       class="form-control" placeholder="状态选择" hidden="hidden"-->
+<!--                                       th:value="${search != null}?${search.status}:null">-->
+<!--                            </div>-->
                             <!-- 金额拖动栏 -->
                             <!--<div class="form-group">
                                 <div class="range-slider">
@@ -178,6 +187,13 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
+
+<!-- 地址选择器引用的js -->
+<link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/city-picker.data.js}"></script>
+<script th:src="@{/js/city-picker.js}"></script>
+
 <script type="text/javascript" th:inline="javascript">
     if ([[${search != null}]]){
         console.log("test");
@@ -189,23 +205,33 @@
             return false;
         });
     }
+    <!-- 重置功能 -->
     function clearInput() {
         $('#startDate').val('');
         $('#endDate').val('');
         $('#keyword').val('')
         $('#address').citypicker("reset")
+        $("#waitConfirm").prop('checked',false)
+        $("#waitComplete").prop('checked',false)
+        $("#completed").prop('checked',false)
     }
-    $('#address').citypicker();
-</script>
-
-<!-- 地址选择器引用的js -->
-<link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
-<script th:src="@{/js/jquery.js}"></script>
-<script th:src="@{/js/city-picker.data.js}"></script>
-<script th:src="@{/js/city-picker.js}"></script>
-
-<script type="text/javascript">
-
+    <!-- 每次加载页面时运行，用于订单状态回显 -->
+    function load() {
+        var boxObj = $("input:checkbox[name='statusList']"); //获取所有的复选框值
+        var expresslist = [[${search.status}]]; //用el表达式获取在控制层存放的复选框的值为字符串类型
+        if(expresslist.length > 0) {
+            expresslist = expresslist + ","
+            var express = expresslist.split(',');
+            $.each(express, function(index, expressId){
+                boxObj.each(function () {
+                    if($(this).val() == expressId) {
+                        $(this).prop("checked",true);
+                    }
+                });
+            });
+        }
+        $('#address').citypicker()
+    }
 </script>
 </body>
 </html>

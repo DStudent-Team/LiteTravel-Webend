@@ -73,7 +73,9 @@ public class HotelOrderController {
     @PostMapping("/orders")
     public String OrderSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   HotelOrderQueryDTO hotelOrderQueryDTO,
-                                  ModelMap model) throws ParseException {
+                                  ModelMap model, String statusList) {
+        //通过变量获取订单状态并在controller并入DTO，直接用DTO存会出现数据累计错误
+        hotelOrderQueryDTO.setStatus(statusList);
         setPageHotelOrder(page, hotelOrderQueryDTO, model);
         return "orders";
     }
@@ -93,8 +95,7 @@ public class HotelOrderController {
         model.addAttribute("pageInfo", resultVO.info);
     }
     /* 有搜索条件的前提下进行分页 */
-    private void setPageHotelOrder(Integer page, HotelOrderQueryDTO hotelOrderQueryDTO, ModelMap model) throws ParseException {
-        System.out.println(hotelOrderQueryDTO.getTest());
+    private void setPageHotelOrder(Integer page, HotelOrderQueryDTO hotelOrderQueryDTO, ModelMap model) {
         /* 向service层分发请求处理 */
         ResultVO resultVO = hotelOrderService.getOrders(page, 6, hotelOrderQueryDTO);
         /* 分页信息类

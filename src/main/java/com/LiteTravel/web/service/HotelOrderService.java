@@ -38,7 +38,7 @@ public class HotelOrderService {
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
 
-    public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO) throws ParseException {
+    public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO) {
         return selectByExample(page, pageSize, getHotelOrderExample(hotelOrderQueryDTO));
     }
 
@@ -228,7 +228,12 @@ public class HotelOrderService {
         }
 
         if (status != null && status.length() > 0) {
-            hotelOrderExampleCriteria.andStatusIn(Arrays.asList(status.split(",")));
+            List nullList = new ArrayList<>();
+            List<String> statusList = Arrays.asList(status.split(","));
+            nullList.add(null);
+            statusList.remove(nullList);
+
+            hotelOrderExampleCriteria.andStatusIn(statusList);
         }
         if (hotelId != null && hotelId.length() > 0) {
             String[] strings = hotelId.split(",");
