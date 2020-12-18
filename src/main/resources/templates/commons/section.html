@@ -40,7 +40,7 @@
                     <span class="price per-price">$[[${hotel.hotelMinPrice}]]<br><small>/night</small></span>
                 </div>
             </div>
-            <p class="textAutoCollapse" th:text="${hotel.hotelDescription}">Far far away, behind the word mountains, far from the countries</p>
+<!--                <p class="textAutoCollapse" th:text="${hotel.hotelDescription}">Far far away, behind the word mountains, far from the countries</p>-->
             <span class="rowAutoCollapse"><i class="icon-map-o"></i> [[${hotel.hotelAddressString}]]</span>
             <hr>
             <div class="bottom-area">
@@ -101,6 +101,45 @@
         </div>
     </div>
 </div>
+<!-- 机票展示单块 -->
+<div th:fragment="flightBlock"
+     class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate"
+     th:each="flight,stat:${flights}">
+    <div class="log-entry align-self-stretch defaultBlockWidth">
+        <a th:href="@{'/flight/' + ${flight.flightId}}"
+           class="block-20"
+           th:style="'background-image:url(' + @{'/img/image_1.jpg'} + ');'">
+        </a>
+        <div class="text">
+            <!-- 标题 -->
+            <h3 class="heading mt-3">
+                <a th:href="@{'/flight/' + ${flight.flightId}}"
+                   th:text="'预约:' + ${flight.flightFromString} + ' 至 ' + ${flight.flightToString}"></a>
+            </h3>
+        </div>
+        <div class="text p-3">
+            <div class="meta mb-3">
+                <p>
+                    <span>出发:</span>[[${#dates.format(flight.flightArrived, 'M月d日')}]]
+                <br>
+                    <span>到达:</span>[[${#dates.format(flight.flightDepart, 'M月d日')}]]
+                </p>
+            </div>
+            <div class="meta mb-3">
+                <span class="price per-price" style="font-size: 24px"><span class="icon icon-money"></span>[[${flight.flightTotal}]]</span>
+            </div>
+            <hr>
+            <!--各种状态切换按钮-->
+            <div class="bottom-area" th:switch="${flight.flightStatus}">
+                <a th:case="'1'" class="btn btn-primary" th:href="@{'/flight/' + ${flight.flightId}}">支付</a>
+                <a th:case="'2'" class="btn btn-outline-info" style="cursor:not-allowed">已支付, 等待预约</a>
+                <a th:case="'3'" class="btn btn-outline-info">预约成功,等待出行</a>
+                <a th:default class="btn btn-primary" th:href="@{'/flight/' + ${flight.flightId}}">详情</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div th:fragment="blogBlock"
      class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-flex ftco-animate"
@@ -117,15 +156,11 @@
             <span th:if="${blog.blogTags != null}" class="tag"
                   th:text="${#strings.abbreviate(
                                          #strings.capitalize(
-                                         #strings.arrayJoin(blog.blogTags, ', ')), 30)}">
-                            Tips, Travel
-                        </span>
+                                         #strings.arrayJoin(blog.blogTags, ', ')), 30)}"></span>
             <!-- 标题 -->
             <h3 class="heading mt-3">
                 <a th:href="@{'/blog/' + ${blog.blogId}}"
-                   th:text="${#strings.abbreviate(
-                                          #strings.capitalize(blog.blogTitle), 200)}">
-                    8 Best homestay in Philippines that you don't miss out
+                   th:text="${#strings.abbreviate(#strings.capitalize(blog.blogTitle), 200)}">
                 </a>
             </h3>
             <!-- 附属信息 -->
@@ -135,8 +170,7 @@
                     <p class="blogCalender"
                        th:text="${#dates.monthName(blog.blogPostTime) + ' ' +
                                               #dates.day(blog.blogPostTime) + ', ' +
-                                              #dates.year(blog.blogPostTime)}">
-                        October 3, 2018</p>
+                                              #dates.year(blog.blogPostTime)}"></p>
                 </div>
                 <!-- blog发布人 -->
                 <div>
@@ -156,14 +190,6 @@
                  -->
                 <div class="float-right"><p class="meta-chat">
                     <span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</p>
-                </div>
-                <div>
-                    <!--
-                        todo
-                            编辑按钮
-                            判断是否为登陆人发布的blog
-                            若是, 则展示编辑按钮, 并跳转至编辑页面
-                    -->
                 </div>
             </div>
         </div>

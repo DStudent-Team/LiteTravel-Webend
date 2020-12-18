@@ -24,46 +24,62 @@
 				<div th:replace="~{commons/bar::sidebar(activeUri='users')}"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<div class="table-responsive">
+						<div id="toolbar" class="form-inline">
+							<button type="button" id="add_new_site_bnt" class="btn btn-info"
+									data-toggle="modal" data-target="#addUserModal">添加用户信息</button>
+						</div>
 						<table class="table table-striped table-sm">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>酒店ID</th>
 									<th>用户ID</th>
-									<th>订单状态</th>
-									<th>酒店名</th>
-									<th>入住时间</th>
-									<th>离店时间</th>
-                                    <th>入住天数</th>
-                                    <th>总价</th>
+									<th>用户账号</th>
+									<th>用户密码</th>
+									<th>用户昵称</th>
+									<th>用户生日</th>
+									<th>用户邮箱</th>
+									<th>用户电话</th>
+									<th>用户地址</th>
+									<th>用户状态</th>
                                     <th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="order:${orders}">
-									<td th:text="${order.orderId}"></td>
-									<td th:text="${order.hotelId}"></td>
-									<td th:text="${order.userId}"></td>
-									<td th:switch="${order.status}">
-                                        <span th:case="'0'">未支付</span>
-                                        <span th:case="'1'">已支付</span>
-                                        <span th:case="'2'">已入住</span>
-                                        <span th:case="'3'">已退房</span>
-                                        <span th:case="'4'">已评价</span>
-                                    </td>
-                                    <td th:text="${order.hotelName}"></td>
-									<td th:text="${#dates.format(order.checkIn,'yyyy-M-d')}"></td>
-                                    <td th:text="${#dates.format(order.checkOut,'yyyy-M-d')}"></td>
-                                    <td th:text="${order.days}"></td>
-                                    <td th:text="${order.total}"></td>
+
+								<tr th:each="user:${users}">
+									<td th:text="${user.userId}" name="user_id" id="user_id"></td>
+									<td th:text="${user.userCode}"></td>
+									<td th:text="${user.userPassword}"></td>
+									<td th:text="${user.userName}"></td>
+									<td th:text="${#dates.format(user.userBirth, 'yyyy-MM-dd')}"></td>
+									<td th:text="${user.userEmail}"></td>
+									<td th:text="${user.userPhone}"></td>
+									<td th:text="${user.userAddressSpecific}"></td>
+									<!-- <td th:text="${user.state}"></td> -->
 									<td>
-                                        <a th:if="${order.status=='0'}" class="btn btn-sm btn-info" style="cursor: not-allowed">用户支付中</a>
-										<a th:if="${order.status=='1'}" class="btn btn-sm btn-primary" th:href="@{'/manage/order/'+${order.orderId}}">确认入住</a>
-                                        <a th:if="${order.status=='2'}" class="btn btn-sm btn-primary" th:href="@{'/manage/order/'+${order.orderId}}">确认离店</a>
-                                        <form th:action="@{'/manage/order/' + ${order.orderId}}" method="post">
-											<input name="_method" type="hidden" value="delete"/>
-                                            <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                                        </form>
+										<a th:if="${user.userState == 1}">可用</a>
+										<a th:if="${user.userState == 0}">不可用</a>
+									</td>
+									<!-- 床底参数给user.js 文件下的方法 -->
+									<!--不知道怎么传整个列表过去，只能一个个传了-->
+									<!--传值到模态框-->
+									<!--报错不用管，不知道怎么回事，就是这样用的-->
+									<!--to : user.js  下的 editUser(..)-->
+									<td class="form-inline">
+										<button type="submit" class="btn btn-sm btn-primary"
+												th:onclick="editUser(
+												[[${user.userId}]],
+												[[${user.userCode}]],
+												[[${user.userPassword}]],
+												[[${user.userName}]],
+												[[${#dates.format(user.userBirth, 'yyyy-MM-dd')}]],
+												[[${user.userEmail}]],
+												[[${user.userPhone}]],
+												[[${user.userAddressSpecific}]],
+												[[${user.userState}]]
+												)"
+												data-toggle="modal" data-target="#addUserModal">编辑</button>
+										<!--调用user.js下的方法-->
+										<button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal" th:onclick="deleteByUserId([[${user.userId}]])">删除</button>
 									</td>
 								</tr>
 							</tbody>
@@ -72,6 +88,18 @@
 				</main>
 			</div>
 		</div>
+		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
+
+		<!--  删除用户模态框  调用commons/modal_box.html ->  th:fragment-->
+		<!--脚本调用文件为static/js/user.js-->
+		<div th:replace="~{commons/modal_box::deleteModal}"></div>
+
+		<!-- 用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
+		<div th:replace="~{commons/modal_box::editModal}"></div>
+
+
+
 
 		<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -79,8 +107,8 @@
 		<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-
-
+		<!--调用用户脚本-->
+		<script type="text/javascript" th:src="@{/js/user.js}"></script>
 	</body>
 
 </html>

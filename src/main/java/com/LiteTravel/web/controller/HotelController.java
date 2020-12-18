@@ -1,14 +1,12 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.service.HotelService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @Controller
 public class HotelController {
@@ -37,6 +35,32 @@ public class HotelController {
         /* 放入页面信息数据 */
         model.addAttribute("pageInfo", resultVO.info);
     }
+
+    /* 带查询条件的分页 */
+    private void setPageHotel(Integer page, HotelQueryDTO hotelQueryDTO, ModelMap model){
+        /* 向service层分发请求处理 */
+        ResultVO  resultVO = hotelService.getHotels(page, 6, hotelQueryDTO);
+        /* 分页信息类
+         * 参数1：数据集合
+         * 参数2：需要展示的最大导航页数*/
+        /* 设置筛选页面的筛选项目为Hotel */
+//        model.addAttribute("category", "hotel");
+        /* 放入数据 */
+        /* 放入hotel列表数据 */
+        model.addAttribute("hotels", resultVO.data);
+        /* 放入查询条件 */
+        model.addAttribute("search", hotelQueryDTO);
+        /* 放入页面信息数据 */
+        model.addAttribute("pageInfo", resultVO.info);
+    }
+
+    @PostMapping("/hotels")
+    public String HotelSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                  HotelQueryDTO hotelQueryDTO, ModelMap model) {
+        setPageHotel(page, hotelQueryDTO, model);
+        return "hotels";
+    }
+
 
     @GetMapping("/hotel/{hotelId}")
     public String Hotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){

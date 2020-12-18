@@ -1,35 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·博客</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
-
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
-
-
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/blog-single.css}">
 </head>
 <body>
-
 <!--重用topBar-->
 <div th:replace="~{commons/bar::topBar(activeUri='Blog')}"></div>
 <!-- END nav -->
@@ -86,8 +62,6 @@
                 <div id="commentList" class="pt-5 mt-5">
                     <!-- 回复数 -->
                     <h3 class="mb-5">[[${blog.blogCommentCount}]] Comments</h3>
-                    <!-- 跳跃至回复框 -->
-                    <a href="#commentPost">回复一句!</a>
                     <!-- 回复列表 -->
                     <ul class="comment-list">
                         <!-- Level1回复 -->
@@ -240,6 +214,8 @@
                 <div class="sidebar-box ftco-animate">
                     <h3>博客提示</h3>
                     <p>可以在博客下方回复内容噢!</p>
+                    <!-- 跳跃至回复框 -->
+                    <a href="#commentPost">我也回复一句</a>
                 </div>
             </div>
         </div>

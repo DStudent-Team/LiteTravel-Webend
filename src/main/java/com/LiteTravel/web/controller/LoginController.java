@@ -1,5 +1,6 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
@@ -63,6 +64,7 @@ public class LoginController {
 //        写入账号密码
         user.setUserCode(userCode);
         user.setUserPassword(userPassword);
+        user.setUserState(1);
         userService.insert(user);
 //        写入账号信息
         UserInfo userinfo = new UserInfo();
@@ -76,7 +78,7 @@ public class LoginController {
 //        自动跳转登陆
         if(userService.selectByCode(userCode).size() != 0) {
             login(userCode, userPassword, map, session);
-            return "redirect:/index.html";
+            return "redirect:/index";
         }
         else {
             return "redirect:/toRegister";
@@ -108,5 +110,19 @@ public class LoginController {
             msg = "{\"msg\":\"false\"}";
         }
         return msg;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/checkPassword")
+    public ResponseDTO checkPassword(@RequestParam("userPassword") String userPassword, HttpSession session){
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        Integer userId = user.getUserId();
+        List<User> users = userService.checkPasswordValid(userId, userPassword);
+        if (userPassword != null && users.size() > 0){
+            return ResponseDTO.successOf();
+        }
+        else{
+            return ResponseDTO.errorOf(2003, "输入密码有误! 请重新输入!");
+        }
     }
 }

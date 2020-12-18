@@ -46,14 +46,20 @@
                     <ul class="list-group">
                         <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
                         <li class="list-group-item">
-                            <a href="javascript:vo(0);" class="submitHref">我的酒店</a>
+                            <a href="javascript:vo(0);" class="userHotelOrders">我的酒店</a>
                             <form id="order" name="order" method="post" th:action="@{/orders}">
-                                <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
+                                <input name="userId" th:value="${session.user.userId}" hidden="hidden">
                                 <input type="submit" value="我的酒店" hidden="hidden">
                             </form>
                         </li>
                         <li class="list-group-item"><a href="#">我的机票</a></li>
-                        <li class="list-group-item"><a href="#">我的博客</a></li>
+                        <li class="list-group-item">
+                            <a href="javascript:vo(0);" class="userBlogs">我的博客</a>
+                            <form id="blog" name="blog" method="post" th:action="@{/blogs}">
+                                <input name="userId" th:value="${session.user.userId}" hidden="hidden">
+                                <input type="submit" value="我的博客" hidden="hidden">
+                            </form>
+                        </li>
                         <li class="list-group-item"><a th:href="@{/blog/publish}">发布博客</a></li>
                     </ul>
                 </div>
@@ -74,49 +80,49 @@
                     </div>
                 </div>-->
 
-            <main role="main" class="col-12">
-                <div class="row">
-                    <div class="col-12 ftco-animate border">
+<!--            <main role="main" class="col-12">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12 ftco-animate border">-->
 
-                        <h1 style="padding: 10px 10px;">最近订单</h1>
-                        <!-- 最近的订单信息单块 -->
-                        <div class="col-6 border" style="padding: 10px 10px; margin: 5px 0">
-                            <div>
-                                <a href="#"
-                                   class="img img-2 d-flex justify-content-center align-items-center">
-                                    <img class="img-fluid" th:src="@{/img/hotel-1.jpg}">
-                                </a>
-                                <div class="text p-3">
-                                    <div class="text-center">
-                                        <h6><a href="#">New Orleans</a></h6>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div><i class="icon-map-o"></i>2233</div>
-                                        <div class="ml-auto"><a href="#">点评</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 border" style="padding-top: 5px; margin: 5px 0">
-                            <div>
-                                <a href="#"
-                                   class="img img-2 d-flex justify-content-center align-items-center">
-                                    <img class="img-fluid" th:src="@{/img/hotel-1.jpg}">
-                                </a>
-                                <div class="text p-3">
-                                    <div class="text-center">
-                                        <h6><a href="#">New Orleans</a></h6>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div><i class="icon-map-o"></i>2233</div>
-                                        <div class="ml-auto"><a href="#">点评</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+<!--                        <h1 style="padding: 10px 10px;">最近订单</h1>-->
+<!--                        &lt;!&ndash; 最近的订单信息单块 &ndash;&gt;-->
+<!--                        <div class="col-6 border" style="padding: 10px 10px; margin: 5px 0">-->
+<!--                            <div>-->
+<!--                                <a href="#"-->
+<!--                                   class="img img-2 d-flex justify-content-center align-items-center">-->
+<!--                                    <img class="img-fluid" th:src="@{/img/hotel-1.jpg}">-->
+<!--                                </a>-->
+<!--                                <div class="text p-3">-->
+<!--                                    <div class="text-center">-->
+<!--                                        <h6><a href="#">New Orleans</a></h6>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-flex">-->
+<!--                                        <div><i class="icon-map-o"></i>2233</div>-->
+<!--                                        <div class="ml-auto"><a href="#">点评</a></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-6 border" style="padding-top: 5px; margin: 5px 0">-->
+<!--                            <div>-->
+<!--                                <a href="#"-->
+<!--                                   class="img img-2 d-flex justify-content-center align-items-center">-->
+<!--                                    <img class="img-fluid" th:src="@{/img/hotel-1.jpg}">-->
+<!--                                </a>-->
+<!--                                <div class="text p-3">-->
+<!--                                    <div class="text-center">-->
+<!--                                        <h6><a href="#">New Orleans</a></h6>-->
+<!--                                    </div>-->
+<!--                                    <div class="d-flex">-->
+<!--                                        <div><i class="icon-map-o"></i>2233</div>-->
+<!--                                        <div class="ml-auto"><a href="#">点评</a></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </main>-->
         </div>
     </div>
 </section>
@@ -130,8 +136,11 @@
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/user.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-$(".submitHref").click(function () {
+$(".userHotelOrders").click(function () {
     $('#order').submit();
+});
+$(".userBlogs").click(function () {
+    $('#blog').submit();
 });
 </script>
 </body>

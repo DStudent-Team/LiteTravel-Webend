@@ -1475,6 +1475,18 @@ textarea.form-control {
 			color: rgba(255,255,255,.9);
 		}
 	}
+	&.heading-section-black{
+		.subheading{
+			color: rgba(255,255,255,.9);
+		}
+		h2{
+			font-size: 40px;
+			color: $black;
+		}
+		p{
+			color: rgba(255,255,255,.9);
+		}
+	}
 }
 
 //COVER BG

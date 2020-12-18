@@ -64,8 +64,10 @@
                 <!-- Birth -->
                 <div class="form-group  col-md-4 col-xs-9 m-auto">
                     <label th:text="#{list.birth}">Birth</label>
-                    <input class="form-control" id="birth" name="birth" placeholder="1999-01-03"
-                           th:value="${info}!=null?${#dates.format(info.userBirth,'yyyy-MM-dd')}:''" type="text">
+                    <input class="form-control" id="birth" name="birth" type="date"
+                           th:value="${info}!=null?${#dates.format(info.userBirth,'yyyy-MM-dd')}:''">
+<!--                    <input type="text" id="checkIn" class="form-control checkin_date" placeholder="Check In"-->
+<!--                           th:value="${#dates.format(order.checkIn, 'yyyy-M-d')}">-->
                 </div>
                 <br/>
                 <!-- Phone -->
