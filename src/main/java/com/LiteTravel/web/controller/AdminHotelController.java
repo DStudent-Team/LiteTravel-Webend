@@ -11,4 +11,6 @@ public class AdminHotelController {
 
     @Autowired
     public HotelService hotelService;
+
+
 }
