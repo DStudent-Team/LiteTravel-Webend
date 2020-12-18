@@ -169,7 +169,7 @@ HotelService {
          RoomExample.Criteria criteria = roomExample.createCriteria();
                 criteria.andHotelIdEqualTo(hotelId);
          List<Room> rooms = new ArrayList<>();
-                rooms = roomMapper.selectByExample(roomExample);
+         rooms = roomMapper.selectByExample(roomExample);
          List<RoomDTO> roomDTOs = rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
          System.out.println(roomDTOs);
 //         ListIterator<Room> roomListIterator = rooms.listIterator();
