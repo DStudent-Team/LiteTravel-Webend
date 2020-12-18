@@ -10,7 +10,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -45,7 +47,7 @@ public class HotelService {
         hotelExample.createCriteria()
                 .andHotelIdNotEqualTo(hotelId);
         return selectByExample(page, pageSize, hotelExample);
-    }
+}
 
     private ResultVO selectByExample(Integer page, Integer pageSize, HotelExample hotelExample){
         /* 分页：
@@ -146,5 +148,40 @@ public class HotelService {
     }
     private List<RoomDTO> getRoomDTOs(List<Room> rooms){
         return rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
+    }
+
+    //增刪改方法
+
+     //删除，接收传递过来的id值进行数据库修改
+     public int deleteHotel(Integer hotelId){
+         RoomExample roomExample = new RoomExample();
+         RoomExample.Criteria criteria = roomExample.createCriteria();
+                criteria.andHotelIdEqualTo(hotelId);
+         List<Room> rooms = new ArrayList<>();
+                rooms = roomMapper.selectByExample(roomExample);
+         List<RoomDTO> roomDTOs = rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
+         System.out.println(roomDTOs);
+//         ListIterator<Room> roomListIterator = rooms.listIterator();
+//         while (roomListIterator.hasNext()){
+//             System.out.println(roomListIterator.next());
+//         }
+//         System.out.println(rooms.get(0));
+//         int result = roomBedMapper.deleteByPrimaryKey(room) &
+//                 roomMapper.deleteByPrimaryKey(hotelId) &
+//                 hotelMapper.deleteByPrimaryKey(hotelId);
+        return 0;
+    }
+
+    public void updateHotel(HotelDTO hotelDTO) {
+
+        Hotel hotel = new Hotel();
+        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+        BeanUtils.copyProperties(hotelDTO, hotel);
+        hotelMapper.updateByPrimaryKeySelective(hotel);
+        //逆向工程方法，添加条件，相当于where语句
+        RoomExample roomExample = new RoomExample();
+        roomExample.createCriteria()
+                .andHotelIdEqualTo(hotel.getHotelId());
+
     }
 }

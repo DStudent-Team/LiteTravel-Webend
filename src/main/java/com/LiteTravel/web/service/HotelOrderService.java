@@ -172,7 +172,7 @@ public class HotelOrderService {
                 modified.setStatus("3");
                 break;
             default:
-                break;
+               break;
         }
         return hotelOrderMapper.updateByPrimaryKeySelective(modified);
     }

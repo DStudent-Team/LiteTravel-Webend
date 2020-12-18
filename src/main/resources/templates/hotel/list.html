@@ -28,17 +28,17 @@
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
 							<thead>
-								<tr>
-									<th>ID</th>
-									<th>全名</th>
-									<th>联系电话</th>
-									<th>评分</th><!--包括评分和评价数--><!--点击跳转至评价面-->
-									<th>地址</th>
-									<th>详细地址</th>
-									<th>拥有房间数</th>
-                                    <th>操作</th>
-								</tr>
-							</thead>
+						<tr>
+							<th>ID</th>
+							<th>全名</th>
+							<th>联系电话</th>
+							<th>评分</th><!--包括评分和评价数--><!--点击跳转至评价面-->
+							<th>地址</th>
+							<th>详细地址</th>
+							<th>拥有房间数</th>
+							<th>操作</th>
+						</tr>
+						</thead>
 							<tbody>
 								<tr th:each="hotel:${hotels}">
 									<td th:text="${hotel.hotelId}"></td>
@@ -53,10 +53,10 @@
 											</i><i class="icon-star-o"
 												   th:if="${hotel.hotelReplyLevel}<10"
 												   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
-											</i>
+										</i>
 											<span>[[${hotel.hotelReplyCount}]] Rating</span>
 										</p>
-                                    </td>
+									</td>
                                     <td th:text="${hotel.hotelAddressString}"></td>
 									<td th:text="${hotel.hotelAddressSpecific}"></td>
 									<td>
@@ -67,7 +67,7 @@
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${hotel.hotelId}}">修改</a>
                                         <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post">
-											<input name="_method" type="hidden" value="delete"/>
+                                            <input name="_method" type="hidden" value="delete"/>
                                             <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                         </form>
 									</td>

@@ -60,10 +60,38 @@ public class HotelController {
         return "hotel-single";
     }
 
-
     @GetMapping("/manage/hotels")
     public String MangeHotelList(ModelMap model){
         setPageHotel(1, model);
+        return "hotel/list";
+    }
+
+    //酒店增删改
+
+    //insert
+
+    //update
+//    @GetMapping("/manage/hotel/{hotelId}")
+//    public String updataHotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
+//        System.out.println(hotelId);
+//        HotelDTO hotel = hotelService.selectHotelById(hotelId, true);
+//        model.addAttribute("hotel", hotel);
+//        return "hotel/list";
+//    }
+
+    @PutMapping("/manage/hotel")
+    public String updateHotel(HotelDTO hotelDTO){
+        hotelService.updateHotel(hotelDTO);
+        return "hotel/list";
+    }
+
+
+
+    //delete
+    @DeleteMapping("/manage/hotel/{hotelId}")
+    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+
+        hotelService.deleteHotel(hotelId);
         return "hotel/list";
     }
 }
