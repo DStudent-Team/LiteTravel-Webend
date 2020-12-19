@@ -1,6 +1,7 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.Blog.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
@@ -51,7 +52,7 @@ public class BlogService {
         return selectByExample(page, pageSize, blogExample);
     }
 
-    private ResultVO selectByExample(Integer page, Integer pageSize, BlogExample blogExample){
+    public ResultVO selectByExample(Integer page, Integer pageSize, BlogExample blogExample){
         PageHelper.startPage(page, pageSize);
         List<Blog> blogs = blogMapper.selectByExample(blogExample);
         PageInfo<Blog> info = new PageInfo<>(blogs, 5);
@@ -165,4 +166,19 @@ public class BlogService {
         blogTagMapMapper.deleteByExample(blogTagMapExample);
         blogMapper.deleteByPrimaryKey(blogId);
     }
+
+
+    public BlogExample getBlogs(BlogQueryDTO blogQueryDTO) {
+        BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria blogExampleCriteria = blogExample.createCriteria();
+        if (blogQueryDTO.getKeyword() != null) {
+            blogExampleCriteria.andBlogTitleLike("%" + blogQueryDTO.getKeyword() + "%");
+        }
+        if (blogQueryDTO.getUserId() != null) {
+            blogExampleCriteria.andBlogPosterIdEqualTo(blogQueryDTO.getUserId());
+        }
+        return blogExample;
+    }
+
+
 }

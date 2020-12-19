@@ -8,4 +8,5 @@ public class HotelQueryDTO {
     String keyword;
     Integer minPrice;
     Integer maxPrice;
+    String address;
 }
