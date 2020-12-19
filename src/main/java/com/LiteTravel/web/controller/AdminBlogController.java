@@ -1,10 +1,13 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.service.AdminBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -100,5 +103,14 @@ public class AdminBlogController {
     @GetMapping("/blog/{id}")
     public void getBlogById(@PathVariable("id") Integer id, Model model){
         model.addAttribute("blog", adminBlogService.getBlog(id));
+    }
+
+
+    @PostMapping("/blogQuery")
+    public  String getBlogs(@RequestParam(value = "page", defaultValue = "1") Integer pageNum,
+                            BlogQueryDTO blogQueryDTO,
+                            ModelMap model) {
+        model.addAttribute("blogs", adminBlogService.getBlogs(pageNum, 6, blogQueryDTO));
+        return "/admin/blog";
     }
 }
