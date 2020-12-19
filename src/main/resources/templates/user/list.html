@@ -14,6 +14,8 @@
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 
+		<!--导航栏和按钮的样式-->
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 	</head>
@@ -88,8 +90,6 @@
 				</main>
 			</div>
 		</div>
-		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
-		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
 
 		<!--  删除用户模态框  调用commons/modal_box.html ->  th:fragment-->
 		<!--脚本调用文件为static/js/user.js-->
@@ -97,6 +97,9 @@
 
 		<!-- 用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
 		<div th:replace="~{commons/modal_box::editModal}"></div>
+
+		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
 
 
 

@@ -101,4 +101,12 @@ public class BlogController {
         blogService.deleteBlogById(blogId);
         return "redirect:/blogs";
     }
+
+    /*blog 后台管理*/
+    /*blog列表展示*/
+    @GetMapping("manage/blogs")
+    public String blogList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
+        setBlogPage(page, model);
+        return "blog/list";
+    }
 }
