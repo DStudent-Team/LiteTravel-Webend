@@ -50,27 +50,30 @@ public class FlightService {
         flightDTO.setFlightFromString(regionFrom.getName());
         Region regionTo = regionMapper.selectByPrimaryKey(flight.getFlightTo());
         flightDTO.setFlightToString(regionTo.getName());
-        //详细预定到的机票
-        if (flight.getFlightStatus() >= 3 && ticketFlag){
-            FlightTicketExample flightTicketExample = new FlightTicketExample();
-            flightTicketExample.createCriteria()
-                    .andFlightIdEqualTo(flight.getFlightId());
-            List<FlightTicket> flightTickets = flightTicketMapper.selectByExample(flightTicketExample);
-            if (flightTickets.size() > 0){
-                flightDTO.setFlightTickets(flightTickets.stream().map(flightTicket -> {
-                    FlightTicketDTO flightTicketDTO = new FlightTicketDTO();
-                    BeanUtils.copyProperties(flightTicket, flightTicketDTO);
-                    return flightTicketDTO;
-                }).collect(Collectors.toList()));
-            }
+        //服务商提供的航班服务信息
+        if (flight.getFlightStatus() >= 1 && ticketFlag){
+            
+//            FlightTicketExample flightTicketExample = new FlightTicketExample();
+//            flightTicketExample.createCriteria()
+//                    .andFlightIdEqualTo(flight.getFlightId());
+//            List<FlightTicket> flightTickets = flightTicketMapper.selectByExample(flightTicketExample);
+//            if (flightTickets.size() > 0){
+//                flightDTO.setFlightTickets(flightTickets.stream().map(flightTicket -> {
+//                    FlightTicketDTO flightTicketDTO = new FlightTicketDTO();
+//                    BeanUtils.copyProperties(flightTicket, flightTicketDTO);
+//                    return flightTicketDTO;
+//                }).collect(Collectors.toList()));
+//            }
         }
         return flightDTO;
     }
 
     public Integer submitFlight(FlightDTO flightDTO){
         Flight flight = new Flight();
+        flightDTO.setFlightFrom(getSecondaryRegionId(flightDTO.getFlightFromString()));
+        flightDTO.setFlightTo(getSecondaryRegionId(flightDTO.getFlightToString()));
         BeanUtils.copyProperties(flightDTO, flight);
-        flight.setFlightStatus(1);
+        flight.setFlightStatus(0);
         flightMapper.insert(flight);
         return flight.getFlightId();
     }
@@ -109,6 +112,22 @@ public class FlightService {
             return -1;
         }
         return  (2f + dayDiff) / dayDiff * Math.pow(1.2, (float)level) * (distance / 200.0) * seats;
+    }
+
+    private int getSecondaryRegionId(String regionString){
+        /*这个通过数字代码范围来查询我也不确定行不行, 总之试试看*/
+        if (regionString != null && regionString.length() > 0) {
+            RegionExample regionExample = new RegionExample();
+            //格式化地址选择器传来的地址信息，只取城市
+            regionString = regionString.split("/")[1];
+            regionExample.createCriteria().andNameLike("%" + regionString + "%");
+
+            //获取4位地址id，通过范围选择包括下面的区县
+            return regionMapper.selectByExample(regionExample).get(0).getId() / 100 * 100;
+        }
+        else {
+            return -1;
+        }
     }
 
 }

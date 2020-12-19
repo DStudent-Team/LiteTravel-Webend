@@ -251,4 +251,36 @@ public class HotelOrderService {
         return hotelOrderExample;
 
     }
+
+
+    public Map<Integer, Integer> getRoomRemaining(Integer hotelId, List<Integer> roomIds, Date from, Date to){
+        HotelOrderExample droppedOrderExample = new HotelOrderExample();
+        HotelOrderExample.Criteria checkOut = droppedOrderExample.createCriteria()
+                .andCheckOutLessThanOrEqualTo(from);
+        HotelOrderExample.Criteria checkIn = droppedOrderExample.createCriteria()
+                .andCheckInGreaterThanOrEqualTo(to);
+        droppedOrderExample.or(checkOut);
+        droppedOrderExample.or(checkIn);
+        List<HotelOrder> droppedOrders = hotelOrderMapper.selectByExample(droppedOrderExample);
+        List<Integer> droppedIds = droppedOrders.stream().map(HotelOrder::getOrderId).distinct().collect(Collectors.toList());
+        HotelOrderExample wantedOrderExample = new HotelOrderExample();
+        wantedOrderExample.createCriteria()
+                .andHotelIdEqualTo(hotelId)
+                .andOrderIdNotIn(droppedIds);
+        List<HotelOrder> wantedOrders = hotelOrderMapper.selectByExample(wantedOrderExample);
+        List<Integer> wantIds = wantedOrders.stream().map(HotelOrder::getOrderId).distinct().collect(Collectors.toList());
+        HotelOrderDetailExample hotelOrderDetailExample = new HotelOrderDetailExample();
+        hotelOrderDetailExample.createCriteria()
+                .andOrderIdIn(wantIds)
+                .andRoomIdIn(roomIds);
+        List<HotelOrderDetail> hotelOrderDetails = hotelOrderDetailMapper.selectByExample(hotelOrderDetailExample);
+        Map<Integer, Integer> roomCountMap = new HashMap<>();
+        hotelOrderDetails.forEach(hotelOrderDetail -> {
+            Integer roomId = hotelOrderDetail.getRoomId();
+            Integer roomCount = hotelOrderDetail.getRoomCount();
+            roomCountMap.merge(roomId, roomCount, Integer::sum);
+        });
+        Map<Integer, Integer> roomCountMap2 = hotelOrderDetails.stream().collect(Collectors.toMap(HotelOrderDetail::getRoomId, HotelOrderDetail::getRoomCount, Integer::sum));
+        return roomCountMap;
+    }
 }

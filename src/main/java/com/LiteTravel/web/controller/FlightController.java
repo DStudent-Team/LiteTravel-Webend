@@ -24,11 +24,6 @@ public class FlightController {
 
     @GetMapping("flights")
     public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model){
-        //需要生成地址信息, 以便用户进行填写
-//        RegionSearchDTO regionSearchDTO = new RegionSearchDTO();
-//        regionSearchDTO.setRegionLevel(1);
-//        List<RegionDTO> regionDTOs = regionService.searchRegion(regionSearchDTO);
-//        model.addAttribute("firstRegion", regionDTOs);
         //需要生成查询信息, 以保留查询状态
         //同样需要生成查询地址信息, 与预约填单之间分开
         //生成订单列表允许用户查看
@@ -46,7 +41,6 @@ public class FlightController {
         Integer flightId = flightService.submitFlight(flightDTO);
 //        /*发送submit请求,跳转到详细预约信息界面*/
         return "redirect:/flight/"+flightId;
-//        return "redirect:flights";
     }
 
     @GetMapping("flight/{flightId}")
@@ -59,7 +53,6 @@ public class FlightController {
     public String payFlight(@RequestParam("flightId") Integer flightId){
         flightService.payFlight(flightId);
         return "redirect:/flight/" + flightId;
-
     }
 
 }

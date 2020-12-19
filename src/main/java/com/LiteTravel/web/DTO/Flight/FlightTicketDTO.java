@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FlightTicketDTO {
-    Integer flightId;
+    Integer reserveId;
     Integer ticketId;
     String seat;
     String price;

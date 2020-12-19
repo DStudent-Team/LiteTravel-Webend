@@ -19,5 +19,5 @@ public class FlightDTO {
     Float flightTotal;//预计价格和实际价格
     Integer flightSeats;//乘坐人数
     Integer flightStatus;//预定状态, 1为未付费, 2为未预约, 3为预约成功尚未出发, 4为行程结束
-    List<FlightTicketDTO> flightTickets;//所有预定到的机票数据
+    List<FlightReserveDTO> flightReserves;
 }
