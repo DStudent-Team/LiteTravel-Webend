@@ -4,6 +4,8 @@ import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.Blog.CommentDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.Model.Blog;
+import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.service.BlogService;
 import com.LiteTravel.web.service.CommentService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BlogController {
@@ -108,5 +111,14 @@ public class BlogController {
     public String blogList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
         setBlogPage(page, model);
         return "blog/list";
+    }
+
+    /*后台删除blog信息*/
+    @PostMapping("manage/deleteBlog")
+    public String deleteUser(Blog blog){
+//        System.out.println(user.getUserId());
+        System.out.println("blogId: "+ blog.getBlogId());
+        blogService.deleteBlogById(blog.getBlogId());
+        return "redirect:/manage/blogs";
     }
 }

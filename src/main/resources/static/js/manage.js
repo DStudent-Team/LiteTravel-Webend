@@ -1,4 +1,4 @@
-// 修改用户信息
+// 前台修改用户信息
 function modifyInfo () {
     const userId = parseInt($('#userId').val());
     const username = $('#username').val();
@@ -39,6 +39,9 @@ function modifyInfo () {
     });
 
 }
+
+/*后台用户管理脚本
+* */
 
 // 后台删除用户提示框确认
 function deleteByUserId (userId) {
@@ -134,6 +137,15 @@ function checkValid(){
     }
 
 }
+
+/*后台blog管理脚本
+* */
+// 删除blog
+function deleteByBlogId (blogId) {
+    $("#deleteBlogId").val(blogId);
+    console.log(blogId);
+}
+
 //检查数据是否为空或者为空格
 function checkBlank(value){
     return value === null || value.toString().trim().length === 0

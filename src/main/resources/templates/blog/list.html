@@ -54,11 +54,10 @@
                                          #strings.arrayJoin(blog.blogTags, ', ')), 30)}:'无'">
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${blog.blogId}}">修改</a>
-                            <form th:action="@{'/manage/hotel/' + ${blog.blogId}}" method="post">
-                                <input name="_method" type="hidden" value="delete"/>
-                                <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                            </form>
+                            <!--调用manage.js下的方法-->
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                    data-toggle="modal" data-target="#deleteBlogModal"
+                                    th:onclick="deleteByBlogId([[${blog.blogId}]])">删除</button>
                         </td>
                     </tr>
                     </tbody>
@@ -71,12 +70,15 @@
     </div>
 </div>
 
+<!-- blog删除模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::deleteBlogModal}"></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
 
 
 </body>
