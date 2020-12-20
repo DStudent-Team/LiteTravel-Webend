@@ -1,8 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{})}">
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·关于我们</title>
+    <link rel="stylesheet" th:href="@{/css/testMap.css}"/>
 </head>
+<style type="text/css">
+    #panel {
+        position: absolute;
+        background-color: white;
+        max-height: 70%;
+        overflow-y: auto;
+        top: 10%;
+        right: 10%;
+        width: 200px;
+    }
+    #panel .amap-call {
+        background-color: #009cf9;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+    #panel .amap-lib-transfer {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
+    }
+</style>
 <body>
 
 
@@ -11,228 +33,24 @@
 <!-- END nav -->
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='About')}"></div>
-
-<section class="ftco-section">
+<section class="ftco-section js-fullheight">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="intro">
-                    <h3><span>01</span> Travel</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                </div>
+        <div class="raw">
+            <h1>地图导航</h1>
+            <div id="container" style="margin: 3%; padding:5%;"></div>
+            <div id="myPageTop">
+                <form>
+                    <label for="start">出发地点：</label>
+                    <input id="start" class="guideKeyword"/>
+                    <label for="end" class="guideKeyword">目的地:</label>
+                    <input id="end"/>
+                    <input type="submit" value="查询"/>
+                </form>
             </div>
-            <div class="col-md-4">
-                <div class="intro">
-                    root@122.51.98.193<h3><span>02</span> Experience</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="intro">
-                    <h3><span>03</span> Relax</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="ftco-section ftco-counter img" id="section-counter"
-         th:style="'background-image: url('+@{/img/bg_1.jpg}+');'" data-stellar-background-ratio="0.5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="100000">0</strong>
-                                <span>Happy Customers</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="40000">0</strong>
-                                <span>Destination Places</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="87000">0</strong>
-                                <span>Hotels</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="56400">0</strong>
-                                <span>Restaurant</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="panel"></div>
         </div>
-    </div>
-</section>
 
-<section class="ftco-about d-md-flex">
-    <div class="one-half img" th:style="'background-image: url('+@{/img/about.jpg}+');'"></div>
-    <div class="one-half ftco-animate">
-        <div class="heading-section ftco-animate ">
-            <h2 class="mb-4">The Best Travel Agency</h2>
-        </div>
-        <div>
-            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have
-                been rewritten a thousand times and everything that was left from its origin would be the word "and" and
-                the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said
-                could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her
-                drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section testimony-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <h2 class="mb-4">Our satisfied customer says</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
-                    the blind texts. Separated they live in</p>
-            </div>
-        </div>
-        <div class="row ftco-animate">
-            <div class="col-md-12">
-                <div class="carousel-testimony owl-carousel ftco-owl">
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_1.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">Marketing Manager</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_2.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">Interface Designer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_3.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">UI Designer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_1.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">Web Developer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+ @{/img/person_1.jpg} +');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">System Analyst</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section services-section bg-light">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-yatch"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Special Activities</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-around"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Travel Arrangements</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-compass"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Private Guide</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-map-of-roads"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Location Manager</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -248,6 +66,45 @@
 <div th:replace="~{commons/Footer::loader}"></div>
 
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
+<!-- 加载地图JSAPI脚本 -->
+<script th:src="@{/js/demoutils.js}"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=a99cc603485f5da30cbe6ff47939ab23&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Transfer"></script>
+<script type="text/javascript" th:src="@{/js/addToolbar.js}"></script>
+<script>
+    var map = new AMap.Map('container', {
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        zoom : 11, //初始化地图层级
+        center: [116.397428, 39.90923] //初始化地图中心点, 可设置为东莞理工学院
+    });
+    var auto = new AMap.Autocomplete({
+        input: "start"
+    });
+    var auto2 = new AMap.Autocomplete({
+        input: "end"
+    });
 
+    var transOptions = {
+        map: map,
+        city: '北京市',
+        panel: 'panel',
+        policy: AMap.TransferPolicy.LEAST_TIME //乘车策略
+    };
+    //构造公交换乘类
+    var transfer = new AMap.Transfer(transOptions);
+    //根据起、终点名称查询公交换乘路线
+    transfer.search([
+        {keyword: '地震局',city:'北京'},
+        //第一个元素city缺省时取transOptions的city属性
+        {keyword: '望京西园4区',city:'北京'}
+        //第二个元素city缺省时取transOptions的cityd属性
+    ], function(status, result) {
+        // result即是对应的公交路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_TransferResult
+        if (status === 'complete') {
+            log.success('绘制公交路线完成')
+        } else {
+            log.error('公交路线数据查询失败' + result)
+        }
+    });
+</script>
 </body>
 </html>
