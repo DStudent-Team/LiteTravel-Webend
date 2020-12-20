@@ -65,7 +65,7 @@ public class UserController {
             System.out.println("账号已存在！");
             return "redirect:/manage/users";
         }else{
-            userService.addUserByManeger(userManageDTO,"insert");
+            userService.addUserByManager(userManageDTO,"insert");
         }
         return "redirect:/manage/users";
     }
@@ -85,7 +85,7 @@ public class UserController {
             System.out.println("账号、密码、昵称不能为空！");
             return "redirect:/manage/users";
         }else {
-            userService.addUserByManeger(userManageDTO, "update");
+            userService.addUserByManager(userManageDTO, "update");
         }
         return "redirect:/manage/users";
     }

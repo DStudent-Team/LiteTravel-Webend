@@ -1,11 +1,13 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.Blog.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
 import com.LiteTravel.web.DTO.Blog.CommentDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.Model.User;
+import com.LiteTravel.web.Model.BlogExample;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.mapper.TagMapper;
 import com.LiteTravel.web.service.BlogService;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -106,6 +109,13 @@ public class BlogController {
         return "redirect:/blogs";
     }
 
+    @PostMapping("/blogs")
+    public String blogSearchList(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model,
+                                 BlogQueryDTO blogQueryDTO) {
+        setBlogPage(page, model, blogQueryDTO);
+        return "blogs";
+    }
+  
     /*blog 后台管理*/
     /*blog列表展示*/
     @GetMapping("manage/blogs")
@@ -126,5 +136,12 @@ public class BlogController {
     @GetMapping("manage/tags")
     public String getTags(ModelMap model){
         return null;
+    }
+    /* 用户使用的博客关键字查询 */
+    private void setBlogPage(Integer page, ModelMap model, BlogQueryDTO blogQueryDTO){
+        ResultVO result = blogService.selectByExample(page, 6, blogService.getBlogs(blogQueryDTO));
+        model.addAttribute("blogs",result.data);
+        model.addAttribute("pageInfo", result.info);
+        model.addAttribute("search", blogQueryDTO);
     }
 }
