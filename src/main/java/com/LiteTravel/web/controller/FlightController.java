@@ -6,6 +6,7 @@ import com.LiteTravel.web.DTO.Flight.FlightSearchDTO;
 import com.LiteTravel.web.DTO.Region.RegionDTO;
 import com.LiteTravel.web.DTO.Region.RegionSearchDTO;
 import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.service.FlightService;
 import com.LiteTravel.web.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -67,23 +69,6 @@ public class FlightController {
     public String payFlight(FlightReserveDTO flightReserveDTO){
         flightService.payFlight(flightReserveDTO);
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
-    }
-
-
-    @GetMapping("manage/flights")
-    public String manageFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model){
-        //需要生成地址信息, 以便用户进行填写
-//        RegionSearchDTO regionSearchDTO = new RegionSearchDTO();
-//        regionSearchDTO.setRegionLevel(1);
-//        List<RegionDTO> regionDTOs = regionService.searchRegion(regionSearchDTO);
-//        model.addAttribute("firstRegion", regionDTOs);
-        //需要生成查询信息, 以保留查询状态
-        //同样需要生成查询地址信息, 与预约填单之间分开
-        //生成订单列表允许用户查看
-        ResultVO resultVO = flightService.getFlights(page, 6, 0);
-        model.addAttribute("flights", resultVO.data);
-        model.addAttribute("pageInfo", resultVO.info);
-        return "flight/list";
     }
 
 }
