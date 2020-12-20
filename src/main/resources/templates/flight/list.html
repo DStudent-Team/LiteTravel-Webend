@@ -65,7 +65,7 @@
                             <span th:case="'4'">行程结束</span>
                         </td>
                         <td>
-                            <a th:if="${flight.flightStatus == 0}" class="btn btn-sm btn-info">提供服务</a>
+                            <a th:if="${flight.flightStatus == 0}" class="btn btn-sm btn-info" data-toggle="modal" data-target="#reserveModal">提供服务</a>
                             <a th:if="${flight.flightStatus == 1}" class="btn btn-sm btn-primary">等待用户预约</a>
                             <a th:if="${flight.flightStatus == 2}" class="btn btn-sm btn-primary">等待支付</a>
                             <a th:if="${flight.flightStatus == 3}" class="btn btn-sm btn-primary">预约成功</a>
@@ -87,7 +87,7 @@
 </div>
 
 <!-- blog删除模态框（Modal） 调用commons/modal_box.html-->
-<div th:replace="~{commons/modal_box::deleteFlightModal}"></div>
+<div th:replace="~{commons/modal_box::reserveModal}"></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
