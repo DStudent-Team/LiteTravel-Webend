@@ -4,6 +4,7 @@ import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelOrder.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
+import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,15 +97,7 @@ public class HotelOrderService {
 
         BeanUtils.copyProperties(hotelOrder, hotelOrderDTO);
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelOrder.getHotelId());
-        HotelDTO hotelDTO = new HotelDTO();
-        BeanUtils.copyProperties(hotel, hotelDTO);
-        RegionExample regionExample = new RegionExample();
-        regionExample.createCriteria()
-                .andIdEqualTo(hotel.getHotelAddress());
-        List<Region> regions = regionMapper.selectByExample(regionExample);
-        if(regions.size() > 0){
-            hotelDTO.setHotelAddressString(regions.get(0).getMername());
-        }
+        HotelDTO hotelDTO = JDBCUtils.initHotelDTO(regionMapper, hotel);
         hotelOrderDTO.setHotel(hotelDTO);
         List<HotelOrderDetailDTO> hotelOrderDetailDTOs = hotelOrderDetails.stream().map(hotelOrderDetail -> {
             HotelOrderDetailDTO hotelOrderDetailDTO = new HotelOrderDetailDTO();
@@ -250,37 +242,5 @@ public class HotelOrderService {
         hotelOrderExampleCriteria.andHotelIdIn(hotelIds);
         return hotelOrderExample;
 
-    }
-
-
-    public Map<Integer, Integer> getRoomRemaining(Integer hotelId, List<Integer> roomIds, Date from, Date to){
-        HotelOrderExample droppedOrderExample = new HotelOrderExample();
-        HotelOrderExample.Criteria checkOut = droppedOrderExample.createCriteria()
-                .andCheckOutLessThanOrEqualTo(from);
-        HotelOrderExample.Criteria checkIn = droppedOrderExample.createCriteria()
-                .andCheckInGreaterThanOrEqualTo(to);
-        droppedOrderExample.or(checkOut);
-        droppedOrderExample.or(checkIn);
-        List<HotelOrder> droppedOrders = hotelOrderMapper.selectByExample(droppedOrderExample);
-        List<Integer> droppedIds = droppedOrders.stream().map(HotelOrder::getOrderId).distinct().collect(Collectors.toList());
-        HotelOrderExample wantedOrderExample = new HotelOrderExample();
-        wantedOrderExample.createCriteria()
-                .andHotelIdEqualTo(hotelId)
-                .andOrderIdNotIn(droppedIds);
-        List<HotelOrder> wantedOrders = hotelOrderMapper.selectByExample(wantedOrderExample);
-        List<Integer> wantIds = wantedOrders.stream().map(HotelOrder::getOrderId).distinct().collect(Collectors.toList());
-        HotelOrderDetailExample hotelOrderDetailExample = new HotelOrderDetailExample();
-        hotelOrderDetailExample.createCriteria()
-                .andOrderIdIn(wantIds)
-                .andRoomIdIn(roomIds);
-        List<HotelOrderDetail> hotelOrderDetails = hotelOrderDetailMapper.selectByExample(hotelOrderDetailExample);
-        Map<Integer, Integer> roomCountMap = new HashMap<>();
-        hotelOrderDetails.forEach(hotelOrderDetail -> {
-            Integer roomId = hotelOrderDetail.getRoomId();
-            Integer roomCount = hotelOrderDetail.getRoomCount();
-            roomCountMap.merge(roomId, roomCount, Integer::sum);
-        });
-        Map<Integer, Integer> roomCountMap2 = hotelOrderDetails.stream().collect(Collectors.toMap(HotelOrderDetail::getRoomId, HotelOrderDetail::getRoomCount, Integer::sum));
-        return roomCountMap;
     }
 }

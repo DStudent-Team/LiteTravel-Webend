@@ -6,6 +6,6 @@ import lombok.Data;
 public class FlightTicketDTO {
     Integer reserveId;
     Integer ticketId;
-    String seat;
-    String price;
+    String ticketSeat;
+    Float ticketPrice;
 }

@@ -37,6 +37,13 @@
             <generatedKey column="user_id" sqlStatement="Mysql" identity="true"/>
         </table>
         <table tableName="travel_user_info" domainObjectName="UserInfo"/>
+        <table tableName="travel_user_authority" domainObjectName="userAuthority"/>
+        <table tableName="travel_user_money" domainObjectName="userMoney"/>
+        <table tableName="travel_transaction" domainObjectName="transaction">
+            <generatedKey column="transaction_id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="travel_company" domainObjectName="Company"/>
+
         <table tableName="travel_hotel" domainObjectName="Hotel">
             <generatedKey column="hotel_id" sqlStatement="Mysql" identity="true"/>
             <columnOverride column="hotel_description" jdbcType="VARCHAR"/>

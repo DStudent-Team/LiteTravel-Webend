@@ -5,6 +5,7 @@ import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
+import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -87,17 +87,7 @@ HotelService {
 //    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId + '[' + #roomFlag + ']'")
     public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag){
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
-        HotelDTO hotelDTO = new HotelDTO();
-        // 获得基本数据
-        BeanUtils.copyProperties(hotel, hotelDTO);
-        // 写入地址信息
-        RegionExample regionExample = new RegionExample();
-        regionExample.createCriteria()
-                .andIdEqualTo(hotel.getHotelAddress());
-        List<Region> regions = regionMapper.selectByExample(regionExample);
-        if(regions.size() > 0){
-            hotelDTO.setHotelAddressString(regions.get(0).getMername());
-        }
+        HotelDTO hotelDTO = JDBCUtils.initHotelDTO(regionMapper, hotel);
         // 判断是否需要room数据, 借此获得Room数据
         if(roomFlag){
             RoomExample roomExample = new RoomExample();

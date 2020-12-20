@@ -1,6 +1,7 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.Flight.FlightDTO;
+import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.Flight.FlightSearchDTO;
 import com.LiteTravel.web.DTO.Region.RegionDTO;
 import com.LiteTravel.web.DTO.Region.RegionSearchDTO;
@@ -27,7 +28,7 @@ public class FlightController {
         //需要生成查询信息, 以保留查询状态
         //同样需要生成查询地址信息, 与预约填单之间分开
         //生成订单列表允许用户查看
-        ResultVO resultVO = flightService.getFlights(page, 6);
+        ResultVO resultVO = flightService.getFlights(page, 6, 0);
         model.addAttribute("flights", resultVO.data);
         model.addAttribute("pageInfo", resultVO.info);
         return "flights";
@@ -49,10 +50,24 @@ public class FlightController {
         model.addAttribute("flight", flightDTO);
         return "flight";
     }
-    @PostMapping("flight/pay")
-    public String payFlight(@RequestParam("flightId") Integer flightId){
-        flightService.payFlight(flightId);
-        return "redirect:/flight/" + flightId;
+
+    @PostMapping("flight/reserve/")
+    public String confirmReserve(FlightReserveDTO flightReserveDTO){
+        flightService.confirmReserve(flightReserveDTO);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
     }
+    @PostMapping("flight/withdraw/")
+    public String cancelReserve(FlightReserveDTO flightReserveDTO){
+        flightService.withdrawReserve(flightReserveDTO);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
+
+    }
+
+    @PostMapping("flight/pay/")
+    public String payFlight(FlightReserveDTO flightReserveDTO){
+        flightService.payFlight(flightReserveDTO);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
+    }
+
 
 }

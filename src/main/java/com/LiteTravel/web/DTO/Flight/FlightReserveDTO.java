@@ -9,8 +9,9 @@ public class FlightReserveDTO {
     Integer reserveId;
     Integer flightId;
     Float total;
-    Integer selected;
+    Boolean selected;
     Integer companyId;
-    Integer companyString;
+    String companyName;
+    String service;
     List<FlightTicketDTO> flightTickets;//所有预定到的机票数据
 }
