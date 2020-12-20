@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,41 +161,63 @@ HotelService {
         return rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
     }
 
-<<<<<<< HEAD
     //增刪改方法
 
-     //删除，接收传递过来的id值进行数据库修改
-     public int deleteHotel(Integer hotelId){
-         RoomExample roomExample = new RoomExample();
-         RoomExample.Criteria criteria = roomExample.createCriteria();
-                criteria.andHotelIdEqualTo(hotelId);
-         List<Room> rooms = new ArrayList<>();
-         rooms = roomMapper.selectByExample(roomExample);
-         List<RoomDTO> roomDTOs = rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
-         System.out.println(roomDTOs);
-//         ListIterator<Room> roomListIterator = rooms.listIterator();
-//         while (roomListIterator.hasNext()){
-//             System.out.println(roomListIterator.next());
-//         }
-//         System.out.println(rooms.get(0));
-//         int result = roomBedMapper.deleteByPrimaryKey(room) &
-//                 roomMapper.deleteByPrimaryKey(hotelId) &
-//                 hotelMapper.deleteByPrimaryKey(hotelId);
-        return 0;
+    //根據酒店名称查询酒店是否存在，存在则返回0.不存在返回1
+    public List<Hotel> checkHotelByName(String hotelName){
+        HotelExample hotelExample = new HotelExample();
+        hotelExample.createCriteria()
+                .andHotelNameEqualTo(hotelName);
+        return hotelMapper.selectByExample(hotelExample);
     }
 
-    public void updateHotel(HotelDTO hotelDTO) {
-
-        Hotel hotel = new Hotel();
-        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
-        BeanUtils.copyProperties(hotelDTO, hotel);
-        hotelMapper.updateByPrimaryKeySelective(hotel);
-        //逆向工程方法，添加条件，相当于where语句
+    //删除，接收传递过来的id值进行数据库修改
+    public int deleteHotel(Integer hotelId){
         RoomExample roomExample = new RoomExample();
-        roomExample.createCriteria()
-                .andHotelIdEqualTo(hotel.getHotelId());
+        RoomExample.Criteria criteria = roomExample.createCriteria();
+        criteria.andHotelIdEqualTo(hotelId);
+        List<Room> rooms = new ArrayList<>();
+        //rooms是需要的对象
+        rooms = roomMapper.selectByExample(roomExample);
+        //取出来hotel中的对应的room_id值，进行接下来的删除操作
+        List<Integer> roomIds = rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
+        for(int i=0;i<roomIds.size();i++){//list为集合的对象名
+            Integer roomId =  roomIds.get(i);
+            RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+            roomBedMapExample.createCriteria()
+                    .andRoomIdEqualTo(roomId);
+            roomBedMapper.deleteByExample(roomBedMapExample);
+            roomMapper.deleteByPrimaryKey(roomId);
+        }
+        int result = hotelMapper.deleteByPrimaryKey(hotelId);
+        return result;
+    }
 
-=======
+    //修改酒店數據
+    public void updateHotel() {
+
+//        Hotel hotel = new Hotel();
+//        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+//        BeanUtils.copyProperties(hotelDTO, hotel);
+//        hotelMapper.updateByPrimaryKeySelective(hotel);
+//        //逆向工程方法，添加条件，相当于where语句
+//        RoomExample roomExample = new RoomExample();
+//        roomExample.createCriteria()
+//                .andHotelIdEqualTo(hotel.getHotelId());
+    }
+
+    //添加数据
+    public int insertHotel(HotelDTO hotelDTO){
+        Hotel hotel = new Hotel();
+        hotel.setHotelName(hotelDTO.getHotelName());
+        hotel.setHotelMinPrice(hotelDTO.getHotelMinPrice());
+        hotel.setHotelManagerId(hotelDTO.getHotelManagerId());
+        hotel.setHotelPhone(hotelDTO.getHotelPhone());
+        hotel.setHotelReplyLevel(hotelDTO.getHotelReplyLevel());
+
+        return 1;
+    }
+
     private  HotelExample getHotelExample(HotelQueryDTO query) {
 
         String keyword = query.getKeyword();
@@ -221,6 +244,5 @@ HotelService {
         hotelExample.or(hotelExampleCriteria);
         hotelExample.or(hotelExampleCriteria1);
         return hotelExample;
->>>>>>> master
     }
 }

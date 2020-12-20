@@ -2,11 +2,15 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
+import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HotelController {
@@ -93,29 +97,35 @@ public class HotelController {
     //酒店增删改
 
     //insert
+    @GetMapping("/manage/hotel/insert")
+    public String insertHotel(HotelDTO hotelDTO, Map<String, Object> map){
+        String hotelName = hotelDTO.getHotelName();
+        List<Hotel> hotel = hotelService.checkHotelByName(hotelName);
+        if(hotel.size() > 0){
+            //数据库中不存在添加的酒店，可以添加
+            hotelService.insertHotel(hotelDTO);
+        }
+        else{
+            map.put("msg","酒店已存在！");
+            System.out.println("酒店已存在！");
+        }
+        return "redirect:/manage/hotels";
 
-    //update
-//    @GetMapping("/manage/hotel/{hotelId}")
-//    public String updataHotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
-//        System.out.println(hotelId);
-//        HotelDTO hotel = hotelService.selectHotelById(hotelId, true);
-//        model.addAttribute("hotel", hotel);
-//        return "hotel/list";
-//    }
-
-    @PutMapping("/manage/hotel")
-    public String updateHotel(HotelDTO hotelDTO){
-        hotelService.updateHotel(hotelDTO);
-        return "hotel/list";
     }
 
-
+    //update
+    @GetMapping("/manage/hotel/update")
+    public String updateHotel(){
+        hotelService.updateHotel();
+        return "redirect:/manage/hotels";
+    }
 
     //delete
     @DeleteMapping("/manage/hotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
 
         hotelService.deleteHotel(hotelId);
-        return "hotel/list";
+        return "redirect:/manage/hotels";
     }
+
 }
