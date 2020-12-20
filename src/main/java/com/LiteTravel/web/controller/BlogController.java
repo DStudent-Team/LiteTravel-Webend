@@ -7,6 +7,7 @@ import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
+import com.LiteTravel.web.mapper.TagMapper;
 import com.LiteTravel.web.service.BlogService;
 import com.LiteTravel.web.service.CommentService;
 import com.LiteTravel.web.service.UserService;
@@ -120,5 +121,10 @@ public class BlogController {
         System.out.println("blogId: "+ blog.getBlogId());
         blogService.deleteBlogById(blog.getBlogId());
         return "redirect:/manage/blogs";
+    }
+    /*blog 标签管理*/
+    @GetMapping("manage/tags")
+    public String getTags(ModelMap model){
+        return null;
     }
 }
