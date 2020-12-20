@@ -13,19 +13,21 @@
     <title>Dashboard Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
-
+    <!--导航栏和按钮的样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
+
+
 </head>
 
 <body>
 <div th:replace="~{commons/bar::topbar}"></div>
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="~{commons/bar::sidebar(activeUri='hotels')}"></div>
+        <div th:replace="~{commons/bar::sidebar(activeUri='blogs')}"></div>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <!--博客后台不需要添加, 虽然多一个添加也完全没关系-->
-<!--            <h2><a class="btn btn-sm btn-success" th:href="@{/manage/room}">添加房间</a></h2>-->
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -41,51 +43,42 @@
                     </thead>
                     <!--todo 还没做内容-->
                     <tbody>
-                    <tr th:each="hotel:${hotels}">
-                        <td th:text="${hotel.hotelId}"></td>
-                        <td th:text="${hotel.hotelName}"></td>
-                        <td th:text="${hotel.hotelPhone}"></td>
-                        <td>
-                            <p class="rate">
-                                <!-- 评分星星展示 -->
-                                <i class="icon-star"
-                                   th:if="${hotel.hotelReplyLevel}>0"
-                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
-                                </i><i class="icon-star-o"
-                                       th:if="${hotel.hotelReplyLevel}<10"
-                                       th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
-                            </i>
-                                <span>[[${hotel.hotelReplyCount}]] Rating</span>
-                            </p>
-                        </td>
-                        <td th:text="${hotel.hotelAddressString}"></td>
-                        <td th:text="${hotel.hotelAddressSpecific}"></td>
-                        <td>
-                            (暂无数据)
-                            <!--尚未传址-->
-                            <!--										<a class="btn btn-block" th:href="@{'/manage/room/' + ${hotel.hotelId}}" th:text="${hotel.roomCount}"></a>-->
+                    <tr th:each="blog:${blogs}">
+                        <td th:text="${blog.blogId}"></td>
+                        <td th:text="${blog.blogTitle}"></td>
+                        <td th:text="${blog.blogPosterInfo.userName}"></td>
+                        <td th:text="${#dates.format(blog.blogPostTime, 'yyyy-MM-dd hh:mm')}"></td>
+                        <td th:text="${#dates.format(blog.blogModifyTime, 'yyyy-MM-dd hh:mm')}"></td>
+                        <td th:text="${blog.blogTags}?${#strings.abbreviate(
+                                         #strings.capitalize(
+                                         #strings.arrayJoin(blog.blogTags, ', ')), 30)}:'无'">
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${hotel.hotelId}}">修改</a>
-                            <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post">
-                                <input name="_method" type="hidden" value="delete"/>
-                                <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                            </form>
+                            <!--调用manage.js下的方法-->
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                    data-toggle="modal" data-target="#deleteBlogModal"
+                                    th:onclick="deleteByBlogId([[${blog.blogId}]])">删除</button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+
+            <!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+            <div class="col-lg-9" th:replace="~{commons/navigation::navigationBar(redirect = 'manage/blogs')}"></div>
         </main>
     </div>
 </div>
 
+<!-- blog删除模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::deleteBlogModal}"></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
 
 
 </body>

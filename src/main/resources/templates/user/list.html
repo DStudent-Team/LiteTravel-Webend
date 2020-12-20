@@ -14,6 +14,8 @@
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 
+		<!--导航栏和按钮的样式-->
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 		<!-- Custom styles for this template -->
 		<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 	</head>
@@ -63,7 +65,7 @@
 									<!--不知道怎么传整个列表过去，只能一个个传了-->
 									<!--传值到模态框-->
 									<!--报错不用管，不知道怎么回事，就是这样用的-->
-									<!--to : user.js  下的 editUser(..)-->
+									<!--to : manage.js  下的 editUser(..)-->
 									<td class="form-inline">
 										<button type="submit" class="btn btn-sm btn-primary"
 												th:onclick="editUser(
@@ -78,7 +80,7 @@
 												[[${user.userState}]]
 												)"
 												data-toggle="modal" data-target="#addUserModal">编辑</button>
-										<!--调用user.js下的方法-->
+										<!--调用manage.js下的方法-->
 										<button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal" th:onclick="deleteByUserId([[${user.userId}]])">删除</button>
 									</td>
 								</tr>
@@ -88,15 +90,16 @@
 				</main>
 			</div>
 		</div>
-		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
-		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
 
 		<!--  删除用户模态框  调用commons/modal_box.html ->  th:fragment-->
-		<!--脚本调用文件为static/js/user.js-->
-		<div th:replace="~{commons/modal_box::deleteModal}"></div>
+		<!--脚本调用文件为static/js/manage.js-->
+		<div th:replace="~{commons/modal_box::deleteUserModal}"></div>
 
 		<!-- 用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
-		<div th:replace="~{commons/modal_box::editModal}"></div>
+		<div th:replace="~{commons/modal_box::addUserModal}"></div>
+
+		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
 
 
 
@@ -107,8 +110,7 @@
 		<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-		<!--调用用户脚本-->
-		<script type="text/javascript" th:src="@{/js/user.js}"></script>
+		<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 	</body>
 
 </html>
