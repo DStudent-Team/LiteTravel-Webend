@@ -4,7 +4,6 @@ import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.UserDTO;
-import com.LiteTravel.web.Model.FlightReserveExample;
 import com.LiteTravel.web.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

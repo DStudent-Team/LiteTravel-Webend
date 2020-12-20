@@ -80,7 +80,7 @@ HotelService {
             }).collect(Collectors.toList());
             return new ResultVO(data, info);
         }
-        return new ResultVO((List<HotelDTO>) new ArrayList(), info);
+        return new ResultVO( new ArrayList<HotelDTO>(), info);
     }
 
     // 展现酒店单页
