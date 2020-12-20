@@ -4,6 +4,7 @@
 <head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·订单</title>
     <link rel="stylesheet" th:href="@{/css/custom/AutoCollapse.css}">
+    <link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
 </head>
 <body onload="load()">
 
@@ -188,9 +189,8 @@
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
 
-<!-- 地址选择器引用的js -->
-<link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
 <script th:src="@{/js/jquery.js}"></script>
+<!-- 地址选择器引用的js -->
 <script th:src="@{/js/city-picker.data.js}"></script>
 <script th:src="@{/js/city-picker.js}"></script>
 
@@ -220,11 +220,11 @@
         var boxObj = $("input:checkbox[name='statusList']"); //获取所有的复选框值
         var expresslist = [[${search.status}]]; //用el表达式获取在控制层存放的复选框的值为字符串类型
         if(expresslist.length > 0) {
-            expresslist = expresslist + ","
+            expresslist = expresslist + ",";
             var express = expresslist.split(',');
             $.each(express, function(index, expressId){
                 boxObj.each(function () {
-                    if($(this).val() == expressId) {
+                    if($(this).val() === expressId) {
                         $(this).prop("checked",true);
                     }
                 });

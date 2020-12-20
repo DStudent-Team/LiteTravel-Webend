@@ -16,49 +16,121 @@
 <section class="ftco-section contact-section ftco-degree-bg">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 ftco-animate">
-                <div class="col-12 text-center">
-                    <h2 class="mb-3">预定信息</h2>
+            <div class="col-md-9 ftco-animate">
+                <h1 class="mb-3 text-center">预定信息</h1>
+                <div class="col-12 text-left">
+                    <h2>预定路线: [[${flight.flightToString}]] 前往 [[${flight.flightFromString}]]</h2>
+                    <h2>预定出发日期: [[${#dates.format(flight.flightDepart, 'yyyy-M-d')}]]</h2>
+                    <h2>预定服务级别: [[${flight.flightLevel}]]</h2>
+                    <h2>预定行程人数: [[${flight.flightSeats}]]</h2>
                 </div>
-                <div class="col-12 text-center">
-                    <h4 class="mb-3">预定路线</h4>
-                    <h1><span class="icon icon-map-marker"></span> [[${flight.flightToString}]] ----><span
-                            class="icon icon-map-marker"></span> [[${flight.flightFromString}]]</h1>
-                </div>
-                <div class="col-12 text-center">
-                    <h4><span>预定日期:</span>[[${#dates.format(flight.flightDepart, 'yyyy-M-d')}]]</h4>
-                    <h2 th:if="${flight.flightStatus >= 3}"><span>起飞时间:</span>[[${#dates.format(flight.flightDepart,
-                        'HH:mm:ss')}]]</h2>
-                </div>
-                <div class="col-12 text-center">
-                    <h4>预定状态</h4>
-                    <div th:if="${flight.flightStatus == 1}"><p>尚未付费</p></div>
-                    <div th:if="${flight.flightStatus == 2}"><p>等待预约机票</p></div>
+                <hr>
+                <div class="col-12 text-left">
+                    <h2>预定状态</h2>
+                    <div th:if="${flight.flightStatus == 0}"><h3 class="text-info">等待服务提供</h3></div>
+                    <!---->
+                    <div th:if="${flight.flightStatus == 1}">
+                        <h3><span>请在下方选择适合您的机票服务</span></h3>
+                        <br>
+                        <div class="border border-info text-center" th:each="reserve,stat:${flight.flightReserves}" onclick="chooseReserve()">
+                            <form name="choose" method="post" th:action="@{/flight/reserve/}">
+                                <input type="hidden" name="reserveId" th:value="${reserve.reserveId}">
+                                <input type="hidden" name="flightId" th:value="${reserve.flightId}">
+                                <!--显示提供的服务列表-->
+                                <p>服务提供商: [[${reserve.companyName}]]</p>
+                                <p>个性化服务: [[${reserve.service}]]</p>
+                                <p>总价: [[${reserve.total}]]</p>
+                                <hr>
+                                <!--服务列表中再逐一展示提供的机票-->
+                                <div th:each="ticket,stat:${reserve.flightTickets}">
+                                    <p>航班座位: [[${ticket.ticketSeat}]]</p>
+                                    <p>机票价格: [[${ticket.ticketPrice}]]</p>
+                                </div>
+                                <hr>
+                                <input type="submit" class="btn btn-small btn-primary" th:if="${reserve.selected == false}"
+                                       th:id="${reserve.reserveId}" value="选择服务"/>
+                            </form>
+                            <br>
+                        </div>
+                    </div>
+                    <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
+                    <div th:if="${flight.flightStatus == 2}">
+                        <h3><span>等待机票支付</span></h3>
+                        <div class="border border-info text-center" th:each="reserve,stat:${flight.flightReserves}">
+                            <!--显示提供的服务列表-->
+                            <p>服务提供商: [[${reserve.companyName}]]</p>
+                            <p>个性化服务: [[${reserve.service}]]</p>
+                            <p>总价: [[${reserve.total}]]</p>
+                            <hr>
+                            <!--服务列表中再逐一展示提供的机票-->
+                            <div th:each="ticket,stat:${reserve.flightTickets}">
+                                <p>航班座位: [[${ticket.ticketSeat}]]</p>
+                                <p>机票价格: [[${ticket.ticketPrice}]]</p>
+                            </div>
+                            <hr>
+                            <p th:text="${reserve.selected == true}?'已选中':'未选中'"></p>
+                            <form method="post" th:action="@{/flight/pay/}" onsubmit="return checkPassword()">
+                                <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
+                                <input name="flightId" type="hidden" th:value="${reserve.flightId}">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-small btn-primary py-3 px-5" value="支付"/>
+                                    <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
+                                </div>
+                            </form>
+                            <form method="post" th:action="@{/flight/withdraw/}">
+                                <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
+                                <input name="flightId" type="hidden" th:value="${reserve.flightId}">
+                                <div class="form-group">
+                                    <button type="submit" onclick="return checkCancel()" class="btn btn-small btn-danger py-3 px-5">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--已经支付-->
                     <div th:if="${flight.flightStatus  >= 3}">
-                        <h3><span>预定机票信息</span></h3>
-                        <div th:each="ticket,stat:${flight.flightTickets}">
-                            <p>test</p>
+                        <h3><span>已经预定的服务</span></h3>
+                        <div class="border border-info text-center" th:if="${reserve.selected == true}" th:each="reserve,stat:${flight.flightReserves}">
+                            <!--显示提供的服务列表-->
+                            <p>服务提供商: [[${reserve.companyName}]]</p>
+                            <p>个性化服务: [[${reserve.service}]]</p>
+                            <p>总价: [[${reserve.total}]]</p>
+                            <hr>
+                            <!--服务列表中再逐一展示提供的机票-->
+                            <div th:each="ticket,stat:${reserve.flightTickets}">
+                                <p>航班座位: [[${ticket.ticketSeat}]]</p>
+                                <p>机票价格: [[${ticket.ticketPrice}]]</p>
+                            </div>
+                            <hr>
+                            <p th:text="${reserve.selected == true}?'已选中':'未选中'"></p>
+                            <form method="post" th:action="@{/flight/withdraw/}">
+                                <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
+                                <input name="flightId" type="hidden" th:value="${reserve.flightId}">
+                                <div class="form-group">
+                                    <button type="submit" onclick="return checkCancel()" class="btn btn-small btn-danger py-3 px-5">取消</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
-            <div th:if="${flight.flightStatus == 1}" class="row block-9">
-                <div class="col-md-6 order-md-last pr-md-5">
-                    <form method="post" th:action="@{/flight/pay/}" onsubmit="return checkPassword()">
-                        <input id="flightId" name="flightId" type="hidden" th:value="${flight.flightId}">
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary py-3 px-5" value="支付"/>
-                            <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
-                        </div>
-                    </form>
-                    <form th:action="@{'/flight/' + ${flight.flightId}}" method="post">
-                        <input name="_method" type="hidden" value="delete"/>
-                        <div class="form-group">
-                            <button type="submit" onclick="return checkCancel()" class="btn btn-danger py-3 px-5">取消
-                            </button>
-                        </div>
-                    </form>
+            <div class="col-lg-3 order-md-last pr-md-5">
+                <!--一些简单的文字提示-->
+                <!--博客指南：标签功能指南, 标题文字限制, 文章最少文字数, 封面图设置指南-->
+                <div id="flight-tip">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#ftco-flight-tips" aria-controls="ftco-flight-tips"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="oi oi-tags"></span> 机票预约服务提示
+                    </button>
+                    <div class="collapse navbar-collapse" id="ftco-flight-tips">
+                        <hr/>
+                        <p>欢迎使用我们的机票预约功能!以下是一些关于预约提示:)</p>
+                        <ol>
+                            <li>在发出预约请求后, 可以等待数日服务商的服务提供:)</li>
+                            <li>当航班服务商提供服务选择后, 可选择最适合您个人的航班服务:)</li>
+                            <li>选择好服务后便可支付账单以便服务商最优先为您服务:)</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,7 +157,7 @@
 
     function checkPassword() {
         const password = prompt("输入支付密码:");
-        var checkTimes = 0;
+        let checkTimes = 0;
         return $.ajax({
             type: "POST",
             url: "/checkPassword",
@@ -113,6 +185,11 @@
                 return false;
             }
         });
+    }
+
+    function chooseReserve() {
+        console.log("test");
+        $(this).find("form[name='choose']").submit();
     }
 </script>
 

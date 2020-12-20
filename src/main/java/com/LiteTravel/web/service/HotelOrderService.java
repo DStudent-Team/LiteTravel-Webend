@@ -4,6 +4,7 @@ import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelOrder.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
+import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,15 +97,7 @@ public class HotelOrderService {
 
         BeanUtils.copyProperties(hotelOrder, hotelOrderDTO);
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelOrder.getHotelId());
-        HotelDTO hotelDTO = new HotelDTO();
-        BeanUtils.copyProperties(hotel, hotelDTO);
-        RegionExample regionExample = new RegionExample();
-        regionExample.createCriteria()
-                .andIdEqualTo(hotel.getHotelAddress());
-        List<Region> regions = regionMapper.selectByExample(regionExample);
-        if(regions.size() > 0){
-            hotelDTO.setHotelAddressString(regions.get(0).getMername());
-        }
+        HotelDTO hotelDTO = JDBCUtils.initHotelDTO(regionMapper, hotel);
         hotelOrderDTO.setHotel(hotelDTO);
         List<HotelOrderDetailDTO> hotelOrderDetailDTOs = hotelOrderDetails.stream().map(hotelOrderDetail -> {
             HotelOrderDetailDTO hotelOrderDetailDTO = new HotelOrderDetailDTO();
