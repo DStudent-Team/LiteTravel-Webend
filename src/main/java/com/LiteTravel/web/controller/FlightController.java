@@ -80,7 +80,7 @@ public class FlightController {
         //需要生成查询信息, 以保留查询状态
         //同样需要生成查询地址信息, 与预约填单之间分开
         //生成订单列表允许用户查看
-        ResultVO resultVO = flightService.getFlights(page, 6);
+        ResultVO resultVO = flightService.getFlights(page, 6, 0);
         model.addAttribute("flights", resultVO.data);
         model.addAttribute("pageInfo", resultVO.info);
         return "flight/list";

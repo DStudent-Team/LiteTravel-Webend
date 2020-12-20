@@ -183,6 +183,41 @@
     </form>
 </section>
 
+<!--机票预约服务模态框-->
+<section class="ftco-section-parallax" th:fragment="reserveModal">
+    <form method="post" th:action="@{/manage/deleteBlog}" class="form-horizontal" role="form" id="reserve_data" style="margin: 20px;">
+        <div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title" id="reserve">
+                            添加服务
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+
+
 <!--调用用户脚本-->
 <script type="text/javascript" th:src="@{/js/manage.js}"></script>
 </body>
