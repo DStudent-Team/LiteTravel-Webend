@@ -67,9 +67,7 @@ public class UserService {
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(userInfoDTO, userInfo);
         System.out.println(userInfoDTO);
-        int id =  userInfoMapper.updateByPrimaryKeySelective(userInfo);
-//        System.out.println(id);
-        return id;
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo);
     }
 
 //    获取用户分页信息数据
@@ -84,7 +82,6 @@ public class UserService {
         PageHelper.startPage(page, pageSize);
         List<UserInfo> userInfos = userInfoMapper.selectByExample(userInfoExample);
         PageInfo<UserInfo> info = new PageInfo<>(userInfos, 5);
-//        System.out.println(userList);
         List<Integer> userIds = userInfos.stream().map(UserInfo::getUserId).distinct().collect(Collectors.toList());
         Map<Integer, String> userCodeMap;
         Map<Integer, String> userPasswordMap;
@@ -117,7 +114,7 @@ public class UserService {
     }
 
     /*后台添加用户信息(tag=insert)和更新用户信息(tag=update) 添加两个表  */
-    public void addUserByManeger(UserManageDTO userManageDTO, String tag){
+    public void addUserByManager(UserManageDTO userManageDTO, String tag){
         /*user_account*/
         User user = new User();
         user.setUserCode(userManageDTO.getUserCode());
@@ -162,6 +159,8 @@ public class UserService {
             return 0;
         }
     }
+
+
 
 
 }

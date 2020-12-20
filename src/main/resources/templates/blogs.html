@@ -33,7 +33,8 @@
                                        class="form-control col-lg-8 col-md-12 col-sm-12" placeholder="关键字搜索"
                                        th:value="${search != null}?${search.keyword}:null">
                                 <input type="submit" value="搜索" class="btn btn-primary col-lg-2 col-md-12 col-sm-12 py-3">
-                                <input type="button" value="重置" class="btn btn-info col-lg-2 col-md-12 col-sm-12 py-3"><!--使用js重置-->
+                                <input type="button" value="重置" onclick="clearInput()"
+                                       class="btn btn-info col-lg-2 col-md-12 col-sm-12 py-3"><!--使用js重置-->
                             </div>
                         </div>
                     </form>
@@ -60,6 +61,22 @@
 <div th:replace="~{commons/Footer::loader}"></div>
 
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
+
+<script type="text/javascript" th:inline="javascript">
+    if ([[${search != null}]]){
+        console.log("test");
+        $(".navigationHref").click(function () {
+            $('#search').attr('action',this.href);
+            console.log("action is " +  this.href);
+            this.href = "javascript:vo(0);";
+            $('#search').submit();
+            return false;
+        });
+    }
+    function clearInput() {
+        $('#keyword').val('')
+    }
+</script>
 
 </body>
 </html>

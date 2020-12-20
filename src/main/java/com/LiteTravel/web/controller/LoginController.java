@@ -35,6 +35,7 @@ public class LoginController {
             userDTO.setUserId(userInfo.getUserId());
             userDTO.setUserName(userInfo.getUserName());
             userDTO.setUserAvatarUri(userInfo.getUserAvatarUri());
+
             session.setAttribute("user", userDTO);
 
             //需要重定向
