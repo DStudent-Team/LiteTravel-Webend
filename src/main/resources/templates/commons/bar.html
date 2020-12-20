@@ -9,9 +9,10 @@
 <body>
 <!-- 模板源自带，跟随教程转放至此 -->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
+    <!--检测用户,暂时去掉，方便后台开发-->
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/main.html}" >[[${session.user.userName}]]</a>
-    <input aria-label="Search" class="form-control form-control-dark w-100" placeholder="Search"
-           th:placeholder="#{bar.search}" type="text">
+<!--    <input aria-label="Search" class="form-control form-control-dark w-100" placeholder="Search"-->
+<!--           th:placeholder="#{bar.search}" type="text">-->
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
 
@@ -153,6 +154,33 @@
             </div>
             <!--机票管理子列表-->
         </div>
+        <!--机票管理子列表-->
+        <div id="collapseOne4" class="collapse show" aria-labelledby="headingOne4" data-parent="#accordionExample">
+            <ul class="nav flex-column">
+                <li class="nav-item" style="padding: 0 6px;" >
+                    <a href="#" th:href="@{/manage/flights}"
+                       th:class="${activeUri=='flights'?'nav-link active':'nav-link disable'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>
+                        机票预约管理
+                    </a>
+                </li>
+                <li class="nav-item" style="padding: 0 6px;" >
+                    <a class="nav-link active" href="#" th:href="@{/manage/flightOeders}"
+                       th:class="${activeUri=='userAuthority'?'nav-link active':'nav-link disable'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path fill-rule="evenodd" d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/>
+                            <circle cx="3.5" cy="5.5" r=".5"/>
+                            <circle cx="3.5" cy="8" r=".5"/>
+                            <circle cx="3.5" cy="10.5" r=".5"/>
+                        </svg>
+                        机票订单管理
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         <!--博客管理-->
         <div class="nav flex-column">
@@ -183,7 +211,7 @@
                 </li>
                 <li class="nav-item" style="padding: 0 6px;" >
                     <a class="nav-link active" href="#" th:href="@{/manage/tags}"
-                       th:class="${activeUri=='userAuthority'?'nav-link active':'nav-link disable'}">
+                       th:class="${activeUri=='tags'?'nav-link active':'nav-link disable'}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
                             <path fill-rule="evenodd" d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>

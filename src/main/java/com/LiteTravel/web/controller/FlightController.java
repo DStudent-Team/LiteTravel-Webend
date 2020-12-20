@@ -70,4 +70,20 @@ public class FlightController {
     }
 
 
+    @GetMapping("manage/flights")
+    public String manageFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model){
+        //需要生成地址信息, 以便用户进行填写
+//        RegionSearchDTO regionSearchDTO = new RegionSearchDTO();
+//        regionSearchDTO.setRegionLevel(1);
+//        List<RegionDTO> regionDTOs = regionService.searchRegion(regionSearchDTO);
+//        model.addAttribute("firstRegion", regionDTOs);
+        //需要生成查询信息, 以保留查询状态
+        //同样需要生成查询地址信息, 与预约填单之间分开
+        //生成订单列表允许用户查看
+        ResultVO resultVO = flightService.getFlights(page, 6);
+        model.addAttribute("flights", resultVO.data);
+        model.addAttribute("pageInfo", resultVO.info);
+        return "flight/list";
+    }
+
 }

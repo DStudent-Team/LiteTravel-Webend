@@ -4,84 +4,99 @@
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-		<title>机票预约请求</title>
-		<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
-
-		<!-- Custom styles for this template -->
-		<link rel="stylesheet" th:href="@{/css/dashboard.css}">
-	</head>
-	<body>
-		<div th:replace="~{commons/bar::topbar}"></div>
-		<div class="container-fluid">
-			<div class="row">
-				<div th:replace="~{commons/bar::sidebar(activeUri='orders')}"></div>
-				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<div class="table-responsive">
-						<table class="table table-striped table-sm">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>出发点</th>
-									<th>目的地</th>
-									<th>出发时间</th>
-									<th>到达时间</th>
-									<th>用户Id</th>
-									<th>座位数量</th>
-                                    <th>机票级别</th>
-									<th>预约价格</th>
-                                    <th>订单状态</th>
-                                    <th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="flight:${flights}">
-									<td th:text="${flight.flightId}"></td>
-									<td th:text="${flight.flightFromString}"></td>
-									<td th:text="${flight.flightToString}"></td>
-									<td th:text="${#dates.format(flight.flightDepart,'yyyy-M-d')}"></td>
-                                    <td th:text="${#dates.format(flight.flightArrived,'yyyy-M-d')}"></td>
-                                    <td th:text="${flight.userId}"></td>
-                                    <td th:text="${flight.flightSeats}"></td>
-									<td th:switch="${flight.flightStatus}">
-										<span th:case="'0'">预约中</span>
-										<span th:case="'1'">已收到服务</span>
-										<span th:case="'2'">已选择服务</span>
-										<span th:case="'3'">已支付服务</span>
-										<span th:case="'4'">服务已完成</span>
-									</td>
-									<td>
-                                        <a th:if="${flight.flightStatus=='0'}" class="btn btn-sm btn-info" style="cursor: not-allowed">用户支付中</a>
-										<a th:if="${flight.flightStatus=='0'}" class="btn btn-sm btn-info" style="cursor: not-allowed">用户支付中</a>
-										<a th:if="${order.status=='1'}" class="btn btn-sm btn-primary" th:href="@{'/manage/order/'+${order.orderId}}">确认入住</a>
-                                        <a th:if="${order.status=='2'}" class="btn btn-sm btn-primary" th:href="@{'/manage/order/'+${order.orderId}}">确认离店</a>
-                                        <form th:action="@{'/manage/order/' + ${order.orderId}}" method="post">
-											<input name="_method" type="hidden" value="delete"/>
-                                            <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                                        </form>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</main>
-			</div>
-		</div>
-
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
+    <!--导航栏和按钮的样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
 
 
-	</body>
+</head>
+
+<body>
+<div th:replace="~{commons/bar::topbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar::sidebar(activeUri='flights')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <!--博客后台不需要添加, 虽然多一个添加也完全没关系-->
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>行程ID</th>
+                        <th>用户ID</th>
+                        <th>机舱级别</th>
+                        <th>出发地</th>
+                        <th>目的地</th>
+                        <th>出发时间</th>
+                        <th>到达时间</th>
+                        <th>价格</th>
+                        <th>乘坐人数</th>
+                        <th>预定状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <!--todo 还没做内容-->
+                    <tbody>
+                    <tr th:each="flight:${flights}">
+                        <td th:text="${flight.flightId}"></td>
+                        <td th:text="${flight.userId}"></td>
+                        <td th:text="${flight.flightLevel}"></td>
+                        <td th:text="${flight.flightFromString}"></td>
+                        <td th:text="${flight.flightToString}"></td>
+                        <td th:text="${#dates.format(flight.flightDepart, 'yyyy-MM-dd hh:mm')}"></td>
+                        <td th:text="${#dates.format(flight.flightArrived, 'yyyy-MM-dd hh:mm')}"></td>
+                        <td th:text="${flight.flightTotal}?${flight.flightTotal}:'待定'"></td>
+                        <td th:text="${flight.flightSeats}"></td>
+                        <td th:switch="${flight.flightStatus}">
+                            <span th:case="'0'">等待提供服务</span>
+                            <span th:case="'1'">等待用户选择</span>
+                            <span th:case="'2'">等待用户支付</span>
+                            <span th:case="'3'">支付成功</span>
+                            <span th:case="'4'">行程结束</span>
+                        </td>
+                        <td>
+                            <a th:if="${flight.flightStatus == 0}" class="btn btn-sm btn-info">提供服务</a>
+                            <a th:if="${flight.flightStatus == 1}" class="btn btn-sm btn-primary">等待用户预约</a>
+                            <a th:if="${flight.flightStatus == 2}" class="btn btn-sm btn-primary">等待支付</a>
+                            <a th:if="${flight.flightStatus == 3}" class="btn btn-sm btn-primary">预约成功</a>
+                            <a th:if="${flight.flightStatus == 4}" class="btn btn-sm btn-primary">行程结束</a>
+                            <!--调用manage.js下的方法-->
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                    data-toggle="modal" data-target="#deleteFlightModal"
+                                    th:onclick="deleteFlightId([[${flight.flightId}]])">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+            <div class="col-lg-9" th:replace="~{commons/navigation::navigationBar(redirect = 'manage/flights')}"></div>
+        </main>
+    </div>
+</div>
+
+<!-- blog删除模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::deleteFlightModal}"></div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
+
+
+</body>
 
 </html>
