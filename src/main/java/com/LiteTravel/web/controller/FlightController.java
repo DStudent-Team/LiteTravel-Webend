@@ -66,7 +66,11 @@ public class FlightController {
     }
 
     @PostMapping("flight/pay/")
-    public String payFlight(FlightReserveDTO flightReserveDTO){
+    public String payFlight(FlightReserveDTO flightReserveDTO, ModelMap model){
+        /* 转账 */
+
+
+        model.addAttribute("tips","钱不够");
         flightService.payFlight(flightReserveDTO);
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
     }
