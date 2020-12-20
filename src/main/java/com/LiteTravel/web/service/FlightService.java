@@ -51,8 +51,17 @@ public class FlightService {
         BeanUtils.copyProperties(reserveDTO, reserve);
         reserve.setSelected(false);
         flightReserveMapper.insertSelective(reserve);
+        Integer reserveId = reserve.getReserveId();
+        /* 插入服务 */
+        for (FlightTicketDTO flightTicketDTO: reserveDTO.getFlightTickets()){
+            FlightTicket flightTicket = new FlightTicket();
+            BeanUtils.copyProperties(flightTicketDTO, flightTicket);
+            flightTicket.setReserveId(reserveId);
+            flightTicketMapper.insert(flightTicket);
+        }
         UpdateFlightStatus(reserve.getFlightId(), 1);
     }
+
     /* 选中某一项服务商提供的服务 */
     public void confirmReserve(FlightReserveDTO reserveDTO) {
         /* 更新服务 */
@@ -66,7 +75,7 @@ public class FlightService {
 
     public void withdrawReserve(FlightReserveDTO reserveDTO) {
         /* 如果状态为已支付, 则需要退回账款 */
-        
+
         /* 更新机票状态 */
         UpdateFlightStatus(reserveDTO.getFlightId(), 1);
     }

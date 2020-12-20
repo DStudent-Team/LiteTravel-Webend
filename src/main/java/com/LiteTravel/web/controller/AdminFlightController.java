@@ -27,13 +27,14 @@ public class AdminFlightController {
         return "/manage/flights";
     }
 
-    @PostMapping("/manage/flight")
+    @PostMapping("/manage/reserve")
     @ResponseBody
     public Object SubmitReserve(@RequestBody FlightReserveDTO reserveDTO){
         flightService.submitReserve(reserveDTO);
         return ResponseDTO.successOf();
     }
-
+    
+    /* 获取所有提供的服务 */
     @GetMapping("/manage/reserves")
     public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
         ResultVO result = flightService.getReserves(page, 10, new FlightReserveDTO());
