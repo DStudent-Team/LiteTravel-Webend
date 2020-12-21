@@ -75,4 +75,15 @@ public class FlightController {
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
     }
 
+    @PostMapping("flights")
+    public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model,
+                             FlightSearchDTO flightSearchDTO, String statusList){
+        flightSearchDTO.setFlightStatus(statusList);
+        ResultVO resultVO = flightService.getFlights(page, 6, flightSearchDTO);
+        model.addAttribute("flights", resultVO.data);
+        model.addAttribute("pageInfo", resultVO.info);
+        model.addAttribute("search", flightSearchDTO);
+        return "flights";
+    }
+
 }
