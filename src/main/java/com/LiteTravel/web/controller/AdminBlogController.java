@@ -20,7 +20,7 @@ import java.util.List;
 public class AdminBlogController {
 
     @Autowired
-    private AdminBlogService adminBlogService;
+    AdminBlogService adminBlogService;
 
     /**
      * 1. 只需要发送/admin/blogs?pageNum=1&pageSize=6,就可以获取到数据 1和6要自己改变
@@ -37,30 +37,17 @@ public class AdminBlogController {
     public String toAdmin(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
         List<Blog> blogs = adminBlogService.getBlogs(page, 6);
         model.addAttribute("blogs", blogs);
-        return "/manage/blogs";
+        return "/blogs/list";
     }
 
     @PostMapping("/manage/blogs")
-    public  String getBlogs(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public String getBlogs(@RequestParam(value = "page", defaultValue = "1") Integer page,
                             BlogQueryDTO blogQueryDTO,
                             ModelMap model) {
         List<Blog> blogs = adminBlogService.getBlogs(page, 6, blogQueryDTO);
         model.addAttribute("blogs", blogs);
-        return "/manage/blogs";
+        return "/blogs/list";
     }
-//    /**
-//     * 1. ${blog}为原始数据
-//     * 2. 发送/admin/toUpdate/id的Get请求，就可以获取要更新的所有信息(旧的)
-//     *
-//     * 跳转到更新页面
-//     * @param id 博客id
-//     * @return 跳转到更新页面
-//     */
-//    @GetMapping("/toUpdate/{id}")
-//    public String toUpdate(@PathVariable("id") Integer id, Model model){
-//        model.addAttribute("blog", adminBlogService.getBlog(id));
-//        return "update_blog";
-//    }
 
     /**
      * 1. 发送一个/manage/update的post请求，提交一个包含博客更改信息的表单的数据(id必须有，通过隐藏)
@@ -74,7 +61,7 @@ public class AdminBlogController {
     public String updateBlog(Blog blog, Model model){
         adminBlogService.updateBlog(blog);
         model.addAttribute("message", "更新成功");
-        return "redirect:/manage/blogs";
+        return "redirect:/blogs/list";
     }
 
     /**
@@ -87,7 +74,7 @@ public class AdminBlogController {
     public String deleteBlog(@PathVariable("id") Integer id, Model model){
         int flag = adminBlogService.deleteBlogById(id);
         model.addAttribute("message", "删除成功");
-        return "redirect:/manage/blogs";
+        return "redirect:/blogs/list";
     }
 
     /**
@@ -100,6 +87,4 @@ public class AdminBlogController {
     public void getBlogById(@PathVariable("id") Integer id, Model model){
         model.addAttribute("blog", adminBlogService.getBlog(id));
     }
-
-
 }

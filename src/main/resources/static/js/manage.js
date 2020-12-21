@@ -149,4 +149,96 @@ function deleteByBlogId (blogId) {
 //检查数据是否为空或者为空格
 function checkBlank(value){
     return value === null || value.toString().trim().length === 0
+<<<<<<< HEAD
+=======
+}
+
+
+
+
+// 后台机票
+// 获取页面页面信息到模态框
+function getFlightMessage(flightId, companyId, seats, level, from, to, depart, arrived) {
+    $("#flightId").val(flightId);
+    $("#companyId").val(companyId);
+    $("#toSeats").val(seats);
+    $("#flightDepart").val(depart);
+    $("#flightArrived").val(arrived);
+    document.getElementById('flightFrom').innerHTML=from;
+    document.getElementById('flightTo').innerHTML=to;
+    document.getElementById('Depart').innerHTML=depart;
+    document.getElementById('arrived').innerHTML=arrived;
+    document.getElementById('seats').innerHTML=seats;
+    document.getElementById('level').innerHTML=level;
+    createTicketList(seats);
+
+
+}
+
+// 机票服务post提交
+function submitReserve() {
+    // let tickets = parseInt($('#toSeats').val());
+    let $tbody = document.getElementById("ticketTbody");
+    let tickets = $tbody.getElementsByTagName("tr");
+    // console.log(tickets.length);
+    let ticketJson = [];
+
+    for (let i = 0; i < tickets.length; i++) {
+        /* name*="xx" 表示获取所有包含name="xx"的dom */
+        let a = $('input[name*="ticketSeat"]')[i].value;
+        let b = $("input[name*='ticketPrice']")[i].value;
+        console.log(a+b);
+
+    //     // let a = document.getElementsByName("ticketSeat")[0].nodeValue;
+    //     let inputs = tickets[i].getElementsByTagName("td");
+    //     let ticketSeat = inputs[0].getElementsByName("ticketSeat").value;
+    //     let ticketPrice = inputs[1].getElementsByName("ticketSeat").value;
+    //     // let ticketPrice = inputs[1].firstElementChild;
+    //     console.log(ticketSeat);
+    //     console.log(ticketPrice);
+    //     // ticketJson.push({"ticketSeat":ticketSeat, "ticketPrice":ticketPrice});
+    //
+    }
+    //
+    //
+    // $.ajax({
+    //     data: {
+    //         "flightId": 1,
+    //         "companyId": 1,
+    //         "service": "test",
+    //         "tickets": ticketJson,
+    //     }
+    // });
+}
+
+
+function createTicketList(seats) {
+    let $tbody = document.getElementById("ticketTbody");
+    let $ticket;
+    // console.log('去你的！'+seats);
+    for (let i = 0; i < seats; i++) {
+        $ticket = document.createElement("tr");
+        const seat = document.createElement("td");
+        const price = document.createElement("td");
+        createInput('ticketSeat'+i, 'text', "", seat);
+        createInput('ticketPrice'+i, 'number', "", price);
+        $ticket.appendChild(seat);
+        $ticket.appendChild(price);
+        $tbody.appendChild($ticket);
+    }
+}
+
+function clearTicketList(){
+    $("#ticketTbody").empty();
+}
+
+function createInput(inputName, inputType, inputValue, aDiv) {
+    let input = document.createElement("input");
+    input.setAttribute("type",inputType) ;
+    input.setAttribute("name",inputName) ;
+    input.setAttribute("value", inputValue) ;
+    // input.setAttribute("id", inputId) ;
+
+    aDiv.appendChild(input);
+>>>>>>> master
 }

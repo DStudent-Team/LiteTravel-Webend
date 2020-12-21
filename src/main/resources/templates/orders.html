@@ -71,13 +71,21 @@
                                 <label for="startDate">订单最早时间</label>
                                 <input type="date" id="startDate" name="startDate"
                                        class="form-control"
+<<<<<<< HEAD
                                        th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+=======
+                                       th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):null}">
+>>>>>>> master
                             </div>
                             <div class="form-group">
                                 <label for="startDate">订单最晚时间</label>
                                 <input type="date" id="endDate" name="endDate"
                                        class="form-control"
+<<<<<<< HEAD
                                        th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+=======
+                                       th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):null}">
+>>>>>>> master
                             </div>
 <!--                            <div class="form-group">-->
 <!--                                <input type="text" id="address" name="address"-->

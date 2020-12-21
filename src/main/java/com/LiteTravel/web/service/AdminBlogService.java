@@ -94,7 +94,6 @@ public class AdminBlogService {
         return blogMapper.selectByExample(blogExample);
     }
 
-
     /**
      * 通过博客id删除博客
      * @param id 博客id
@@ -103,9 +102,6 @@ public class AdminBlogService {
     public int deleteBlogById(Integer id){
         return blogMapper.deleteByPrimaryKey(id);
     }
-
-
-
 
 
 }

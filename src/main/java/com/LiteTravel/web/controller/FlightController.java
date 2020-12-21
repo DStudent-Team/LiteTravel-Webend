@@ -24,6 +24,38 @@ public class FlightController {
     @Autowired
     RegionService regionService;
 
+    /*提交预约*/
+    @PostMapping("flight/submit")
+    public String submitFlight(FlightDTO flightDTO){
+        // 提交请求后生成订单DTO, 先拆开来看看能不能用, 能用再合并
+        System.out.println(flightDTO);
+        Integer flightId = flightService.submitFlight(flightDTO);
+//        /*发送submit请求,跳转到详细预约信息界面*/
+        return "redirect:/flight/"+flightId;
+    }
+    /*选中服务*/
+    @PostMapping("flight/reserve/")
+    public String confirmReserve(FlightReserveDTO flightReserveDTO){
+        flightService.confirmReserve(flightReserveDTO);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
+    }
+    /*撤销模块*/
+    @PostMapping("flight/withdraw/")
+    public String cancelReserve(FlightReserveDTO flightReserveDTO){
+        flightService.withdrawReserve(flightReserveDTO);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
+
+    }
+    /*支付模块*/
+    @PostMapping("flight/pay/")
+    public String payFlight(FlightReserveDTO flightReserveDTO, ModelMap model){
+        /* 转账 */
+
+//        model.addAttribute("tips","钱不够");
+        flightService.payFlight(flightReserveDTO);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
+    }
+
 
     @GetMapping("flights")
     public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model){
@@ -36,15 +68,17 @@ public class FlightController {
         return "flights";
     }
 
-
-    @PostMapping("flight/submit")
-    public String submitFlight(FlightDTO flightDTO){
-        // 提交请求后生成订单DTO, 先拆开来看看能不能用, 能用再合并
-        System.out.println(flightDTO);
-        Integer flightId = flightService.submitFlight(flightDTO);
-//        /*发送submit请求,跳转到详细预约信息界面*/
-        return "redirect:/flight/"+flightId;
+    @PostMapping("flights")
+    public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model,
+                             FlightSearchDTO flightSearchDTO, String statusList){
+        flightSearchDTO.setFlightStatus(statusList);
+        ResultVO resultVO = flightService.getFlights(page, 6, flightSearchDTO);
+        model.addAttribute("flights", resultVO.data);
+        model.addAttribute("pageInfo", resultVO.info);
+        model.addAttribute("search", flightSearchDTO);
+        return "flights";
     }
+
 
     @GetMapping("flight/{flightId}")
     public String getFlight(@PathVariable("flightId") Integer flightId, ModelMap model){
@@ -53,26 +87,5 @@ public class FlightController {
         return "flight";
     }
 
-    @PostMapping("flight/reserve/")
-    public String confirmReserve(FlightReserveDTO flightReserveDTO){
-        flightService.confirmReserve(flightReserveDTO);
-        return "redirect:/flight/" + flightReserveDTO.getFlightId();
-    }
-    @PostMapping("flight/withdraw/")
-    public String cancelReserve(FlightReserveDTO flightReserveDTO){
-        flightService.withdrawReserve(flightReserveDTO);
-        return "redirect:/flight/" + flightReserveDTO.getFlightId();
-
-    }
-
-    @PostMapping("flight/pay/")
-    public String payFlight(FlightReserveDTO flightReserveDTO, ModelMap model){
-        /* 转账 */
-
-
-        model.addAttribute("tips","钱不够");
-        flightService.payFlight(flightReserveDTO);
-        return "redirect:/flight/" + flightReserveDTO.getFlightId();
-    }
 
 }
