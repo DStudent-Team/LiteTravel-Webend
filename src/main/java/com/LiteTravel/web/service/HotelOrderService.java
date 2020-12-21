@@ -227,6 +227,7 @@ public class HotelOrderService {
 
             hotelOrderExampleCriteria.andStatusIn(statusList);
         }
+
         if (hotelId != null && hotelId.length() > 0) {
             String[] strings = hotelId.split(",");
             List<Integer> hotelIds1 = new ArrayList<>();
@@ -236,6 +237,8 @@ public class HotelOrderService {
                 }
             }
         }
+
+
 
         //防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
         hotelIds.add(-1);
