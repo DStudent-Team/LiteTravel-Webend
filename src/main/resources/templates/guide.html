@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
+    <title>轻旅·导航</title>
+    <link rel="stylesheet" th:href="@{/css/testMap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/prety-json.css}">
+</head>
+<style type="text/css">
+    #panel {
+        position: absolute;
+        background-color: white;
+        max-height: 30%;
+        overflow-y: auto;
+        top: 10%;
+        right: 5%;
+        width: 30%;
+    }
+
+    #panel .amap-call {
+        background-color: #009cf9;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    #panel .amap-lib-transfer {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
+    }
+</style>
+<body>
+
+<section class="ftco-section js-fullheight">
+    <div class="container">
+        <div class="raw">
+            <div id="container"></div>
+            <div id="myPageTop">
+                <div class="form-field">
+                    <a class="btn btn-secondary" th:href="@{/index}">返回轻旅</a>
+                    <hr>
+                    <div class="form-group">
+                        <label for="searchMode">选择查询模式</label>
+                        <select id="searchMode" class="form-select-button">
+                            <option value="1" selected>自驾</option>
+                            <option value="0">公交</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="start">出发地:</label>
+                        <input id="start" class="startKeyword"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="end">目的地:</label>
+                        <input id="end" class="guideKeywords"/>
+                    </div>
+                    <hr>
+                    <div class="form-inline">
+                        <button class="btn btn-primary" onclick="search()">查询</button>
+                        <button class="btn btn-info" style="margin-left: 10px" onclick="exchange()">交换起始</button>
+                    </div>
+                    <!--获取历史记录-->
+                    <hr>
+                    <div class="form-group" th:if="${guides != null && #lists.size(guides) > 0}">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#history" aria-controls="history" aria-expanded="false" aria-label="Toggle navigation">
+                            历史记录
+                        </button>
+
+                        <div class="collapse" id="history">
+                            <a class="ml-auto text-center" th:each="guide, stat:${guides}" th:onclick="searchWithHistory([[${guide.guideFrom}]], [[${guide.guideTo}]])" >
+                                <hr>
+                                <p th:text="${guide.guideFrom} + '->' +  ${guide.guideTo}"></p>
+                                <hr>
+                            </a>
+                        </div>
+                    </div>
+                    <p><span id="start-input-info"></span></p>
+                    <p><span id="end-input-info"></span></p>
+                </div>
+            </div>
+            <div id="panel"></div>
+        </div>
+
+    </div>
+</section>
+
+<!-- loader -->
+<div th:replace="~{commons/Footer::loader}"></div>
+
+<th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<!-- 加载地图JSAPI脚本 -->
+<script th:src="@{/js/demoutils.js}"></script>
+<script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.15&key=a99cc603485f5da30cbe6ff47939ab23&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Transfer,AMap.Driving"></script>
+<script type="text/javascript" th:src="@{/js/underscore-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/backbone-min.js}"></script>
+<script type="text/javascript" th:src='@{/js/prety-json.js}'></script>
+<script type="text/javascript" th:src="@{/js/addToolbar.js}"></script>
+<script>
+    /*用做导航的必要类, 每次搜索后重新生成*/
+    let guide;
+    var map = new AMap.Map('container', {
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        zoom: 11, //初始化地图层级
+        center: [116.397428, 39.90923] //初始化地图中心点, 可设置为东莞理工学院
+    });
+    //输入提示
+    var autoStart = new AMap.Autocomplete({
+        input: "start"
+    });
+    var autoEnd = new AMap.Autocomplete({
+        input: "end"
+    });
+
+    //构造路线导航类
+    const driving = new AMap.Driving({
+        map: map,
+        panel: "panel"
+    });
+
+    //构造公交换乘类
+    const transfer = new AMap.Transfer({
+        map: map,
+        city: '全国',
+        panel: 'panel',
+        policy: AMap.TransferPolicy.LEAST_TIME //乘车策略
+    });
+
+    /* 选择模式进行搜索 */
+    function search() {
+        clearMapping();
+        const start = $('#start').val();
+        const end = $('#end').val();
+        const searchMode = $('#searchMode').val();
+
+        if (searchMode === "1") {
+            searchDriving(start, end);
+        } else if (searchMode === "0") {
+            searchTransportation(start, end);
+        }
+        /* 请求保存记录 */
+        $.ajax({
+            type: "POST",
+            url: "/guide/search",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "userId": [[${session.user.userId}]],
+                "guideFrom": start,
+                "guideTo": end,
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    console.log("搜索成功");
+                } else {
+                    alert(response.message);
+                }
+            },
+        });
+    }
+    /*交换起始点和终点后查询*/
+    function exchange() {
+        const start = $('#start').val();
+        const end = $('#end').val();
+        $('#start').val(end);
+        $('#end').val(start);
+        search();
+    }
+    /* 点击历史记录进行查询 */
+    function searchWithHistory(from, to) {
+        $('#start').val(from);
+        $('#end').val(to);
+        search();
+    }
+
+    /* 需要清除之前的绘制内容 */
+    function clearMapping() {
+        driving.clear();
+        transfer.clear();
+        $('#panel').empty();
+        $('#start-input-info').empty();
+        $('#end-input-info').empty();
+    }
+
+    function searchDriving(start, end) {
+        // 根据起终点名称规划驾车导航路线
+        driving.search([
+            {keyword: start},
+            {keyword: end}
+        ], function (status, result) {
+            // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+            if (status === 'complete') {
+                log.success('绘制驾车路线完成')
+            } else {
+                log.error('获取驾车数据失败：' + result)
+            }
+        });
+    }
+
+    function searchTransportation(start, end) {
+        //根据起、终点名称查询公交换乘路线
+        transfer.search([
+            {keyword: start, city: '全国'},
+            //第一个元素city缺省时取transOptions的city属性
+            {keyword: end, city: '全国'}
+            //第二个元素city缺省时取transOptions的cityd属性
+        ], function (status, result) {
+            // result即是对应的公交路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_TransferResult
+            if (status === 'complete') {
+                log.success('绘制公交路线完成')
+            } else {
+                log.error('公交路线数据查询失败' + result)
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

@@ -70,7 +70,7 @@ public class FlightController {
         /* 转账 */
 
 
-        model.addAttribute("tips","钱不够");
+//        model.addAttribute("tips","钱不够");
         flightService.payFlight(flightReserveDTO);
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
     }

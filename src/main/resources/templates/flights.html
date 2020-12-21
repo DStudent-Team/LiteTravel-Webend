@@ -80,7 +80,7 @@
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                <div class="col-12 text-center heading-section heading-section-white ftco-animate">
                     <h2>预约记录</h2>
                     <p>记得查看清楚预约记录, 准时出行噢!</p>
                     <div class="row d-flex justify-content-center mt-5">
@@ -94,7 +94,7 @@
                                             <label for="flightFrom">出发地地址</label>
                                             <!-- 二级地址选择器 -->
                                             <input id="flightFrom" style="border: 1px solid #e6e6e6;" class="form-control"
-                                                   name="flightFrom" type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                                   name="flightFromString" type="text" data-toggle="city-picker" placeholder="请选择省/市"
                                                    data-level="city" th:value="${search != null}?${search.flightFromString}:null">
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                             <label for="flightTo">目的地地址</label>
                                             <!-- 二级地址选择器 -->
                                             <input id="flightTo" style="border: 1px solid #e6e6e6;" class="form-control"
-                                                   name="flightTo" type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                                   name="flightToString" type="text" data-toggle="city-picker" placeholder="请选择省/市"
                                                    data-level="city" th:value="${search != null}?${search.flightToString}:null">
                                         </div>
                                     </div>
@@ -124,13 +124,13 @@
                                         <label for="startDate">订单出发最早时间</label>
                                         <input type="date" id="startDate" name="startDate"
                                                class="form-control"
-                                               th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                                               th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):null}">
                                     </div>
                                     <div class="form-group">
                                         <label for="startDate">订单出发最晚时间</label>
                                         <input type="date" id="endDate" name="endDate"
                                                class="form-control"
-                                               th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                                               th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):null}">
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
