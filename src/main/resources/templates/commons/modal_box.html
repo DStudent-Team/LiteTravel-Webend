@@ -185,29 +185,84 @@
 
 <!--机票预约服务模态框-->
 <section class="ftco-section-parallax" th:fragment="reserveModal">
-    <form method="post" th:action="@{/manage/deleteBlog}" class="form-horizontal" role="form" id="reserve_data" style="margin: 20px;">
+    <form method="post"  class="form-horizontal" role="form" id="reserve_data" style="margin: 20px;">
         <div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--弹窗标题-->
                         <h4 class="modal-title" id="reserve">
-                            添加服务
+                            请选择你的服务
                         </h4>
                         <!--弹窗右上角的关闭符号-->
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" th:onclick="clearTicketList()">
                             &times;
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group col-sm-9">
+                            路线:<span id="flightFrom">*</span>——<span id="flightTo">*</span>
+                            <br>
+                            用户预计时间:<span id="Depart"></span>~<span id="arrived"></span>
+                            <br>
+                            乘坐人数:<span id="seats">*</span>
+                            <br>
+                            机舱级别:<span id="level"></span>
+                        </div>
                         <form class="form-horizontal" role="form" method="post">
-                            
+                            <!--seats-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="toSeats" name="toSeats">
+                                </div>
+                            </div>
+                            <!--flightId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="flightId" name="flightId">
+                                </div>
+                            </div>
+                            <!--companyIdId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="companyId" name="companyId">
+                                </div>
+                            </div>
+                            <!--出发时间-->
+                            <div class="form-group form-inline">
+                                <label for="flightDepart" class="col-sm-3 control-label">出发时间</label>
+                                <input  class="col-sm-9" id="flightDepart" name="userBirth"
+                                       placeholder="请输入出发时间">
+                            </div>
+                            <!--到达时间-->
+                            <div class="form-group form-inline">
+                                <label for="flightArrived" class="col-sm-3 control-label">到达时间</label>
+                                <input class="col-sm-9" id="flightArrived" name="flightArrived"
+                                       placeholder="请输入到达时间">
+                            </div>
+                            <div class="form-group form-inline">
+                                <label for="service" class="col-sm-3 control-label">提供的服务</label>
+                                <textarea class="col-sm-9" id="service" name="service"
+                                          placeholder="请输入服务"></textarea>
+                            </div>
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>座位号&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</tr>
+                                <tr>&nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;票价</tr>
+                                </thead>
+                                <tbody id="ticketTbody">
+
+                                </tbody>
+                            </table>
+
+
+
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:onclick="clearTicketList()">关闭
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="submitReserve()">
                             确认
                         </button>
                     </div>
@@ -216,8 +271,6 @@
         </div>
     </form>
 </section>
-
-
 <!--调用用户脚本-->
 <script type="text/javascript" th:src="@{/js/manage.js}"></script>
 </body>
