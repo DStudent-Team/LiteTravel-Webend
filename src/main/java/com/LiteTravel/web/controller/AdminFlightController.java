@@ -23,7 +23,7 @@ public class AdminFlightController {
         ResultVO result = flightService.getFlights(page, 10, ((UserDTO) session.getAttribute("user")).userId);
         model.addAttribute("flights", result.data);
         model.addAttribute("pageInfo", result.info);
-        return "/manage/flights";
+        return "/flight/list";
     }
 
     @PostMapping("/manage/reserve")
