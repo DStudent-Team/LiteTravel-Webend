@@ -15,7 +15,7 @@ public class HotelOrderQueryDTO {
     Date startDate;
     Date endDate;
     //订单状态
-    String status;
+    String status = "";
     //酒店地址，格式 xx省,xx市
     String address;
     /*以,分割的一串酒店id字符串*/
