@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·订单</title>
+    <link rel="stylesheet" th:href="@{/css/custom/AutoCollapse.css}">
     <link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
 </head>
-<body>
+<body onload="load()">
 
 
 <!--重用topBar-->
@@ -85,12 +86,65 @@
                     <div class="row d-flex justify-content-center mt-5">
                         <div class="col-md-8">
                             <!--todo 条件查询块, 未更新-->
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Enter email address">
-                                    <input type="submit" value="Subscribe" class="submit px-3">
+                            <form id="search" name="search" method="post" th:action="@{/flights}">
+                                <div class="fields">
+                                    <div class="form-group">
+                                        <div style="position: relative;">
+
+                                            <label for="flightFrom">出发地地址</label>
+                                            <!-- 二级地址选择器 -->
+                                            <input id="flightFrom" style="border: 1px solid #e6e6e6;" class="form-control"
+                                                   name="flightFrom" type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                                   data-level="city" th:value="${search != null}?${search.flightFromString}:null">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div style="position: relative;">
+
+                                            <label for="flightTo">目的地地址</label>
+                                            <!-- 二级地址选择器 -->
+                                            <input id="flightTo" style="border: 1px solid #e6e6e6;" class="form-control"
+                                                   name="flightTo" type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                                   data-level="city" th:value="${search != null}?${search.flightToString}:null">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>订单状态</label>
+                                        <br>
+                                        <input type="checkbox" id="waitService" name="statusList" value="0">&nbsp;未接单&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="waitPay" name="statusList" value="1">&nbsp;未支付&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="waitBook" name="statusList" value="2">&nbsp;未预约&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="waitDepart" name="statusList" value="3">&nbsp;未出行&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="completed" name="statusList" value="4">&nbsp;已完成&nbsp;&nbsp;&nbsp;
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="startDate">订单出发最早时间</label>
+                                        <input type="date" id="startDate" name="startDate"
+                                               class="form-control"
+                                               th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startDate">订单出发最晚时间</label>
+                                        <input type="date" id="endDate" name="endDate"
+                                               class="form-control"
+                                               th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
+                                        <input type="button" value="重置" onclick="clearInput()" class="btn btn-info py-3 px-5"><!--使用js重置-->
+                                    </div>
                                 </div>
+
                             </form>
+<!--                            <form action="#" class="subscribe-form">-->
+<!--                                <div class="form-group d-flex">-->
+<!--                                    <input type="text" class="form-control" placeholder="Enter email address">-->
+<!--                                    <input type="submit" value="Subscribe" class="submit px-3">-->
+<!--                                </div>-->
+<!--                            </form>-->
                         </div>
                     </div>
                 </div>
@@ -124,11 +178,48 @@
 <script th:src="@{/js/city-picker.data.js}"></script>
 <script th:src="@{/js/city-picker.js}"></script>
 <script type="text/javascript" th:inline="javascript">
+    if ([[${search != null}]]){
+        console.log("test");
+        $(".navigationHref").click(function () {
+            $('#search').attr('action',this.href);
+            console.log("action is " +  this.href);
+            this.href = "javascript:vo(0);";
+            $('#search').submit();
+            return false;
+        });
+    }
+    <!-- 重置功能 -->
+    function clearInput() {
+        $('#startDate').val('');
+        $('#endDate').val('');
+        $('#flightFrom').citypicker("reset")
+        $('#flightTo').citypicker("reset")
+        $('#waitService').prop('checked',false)
+        $('#waitPay').prop('checked',false)
+        $('#waitBook').prop('checked',false)
+        $('#waitDepart').prop('checked',false)
+        $('#completed').prop('checked',false)
+    }
     function load() {
         $('#flightFromString').citypicker();
         $('#flightToString').citypicker();
+        $('#flightFrom').citypicker();
+        $('#flightTo').citypicker();
+        var boxObj = $("input:checkbox[name='statusList']"); //获取所有的复选框值
+        var expresslist = [[${search.flightStatus}]]; //用el表达式获取在控制层存放的复选框的值为字符串类型
+        if(expresslist.length > 0) {
+            expresslist = expresslist + ",";
+            var express = expresslist.split(',');
+            $.each(express, function(index, expressId){
+                boxObj.each(function () {
+                    if($(this).val() === expressId) {
+                        $(this).prop("checked",true);
+                    }
+                });
+            });
+        }
     }
-    <!-- 每次加载页面时运行，用于订单状态回显 -->
+
 </script>
 </body>
 </html>

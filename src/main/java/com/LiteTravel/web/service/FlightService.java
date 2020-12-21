@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.naming.spi.ResolveResult;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -193,6 +195,67 @@ public class FlightService {
             flightReserveDTO.setFlightTickets(new ArrayList<>());
         }
         return flightReserveDTO;
+    }
+
+    /* 复合查询 */
+    public ResultVO getFlights(Integer page, Integer pageSize, FlightSearchDTO flightSearchDTO) {
+
+        String from = flightSearchDTO.getFlightFromString();
+        String to = flightSearchDTO.getFlightToString();
+        Date startTime = flightSearchDTO.getStartDate();
+        Date endTime = flightSearchDTO.getEndDate();
+        String status = flightSearchDTO.getFlightStatus();
+
+        PageHelper.startPage(page, pageSize);
+        FlightExample flightExample = new FlightExample();
+        RegionExample regionExample = new RegionExample();
+        FlightExample.Criteria flightExampleCriteria = flightExample.createCriteria();
+
+        /*这个通过数字代码范围来查询我也不确定行不行, 总之试试看*/
+        if (from != null && from.length() > 0) {
+
+            //格式化地址选择器传来的地址信息，只取城市
+            from = from.split("/")[1];
+            regionExample.createCriteria().andNameLike("%" + from + "%");
+
+            //获取4位地址id，通过范围选择包括下面的区县
+            int regionId = regionMapper.selectByExample(regionExample).get(0).getId() / 100;
+            flightExampleCriteria.andFlightFromBetween(regionId * 100, regionId * 100 + 99);
+        }
+        /*这个通过数字代码范围来查询我也不确定行不行, 总之试试看*/
+        if (to != null && to.length() > 0) {
+            //格式化地址选择器传来的地址信息，只取城市
+            to = to.split("/")[1];
+            regionExample.createCriteria().andNameLike("%" + to + "%");
+
+            //获取4位地址id，通过范围选择包括下面的区县
+            int regionId = regionMapper.selectByExample(regionExample).get(0).getId() / 100;
+            flightExampleCriteria.andFlightToBetween(regionId * 100, regionId * 100 + 99);
+        }
+        if (startTime != null) {
+            startTime = new Timestamp(startTime.getTime());
+            flightExampleCriteria.andFlightDepartGreaterThanOrEqualTo(startTime);
+        }
+        if (endTime != null) {
+            endTime = new Timestamp(endTime.getTime() + (60 * 60 * 24) * 1000);
+            flightExampleCriteria.andFlightDepartLessThanOrEqualTo(endTime);
+        }
+        if (status != null && status.length() > 0) {
+            List<String> statusList = Arrays.asList(status.split(","));
+            /* 需将状态列表转成integer类型 */
+            List<Integer> toInteger = new ArrayList<>();
+            for(String string: statusList) {
+                toInteger.add(Integer.parseInt(string));
+            }
+            flightExampleCriteria.andFlightStatusIn(toInteger);
+        }
+        List<Flight> flights = flightMapper.selectByExample(flightExample);
+        PageInfo<Flight> info = new PageInfo<>(flights, 5);
+        List<FlightDTO> data = flights.stream().map(flight -> {
+            FlightDTO flightDTO = getFlightDTO(flight, false);
+            return flightDTO;
+        }).collect(Collectors.toList());
+        return new ResultVO(data, info);
     }
 
 }
