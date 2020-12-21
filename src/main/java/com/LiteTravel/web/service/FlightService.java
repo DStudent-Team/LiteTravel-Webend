@@ -8,20 +8,17 @@ import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.LiteTravel.web.service.Utils.JDBCUtils;
-import com.LiteTravel.web.utils.CustomUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.spi.ResolveResult;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
 @Service
@@ -257,5 +254,4 @@ public class FlightService {
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
     }
-
 }

@@ -149,6 +149,8 @@ function deleteByBlogId (blogId) {
 //检查数据是否为空或者为空格
 function checkBlank(value){
     return value === null || value.toString().trim().length === 0
+<<<<<<< HEAD
+=======
 }
 
 
@@ -238,4 +240,5 @@ function createInput(inputName, inputType, inputValue, aDiv) {
     // input.setAttribute("id", inputId) ;
 
     aDiv.appendChild(input);
+>>>>>>> master
 }

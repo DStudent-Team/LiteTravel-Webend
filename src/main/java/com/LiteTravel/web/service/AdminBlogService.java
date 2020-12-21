@@ -32,21 +32,12 @@ public class AdminBlogService {
     private BlogTagMapMapper blogTagMapMapper;
 
     /**
-     * 通过博客id删除博客
-     * @param id 博客id
-     * @return int
-     */
-    public int deleteBlogById(Integer id){
-        return blogMapper.deleteByPrimaryKey(id);
-    }
-
-    /**
      * 分页查询列表
      * @param pageNum 页数
      * @param pageSize 大小
      * @return 博客列表
      */
-    public List<Blog> listBlog(Integer pageNum, Integer pageSize){
+    public List<Blog> getBlogs(Integer pageNum, Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         return blogMapper.selectByExample(new BlogExample());
     }
@@ -103,9 +94,14 @@ public class AdminBlogService {
         return blogMapper.selectByExample(blogExample);
     }
 
-
-
-
+    /**
+     * 通过博客id删除博客
+     * @param id 博客id
+     * @return int
+     */
+    public int deleteBlogById(Integer id){
+        return blogMapper.deleteByPrimaryKey(id);
+    }
 
 
 }
