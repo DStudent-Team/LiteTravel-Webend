@@ -46,7 +46,7 @@ public class AdminBlogService {
      * @param pageSize 大小
      * @return 博客列表
      */
-    public List<Blog> listBlog(Integer pageNum, Integer pageSize){
+    public List<Blog> getBlogs(Integer pageNum, Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         return blogMapper.selectByExample(new BlogExample());
     }

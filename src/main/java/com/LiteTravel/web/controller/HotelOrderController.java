@@ -1,12 +1,14 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderInfoDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderSubmitDTO;
+import com.LiteTravel.web.DTO.HotelOrder.*;
+import com.LiteTravel.web.DTO.ResponseDTO;
+import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.DTO.RoomDTO;
+import com.LiteTravel.web.Model.HotelOrder;
+import com.LiteTravel.web.Model.HotelOrderDetail;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -62,6 +66,46 @@ public class HotelOrderController {
         model.addAttribute("order", hotelOrderInfoDTO);
         return "hotel-order";
     }
+    /**
+     * 在发起订单页面 确认订单信息并提交酒店订单业务，申请新订单
+     * **/
+    @PostMapping("/book/submit")
+    @Transactional
+    @ResponseBody
+    public ResponseDTO bookHotel(@RequestBody HotelOrderConfirmDTO hotelOrderConfirmDTO){
+        //生成订单信息，成功则跳转至订单页面
+        HotelOrder hotelOrder = new HotelOrder();
+        BeanUtils.copyProperties(hotelOrderConfirmDTO, hotelOrder);
+        hotelOrder.setStatus("0");
+        hotelOrder.setCreateDate(new Date());
+        System.out.println(hotelOrder.toString());
+        List<HotelOrderDetail> hotelOrderDetails = new ArrayList<>();
+        for (HotelOrderDetailDTO roomOrder:hotelOrderConfirmDTO.getRooms()) {
+            HotelOrderDetail hotelOrderDetail = new HotelOrderDetail();
+            BeanUtils.copyProperties(roomOrder, hotelOrderDetail);
+            System.out.println(hotelOrderDetail.toString());
+            hotelOrderDetails.add(hotelOrderDetail);
+        }
+        /*插入新数据*/
+        Integer orderId = hotelOrderService.insertHotelOrder(hotelOrder, hotelOrderDetails);
+        return ResponseDTO.success(orderId);
+    }
+
+    /***
+     * 支付订单
+     * @param hotelOrderPayDTO
+     * @return
+     */
+    @PostMapping("/order/pay")
+    @Transactional
+    @ResponseBody
+    public ResponseDTO payOrder(@RequestBody HotelOrderPayDTO hotelOrderPayDTO){
+        HotelOrder hotelOrder = new HotelOrder();
+        BeanUtils.copyProperties(hotelOrderPayDTO, hotelOrder);
+        hotelOrderService.updateHotelOrder(hotelOrder);
+        return ResponseDTO.success(hotelOrderPayDTO.getOrderId());
+    }
+
 
     @GetMapping("/orders")
     public String OrderList(@RequestParam(value = "page", defaultValue = "1")Integer page,
@@ -126,4 +170,7 @@ public class HotelOrderController {
         model.addAttribute("order", hotelOrderInfoDTO);
         return "order";
     }
+
+
+
 }
