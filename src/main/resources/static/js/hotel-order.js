@@ -53,7 +53,7 @@ function submitOrder() {
             'days': daysDiff,
             'total': total,
         }), //json数据格式的用户名从jsp传递给controller
-        dataType: "html",
+        dataType: "json",
         contentType: "application/json", //修改contentType，使@RequestParam可以接收数据。
         async: false, //让ajax执行代码顺序同步
         success: function (response) {

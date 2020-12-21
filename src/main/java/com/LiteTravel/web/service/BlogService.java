@@ -1,6 +1,7 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.BlogDTO;
+import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
@@ -8,16 +9,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.constraints.AssertFalse;
-import javax.websocket.server.PathParam;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +30,7 @@ public class BlogService {
     private TagMapper tagMapper;
 
 //    @Cacheable(cacheNames = {"blog"}, key = "#blogId")
-    public BlogDTO selectByPrimaryId(Integer blogId){
+    public BlogDTO getBlogById(Integer blogId){
         Blog blog = blogMapper.selectByPrimaryKey(blogId);
         return getBlogDTO(blog);
     }
@@ -57,7 +52,7 @@ public class BlogService {
         return selectByExample(page, pageSize, blogExample);
     }
 
-    private ResultVO selectByExample(Integer page, Integer pageSize, BlogExample blogExample){
+    public ResultVO selectByExample(Integer page, Integer pageSize, BlogExample blogExample){
         PageHelper.startPage(page, pageSize);
         List<Blog> blogs = blogMapper.selectByExample(blogExample);
         PageInfo<Blog> info = new PageInfo<>(blogs, 5);
@@ -88,27 +83,41 @@ public class BlogService {
 
 
     @Transactional
-    public int insertBlog(String blog_title, String blog_content, String blog_tags, int userId){
+    public int insertBlog(String blogTitle, String blogContent, String blogTags, int userId){
         Blog blog = new Blog();
         blog.setBlogImgUri("image_1.jpg");
-        blog.setBlogTitle(blog_title);
-        blog.setBlogContent(blog_content);
+        blog.setBlogTitle(blogTitle);
+        blog.setBlogContent(blogContent);
         blog.setBlogModifyTime(new Date());
         blog.setBlogPostTime(new Date());
         blog.setBlogCommentCount(0);
         blog.setBlogLikeCount(0);
         blog.setBlogPosterId(userId);
-        List<String> tagNames = Arrays.stream((blog_tags.replace(" ", "").split(","))).distinct().collect(Collectors.toList());
+        /*插入博客*/
+        blogMapper.insert(blog);
+        /*获取新插入的博客的Id*/
+        int insertId = blog.getBlogId();
+        /*获取tagNamesList*/
+        insertTags(insertId, blogTags);
+        return insertId;
+    }
+
+    /***
+     * 更新tags和blog_tag_map的方法
+     * @param blogId
+     * @param blogTags
+     */
+    private void insertTags(Integer blogId, String blogTags){
+        List<String> tagNames = Arrays.stream((blogTags.toLowerCase().replace(" ", "").split(","))).distinct().collect(Collectors.toList());
+
         TagExample tagExample = new TagExample();
         tagExample.createCriteria()
                 .andTagNameIn(tagNames);
         List<Tag> oldTags = tagMapper.selectByExample(tagExample);
-        blogMapper.insert(blog);
-        int insertId = blog.getBlogId();
         /*插入原本就有的tag*/
         for (Tag oldTag: oldTags) {
             BlogTagMap blogTagMap = new BlogTagMap();
-            blogTagMap.setBlogId(insertId);
+            blogTagMap.setBlogId(blogId);
             blogTagMap.setTagId(oldTag.getTagId());
             blogTagMap.setTagLike(0);
             blogTagMapMapper.insert(blogTagMap);
@@ -122,11 +131,54 @@ public class BlogService {
             tag.setTagName(newTag);
             tagMapper.insert(tag);
             BlogTagMap blogTagMap = new BlogTagMap();
-            blogTagMap.setBlogId(insertId);
+            blogTagMap.setBlogId(blogId);
             blogTagMap.setTagId(tag.getTagId());
             blogTagMap.setTagLike(0);
             blogTagMapMapper.insert(blogTagMap);
         }
-        return insertId;
     }
+
+    public void updateBlog(Integer blogId,
+                           String blogTitle,
+                           String blogContent,
+                           String blogTags) {
+        Blog blog = new Blog();
+        blog.setBlogId(blogId);
+        blog.setBlogTitle(blogTitle);
+        blog.setBlogContent(blogContent);
+        blogMapper.updateByPrimaryKeySelective(blog);
+        if (blogTags != null){
+            /*先删除旧的tags*/
+            BlogTagMapExample blogTagMapExample = new BlogTagMapExample();
+            blogTagMapExample.createCriteria()
+                    .andBlogIdEqualTo(blogId);
+            blogTagMapMapper.deleteByExample(blogTagMapExample);
+            /*再更新新的tags*/
+            insertTags(blogId, blogTags);
+        }
+
+    }
+
+    public void deleteBlogById(Integer blogId) {
+        BlogTagMapExample blogTagMapExample = new BlogTagMapExample();
+        blogTagMapExample.createCriteria()
+                .andBlogIdEqualTo(blogId);
+        blogTagMapMapper.deleteByExample(blogTagMapExample);
+        blogMapper.deleteByPrimaryKey(blogId);
+    }
+
+
+    public BlogExample getBlogs(BlogQueryDTO blogQueryDTO) {
+        BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria blogExampleCriteria = blogExample.createCriteria();
+        if (blogQueryDTO.getKeyword() != null) {
+            blogExampleCriteria.andBlogTitleLike("%" + blogQueryDTO.getKeyword() + "%");
+        }
+        if (blogQueryDTO.getUserId() != null) {
+            blogExampleCriteria.andBlogPosterIdEqualTo(blogQueryDTO.getUserId());
+        }
+        return blogExample;
+    }
+
+
 }

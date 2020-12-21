@@ -1,14 +1,17 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.HotelOrder.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
+import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,7 +38,11 @@ public class HotelOrderService {
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
 
-    private ResultVO selectByExample(Integer page, Integer pageSize, HotelOrderExample hotelOrderExample) {
+    public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO) {
+        return selectByExample(page, pageSize, getHotelOrderExample(hotelOrderQueryDTO));
+    }
+
+    public ResultVO selectByExample(Integer page, Integer pageSize, HotelOrderExample hotelOrderExample) {
         /* 分页：
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
@@ -65,6 +72,7 @@ public class HotelOrderService {
             hotelOrderDTO.setHotelImgUri(hotelUri);
             return hotelOrderDTO;
         }).collect(Collectors.toList());
+
         return new ResultVO(data, info);
     }
 
@@ -89,15 +97,7 @@ public class HotelOrderService {
 
         BeanUtils.copyProperties(hotelOrder, hotelOrderDTO);
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelOrder.getHotelId());
-        HotelDTO hotelDTO = new HotelDTO();
-        BeanUtils.copyProperties(hotel, hotelDTO);
-        RegionExample regionExample = new RegionExample();
-        regionExample.createCriteria()
-                .andIdEqualTo(hotel.getHotelAddress());
-        List<Region> regions = regionMapper.selectByExample(regionExample);
-        if(regions.size() > 0){
-            hotelDTO.setHotelAddressString(regions.get(0).getMername());
-        }
+        HotelDTO hotelDTO = JDBCUtils.initHotelDTO(regionMapper, hotel);
         hotelOrderDTO.setHotel(hotelDTO);
         List<HotelOrderDetailDTO> hotelOrderDetailDTOs = hotelOrderDetails.stream().map(hotelOrderDetail -> {
             HotelOrderDetailDTO hotelOrderDetailDTO = new HotelOrderDetailDTO();
@@ -167,5 +167,80 @@ public class HotelOrderService {
                 break;
         }
         return hotelOrderMapper.updateByPrimaryKeySelective(modified);
+    }
+
+    private HotelOrderExample getHotelOrderExample(HotelOrderQueryDTO query) {
+        //获取查询条件
+        Integer userId = query.getUserId();
+        String keyword = query.getKeyword();
+        Date startTime = query.getStartDate();
+        Date endTime = query.getEndDate();
+        String status = query.getStatus();
+        String address = query.getAddress();
+        String hotelId = query.getHotelIds();
+
+        //获取权限
+
+        HotelOrderExample hotelOrderExample = new HotelOrderExample();
+        HotelExample hotelExample = new HotelExample();
+        RegionExample regionExample = new RegionExample();
+        HotelExample.Criteria hotelExampleCriteria = hotelExample.createCriteria();
+
+        HotelOrderExample.Criteria hotelOrderExampleCriteria = hotelOrderExample.createCriteria();
+
+        if (keyword != null) {
+            hotelExampleCriteria.andHotelNameLike("%" + keyword + "%");
+        }
+        /*这个通过数字代码范围来查询我也不确定行不行, 总之试试看*/
+        if (address != null && address.length() > 0) {
+
+            //格式化地址选择器传来的地址信息，只取城市
+            address = address.split("/")[1];
+            regionExample.createCriteria().andNameLike("%" + address + "%");
+
+            //获取4位地址id，通过范围选择包括下面的区县
+            int regionId = regionMapper.selectByExample(regionExample).get(0).getId() / 100;
+            hotelExampleCriteria.andHotelAddressBetween(regionId * 100, regionId * 100 + 99);
+        }
+
+        List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
+        List<Integer> hotelIds = hotels.stream().map(Hotel::getHotelId).distinct().collect(Collectors.toList());
+
+        if (userId != null) {
+            hotelOrderExampleCriteria.andUserIdEqualTo(userId);
+        }
+        //根据起止时间和订单状态找到订单
+        if (startTime != null){
+            startTime = new Timestamp(startTime.getTime());
+            hotelOrderExampleCriteria.andCreateDateGreaterThanOrEqualTo(startTime);
+        }
+        if (endTime != null) {
+            endTime = new Timestamp(endTime.getTime() + (60 * 60 * 24) * 1000);
+            hotelOrderExampleCriteria.andCreateDateLessThanOrEqualTo(endTime);
+        }
+
+        if (status != null && status.length() > 0) {
+            List nullList = new ArrayList<>();
+            List<String> statusList = Arrays.asList(status.split(","));
+            nullList.add(null);
+            statusList.remove(nullList);
+
+            hotelOrderExampleCriteria.andStatusIn(statusList);
+        }
+        if (hotelId != null && hotelId.length() > 0) {
+            String[] strings = hotelId.split(",");
+            List<Integer> hotelIds1 = new ArrayList<>();
+            for(String string: strings) {
+                if (! hotelIds.contains(Integer.parseInt(string))) {
+                    hotelIds.add(Integer.parseInt(string));
+                }
+            }
+        }
+
+        //防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
+        hotelIds.add(-1);
+        hotelOrderExampleCriteria.andHotelIdIn(hotelIds);
+        return hotelOrderExample;
+
     }
 }

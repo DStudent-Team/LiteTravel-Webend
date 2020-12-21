@@ -1,9 +1,10 @@
 package com.LiteTravel.web.mapper;
 
 import com.LiteTravel.web.Model.Employee;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-
+@Repository
 public interface EmployeeMapper {
 
     public Employee getEmployeeById(Integer id);

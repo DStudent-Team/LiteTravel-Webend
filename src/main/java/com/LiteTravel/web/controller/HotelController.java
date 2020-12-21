@@ -1,14 +1,12 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.service.HotelService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @Controller
 public class HotelController {
@@ -16,16 +14,9 @@ public class HotelController {
     @Autowired
     public HotelService hotelService;
 
-    /* todo 酒店列表实际上用了两个接口来接受两个不同的请求, 冗余了, 试试可不可以更加尽可能的重用 */
-    /* 默认第一页 */
-    @GetMapping("/hotels")
-    public String HotelList(ModelMap model){
-        setPageHotel(1, model);
-        return "hotels";
-    }
     /* 点击页面数切换 分页显示酒店列表 */
-    @GetMapping("/hotels/{page}")
-    public String HotelPage(@PathVariable("page") Integer page, ModelMap model){
+    @GetMapping("/hotels")
+    public String HotelPage(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model){
         setPageHotel(page, model);
         return "hotels";
     }
@@ -44,6 +35,32 @@ public class HotelController {
         /* 放入页面信息数据 */
         model.addAttribute("pageInfo", resultVO.info);
     }
+
+    /* 带查询条件的分页 */
+    private void setPageHotel(Integer page, HotelQueryDTO hotelQueryDTO, ModelMap model){
+        /* 向service层分发请求处理 */
+        ResultVO  resultVO = hotelService.getHotels(page, 6, hotelQueryDTO);
+        /* 分页信息类
+         * 参数1：数据集合
+         * 参数2：需要展示的最大导航页数*/
+        /* 设置筛选页面的筛选项目为Hotel */
+//        model.addAttribute("category", "hotel");
+        /* 放入数据 */
+        /* 放入hotel列表数据 */
+        model.addAttribute("hotels", resultVO.data);
+        /* 放入查询条件 */
+        model.addAttribute("search", hotelQueryDTO);
+        /* 放入页面信息数据 */
+        model.addAttribute("pageInfo", resultVO.info);
+    }
+
+    @PostMapping("/hotels")
+    public String HotelSearchList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                  HotelQueryDTO hotelQueryDTO, ModelMap model) {
+        setPageHotel(page, hotelQueryDTO, model);
+        return "hotels";
+    }
+
 
     @GetMapping("/hotel/{hotelId}")
     public String Hotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
@@ -66,6 +83,7 @@ public class HotelController {
         model.addAttribute("hotels", result.data);
         return "hotel-single";
     }
+
 
     @GetMapping("/manage/hotels")
     public String MangeHotelList(ModelMap model){

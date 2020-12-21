@@ -1,10 +1,13 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
+import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.service.AdminBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -23,8 +26,8 @@ public class AdminBlogController {
 
     /**
      * 1. 只需要发送/admin/blogs?pageNum=1&pageSize=6,就可以获取到数据 1和6要自己改变
-     * 2. model传输的对象，在视图层直接使用:${allBlogs}即可获取数据
-     * 3. admin_blog: 要跳转的页面，自定义(我不知道实际的页面)
+     * 2. model传输的对象，在视图层直接使用:${blogs}即可获取数据
+     * 3. /admin/blog: 要跳转的页面，自定义(我不知道实际的页面)
      *
      * 分页查找博客
      *
@@ -33,10 +36,10 @@ public class AdminBlogController {
      * @param model model
      * @return String
      */
-    @GetMapping("/blogs")
+    @GetMapping("/manage/blogs")
     public String toAdmin(@PathParam("pageNum") Integer pageNum, @PathParam("pageSize") Integer pageSize, Model model){
-        model.addAttribute("allBlogs", adminBlogService.listBlog(pageNum, pageSize));
-        return "admin_blog";
+        model.addAttribute("blogs", adminBlogService.listBlog(pageNum, pageSize));
+        return "/admin/blog";
     }
 
     /**
@@ -100,5 +103,14 @@ public class AdminBlogController {
     @GetMapping("/blog/{id}")
     public void getBlogById(@PathVariable("id") Integer id, Model model){
         model.addAttribute("blog", adminBlogService.getBlog(id));
+    }
+
+
+    @PostMapping("/blogQuery")
+    public  String getBlogs(@RequestParam(value = "page", defaultValue = "1") Integer pageNum,
+                            BlogQueryDTO blogQueryDTO,
+                            ModelMap model) {
+        model.addAttribute("blogs", adminBlogService.getBlogs(pageNum, 6, blogQueryDTO));
+        return "/admin/blog";
     }
 }

@@ -1,35 +1,30 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.UserDTO;
-import com.LiteTravel.web.DTO.UserInfoDTO;
+import com.LiteTravel.web.DTO.UserManageDTO;
+import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
+import com.LiteTravel.web.mapper.UserInfoMapper;
+import com.LiteTravel.web.mapper.UserMapper;
 import com.LiteTravel.web.service.UserService;
-<<<<<<< Updated upstream
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-=======
 import com.LiteTravel.web.service.Utils.MoneyService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
->>>>>>> Stashed changes
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import sun.plugin2.message.Message;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
     @Autowired
     UserService userService;
 
-<<<<<<< Updated upstream
-=======
     @Autowired
     UserMapper userMapper;
 
@@ -39,7 +34,6 @@ public class UserController {
     @Autowired
     MoneyService moneyService;
 
->>>>>>> Stashed changes
     @GetMapping("/user/{userId}")
     public String toUser(@PathVariable("userId") Integer userId, ModelMap model, Model m){
         UserInfo info = userService.selectInfoByUserId(userId);
@@ -65,8 +59,6 @@ public class UserController {
         model.addAttribute("info", info);
         return "user-modify";
     }
-<<<<<<< Updated upstream
-=======
 
     /*后台添加用户信息*/
     @PostMapping("/manage/user")
@@ -143,5 +135,4 @@ public class UserController {
         model.addAttribute("message", "");
         return "redirect:/user/" + userId;
     }
->>>>>>> Stashed changes
 }

@@ -39,6 +39,8 @@
                             <span th:text="'电话:' + ${info.userPhone}"></span>
                             <br/>
                             <span th:text="'邮箱:' + ${info.userEmail}"></span>
+                            <br/>
+                            <span th:text="'余额:' + ${money}"></span>
                         </div>
                     </div>
                 </section>
@@ -50,6 +52,8 @@
                         <li class="list-group-item"><a href="#">我的博客</a></li>
                         <li class="list-group-item"><a th:href="@{/blog/publish}">发布博客</a></li>
                     </ul>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMoneyModel">充值</button>
+                    <!-- Modal -->
                 </div>
             </div>
 
@@ -114,7 +118,35 @@
         </div>
     </div>
 </section>
-
+<div class="modal fade" id="addMoneyModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: auto">
+    <form th:action="@{/addMoney}" th:method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">
+                        老板大气，加钱
+                    </h4>
+                    <button type="button" class="close" onclick="clearUser()" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <input name="userId" th:value="${session.user.userId}" hidden="hidden">
+                        <input type="text" name="money" placeholder="请输入金额">
+                        <input type="password" name="password" placeholder="请输入密码">
+                </div>
+                <div class="modal-footer">
+                    <!--调用user.js方法-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        给钱
+                    </button><span id="tip"> </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <div th:replace="~{commons/Footer::subscriber}"></div>
 
 <div th:replace="~{commons/Footer::webFooter}"></div>

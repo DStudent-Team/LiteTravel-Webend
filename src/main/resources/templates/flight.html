@@ -1,258 +1,135 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>轻旅·关于我们</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
-
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
-
-
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{})}">
+    <title>轻旅·预定机票</title>
 </head>
 <body>
 
 
 <!--重用topBar-->
-<div th:replace="~{commons/bar::topBar(activeUri='flight')}"></div>
+<div th:replace="~{commons/bar::topBar(activeUri='Flight')}"></div>
 <!-- END nav -->
+
 
 <div th:replace="~{commons/BG::sectionBG(sectionName='Flight')}"></div>
 
-<section class="ftco-section">
+<section class="ftco-section contact-section ftco-degree-bg">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="intro">
-                    <h3><span>01</span> Travel</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+            <div class="col-md-9 ftco-animate">
+                <h1 class="mb-3 text-center">预定信息</h1>
+                <div class="col-12 text-left">
+                    <h2>预定路线: [[${flight.flightToString}]] 前往 [[${flight.flightFromString}]]</h2>
+                    <h2>预定出发日期: [[${#dates.format(flight.flightDepart, 'yyyy-M-d')}]]</h2>
+                    <h2>预定服务级别: [[${flight.flightLevel}]]</h2>
+                    <h2>预定行程人数: [[${flight.flightSeats}]]</h2>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="intro">
-                    root@122.51.98.193<h3><span>02</span> Experience</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="intro">
-                    <h3><span>03</span> Relax</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-counter img" id="section-counter"
-         th:style="'background-image: url('+@{/img/bg_1.jpg}+');'" data-stellar-background-ratio="0.5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="100000">0</strong>
-                                <span>Happy Customers</span>
-                            </div>
+                <hr>
+                <div class="col-12 text-left">
+                    <h2>预定状态</h2>
+                    <div th:if="${flight.flightStatus == 0}"><h3 class="text-info">等待服务提供</h3></div>
+                    <!---->
+                    <div th:if="${flight.flightStatus == 1}">
+                        <h3><span>请在下方选择适合您的机票服务</span></h3>
+                        <br>
+                        <div class="border border-info text-center" th:each="reserve,stat:${flight.flightReserves}" onclick="chooseReserve()">
+                            <form name="choose" method="post" th:action="@{/flight/reserve/}">
+                                <input type="hidden" name="reserveId" th:value="${reserve.reserveId}">
+                                <input type="hidden" name="flightId" th:value="${reserve.flightId}">
+                                <!--显示提供的服务列表-->
+                                <p>服务提供商: [[${reserve.companyName}]]</p>
+                                <p>个性化服务: [[${reserve.service}]]</p>
+                                <p>总价: [[${reserve.total}]]</p>
+                                <hr>
+                                <!--服务列表中再逐一展示提供的机票-->
+                                <div th:each="ticket,stat:${reserve.flightTickets}">
+                                    <p>航班座位: [[${ticket.ticketSeat}]]</p>
+                                    <p>机票价格: [[${ticket.ticketPrice}]]</p>
+                                </div>
+                                <hr>
+                                <input type="submit" class="btn btn-small btn-primary" th:if="${reserve.selected == false}"
+                                       th:id="${reserve.reserveId}" value="选择服务"/>
+                            </form>
+                            <br>
                         </div>
                     </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="40000">0</strong>
-                                <span>Destination Places</span>
+                    <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
+                    <div th:if="${flight.flightStatus == 2}">
+                        <h3><span>等待机票支付</span></h3>
+                        <div class="border border-info text-center" th:each="reserve,stat:${flight.flightReserves}">
+                            <!--显示提供的服务列表-->
+                            <p>服务提供商: [[${reserve.companyName}]]</p>
+                            <p>个性化服务: [[${reserve.service}]]</p>
+                            <p>总价: [[${reserve.total}]]</p>
+                            <hr>
+                            <!--服务列表中再逐一展示提供的机票-->
+                            <div th:each="ticket,stat:${reserve.flightTickets}">
+                                <p>航班座位: [[${ticket.ticketSeat}]]</p>
+                                <p>机票价格: [[${ticket.ticketPrice}]]</p>
                             </div>
+                            <hr>
+                            <p th:text="${reserve.selected == true}?'已选中':'未选中'"></p>
+                            <form method="post" th:action="@{/flight/pay/}" onsubmit="return checkPassword()">
+                                <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
+                                <input name="flightId" type="hidden" th:value="${reserve.flightId}">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-small btn-primary py-3 px-5" value="支付"/>
+                                    <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
+                                </div>
+                            </form>
+                            <form method="post" th:action="@{/flight/withdraw/}">
+                                <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
+                                <input name="flightId" type="hidden" th:value="${reserve.flightId}">
+                                <div class="form-group">
+                                    <button type="submit" onclick="return checkCancel()" class="btn btn-small btn-danger py-3 px-5">取消</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="87000">0</strong>
-                                <span>Hotels</span>
+                    <!--已经支付-->
+                    <div th:if="${flight.flightStatus  >= 3}">
+                        <h3><span>已经预定的服务</span></h3>
+                        <div class="border border-info text-center" th:if="${reserve.selected == true}" th:each="reserve,stat:${flight.flightReserves}">
+                            <!--显示提供的服务列表-->
+                            <p>服务提供商: [[${reserve.companyName}]]</p>
+                            <p>个性化服务: [[${reserve.service}]]</p>
+                            <p>总价: [[${reserve.total}]]</p>
+                            <hr>
+                            <!--服务列表中再逐一展示提供的机票-->
+                            <div th:each="ticket,stat:${reserve.flightTickets}">
+                                <p>航班座位: [[${ticket.ticketSeat}]]</p>
+                                <p>机票价格: [[${ticket.ticketPrice}]]</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="56400">0</strong>
-                                <span>Restaurant</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-about d-md-flex">
-    <div class="one-half img" th:style="'background-image: url('+@{/img/about.jpg}+');'"></div>
-    <div class="one-half ftco-animate">
-        <div class="heading-section ftco-animate ">
-            <h2 class="mb-4">The Best Travel Agency</h2>
-        </div>
-        <div>
-            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have
-                been rewritten a thousand times and everything that was left from its origin would be the word "and" and
-                the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said
-                could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her
-                drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section testimony-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <h2 class="mb-4">Our satisfied customer says</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
-                    the blind texts. Separated they live in</p>
-            </div>
-        </div>
-        <div class="row ftco-animate">
-            <div class="col-md-12">
-                <div class="carousel-testimony owl-carousel ftco-owl">
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_1.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">Marketing Manager</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_2.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">Interface Designer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_3.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">UI Designer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+@{/img/person_1.jpg}+');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">Web Developer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" th:style="'background-image: url('+ @{/img/person_1.jpg} +');'">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text">
-                                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia
-                                    and Consonantia, there live the blind texts.</p>
-                                <p class="name">Mark Web</p>
-                                <span class="position">System Analyst</span>
-                            </div>
+                            <hr>
+                            <p th:text="${reserve.selected == true}?'已选中':'未选中'"></p>
+                            <form method="post" th:action="@{/flight/withdraw/}">
+                                <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
+                                <input name="flightId" type="hidden" th:value="${reserve.flightId}">
+                                <div class="form-group">
+                                    <button type="submit" onclick="return checkCancel()" class="btn btn-small btn-danger py-3 px-5">取消</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section services-section bg-light">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-yatch"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Special Activities</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-around"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Travel Arrangements</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-compass"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Private Guide</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-block">
-                    <div class="icon"><span class="flaticon-map-of-roads"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Location Manager</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
+            <div class="col-lg-3 order-md-last pr-md-5">
+                <!--一些简单的文字提示-->
+                <!--博客指南：标签功能指南, 标题文字限制, 文章最少文字数, 封面图设置指南-->
+                <div id="flight-tip">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#ftco-flight-tips" aria-controls="ftco-flight-tips"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="oi oi-tags"></span> 机票预约服务提示
+                    </button>
+                    <div class="collapse navbar-collapse" id="ftco-flight-tips">
+                        <hr/>
+                        <p>欢迎使用我们的机票预约功能!以下是一些关于预约提示:)</p>
+                        <ol>
+                            <li>在发出预约请求后, 可以等待数日服务商的服务提供:)</li>
+                            <li>当航班服务商提供服务选择后, 可选择最适合您个人的航班服务:)</li>
+                            <li>选择好服务后便可支付账单以便服务商最优先为您服务:)</li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -271,23 +148,50 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
+<th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<!--加入订单支付脚本数据-->
+<script type="text/javascript" th:inline="javascript">
+    function checkCancel() {
+        return confirm("确认要取消预约吗？") === true;
+    }
 
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+    function checkPassword() {
+        const password = prompt("输入支付密码:");
+        let checkTimes = 0;
+        return $.ajax({
+            type: "POST",
+            url: "/checkPassword",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "userPassword": password,
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    //密码正确
+                    //弹出回复成功浮动框消息(数秒后自动消失)
+                    alert("密码正确");
+                    return true;
+                } else {
+                    alert(response.message);
+                    checkTimes += 1;
+                    if (checkTimes >= 3) {
+                        alert("输入超过三次错误, 请确认个人密码再次尝试");
+                        return false;
+                    }
+                    checkPassword();
+                }
+            }, error: function () {
+                return false;
+            }
+        });
+    }
+
+    function chooseReserve() {
+        console.log("test");
+        $(this).find("form[name='choose']").submit();
+    }
+</script>
 
 </body>
 </html>

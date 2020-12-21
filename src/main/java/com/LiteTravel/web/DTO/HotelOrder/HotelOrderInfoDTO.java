@@ -1,0 +1,21 @@
+package com.LiteTravel.web.DTO.HotelOrder;
+
+import com.LiteTravel.web.DTO.HotelDTO;
+import lombok.Data;
+
+import java.util.Date;
+import java.util.List;
+
+@Data
+public class HotelOrderInfoDTO {
+    private Integer orderId;
+    private Integer hotelId;
+    private String status;
+    private HotelDTO hotel;
+    private List<HotelOrderDetailDTO> details;
+    private Integer userId;
+    private Date checkIn;
+    private Date checkOut;
+    private Integer days;
+    private float total;
+}

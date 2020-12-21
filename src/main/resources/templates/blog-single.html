@@ -1,35 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·博客</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
-
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
-
-
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/blog-single.css}">
 </head>
 <body>
-
 <!--重用topBar-->
 <div th:replace="~{commons/bar::topBar(activeUri='Blog')}"></div>
 <!-- END nav -->
@@ -59,13 +35,24 @@
                 <div><p class="meta-chat">
                     <span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</p>
                 </div>
+                <div th:if="${session.user.userId == blog.blogPosterId}">
+                    <a class="btn btn-primary" th:href="@{'/blog/publish/' + ${blog.blogId}}">编辑</a>
+                    <form th:action="@{'/blog/' + ${blog.blogId}}" method="post">
+                        <input name="_method" type="hidden" value="delete"/>
+                        <button type="submit" class="btn btn-danger">删除</button>
+                    </form>
+                </div>
                 <!-- 博客发布人介绍块 -->
                 <div class="about-author d-flex p-4 bg-light">
                     <div class="bio mr-5">
-                        <img th:src="@{'/img/' + ${blog.blogPosterInfo.userAvatarUri}}" alt="Image UserAvatar" class="img-fluid mb-4" width="70px">
+                        <a th:href="@{'/user/' + ${blog.blogPosterId}}">
+                            <img th:src="@{'/img/' + ${blog.blogPosterInfo.userAvatarUri}}" alt="Image UserAvatar"
+                                 class="img-fluid mb-4" width="70px">
+                        </a>
                     </div>
                     <div class="desc">
-                        <h3 th:text="${blog.blogPosterInfo.userName}"></h3>
+                        <a th:href="@{'/user/' + ${blog.blogPosterId}}"><h3
+                                th:text="${blog.blogPosterInfo.userName}"></h3></a>
                         <!-- 用户一句话介绍 -->
                         <p></p>
                     </div>
@@ -75,29 +62,34 @@
                 <div id="commentList" class="pt-5 mt-5">
                     <!-- 回复数 -->
                     <h3 class="mb-5">[[${blog.blogCommentCount}]] Comments</h3>
-                    <!-- 跳跃至回复框 -->
-                    <a href="#commentPost">回复一句!</a>
                     <!-- 回复列表 -->
                     <ul class="comment-list">
                         <!-- Level1回复 -->
                         <li class="comment" th:each="comment:${comments}">
                             <div class="vcard bio">
                                 <!-- 回复人头像 -->
-                                <img th:src="@{'/img/' + ${comment.userInfo.userAvatarUri}}" alt="Image placeholder" width="70px">
+                                <a th:href="@{'/user/' + ${comment.commentPosterId}}">
+                                    <img th:src="@{'/img/' + ${comment.userInfo.userAvatarUri}}" alt="Image placeholder"
+                                         width="70px">
+                                </a>
                             </div>
                             <div class="comment-body">
                                 <!-- 回复人 -->
-                                <h3 th:text="${comment.userInfo.userName}">John Doe</h3>
+                                <a th:href="@{'/user/' + ${comment.commentPosterId}}"><h3
+                                        th:text="${comment.userInfo.userName}"></h3></a>
                                 <!-- 回复内容 -->
                                 <p th:text="${comment.commentContent}"></p>
                                 <!-- 对该回复发出回复请求 -->
                                 <div>
                                     <!-- 点赞 -->
-                                    <a href="#" class="reply meta-chat comment-react"><span class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</a>
+                                    <a href="#" class="reply meta-chat comment-react"><span
+                                            class="icon-thumb_up"></span> [[${blog.blogLikeCount}]]</a>
                                     <!-- 回复 -->
-                                    <a href="#" class="reply meta-chat comment-react" onclick=""><span class="icon-chat"></span> 回复 </a>
+                                    <a href="#" class="reply meta-chat comment-react" onclick=""><span
+                                            class="icon-chat"></span> 回复 </a>
                                     <!-- 回复时间 -->
-                                    <span class="meta float-right" th:text="${#dates.format(comment.commentPostTime, 'dd.MMM.yy')}"></span>
+                                    <span class="meta float-right"
+                                          th:text="${#dates.format(comment.commentPostTime, 'dd.MMM.yy')}"></span>
                                 </div>
                             </div>
                             <!-- 子回复 -->
@@ -125,14 +117,18 @@
                         <form action="" class="postBox bg-light">
                             <!-- 个人信息简栏：头像+名字 -->
                             <div class="media mt-3">
-                                <img th:src="@{'/img/' + ${session.user.userAvatarUri}}" class="align-self-center mr-3 rounded-circle" width="70px">
+                                <img th:src="@{'/img/' + ${session.user.userAvatarUri}}"
+                                     class="align-self-center mr-3 rounded-circle" width="70px">
                                 <div class="media-body">
                                     <h4 th:text="${session.user.userName}"></h4>
                                 </div>
                             </div>
                             <input type="hidden" id="blogId" th:value="${blog.blogId}">
-                            <textarea class="form-control postContent" cols="30" id="commentContent" rows="10"></textarea>
-                            <button type="button" class="btn btn-outline-success postButton" onclick="postComment()">回复</button>
+                            <textarea class="form-control postContent" cols="30" id="commentContent"
+                                      rows="10"></textarea>
+                            <button type="button" class="btn btn-outline-success postButton" onclick="postComment()">
+                                回复
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -141,10 +137,10 @@
             <div class="col-md-4 sidebar ftco-animate">
                 <!-- 搜索栏 -->
                 <div class="sidebar-box">
-                    <form th:action="@{/blog/search}" class="search-form">
+                    <form method="post" th:action="@{/blog}" class="search-form">
                         <div class="form-group">
                             <span class="icon icon-search"></span>
-                            <input id="searchBox" type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                            <input id="keyword" type="text" class="form-control" placeholder="关键词搜索">
                         </div>
                     </form>
                 </div>
@@ -183,16 +179,18 @@
                             <!-- 博客属性 -->
                             <div class="meta">
                                 <!-- 发布时间 -->
-                                <div><a href="#"><span class="icon-calendar"></span>
+                                <div><a th:href="@{'/blog/' + ${recentBlog.blogId}}"><span class="icon-calendar"></span>
                                     <span th:text="${#dates.monthName(recentBlog.blogPostTime) + ' ' +
                                               #dates.day(recentBlog.blogPostTime) + ', ' +
                                               #dates.year(recentBlog.blogPostTime)}"></span></a></div>
                                 <!-- 发布人 -->
                                 <div><a th:href="@{'/user/' + ${recentBlog.blogPosterId}}"
-                                        th:text="${recentBlog.blogPosterInfo.userName}"><span class="icon-person"></span> Admin</a></div>
+                                        th:text="${recentBlog.blogPosterInfo.userName}"><span
+                                        class="icon-person"></span> Admin</a></div>
                                 <!-- 评论数 -->
                                 <div><a th:href="@{'/blog/' + ${recentBlog.blogId}}"
-                                        class="meta-chat"><span class="icon-chat"></span> [[${recentBlog.blogCommentCount}]]</a></div>
+                                        class="meta-chat"><span class="icon-chat"></span>
+                                    [[${recentBlog.blogCommentCount}]]</a></div>
                             </div>
                         </div>
                     </div>
@@ -214,10 +212,10 @@
                 </div>
                 <!-- 最后一小段文字块 -->
                 <div class="sidebar-box ftco-animate">
-                    <h3>Paragraph</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus
-                        voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur
-                        similique, inventore eos fugit cupiditate numquam!</p>
+                    <h3>博客提示</h3>
+                    <p>可以在博客下方回复内容噢!</p>
+                    <!-- 跳跃至回复框 -->
+                    <a href="#commentPost">我也回复一句</a>
                 </div>
             </div>
         </div>

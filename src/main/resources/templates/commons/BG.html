@@ -13,10 +13,8 @@
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate mb-5 pb-5 text-center text-md-left"
                  data-scrollax=" properties: { translateY: '70%' }">
-                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Discover <br>A new
-                    Place</h1>
-                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop,
-                    or visit from local experts</p>
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">探索 <br>新世界</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">用最轻松的全面规划, 让旅行0负担!</p>
             </div>
         </div>
     </div>
@@ -29,13 +27,28 @@
              data-scrollax-parent="true">
             <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a th:href="@{/index}">Home</a></span> <span th:text="${sectionName}">TEST</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="${sectionName}">TEST</h1>
+                        class="mr-2"><a th:href="@{/index}">Home</a></span> <span th:text="${sectionName}"></span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="${sectionName}"></h1>
             </div>
         </div>
     </div>
 </div>
 
+<div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/img/bg_1.jpg} + ');'" th:fragment="flightBG">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+             data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
+                        class="mr-2"><a th:href="@{/index}">Home</a></span> <span th:text="${sectionName}"></span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="机票预约"></h1>
+                <p class="mb-3 bread"><span class="oi oi-bell"></span> 设置好您的出行需要, 我们就会帮您预约最合适的机票, 为您的出行节省更多的精力:)</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--用户界面背景展示模版块-->
 <div class="hero-wrap js-fullheight" th:style="'background-image:url(' + @{/img/bg_1.jpg} + ');'" th:fragment="userBG">
     <div class="overlay"></div>
     <div class="container">
@@ -46,8 +59,8 @@
                         class="mr-2"><a th:href="@{/index}">Home</a></span> <span th:text="${userName}">TEST</span></p>
                 <img th:src="@{'/img/' + ${avatar}}" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"
                      class="align-self-center mr-3 rounded-circle" width="30%">
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="${userName}">TEST</h1>
-                <p class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="个人信息页面">TEST</p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="${userName}"></h1>
+                <p class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" th:text="个人信息页面"></p>
             </div>
         </div>
     </div>

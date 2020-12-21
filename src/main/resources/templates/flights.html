@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
+    <title>轻旅·订单</title>
+    <link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
+</head>
+<body>
+
+
+<!--重用topBar-->
+<div th:replace="~{commons/bar::topBar(activeUri='flight')}"></div>
+<!-- END nav -->
+
+<div th:replace="~{commons/BG::flightBG(sectionName='Flight')}"></div>
+<!--todo 直接做一个多条件机票请求, 后台管理员就可以返回机票-->
+<section class="ftco-section services-section bg-light">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-12">
+                <div class="sidebar-wrap ftco-animate">
+                    <form method="post" th:action="@{/flight/submit}">
+                        <!-- id -->
+                        <input id="userId" name="userId" th:value="${session.user.userId}" type="hidden">
+                        <div class="fields">
+                            <!-- From -->
+                            <div class="form-group">
+                                <div style="position: relative;">
+                                    <label for="flightFromString">出发地</label>
+                                    <!-- 二级地址选择器 -->
+                                    <input id="flightFromString" name="flightFromString" style="border: 1px solid #e6e6e6;" class="form-control"
+                                           type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                           data-level="city">
+                                </div>
+                            </div>
+                            <!-- To -->
+                            <div class="form-group">
+                                <div style="position: relative;">
+                                    <label for="flightToString">目的地</label>
+                                    <!-- 二级地址选择器 -->
+                                    <input id="flightToString" name="flightToString" style="border: 1px solid #e6e6e6;" class="form-control"
+                                           type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                           data-level="city">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="flightDepart">预计出发时间</label>
+                                <input class="form-control" id="flightDepart" name="flightDepart"
+                                       type="date"
+                                       th:value="${#dates.format(#dates.createToday(),'yyyy-MM-dd')}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="flightArrived">期望到达时间</label>
+                                <input class="form-control" id="flightArrived" name="flightArrived"
+                                       type="date"
+                                       th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1),'yyyy-MM-dd')}">
+                            </div>
+                            <div class="form-group">
+                                <label>机舱级别</label>
+                                <input class="form-control" id="flightLevel" name="flightLevel" type="number" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label>乘坐人数</label>
+                                <input class="form-control" id="flightSeats" name="flightSeats" type="number" value="0">
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="submit" class="btn btn-success col-12 py-3 px-5" th:value="预定">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--下面可以展示用户已经预定的机票信息-->
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>预约记录</h2>
+                    <p>记得查看清楚预约记录, 准时出行噢!</p>
+                    <div class="row d-flex justify-content-center mt-5">
+                        <div class="col-md-8">
+                            <!--todo 条件查询块, 未更新-->
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Enter email address">
+                                    <input type="submit" value="Subscribe" class="submit px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row d-flex">
+            <!-- 展示列表模块 -->
+            <div th:replace="~{commons/section::flightBlock}"></div>
+        </div>
+    </div>
+    <!-- 分页页码展示块 -->
+    <div class="col-12" th:replace="~{commons/navigation::navigationBar(redirect = 'flights')}"></div>
+</section> <!-- .section -->
+
+<!--重用-->
+<div th:replace="~{commons/Footer::subscriber}"></div>
+<!--End Subscribe-->
+<!--重用footer-->
+<footer th:replace="~{commons/Footer::webFooter}"></footer>
+<!-- loader -->
+<div th:replace="~{commons/Footer::loader}"></div>
+<th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<script th:src="@{/js/flight.js}"></script>
+<script th:src="@{/js/jquery.js}"></script>
+<!-- 地址选择器引用的js -->
+<script th:src="@{/js/city-picker.data.js}"></script>
+<script th:src="@{/js/city-picker.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    function load() {
+        $('#flightFromString').citypicker();
+        $('#flightToString').citypicker();
+    }
+    <!-- 每次加载页面时运行，用于订单状态回显 -->
+</script>
+</body>
+</html>

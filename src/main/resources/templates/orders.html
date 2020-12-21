@@ -4,8 +4,9 @@
 <head th:replace="~{commons/includes/common_head::common_head(~{::title},~{::link})}">
     <title>轻旅·订单</title>
     <link rel="stylesheet" th:href="@{/css/custom/AutoCollapse.css}">
+    <link rel="stylesheet" th:href="@{/css/city-picker.css}"/>
 </head>
-<body>
+<body onload="load()">
 
 <!--重用topBar-->
 <div th:replace="~{commons/bar::topBar(activeUri='Order')}"></div>
@@ -16,19 +17,21 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            <!--搜索模块 暂时用不上-->
-            <!--
-            &lt;!&ndash;筛选模块&ndash;&gt;
+            <!--搜索模块 -->
+            <!--筛选模块-->
             <div class="col-lg-3 sidebar order-md-last ftco-animate">
                 <div class="sidebar-wrap ftco-animate">
-                    &lt;!&ndash; 查找特定城市中的酒店 &ndash;&gt;
-                    <h3 class="heading mb-4">Find City</h3>
-                    <form action="#">
+                    <!-- 查找特定城市中的酒店 -->
+                    <h3 class="heading mb-4">Find Orders</h3>
+                    <form id="search" name="search" method="post" th:action="@{/orders}">
                         <div class="fields">
+                            <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
                             <div class="form-group">
-                                <input type="text" id="keyword" class="form-control" placeholder="关键字搜索">
+                                <input type="text" id="keyword" name="keyword"
+                                       class="form-control" placeholder="关键字搜索"
+                                       th:value="${search != null}?${search.keyword}:null">
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 &lt;!&ndash; 地址选择 &ndash;&gt;
                                 <div class="select-wrap one-third">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
@@ -40,83 +43,124 @@
                                         <option value="">Paris Italy</option>
                                     </select>
                                 </div>
+                            </div>-->
+                            <div class="form-group">
+                                <div style="position: relative;">
+
+                                    <label for="address">酒店地址</label>
+                                    <!-- 二级地址选择器 -->
+                                    <input id="address" style="border: 1px solid #e6e6e6;" class="form-control"
+                                           name="address" type="text" data-toggle="city-picker" placeholder="请选择省/市"
+                                           data-level="city" th:value="${search != null}?${search.address}:null">
+
+                                    <!-- 三级地址选择器 -->
+                                    <!--                                    <input class="form-control" style="border: 1px solid #e6e6e6;" name="test"-->
+                                    <!--                                           type="text" data-toggle="city-picker" placeholder="请选择省/市">-->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>订单状态</label>
+                                <br>
+                                <input type="checkbox" id="waitConfirm" name="statusList" value="0">&nbsp;待支付&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="waitComplete" name="statusList" value="1">&nbsp;待入住&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id="completed" name="statusList" value="3">&nbsp;已完成&nbsp;&nbsp;&nbsp;
+                            </div>
+
+                            <div class="form-group">
+                                <label for="startDate">订单最早时间</label>
+                                <input type="date" id="startDate" name="startDate"
+                                       class="form-control"
+                                       th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
                             </div>
                             <div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control checkin_date"
-                                       placeholder="Date from">
+                                <label for="startDate">订单最晚时间</label>
+                                <input type="date" id="endDate" name="endDate"
+                                       class="form-control"
+                                       th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
                             </div>
-                            <div class="form-group">
-                                <input type="text" id="checkout_date" class="form-control checkout_date"
-                                       placeholder="Date to">
-                            </div>
-                            &lt;!&ndash; 金额拖动栏 &ndash;&gt;
-                            <div class="form-group">
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" id="address" name="address"-->
+<!--                                       class="form-control" placeholder="地点选择" hidden="hidden"-->
+<!--                                       th:value="${search != null}?${search.address}:null">-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="text" id="status" name="status"-->
+<!--                                       class="form-control" placeholder="状态选择" hidden="hidden"-->
+<!--                                       th:value="${search != null}?${search.status}:null">-->
+<!--                            </div>-->
+                            <!-- 金额拖动栏 -->
+                            <!--<div class="form-group">
                                 <div class="range-slider">
-		              		<span>
+                              <span>
                                     &lt;!&ndash; 文字金额标识 &ndash;&gt;
-									    <input type="number" value="25000" min="0" max="120000"/>	-
-										    <input type="number" value="50000" min="0" max="120000"/>
-										  </span>
+                                        <input type="number" value="25000" min="0" max="120000"/>	-
+                                            <input type="number" value="50000" min="0" max="120000"/>
+                                          </span>
                                     &lt;!&ndash; 拖动栏 &ndash;&gt;
                                     <input value="1000" min="0" max="120000" step="500" type="range"/>
                                     <input value="50000" min="0" max="120000" step="500" type="range"/>
                                     </svg>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group">
-                                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+                                <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
+                                <br>
+                                <input type="button" value="重置" onclick="clearInput()" class="btn btn-info py-3 px-5"><!--使用js重置-->
                             </div>
                         </div>
+
                     </form>
                 </div>
-                &lt;!&ndash; 筛选结束 &ndash;&gt;
-                &lt;!&ndash; 页面内评分星级筛选 &ndash;&gt;
-                <div class="sidebar-wrap ftco-animate">
-                    <h3 class="heading mb-4">星级评分</h3>
-                    <form method="post" class="star-rating">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate5">
-                            <label class="form-check-label" for="rate5">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                                </p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate4">
-                            <label class="form-check-label" for="rate4">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate3">
-                            <label class="form-check-label" for="rate3">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate2">
-                            <label class="form-check-label" for="rate2">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate1">
-                            <label class="form-check-label" for="rate1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                    </form>
-                </div>
-            </div>-->
+            </div>
+            <!-- 筛选结束 -->
+            <!--&lt;!&ndash; 页面内评分星级筛选 &ndash;&gt;
+            <div class="sidebar-wrap ftco-animate">
+                <h3 class="heading mb-4">星级评分</h3>
+                <form method="post" class="star-rating">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rate5">
+                        <label class="form-check-label" for="rate5">
+                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
+                                    class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                            </p>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rate4">
+                        <label class="form-check-label" for="rate4">
+                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
+                                    class="icon-star"></i><i class="icon-star"></i><i
+                                    class="icon-star-o"></i></span></p>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rate3">
+                        <label class="form-check-label" for="rate3">
+                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
+                                    class="icon-star"></i><i class="icon-star-o"></i><i
+                                    class="icon-star-o"></i></span></p>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rate2">
+                        <label class="form-check-label" for="rate2">
+                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
+                                    class="icon-star-o"></i><i class="icon-star-o"></i><i
+                                    class="icon-star-o"></i></span></p>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rate1">
+                        <label class="form-check-label" for="rate1">
+                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
+                                    class="icon-star-o"></i><i class="icon-star-o"></i><i
+                                    class="icon-star-o"></i></span></p>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>-->
             <!-- END -->
             <!-- 展示列表模块 -->
             <div class="col-lg-9">
@@ -144,5 +188,50 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
+
+<script th:src="@{/js/jquery.js}"></script>
+<!-- 地址选择器引用的js -->
+<script th:src="@{/js/city-picker.data.js}"></script>
+<script th:src="@{/js/city-picker.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    if ([[${search != null}]]){
+        console.log("test");
+        $(".navigationHref").click(function () {
+            $('#search').attr('action',this.href);
+            console.log("action is " +  this.href);
+            this.href = "javascript:vo(0);";
+            $('#search').submit();
+            return false;
+        });
+    }
+    <!-- 重置功能 -->
+    function clearInput() {
+        $('#startDate').val('');
+        $('#endDate').val('');
+        $('#keyword').val('')
+        $('#address').citypicker("reset")
+        $("#waitConfirm").prop('checked',false)
+        $("#waitComplete").prop('checked',false)
+        $("#completed").prop('checked',false)
+    }
+    <!-- 每次加载页面时运行，用于订单状态回显 -->
+    function load() {
+        var boxObj = $("input:checkbox[name='statusList']"); //获取所有的复选框值
+        var expresslist = [[${search.status}]]; //用el表达式获取在控制层存放的复选框的值为字符串类型
+        if(expresslist.length > 0) {
+            expresslist = expresslist + ",";
+            var express = expresslist.split(',');
+            $.each(express, function(index, expressId){
+                boxObj.each(function () {
+                    if($(this).val() === expressId) {
+                        $(this).prop("checked",true);
+                    }
+                });
+            });
+        }
+        $('#address').citypicker()
+    }
+</script>
 </body>
 </html>
