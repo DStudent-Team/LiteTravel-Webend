@@ -33,7 +33,7 @@ public class FlightService {
     @Autowired
     FlightTicketMapper flightTicketMapper;
     @Autowired
-    FlightCompanyMapper flightCompanyMapper;
+    CompanyMapper companyMapper;
     @Autowired
     RegionMapper regionMapper;
 
@@ -178,7 +178,7 @@ public class FlightService {
         FlightReserveDTO flightReserveDTO = new FlightReserveDTO();
         BeanUtils.copyProperties(flightReserve, flightReserveDTO);
         /*获取companyName*/
-        FlightCompany flightCompany = flightCompanyMapper.selectByPrimaryKey(flightReserveDTO.getCompanyId());
+        Company flightCompany = companyMapper.selectByPrimaryKey(flightReserveDTO.getCompanyId());
         flightReserveDTO.setCompanyName(flightCompany.getCompanyName());
         FlightTicketExample flightTicketExample = new FlightTicketExample();
         flightTicketExample.createCriteria()
