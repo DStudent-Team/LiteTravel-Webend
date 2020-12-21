@@ -1,7 +1,10 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.Model.*;
+import com.LiteTravel.web.Model.User;
+import com.LiteTravel.web.Model.UserExample;
+import com.LiteTravel.web.Model.UserInfo;
+import com.LiteTravel.web.Model.UserInfoExample;
 import com.LiteTravel.web.mapper.UserInfoMapper;
 import com.LiteTravel.web.mapper.UserMapper;
 import com.github.pagehelper.PageHelper;

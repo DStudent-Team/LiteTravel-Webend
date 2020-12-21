@@ -1,7 +1,6 @@
 package com.LiteTravel.web.service.Utils;
 
 import com.LiteTravel.web.DTO.HotelDTO;
-import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.HotelOrderDetailMapper;
 import com.LiteTravel.web.mapper.HotelOrderMapper;
@@ -63,7 +62,7 @@ public class JDBCUtils {
                 .andOrderIdIn(wantIds)
                 .andRoomIdIn(roomIds);
         List<HotelOrderDetail> hotelOrderDetails = hotelOrderDetailMapper.selectByExample(hotelOrderDetailExample);
-        return RoomCountMapMerge(hotelOrderDetails, 0);
+        return RoomCountMapMerge(hotelOrderDetails, 1);
     }
 
     private static Map<Integer, Integer> RoomCountMapMerge(List<HotelOrderDetail> hotelOrderDetails, Integer method){
@@ -81,6 +80,7 @@ public class JDBCUtils {
             /*第二种计算总预订数的方法 更精简的写法, 未测试哪个好用*/
             return hotelOrderDetails.stream().collect(Collectors.toMap(HotelOrderDetail::getRoomId, HotelOrderDetail::getRoomCount, Integer::sum));
         }
+
     }
     /*初始化酒店DTO*/
     public static HotelDTO initHotelDTO(RegionMapper regionMapper, Hotel hotel){
