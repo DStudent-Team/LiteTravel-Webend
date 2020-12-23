@@ -162,8 +162,17 @@
                     </a>
                 </li>
                 <li class="nav-item" style="padding: 0 6px;" >
-                    <a class="nav-link active" href="#" th:href="@{/manage/flightOeders}"
-                       th:class="${activeUri=='userAuthority'?'nav-link active':'nav-link disable'}">
+                    <a class="nav-link active" href="#" th:href="@{/manage/servers}"
+                       th:class="${activeUri=='servers'?'nav-link active':'nav-link disable'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        机票服务管理
+                    </a>
+                </li>
+                <li class="nav-item" style="padding: 0 6px;" >
+                    <a class="nav-link active" href="#" th:href="@{/manage/transaction}"
+                       th:class="${activeUri=='transaction'?'nav-link active':'nav-link disable'}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
                             <path fill-rule="evenodd" d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/>
@@ -196,7 +205,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
                         </svg>
-                        博客列表
+                        博客列表管理
                     </a>
                 </li>
                 <li class="nav-item" style="padding: 0 6px;" >
@@ -225,15 +234,12 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li th:class="${activeUri=='Index'?'nav-item active':'nav-item'}">
-<<<<<<< HEAD
                     <a th:href="@{/index.html}" class="nav-link">Home</a></li>
 <!--                <li th:class="${activeUri=='About'?'nav-item active':'nav-item'}">-->
 <!--                    <a th:href="@{/about.html}" class="nav-link">About</a></li>-->
-=======
                     <a th:href="@{/index}" class="nav-link">Home</a></li>
                 <li th:class="${activeUri=='Guide'?'nav-item active':'nav-item'}">
                     <a th:href="@{/guide}" class="nav-link">Guide</a></li>
->>>>>>> master
                 <li th:class="${activeUri=='Flight'?'nav-item active':'nav-item'}">
                     <a th:href="@{/flights}" class="nav-link">Flight</a></li>
                 <li th:class="${activeUri=='Hotels'?'nav-item active':'nav-item'}">

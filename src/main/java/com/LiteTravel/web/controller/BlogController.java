@@ -3,6 +3,7 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
 import com.LiteTravel.web.DTO.Blog.CommentDTO;
+import com.LiteTravel.web.DTO.Blog.TagDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Blog;
@@ -132,11 +133,43 @@ public class BlogController {
         blogService.deleteBlogById(blog.getBlogId());
         return "redirect:/manage/blogs";
     }
-    /*blog 标签管理*/
-    @GetMapping("manage/tags")
-    public String getTags(ModelMap model){
-        return null;
+    /*blog 后台标签管理*/
+    public void setTagPage(Integer page, ModelMap model){
+        ResultVO result = blogService.selectAllTag(page, 6);
+        model.addAttribute("tags",result.data);
+        model.addAttribute("pageInfo",result.info);
+//        System.out.println(result.data);
     }
+
+    @GetMapping("/manage/tags")
+    public String getTags(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
+        setTagPage(page, model);
+        return "/blog/blog-tags";
+    }
+    /*删除博客标签*/
+    @PostMapping("/manage/deleteTag")
+    public String deleteTag(Integer tagId, ModelMap map){
+        int id = blogService.deleteTagById(tagId);
+        if(id == 1){
+            return "redirect:/manage/tags";
+        }else{
+            map.put("msg","删除失败！");
+            return "redirect:/manage/tags";
+        }
+    }
+    /*编辑博客标签*/
+    @PostMapping("/manage/editTag")
+    public String editTag(@PathParam("tagId") Integer tagId,
+                          @PathParam("tagName") String tagName, ModelMap map) {
+        int id = blogService.updateTag(tagId,tagName);
+        if(id == 1){
+            return "redirect:/manage/tags";
+        }else{
+            map.put("msg","删除失败！");
+            return "redirect:/manage/tags";
+        }
+    }
+
     /* 用户使用的博客关键字查询 */
     private void setBlogPage(Integer page, ModelMap model, BlogQueryDTO blogQueryDTO){
         ResultVO result = blogService.selectByExample(page, 6, blogService.getBlogs(blogQueryDTO));

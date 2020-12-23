@@ -65,7 +65,6 @@
                             <span th:case="'4'">行程结束</span>
                         </td>
                         <td>
-                            <a th:if="${flight.flightStatus == 0}" class="btn btn-sm btn-info" data-toggle="modal" data-target="#reserveModal">提供服务</a>
                             <a th:if="${flight.flightStatus == 0}" class="btn btn-sm btn-info"
                                data-toggle="modal" data-target="#reserveModal"
                                th:onclick="getFlightMessage(
@@ -84,7 +83,7 @@
                             <!--调用manage.js下的方法-->
                             <button type="submit" class="btn btn-sm btn-danger"
                                     data-toggle="modal" data-target="#deleteFlightModal"
-                                    th:onclick="deleteFlightId([[${flight.flightId}]])">删除</button>
+                                    th:onclick="deleteFlight([[${flight.flightId}]])">删除</button>
                         </td>
                     </tr>
                     </tbody>
@@ -97,14 +96,13 @@
     </div>
 </div>
 
-<!-- blog删除模态框（Modal） 调用commons/modal_box.html-->
+<!-- 飞机服务模态框（Modal） 调用commons/modal_box.html-->
 <div th:replace="~{commons/modal_box::reserveModal}"></div>
+<div th:replace="~{commons/modal_box::deleteFlightModal}"></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
 
 

@@ -1,0 +1,83 @@
+<!-- 教程材料，绝对正确的网页素材 -->
+<!DOCTYPE html>
+<!--suppress ALL-->
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
+    <!--导航栏和按钮的样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
+
+
+</head>
+
+<body>
+<div th:replace="~{commons/bar::topbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar::sidebar(activeUri='reserve')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <!--博客后台不需要添加, 虽然多一个添加也完全没关系-->
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>服务ID</th>
+                        <th>行程ID</th>
+                        <th>总价格</th>
+                        <th>公司名字</th>
+                        <th>提供的服务</th>
+                        <th>服务状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reserve:${reserves}">
+                        <td th:text="${reserve.reserveId}"></td>
+                        <td th:text="${reserve.flightId}"></td>
+                        <td th:text="${reserve.total}"></td>
+                        <td th:text="${reserve.companyName}"></td>
+                        <td th:text="${reserve.service}"></td>
+                        <td th:text="${reserve.selected}?'服务已选中':'暂未选中'"></td>
+                        <td>
+                            <!--调用manage.js下的方法-->
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                    data-toggle="modal" data-target="#deleteReserveModal"
+                                    th:onclick="deleteReserve([[${reserve.reserveId}]])">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+            <div class="col-lg-9" th:replace="~{commons/navigation::navigationBar(redirect = 'manage/flights')}"></div>
+        </main>
+    </div>
+</div>
+
+<!-- 飞机服务模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::reserveModal}"></div>
+<div th:replace="~{commons/modal_box::deleteFlightModal}"></div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
+
+
+</body>
+
+</html>
