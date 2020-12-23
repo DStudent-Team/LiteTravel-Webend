@@ -39,20 +39,19 @@
                     </tr>
                     </thead>
                     <tbody>
-
                     <tr th:each="tag:${tags}">
-                        <td th:text="${tag.tagId}" name="user_id" id="user_id"></td>
+                        <td th:text="${tag.tagId}"></td>
                         <td th:text="${tag.tagName}"></td>
 
                         <td class="form-inline">
                             <button type="submit" class="btn btn-sm btn-primary"
-                                    th:onclick="editUser(
+                                    th:onclick="editTag(
 												[[${tag.tagId}]],
-												[[${tag.tagName}]],
+												[[${tag.tagName}]]
 												)"
-                                    data-toggle="modal" data-target="#addTagModal">编辑</button>
+                                    data-toggle="modal" data-target="#editTagModal">编辑</button>
                             <!--调用manage.js下的方法-->
-                            <button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteTagModal" th:onclick="deleteByTagId([[${tag.tagId}]])">删除</button>
+                            <button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteTagModal" th:onclick="deleteTag([[${tag.tagId}]])">删除</button>
                         </td>
                     </tr>
                     </tbody>
@@ -62,15 +61,94 @@
     </div>
 </div>
 
-<!--  删除用户模态框  调用commons/modal_box.html ->  th:fragment-->
-<!--脚本调用文件为static/js/manage.js-->
-<div th:replace="~{commons/modal_box::deleteUserModal}"></div>
-
-<!-- 用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
-<div th:replace="~{commons/modal_box::addUserModal}"></div>
 
 <!-- 分页展示:  个人信息页面导航栏  暂无样式-->
-<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>
+<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/tags')}"></div>
+
+<!-- 删除tag的模态框  -->
+<section class="ftco-section-parallax">
+    <form method="post" th:action="@{/manage/deleteTag}" class="form-horizontal" role="form" id="delete_data" style="margin: 20px;">
+        <div class="modal fade" id="deleteTagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title">
+                            是否确认删除该标签
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--deleteId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <!--隐藏用户id 再传输给后台-->
+                                    <input type="hidden" class="form-control" id="deleteTagId" name="tagId">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+
+<!-- blog编辑标签模态框 -->
+<section class="ftco-section-parallax">
+    <form method="post" th:action="@{/manage/editTag}" class="form-horizontal" role="form" id="form_data" style="margin: 20px;">
+        <div class="modal fade" id="editTagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                            标签信息编辑
+                        </h4>
+                        <button type="button" class="close" onclick="clearTag()" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--tagId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="tagId" name="tagId">
+                                </div>
+                            </div>
+                            <!--tagName-->
+                            <div class="form-group form-inline">
+                                <label for="userPassword" class="col-sm-2 control-label">标签</label>
+                                <input type="text" class="col-sm-9" id="tagName" name="tagName"
+                                       placeholder="请输入标签">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!--调用user.js方法-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearTag()">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button><span id="tip"> </span>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+
 
 
 
@@ -81,7 +159,19 @@
 <script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/manage.js}"></script>
+<script>
+    function deleteTag(tagId){
+        $('#deleteTagId').val(tagId);
+    }
+    function editTag(tagId, tagName){
+        $('#tagId').val(tagId);
+        $('#tagName').val(tagName);
+    }
+    function clearTag() {
+        $('#tagId').val('');
+        $('#tagName').val('');
+    }
+</script>
 </body>
 
 </html>

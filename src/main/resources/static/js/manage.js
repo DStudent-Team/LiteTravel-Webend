@@ -148,9 +148,7 @@ function deleteByBlogId (blogId) {
 
 //检查数据是否为空或者为空格
 function checkBlank(value){
-    return value === null || value.toString().trim().length === 0
-<<<<<<< HEAD
-=======
+    return value === null || value.toString().trim().length === 0;
 }
 
 
@@ -176,39 +174,50 @@ function getFlightMessage(flightId, companyId, seats, level, from, to, depart, a
 }
 
 // 机票服务post提交
-function submitReserve() {
-    // let tickets = parseInt($('#toSeats').val());
+function submitReserve () {
+    const flightId = parseInt($('#flightId').val());
+    const companyId = parseInt($('#companyId').val());
+    const service = $('#service').val();
+
     let $tbody = document.getElementById("ticketTbody");
     let tickets = $tbody.getElementsByTagName("tr");
-    // console.log(tickets.length);
     let ticketJson = [];
 
     for (let i = 0; i < tickets.length; i++) {
         /* name*="xx" 表示获取所有包含name="xx"的dom */
-        let a = $('input[name*="ticketSeat"]')[i].value;
-        let b = $("input[name*='ticketPrice']")[i].value;
-        console.log(a+b);
-
-    //     // let a = document.getElementsByName("ticketSeat")[0].nodeValue;
-    //     let inputs = tickets[i].getElementsByTagName("td");
-    //     let ticketSeat = inputs[0].getElementsByName("ticketSeat").value;
-    //     let ticketPrice = inputs[1].getElementsByName("ticketSeat").value;
-    //     // let ticketPrice = inputs[1].firstElementChild;
-    //     console.log(ticketSeat);
-    //     console.log(ticketPrice);
-    //     // ticketJson.push({"ticketSeat":ticketSeat, "ticketPrice":ticketPrice});
-    //
+        let ticketSeat = $('input[name*="ticketSeat"]')[i].value;
+        let ticketPrice = $("input[name*='ticketPrice']")[i].value;
+        ticketJson.push({"ticketSeat":ticketSeat, "ticketPrice":ticketPrice});
     }
-    //
-    //
-    // $.ajax({
-    //     data: {
-    //         "flightId": 1,
-    //         "companyId": 1,
-    //         "service": "test",
-    //         "tickets": ticketJson,
-    //     }
-    // });
+
+    console.log("test");
+    $.ajax({
+        type: "POST",
+        url: "/manage/reserve",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            'flightId': flightId,
+            'companyId': companyId,
+            'service': service,
+            'flightTickets': ticketJson,
+        }),
+        success: function (response) {
+            console.log(response);
+            alert("添加成功！");
+            window.location.reload();
+        },
+        error: function (response) {
+            console.log(response);
+            alert("error");
+            return response;
+        }
+    });
+}
+// 删除机票预约
+function deleteFlight (flightId) {
+    $("#deleteFlightId").val(flightId);
+    console.log(flightId);
 }
 
 
@@ -240,5 +249,4 @@ function createInput(inputName, inputType, inputValue, aDiv) {
     // input.setAttribute("id", inputId) ;
 
     aDiv.appendChild(input);
->>>>>>> master
 }

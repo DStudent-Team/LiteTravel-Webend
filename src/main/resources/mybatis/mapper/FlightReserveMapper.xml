@@ -7,9 +7,7 @@
     <result column="total" jdbcType="REAL" property="total" />
     <result column="selected" jdbcType="BIT" property="selected" />
     <result column="company_id" jdbcType="INTEGER" property="companyId" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.LiteTravel.web.Model.FlightReserve">
-    <result column="service" jdbcType="LONGVARCHAR" property="service" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,27 +68,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    reserve_id, flight_id, total, selected, company_id
+    reserve_id, flight_id, total, selected, company_id, service
   </sql>
-  <sql id="Blob_Column_List">
-    service
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.LiteTravel.web.Model.FlightReserveExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from travel_flight_reserve
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.LiteTravel.web.Model.FlightReserveExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -105,11 +84,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from travel_flight_reserve
     where reserve_id = #{reserveId,jdbcType=INTEGER}
   </select>
@@ -130,7 +107,7 @@
     insert into travel_flight_reserve (flight_id, total, selected, 
       company_id, service)
     values (#{flightId,jdbcType=INTEGER}, #{total,jdbcType=REAL}, #{selected,jdbcType=BIT}, 
-      #{companyId,jdbcType=INTEGER}, #{service,jdbcType=LONGVARCHAR})
+      #{companyId,jdbcType=INTEGER}, #{service,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.FlightReserve">
     <selectKey keyProperty="reserveId" order="AFTER" resultType="java.lang.Integer">
@@ -168,7 +145,7 @@
         #{companyId,jdbcType=INTEGER},
       </if>
       <if test="service != null">
-        #{service,jdbcType=LONGVARCHAR},
+        #{service,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -197,21 +174,9 @@
         company_id = #{record.companyId,jdbcType=INTEGER},
       </if>
       <if test="record.service != null">
-        service = #{record.service,jdbcType=LONGVARCHAR},
+        service = #{record.service,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update travel_flight_reserve
-    set reserve_id = #{record.reserveId,jdbcType=INTEGER},
-      flight_id = #{record.flightId,jdbcType=INTEGER},
-      total = #{record.total,jdbcType=REAL},
-      selected = #{record.selected,jdbcType=BIT},
-      company_id = #{record.companyId,jdbcType=INTEGER},
-      service = #{record.service,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -222,7 +187,8 @@
       flight_id = #{record.flightId,jdbcType=INTEGER},
       total = #{record.total,jdbcType=REAL},
       selected = #{record.selected,jdbcType=BIT},
-      company_id = #{record.companyId,jdbcType=INTEGER}
+      company_id = #{record.companyId,jdbcType=INTEGER},
+      service = #{record.service,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -243,18 +209,9 @@
         company_id = #{companyId,jdbcType=INTEGER},
       </if>
       <if test="service != null">
-        service = #{service,jdbcType=LONGVARCHAR},
+        service = #{service,jdbcType=VARCHAR},
       </if>
     </set>
-    where reserve_id = #{reserveId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.LiteTravel.web.Model.FlightReserve">
-    update travel_flight_reserve
-    set flight_id = #{flightId,jdbcType=INTEGER},
-      total = #{total,jdbcType=REAL},
-      selected = #{selected,jdbcType=BIT},
-      company_id = #{companyId,jdbcType=INTEGER},
-      service = #{service,jdbcType=LONGVARCHAR}
     where reserve_id = #{reserveId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.FlightReserve">
@@ -262,7 +219,8 @@
     set flight_id = #{flightId,jdbcType=INTEGER},
       total = #{total,jdbcType=REAL},
       selected = #{selected,jdbcType=BIT},
-      company_id = #{companyId,jdbcType=INTEGER}
+      company_id = #{companyId,jdbcType=INTEGER},
+      service = #{service,jdbcType=VARCHAR}
     where reserve_id = #{reserveId,jdbcType=INTEGER}
   </update>
 </mapper>
