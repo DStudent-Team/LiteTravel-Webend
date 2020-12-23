@@ -7,10 +7,7 @@ import com.LiteTravel.web.DTO.Blog.TagDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Blog;
-import com.LiteTravel.web.Model.User;
-import com.LiteTravel.web.Model.BlogExample;
 import com.LiteTravel.web.Model.UserInfo;
-import com.LiteTravel.web.mapper.TagMapper;
 import com.LiteTravel.web.service.BlogService;
 import com.LiteTravel.web.service.CommentService;
 import com.LiteTravel.web.service.UserService;
@@ -19,11 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BlogController {

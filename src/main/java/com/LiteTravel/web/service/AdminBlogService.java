@@ -1,8 +1,6 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
-import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.Model.BlogExample;
 import com.LiteTravel.web.Model.BlogTagMap;
@@ -10,7 +8,6 @@ import com.LiteTravel.web.Model.BlogTagMapExample;
 import com.LiteTravel.web.mapper.BlogMapper;
 import com.LiteTravel.web.mapper.BlogTagMapMapper;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
