@@ -70,6 +70,8 @@ public class BlogService {
         tag.setTagName(tagName);
         return tagMapper.updateByPrimaryKeySelective(tag);
     }
+
+
     public ResultVO getBlogs(Integer blogId, Integer page, Integer pageSize)
     {
         BlogExample blogExample = new BlogExample();

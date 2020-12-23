@@ -14,7 +14,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -267,5 +270,20 @@ public class FlightService {
         flightTicketMapper.deleteByExample(ticketExample);
         flightReserveMapper.deleteByExample(flightReserveExample);
         return flightMapper.deleteByPrimaryKey(flightId);
+    }
+    /* 删除机票服务信息 */
+    public int deleteReserve(Integer reserveId) {
+        FlightTicketExample flightTicketExample = new FlightTicketExample();
+        flightTicketExample.createCriteria().andReserveIdEqualTo(reserveId);
+        flightTicketMapper.deleteByExample(flightTicketExample);
+        return flightReserveMapper.deleteByPrimaryKey(reserveId);
+    }
+
+    /* 更新机票服务*/
+    public int updateReserve(Integer reserveId, String service) {
+        FlightReserve flightReserve = new FlightReserve();
+        flightReserve.setReserveId(reserveId);
+        flightReserve.setService(service);
+        return flightReserveMapper.updateByPrimaryKeySelective(flightReserve);
     }
 }

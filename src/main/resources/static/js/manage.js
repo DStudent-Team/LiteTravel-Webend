@@ -221,6 +221,7 @@ function deleteFlight (flightId) {
 }
 
 
+//生成机票的座位和票价的输入框
 function createTicketList(seats) {
     let $tbody = document.getElementById("ticketTbody");
     let $ticket;
@@ -249,4 +250,20 @@ function createInput(inputName, inputType, inputValue, aDiv) {
     // input.setAttribute("id", inputId) ;
 
     aDiv.appendChild(input);
+}
+
+/*机票服务脚本*/
+function deleteReserve (reserveId){
+    $("#deleteReserveId").val(reserveId);
+}
+
+function editReserve(reserveId, total, service) {
+    $("#reserveId").val(reserveId);
+    $("#total").val(total);
+    $("#_service").val(service);
+}
+function clearReserve() {
+    $("#reserveId").val('');
+    $("#total").val('');
+    $("#_service").val('');
 }

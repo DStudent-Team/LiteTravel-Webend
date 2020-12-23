@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 import java.util.Map;
 
 @Controller
@@ -59,10 +60,9 @@ public class AdminFlightController {
         model.addAttribute("pageInfo", result.info);
         return "/manage/reserves";
     }
-    /* 删除机票预约*/
-    /*删除用户信息*/
+    /* 删除飞机行程信息*/
     @PostMapping("manage/deleteFlight")
-    public String deleteUser(Integer flightId, ModelMap map){
+    public String deleteFlight(Integer flightId, ModelMap map){
         int id = flightService.deleteFlight(flightId);
         if(id == 1){
             return "redirect:/manage/flights";
@@ -71,5 +71,28 @@ public class AdminFlightController {
             return "redirect:/manage/flights";
         }
 
+    }
+    /*删除提供的机票服务信息*/
+    @PostMapping("/manage/deleteReserve")
+    public String deleteReserve(Integer reserveId, ModelMap map){
+        int id = flightService.deleteReserve(reserveId);
+        if (id == 1) {
+            return "redirect:/manage/reserves";
+        }else{
+            map.put("msg","删除失败！");
+            return "redirect:/manage/reserves";
+        }
+    }
+    /* 更新机票服务信息 */
+    @PostMapping("/manage/updateReserve")
+    public String updateReserve(@PathParam("reserveId") Integer reserveId,
+                          @PathParam("service") String service, ModelMap map) {
+        int id = flightService.updateReserve(reserveId, service);
+        if(id == 1){
+            return "redirect:/manage/tags";
+        }else{
+            map.put("msg","更新成功！");
+            return "redirect:/manage/tags";
+        }
     }
 }
