@@ -89,7 +89,7 @@
         <table tableName="travel_guide" domainObjectName="Guide">
             <generatedKey column="guide_id" sqlStatement="Mysql" identity="true"/>
         </table>
-
+ 
     </context>
 
 </generatorConfiguration>

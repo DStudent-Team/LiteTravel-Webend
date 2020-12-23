@@ -403,6 +403,76 @@ public class FlightReserveExample {
             addCriterion("company_id not between", value1, value2, "companyId");
             return (Criteria) this;
         }
+
+        public Criteria andServiceIsNull() {
+            addCriterion("service is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceIsNotNull() {
+            addCriterion("service is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceEqualTo(String value) {
+            addCriterion("service =", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceNotEqualTo(String value) {
+            addCriterion("service <>", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceGreaterThan(String value) {
+            addCriterion("service >", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceGreaterThanOrEqualTo(String value) {
+            addCriterion("service >=", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceLessThan(String value) {
+            addCriterion("service <", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceLessThanOrEqualTo(String value) {
+            addCriterion("service <=", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceLike(String value) {
+            addCriterion("service like", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceNotLike(String value) {
+            addCriterion("service not like", value, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceIn(List<String> values) {
+            addCriterion("service in", values, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceNotIn(List<String> values) {
+            addCriterion("service not in", values, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceBetween(String value1, String value2) {
+            addCriterion("service between", value1, value2, "service");
+            return (Criteria) this;
+        }
+
+        public Criteria andServiceNotBetween(String value1, String value2) {
+            addCriterion("service not between", value1, value2, "service");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

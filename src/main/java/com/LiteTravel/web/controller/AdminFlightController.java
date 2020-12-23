@@ -49,7 +49,7 @@ public class AdminFlightController {
         ResultVO result = flightService.getReserves(page, 10, new FlightReserveDTO());
         model.addAttribute("reserves", result.data);
         model.addAttribute("pageInfo", result.info);
-        return "/manage/reserves";
+        return "/flight/reserves";
     }
     /* 获取特定的服务*/
     @PostMapping("/manage/reserves")
