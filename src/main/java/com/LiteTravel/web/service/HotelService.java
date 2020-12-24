@@ -153,10 +153,19 @@ HotelService {
     }
 
     //增刪改方法
+    public int checkHotelId(HotelDTO hotelDTO){
+        //查询hotelHTO是否包含hotelId值，如果包含表示是更新方法，否则是插入方法返回0
+        if(hotelDTO.getHotelId() == null){
+            return 0;
+        }
+        return 1;
+    }
 
     //根據酒店名称查询酒店是否存在，存在则返回0.不存在返回1
-    public List<Hotel> checkHotelByName(String hotelName){
+    public List<Hotel> checkHotelByName(HotelDTO hotelDTO){
+        String hotelName = hotelDTO.getHotelName();
         HotelExample hotelExample = new HotelExample();
+        // 逆向工程方法，查询条件，相当于where语句
         hotelExample.createCriteria()
                 .andHotelNameEqualTo(hotelName);
         return hotelMapper.selectByExample(hotelExample);
@@ -172,6 +181,7 @@ HotelService {
         rooms = roomMapper.selectByExample(roomExample);
         //取出来hotel中的对应的room_id值，进行接下来的删除操作
         List<Integer> roomIds = rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
+        //遍历room_id，逐个删除room_id对应的bed和room
         for(int i=0;i<roomIds.size();i++){//list为集合的对象名
             Integer roomId =  roomIds.get(i);
             RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
@@ -185,28 +195,33 @@ HotelService {
     }
 
     //修改酒店數據
-    public void updateHotel() {
-
-//        Hotel hotel = new Hotel();
-//        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
-//        BeanUtils.copyProperties(hotelDTO, hotel);
-//        hotelMapper.updateByPrimaryKeySelective(hotel);
-//        //逆向工程方法，添加条件，相当于where语句
-//        RoomExample roomExample = new RoomExample();
-//        roomExample.createCriteria()
-//                .andHotelIdEqualTo(hotel.getHotelId());
+    public int updateHotel(HotelDTO hotelDTO) {
+        Hotel hotel = new Hotel();
+        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+        BeanUtils.copyProperties(hotelDTO, hotel);
+        HotelExample hotelExample = new HotelExample();
+        hotelExample.createCriteria()
+                .andHotelIdEqualTo(hotel.getHotelId());
+        //酒店图片设置默认值，count初始值设置为0
+        hotel.setHotelImgUri("hotel-1.jpg");
+        hotel.setHotelReplyCount(0);
+        int result = 0;
+            result = hotelMapper.updateByExample(hotel, hotelExample);
+        return result;
     }
 
     //添加数据
     public int insertHotel(HotelDTO hotelDTO){
         Hotel hotel = new Hotel();
-        hotel.setHotelName(hotelDTO.getHotelName());
-        hotel.setHotelMinPrice(hotelDTO.getHotelMinPrice());
-        hotel.setHotelManagerId(hotelDTO.getHotelManagerId());
-        hotel.setHotelPhone(hotelDTO.getHotelPhone());
-        hotel.setHotelReplyLevel(hotelDTO.getHotelReplyLevel());
-
-        return 1;
+        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+        BeanUtils.copyProperties(hotelDTO, hotel);
+        //设置默认值
+        hotel.setHotelImgUri("hotel-1.jpg");
+        hotel.setHotelReplyCount(0);
+        int insert = 0;
+            insert = hotelMapper.insert(hotel);
+        System.out.println(insert);
+        return insert;
     }
 
     private  HotelExample getHotelExample(HotelQueryDTO query) {

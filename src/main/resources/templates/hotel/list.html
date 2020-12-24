@@ -26,7 +26,10 @@
 			<div class="row">
 				<div th:replace="~{commons/bar::sidebar(activeUri='hotels')}"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h2><a class="btn btn-sm btn-success" th:href="@{/manage/hotel/insert}">添加酒店</a></h2>
+					<h2><!--<a class="btn btn-sm btn-success" th:href="@{/manage/hotel/insert}" >添加酒店</a>-->
+						<button type="button" id="add_new_site_bnt" class="btn btn-sm btn-success" style="margin: 0 0;"
+								data-toggle="modal" data-target="#addHotelModal" th:onclick="clearHotel()">添加酒店信息</button>
+					</h2>
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
 							<thead>
@@ -66,9 +69,23 @@
 										<!--尚未传址-->
 <!--										<a class="btn btn-block" th:href="@{'/manage/room/' + ${hotel.hotelId}}" th:text="${hotel.roomCount}"></a>-->
 									</td>
-									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/update'}">修改</a>
-                                        <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post">
+									<td class="form-inline">
+<!--										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/update'}" >修改</a>-->
+										<button type="submit" id="add_new_site_bnt" class="btn btn-sm btn-primary"
+												th:onclick="editHotel(
+												[[${hotel.hotelId}]],
+												[[${hotel.hotelName}]],
+												[[${hotel.hotelMinPrice}]],
+												[[${hotel.hotelManagerId}]],
+												[[${hotel.hotelPhone}]],
+												[[${hotel.hotelReplyLevel}]],
+												[[${hotel.hotelAddress}]],
+												[[${hotel.hotelAddressSpecific}]],
+												[[${hotel.hotelDescription}]]
+												)"
+												data-toggle="modal" data-target="#addHotelModal">修改</button>
+
+                                        <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post" style="margin-left: 5px">
                                             <input name="_method" type="hidden" value="delete"/>
                                             <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                         </form>
@@ -81,6 +98,9 @@
 			</div>
 		</div>
 
+		<!--用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
+		<div th:replace="~{commons/modal_box::addHotelModal}"></div>
+
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
@@ -88,6 +108,8 @@
 		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
+		<!--自定义js-->
+		<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 
 	</body>
 

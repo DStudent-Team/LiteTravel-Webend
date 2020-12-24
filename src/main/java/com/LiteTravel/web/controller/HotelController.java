@@ -94,29 +94,34 @@ public class HotelController {
         return "hotel/list";
     }
 
-    //酒店增删改
+    /**
+     * 酒店增删改方法
+     * @param hotelDTO
+     */
+    @PostMapping("/manage/hotel")
+    public String insertOrUpdateHotel(HotelDTO hotelDTO){
+        //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
+        int i = hotelService.checkHotelId(hotelDTO);
+        if(i == 0){
 
-    //insert
-    @GetMapping("/manage/hotel/insert")
-    public String insertHotel(HotelDTO hotelDTO, Map<String, Object> map){
-        String hotelName = hotelDTO.getHotelName();
-        List<Hotel> hotel = hotelService.checkHotelByName(hotelName);
-        if(hotel.size() > 0){
-            //数据库中不存在添加的酒店，可以添加
-            hotelService.insertHotel(hotelDTO);
+            /*插入酒店信息,checkHotelByName()是查询是否存在此酒店，存在则不能插入*/
+            List<Hotel> hotel = hotelService.checkHotelByName(hotelDTO);
+            if(hotel.size() > 0){
+                //数据库中存在酒店，不可添加
+                System.out.println("酒店已存在！");
+            }
+            else{
+                hotelService.insertHotel(hotelDTO);
+            }
         }
         else{
-            map.put("msg","酒店已存在！");
-            System.out.println("酒店已存在！");
+
+            /*更新酒店信息*/
+            int result = hotelService.updateHotel(hotelDTO);
+            if(result == 0){
+                System.out.println("修改失败");
+            }
         }
-        return "redirect:/manage/hotels";
-
-    }
-
-    //update
-    @GetMapping("/manage/hotel/update")
-    public String updateHotel(){
-        hotelService.updateHotel();
         return "redirect:/manage/hotels";
     }
 
