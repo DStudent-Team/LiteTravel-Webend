@@ -65,19 +65,29 @@
                                 <input type="checkbox" id="waitConfirm" name="statusList" value="0">&nbsp;待支付&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox" id="waitComplete" name="statusList" value="1">&nbsp;待入住&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox" id="completed" name="statusList" value="3">&nbsp;已完成&nbsp;&nbsp;&nbsp;
+                                <!-- 将回显的status传至此保存，默认是''，防止首次加载时找不到status对象而报错 -->
+                                <input type="hidden" th:value="${search != null}?${search.status}:''" id="statusHidden">
                             </div>
 
                             <div class="form-group">
                                 <label for="startDate">订单最早时间</label>
                                 <input type="date" id="startDate" name="startDate"
                                        class="form-control"
+<<<<<<< HEAD
                                        th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+=======
+                                       th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):null}">
+>>>>>>> master
                             </div>
                             <div class="form-group">
                                 <label for="startDate">订单最晚时间</label>
                                 <input type="date" id="endDate" name="endDate"
                                        class="form-control"
+<<<<<<< HEAD
                                        th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+=======
+                                       th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):null}">
+>>>>>>> master
                             </div>
 <!--                            <div class="form-group">-->
 <!--                                <input type="text" id="address" name="address"-->
@@ -218,7 +228,7 @@
     <!-- 每次加载页面时运行，用于订单状态回显 -->
     function load() {
         var boxObj = $("input:checkbox[name='statusList']"); //获取所有的复选框值
-        var expresslist = [[${search.status}]]; //用el表达式获取在控制层存放的复选框的值为字符串类型
+        var expresslist = $("#statusHidden").val() //用el表达式获取在控制层存放的复选框的值为字符串类型
         if(expresslist.length > 0) {
             expresslist = expresslist + ",";
             var express = expresslist.split(',');
@@ -230,8 +240,13 @@
                 });
             });
         }
-        $('#address').citypicker()
     }
+
+    $('#address').citypicker();
+    //
+    // function reshow(status){
+    //
+    // }
 </script>
 </body>
 </html>

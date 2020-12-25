@@ -148,58 +148,122 @@ function deleteByBlogId (blogId) {
 
 //检查数据是否为空或者为空格
 function checkBlank(value){
-    return value === null || value.toString().trim().length === 0
+    return value === null || value.toString().trim().length === 0;
 }
 
 
-/**
- * 酒店前端数据管理层
- * 创建点击事件，点击更新将数据提交给输入框对应值
- * @param hotelId
- * @param hotelName
- * @param hotelMinPrice
- * @param hotelManagerId
- * @param hotelPhone
- * @param hotelReplyLevel
- * @param hotelAddress
- * @param hotelAddressSpecific
- * @param hotelDescription
- */
-//模态框赋值，用于更新数据时
-function editHotel (hotelId, hotelName, hotelMinPrice,
-                    hotelManagerId, hotelPhone, hotelReplyLevel,
-                    hotelAddress, hotelAddressSpecific, hotelDescription){
-    // $('#myModal').modal("hide");
-    $("#myModalLabel").text("新增");
-    $('#myModal').modal();
-    //向模态框中传值
-    $('#hotelId').val(hotelId);
-    $('#hotelName').val(hotelName);
-    $('#hotelMinPrice').val(hotelMinPrice);
-    $('#hotelManagerId').val(hotelManagerId);
-    $('#hotelPhone').val(hotelPhone);
-    $('#hotelReplyLevel').val(hotelReplyLevel);
-    $('#hotelAddress').val(hotelAddress);
-    $('#hotelAddressSpecific').val(hotelAddressSpecific);
-    $('#hotelDescription').val(hotelDescription);
-}
 
-//模态框置空，用于插入数据和点击清空模态框时
-function clearHotel (){
-    // 置空模态框
-    $('#hotelId').val('');
-    $('#hotelName').val('');
-    $('#hotelMinPrice').val('');
-    $('#hotelManagerId').val('');
-    $('#hotelPhone').val('');
-    $('#hotelReplyLevel').val('');
-    $('#hotelAddress').val('');
-    $('#hotelAddressSpecific').val('');
-    $('#hotelDescription').val('');
-}
 
-//检测输入的酒店数据是否合法
-function checkHotelData() {
+// 后台机票
+// 获取页面页面信息到模态框
+function getFlightMessage(flightId, companyId, seats, level, from, to, depart, arrived) {
+    $("#flightId").val(flightId);
+    $("#companyId").val(companyId);
+    $("#toSeats").val(seats);
+    $("#flightDepart").val(depart);
+    $("#flightArrived").val(arrived);
+    document.getElementById('flightFrom').innerHTML=from;
+    document.getElementById('flightTo').innerHTML=to;
+    document.getElementById('Depart').innerHTML=depart;
+    document.getElementById('arrived').innerHTML=arrived;
+    document.getElementById('seats').innerHTML=seats;
+    document.getElementById('level').innerHTML=level;
+    createTicketList(seats);
+
 
 }
 
+// 机票服务post提交
+function submitReserve () {
+    const flightId = parseInt($('#flightId').val());
+    const companyId = parseInt($('#companyId').val());
+    const service = $('#service').val();
+
+    let $tbody = document.getElementById("ticketTbody");
+    let tickets = $tbody.getElementsByTagName("tr");
+    let ticketJson = [];
+
+    for (let i = 0; i < tickets.length; i++) {
+        /* name*="xx" 表示获取所有包含name="xx"的dom */
+        let ticketSeat = $('input[name*="ticketSeat"]')[i].value;
+        let ticketPrice = $("input[name*='ticketPrice']")[i].value;
+        ticketJson.push({"ticketSeat":ticketSeat, "ticketPrice":ticketPrice});
+    }
+
+    console.log("test");
+    $.ajax({
+        type: "POST",
+        url: "/manage/reserve",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            'flightId': flightId,
+            'companyId': companyId,
+            'service': service,
+            'flightTickets': ticketJson,
+        }),
+        success: function (response) {
+            console.log(response);
+            alert("添加成功！");
+            window.location.reload();
+        },
+        error: function (response) {
+            console.log(response);
+            alert("error");
+            return response;
+        }
+    });
+}
+// 删除机票预约
+function deleteFlight (flightId) {
+    $("#deleteFlightId").val(flightId);
+    console.log(flightId);
+}
+
+
+//生成机票的座位和票价的输入框
+function createTicketList(seats) {
+    let $tbody = document.getElementById("ticketTbody");
+    let $ticket;
+    // console.log('去你的！'+seats);
+    for (let i = 0; i < seats; i++) {
+        $ticket = document.createElement("tr");
+        const seat = document.createElement("td");
+        const price = document.createElement("td");
+        createInput('ticketSeat'+i, 'text', "", seat);
+        createInput('ticketPrice'+i, 'number', "", price);
+        $ticket.appendChild(seat);
+        $ticket.appendChild(price);
+        $tbody.appendChild($ticket);
+    }
+}
+
+function clearTicketList(){
+    $("#ticketTbody").empty();
+}
+
+function createInput(inputName, inputType, inputValue, aDiv) {
+    let input = document.createElement("input");
+    input.setAttribute("type",inputType) ;
+    input.setAttribute("name",inputName) ;
+    input.setAttribute("value", inputValue) ;
+    // input.setAttribute("id", inputId) ;
+
+    aDiv.appendChild(input);
+}
+
+/*机票服务脚本*/
+function deleteReserve (reserveId){
+    $("#deleteReserveId").val(reserveId);
+}
+
+function editReserve(reserveId, total, service) {
+    $("#reserveId").val(reserveId);
+    $("#total").val(total);
+    $("#_service").val(service);
+}
+function clearReserve() {
+    $("#reserveId").val('');
+    $("#total").val('');
+    $("#_service").val('');
+}

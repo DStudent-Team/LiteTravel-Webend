@@ -29,6 +29,10 @@
 <!--                        <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">-->
                         <div class="fields">
                             <div class="form-inline form-group">
+<<<<<<< HEAD
+=======
+                                <input type="hidden" id="userId" name="userId" th:value="${search != null && search.userId != null}?${search.userId}:null">
+>>>>>>> master
                                 <input type="text" id="keyword" name="keyword"
                                        class="form-control col-lg-8 col-md-12 col-sm-12" placeholder="关键字搜索"
                                        th:value="${search != null}?${search.keyword}:null">

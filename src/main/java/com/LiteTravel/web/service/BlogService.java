@@ -2,6 +2,7 @@ package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
+import com.LiteTravel.web.DTO.Blog.TagDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
@@ -42,6 +43,34 @@ public class BlogService {
         List<BlogDTO> data = blogs.stream().map(this::getBlogDTO).collect(Collectors.toList());
         return new ResultVO(data, info);
     }
+/* 博客标签管理 */
+    public ResultVO selectAllTag(Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<Tag> tags = tagMapper.selectByExample(new TagExample());
+        PageInfo<Tag> info = new PageInfo<>(tags, 5);
+        List<TagDTO> data = tags.stream().map(Tag->{
+            TagDTO tagDTO = new TagDTO();
+            BeanUtils.copyProperties(Tag, tagDTO);
+            return tagDTO;
+        }).collect(Collectors.toList());
+        return new ResultVO(data, info);
+    }
+
+    /*删除博客标签*/
+    public int deleteTagById(Integer tagId){
+        BlogTagMapExample blogTagMapExample = new BlogTagMapExample();
+        blogTagMapExample.createCriteria().andTagIdEqualTo(tagId);
+        blogTagMapMapper.deleteByExample(blogTagMapExample);
+        return tagMapper.deleteByPrimaryKey(tagId);
+    }
+    /*编辑更新博客标签*/
+    public int updateTag(Integer tagId, String tagName){
+        Tag tag = new Tag();
+        tag.setTagId(tagId);
+        tag.setTagName(tagName);
+        return tagMapper.updateByPrimaryKeySelective(tag);
+    }
+
 
     public ResultVO getBlogs(Integer blogId, Integer page, Integer pageSize)
     {

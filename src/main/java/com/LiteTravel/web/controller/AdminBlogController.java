@@ -1,16 +1,14 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.service.AdminBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import java.util.List;
 
 /**
  * @Author xiaobai
@@ -22,7 +20,7 @@ import javax.websocket.server.PathParam;
 public class AdminBlogController {
 
     @Autowired
-    private AdminBlogService adminBlogService;
+    AdminBlogService adminBlogService;
 
     /**
      * 1. 只需要发送/admin/blogs?pageNum=1&pageSize=6,就可以获取到数据 1和6要自己改变
@@ -31,50 +29,39 @@ public class AdminBlogController {
      *
      * 分页查找博客
      *
-     * @param pageNum int
-     * @param pageSize int
+     * @param page int
      * @param model model
      * @return String
      */
     @GetMapping("/manage/blogs")
-    public String toAdmin(@PathParam("pageNum") Integer pageNum, @PathParam("pageSize") Integer pageSize, Model model){
-        model.addAttribute("blogs", adminBlogService.listBlog(pageNum, pageSize));
-        return "/admin/blog";
+    public String toAdmin(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
+        List<Blog> blogs = adminBlogService.getBlogs(page, 6);
+        model.addAttribute("blogs", blogs);
+        return "/blogs/list";
+    }
+
+    @PostMapping("/manage/blogs")
+    public String getBlogs(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                            BlogQueryDTO blogQueryDTO,
+                            ModelMap model) {
+        List<Blog> blogs = adminBlogService.getBlogs(page, 6, blogQueryDTO);
+        model.addAttribute("blogs", blogs);
+        return "/blogs/list";
     }
 
     /**
-     * 1. ${blog}为原始数据
-     * 2. 发送/admin/toUpdate/id的Get请求，就可以获取要更新的所有信息(旧的)
-     *
-     * 跳转到更新页面
-     * @param id 博客id
-     * @return 跳转到更新页面
-     */
-    @GetMapping("/toUpdate/{id}")
-    public String toUpdate(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("blog", adminBlogService.getBlog(id));
-        return "update_blog";
-    }
-
-    /**
-     * 1. 发送一个/admin/update的post请求，提交一个包含博客更改信息的表单的数据(id必须有，通过隐藏)
+     * 1. 发送一个/manage/update的post请求，提交一个包含博客更改信息的表单的数据(id必须有，通过隐藏)
      *
      * 如果更新成功，重定向到博客列表
-     * 如果更新失败，跳回/toUpdate
      *
      * @param blog 博客
      * @return int
      */
-    @PostMapping("/update")
+    @PostMapping("/manage/blog")
     public String updateBlog(Blog blog, Model model){
-        int flag = adminBlogService.updateBlog(blog);
-        if (flag == 1) {
-            model.addAttribute("message", "更新成功");
-            return "redirect:/admin/blogs";
-        }else{
-            model.addAttribute("message", "更新失败");
-            return "/admin/toUpdate";
-        }
+        adminBlogService.updateBlog(blog);
+        model.addAttribute("message", "更新成功");
+        return "redirect:/blogs/list";
     }
 
     /**
@@ -83,15 +70,11 @@ public class AdminBlogController {
      * @param id 博客id
      * @return 跳转页面
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/manage/blog")
     public String deleteBlog(@PathVariable("id") Integer id, Model model){
         int flag = adminBlogService.deleteBlogById(id);
-        if (flag == 1){
-            model.addAttribute("message", "删除成功");
-        }else{
-            model.addAttribute("message", "删除失败");
-        }
-        return "redirect:/admin/blogs";
+        model.addAttribute("message", "删除成功");
+        return "redirect:/blogs/list";
     }
 
     /**
@@ -103,14 +86,5 @@ public class AdminBlogController {
     @GetMapping("/blog/{id}")
     public void getBlogById(@PathVariable("id") Integer id, Model model){
         model.addAttribute("blog", adminBlogService.getBlog(id));
-    }
-
-
-    @PostMapping("/blogQuery")
-    public  String getBlogs(@RequestParam(value = "page", defaultValue = "1") Integer pageNum,
-                            BlogQueryDTO blogQueryDTO,
-                            ModelMap model) {
-        model.addAttribute("blogs", adminBlogService.getBlogs(pageNum, 6, blogQueryDTO));
-        return "/admin/blog";
     }
 }

@@ -183,91 +183,227 @@
     </form>
 </section>
 
-<!--
-    酒店管理模块
-    酒店增改弹窗，接收酒店输入的信息
--->
-<!--酒店数据插入框(后面会与更新框复用)-->
-<section class="ftco-section-parallax" th:fragment="addHotelModal">
-    <form method="post" th:action="@{/manage/hotel}" class="form-horizontal" role="form" id="hotel_data" style="margin:20px;">
-        <input  id="putMe" name="_method" type="hidden" value="PUT" disabled>
-        <div class="modal fade" id="addHotelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" >
-                <div class="modal-content" style="width: 160%;padding: 0 20%;">
-
+<!--机票预约服务模态框-->
+<section class="ftco-section-parallax" th:fragment="reserveModal">
+    <form method="post"  class="form-horizontal" role="form" id="reserve_data" style="margin: 20px;">
+        <div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">酒店信息</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title" id="reserve">
+                            请选择你的服务
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" th:onclick="clearTicketList()">
                             &times;
                         </button>
                     </div>
-
                     <div class="modal-body">
+                        <div class="form-group col-sm-9">
+                            路线:<span id="flightFrom">*</span>——<span id="flightTo">*</span>
+                            <br>
+                            用户预计时间:<span id="Depart"></span>~<span id="arrived"></span>
+                            <br>
+                            乘坐人数:<span id="seats">*</span>
+                            <br>
+                            机舱级别:<span id="level"></span>
+                        </div>
                         <form class="form-horizontal" role="form" method="post">
-                            <!--hotelId-->
+                            <!--seats-->
                             <div class="form-group">
-                                <div class="col-sm-8">
-                                    <input type="hidden" class="form-control" id="hotelId" name="hotelId">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="toSeats" name="toSeats">
                                 </div>
                             </div>
-                            <!--hotelName-->
-                            <div class="form-group form-inline">
-                                <label for="hotelName" class="col-sm-3 control-label">酒店名称</label>
-                                <input type="text" class="col-sm-8" id="hotelName" name="hotelName" placeholder="请输入酒店名称（必填）" >
+                            <!--flightId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="flightId" name="flightId">
+                                </div>
                             </div>
-                            <!--hotelMinPrice-->
-                            <div class="form-group form-inline">
-                                <label for="hotelMinPrice" class="col-sm-3 control-label">最低价格</label>
-                                <input type="text" class="col-sm-8" id="hotelMinPrice" name="hotelMinPrice" placeholder="请输入最低价格（必填）">
+                            <!--companyIdId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="companyId" name="companyId">
+                                </div>
                             </div>
-                            <!--hotelManagerId-->
+                            <!--出发时间-->
                             <div class="form-group form-inline">
-                                <label for="hotelManagerId" class="col-sm-3 control-label">经理编号</label>
-                                <input type="text" class="col-sm-8" id="hotelManagerId" name="hotelManagerId" placeholder="请输入经理编号（必填）">
+                                <label for="flightDepart" class="col-sm-3 control-label">出发时间</label>
+                                <input  class="col-sm-9" id="flightDepart" name="userBirth"
+                                       placeholder="请输入出发时间">
                             </div>
-                            <!--hotelPhone-->
+                            <!--到达时间-->
                             <div class="form-group form-inline">
-                                <label for="hotelPhone" class="col-sm-3 control-label">酒店电话</label>
-                                <input type="text" class="col-sm-8" id="hotelPhone" name="hotelPhone" placeholder="请输入酒店电话（必填）">
+                                <label for="flightArrived" class="col-sm-3 control-label">到达时间</label>
+                                <input class="col-sm-9" id="flightArrived" name="flightArrived"
+                                       placeholder="请输入到达时间">
                             </div>
-                            <!--hotelReplyLevel-->
                             <div class="form-group form-inline">
-                                <label for="hotelReplyLevel" class="col-sm-3 control-label">酒店星级</label>
-                                <input type="text" class="col-sm-8" id="hotelReplyLevel" name="hotelReplyLevel" placeholder="请输入酒店星级（必填）">
+                                <label for="service" class="col-sm-3 control-label">提供的服务</label>
+                                <textarea class="col-sm-9" id="service" name="service"
+                                          placeholder="请输入服务"></textarea>
                             </div>
-                            <!--hotelAddress-->
-                            <div class="form-group form-inline">
-                                <label for="hotelAddress" class="col-sm-3 control-label">地址编码</label>
-                                <input type="text" class="col-sm-8" id="hotelAddress" name="hotelAddress" placeholder="请输入酒店地址（必填）">
-                            </div>
-                            <!--hotelAddressSpecific-->
-                            <div class="form-group form-inline">
-                                <label for="hotelAddressSpecific" class="col-sm-3 control-label">地址详情</label>
-                                <input type="text" class="col-sm-8" id="hotelAddressSpecific" name="hotelAddressSpecific" placeholder="详细地址（默认）">
-                            </div>
-                            <!--hotelDescription-->
-                            <div class="form-group form-inline">
-                                <label for="hotelDescription" class="col-sm-3 control-label">酒店描述</label>
-                                <input type="textarea" class="col-sm-8" id="hotelDescription" name="hotelDescription" placeholder="请输入酒店描述（选填）">
-                            </div>
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>座位号&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</tr>
+                                <tr>&nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;票价</tr>
+                                </thead>
+                                <tbody id="ticketTbody">
+
+                                </tbody>
+                            </table>
+
+
+
                         </form>
                     </div>
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-default" onclick="clearHotel()">清空</button>
-                        <button type="submit" class="btn btn-primary">提交</button>
-                        <spam id="tip"></spam>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" th:onclick="clearTicketList()">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="submitReserve()">
+                            确认
+                        </button>
                     </div>
-                </div>
-            </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
         </div>
     </form>
 </section>
 
+<!-- 删除机票预约模态框  -->
+<section class="ftco-section-parallax" th:fragment="deleteFlightModal">
+    <form method="post" th:action="@{/manage/deleteFlight}" class="form-horizontal" role="form" style="margin: 20px;">
+        <div class="modal fade" id="deleteFlightModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title">
+                            是否确认删除该行程
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--deleteId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <!--隐藏用户id 再传输给后台-->
+                                    <input type="hidden" class="form-control" id="deleteFlightId" name="flightId">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
 
+<!--机票服务编辑模态框-->
+<section class="ftco-section-parallax" th:fragment="editReserveModal">
+    <form method="post" th:action="@{/manage/updateReserve}" class="form-horizontal" onsubmit="return checkValid()" role="form" style="margin: 20px;">
+        <div class="modal fade" id="editReserveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            用户信息
+                        </h4>
+                        <button type="button" class="close" onclick="clearReserve()" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--reserveId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="reserveId" name="reserveId">
+                                </div>
+                            </div>
+                            <!--total-->
+                            <div class="form-group form-inline">
+                                <label for="userCode" class="col-sm-2 control-label">票价</label>
+                                <input type="text" class="col-sm-9" id="total" name="total"
+                                       placeholder="请输入票价(必填)">
+                            </div>
+                            <!--service-->
+                            <div class="form-group form-inline">
+                                <label for="userCode" class="col-sm-2 control-label">服务</label>
+                                <textarea class="col-sm-9" id="_service" name="service"
+                                          placeholder="请输入服务"></textarea>
+                            </div>
 
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!--调用user.js方法-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearReserve()">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+
+<!--机票服务删除模态框-->
+<section class="ftco-section-parallax" th:fragment="deleteReserveModal">
+    <form method="post" th:action="@{/manage/deleteReserve}" class="form-horizontal" role="form" style="margin: 20px;">
+        <div class="modal fade" id="deleteReserveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title">
+                            是否确认删除该服务
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--deleteId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <!--隐藏用户id 再传输给后台-->
+                                    <input type="hidden" class="form-control" id="deleteReserveId" name="reserveId">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
 <!--调用用户脚本-->
+<th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script type="text/javascript" th:src="@{/js/manage.js}"></script>
 </body>
 </html>

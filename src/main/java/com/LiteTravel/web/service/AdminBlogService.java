@@ -1,8 +1,6 @@
 package com.LiteTravel.web.service;
 
-import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.Blog.BlogQueryDTO;
-import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.Model.BlogExample;
 import com.LiteTravel.web.Model.BlogTagMap;
@@ -10,7 +8,6 @@ import com.LiteTravel.web.Model.BlogTagMapExample;
 import com.LiteTravel.web.mapper.BlogMapper;
 import com.LiteTravel.web.mapper.BlogTagMapMapper;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,21 +29,12 @@ public class AdminBlogService {
     private BlogTagMapMapper blogTagMapMapper;
 
     /**
-     * 通过博客id删除博客
-     * @param id 博客id
-     * @return int
-     */
-    public int deleteBlogById(Integer id){
-        return blogMapper.deleteByPrimaryKey(id);
-    }
-
-    /**
      * 分页查询列表
      * @param pageNum 页数
      * @param pageSize 大小
      * @return 博客列表
      */
-    public List<Blog> listBlog(Integer pageNum, Integer pageSize){
+    public List<Blog> getBlogs(Integer pageNum, Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         return blogMapper.selectByExample(new BlogExample());
     }
@@ -103,9 +91,14 @@ public class AdminBlogService {
         return blogMapper.selectByExample(blogExample);
     }
 
-
-
-
+    /**
+     * 通过博客id删除博客
+     * @param id 博客id
+     * @return int
+     */
+    public int deleteBlogById(Integer id){
+        return blogMapper.deleteByPrimaryKey(id);
+    }
 
 
 }
