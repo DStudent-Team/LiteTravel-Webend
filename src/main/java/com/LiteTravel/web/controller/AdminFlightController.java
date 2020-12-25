@@ -89,10 +89,10 @@ public class AdminFlightController {
                           @PathParam("service") String service, ModelMap map) {
         int id = flightService.updateReserve(reserveId, service);
         if(id == 1){
-            return "redirect:/manage/tags";
+            return "redirect:/manage/reserves";
         }else{
             map.put("msg","更新成功！");
-            return "redirect:/manage/tags";
+            return "redirect:/manage/reserves";
         }
     }
 }

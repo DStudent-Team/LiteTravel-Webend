@@ -52,11 +52,12 @@
                         <td>
                             <a class="btn btn-sm btn-primary"
                                data-toggle="modal" data-target="#editReserveModal"
+                               th:if="${reserve.selected} == false"
                                th:onclick="editReserve([[${reserve.reserveId}]],[[${reserve.total}]],[[${reserve.service}]])">编辑</a>
 <!--                            <a th:if="${reserve.selected == true}" class="btn btn-sm btn-primary">编辑</a>-->
 <!--                            <a th:if="${reserve.selected == false}" class="btn btn-sm btn-primary">不可编辑</a>-->
                             <!--调用manage.js下的方法-->
-                            <button type="submit" class="btn btn-sm btn-danger"
+                            <button th:if="${reserve.selected} == false" type="submit" class="btn btn-sm btn-danger"
                                     data-toggle="modal" data-target="#deleteReserveModal"
                             th:onclick="deleteReserve([[${reserve.reserveId}]])">删除</button>
                         </td>

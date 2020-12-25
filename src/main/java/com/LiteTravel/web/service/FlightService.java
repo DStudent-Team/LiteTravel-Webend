@@ -259,16 +259,18 @@ public class FlightService {
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
     }
-    /* 删除机票预约信息 */
+    /* 删除机票行程信息 */
     public int deleteFlight(Integer flightId) {
         FlightReserveExample flightReserveExample = new FlightReserveExample();
         flightReserveExample.createCriteria().andFlightIdEqualTo(flightId);
         List<FlightReserve> flightReserves= flightReserveMapper.selectByExample(flightReserveExample);
         List<Integer> reserveIds = flightReserves.stream().map(FlightReserve::getReserveId).collect(Collectors.toList());
-        FlightTicketExample ticketExample = new FlightTicketExample();
-        ticketExample.createCriteria().andReserveIdIn(reserveIds);
-        flightTicketMapper.deleteByExample(ticketExample);
-        flightReserveMapper.deleteByExample(flightReserveExample);
+        if (reserveIds.size() > 0){
+            FlightTicketExample ticketExample = new FlightTicketExample();
+            ticketExample.createCriteria().andReserveIdIn(reserveIds);
+            flightTicketMapper.deleteByExample(ticketExample);
+            flightReserveMapper.deleteByExample(flightReserveExample);
+        }
         return flightMapper.deleteByPrimaryKey(flightId);
     }
     /* 删除机票服务信息 */
