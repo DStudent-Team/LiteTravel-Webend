@@ -61,7 +61,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="sidebar-wrap ftco-animate">
+                <!--<div class="sidebar-wrap ftco-animate">
                     <h3 class="heading mb-4">Star Rating</h3>
                     <form method="post" class="star-rating">
                         <div class="form-check">
@@ -105,6 +105,30 @@
                             </label>
                         </div>
                     </form>
+                </div>-->
+                <div>
+                    <h4><span class="badge badge-warning">酒店评价</span></h4>
+<!--                    <button type="button" class="btn btn-primary">-->
+<!--                        Notifications <span class="badge badge-light">4</span>-->
+<!--                    </button>-->
+                    <!-- 回复列表 -->
+                    <ul style="list-style: none;">
+                        <!-- Level1回复 -->
+                        <li  th:each="comment:${orderComments}">
+                                <!-- 回复人 -->
+                                <div class="row">
+                                    <!-- 回复人头像 -->
+                                    <div class="form-inline" style="width:100px;height:50px;">
+                                        <img th:src="@{'/img/avatar.jpg'}" alt="Image placeholder" width="20px">
+                                        <span class="badge badge-info">[[${comment.username}]]</span></div>
+                                    <div class="form-inline"><span style="color: #F9BE38;font-style: italic;">&ensp;&ensp;[[${comment.score}]]分</span></div>
+
+                                </div>
+
+                                <!-- 回复内容 -->
+                                <p style="font-size: 14px;" th:text="${comment.detail}"></p>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <!-- 主要内容介绍板块 -->

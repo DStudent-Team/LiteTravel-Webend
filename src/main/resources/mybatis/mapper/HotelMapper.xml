@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.LiteTravel.web.mapper.HotelMapper">
+  <resultMap id="BaseResultMap" type="com.LiteTravel.web.Model.Hotel">
+    <id column="hotel_id" jdbcType="INTEGER" property="hotelId" />
+    <result column="hotel_name" jdbcType="VARCHAR" property="hotelName" />
+    <result column="hotel_min_price" jdbcType="INTEGER" property="hotelMinPrice" />
+    <result column="hotel_manager_id" jdbcType="INTEGER" property="hotelManagerId" />
+    <result column="hotel_phone" jdbcType="VARCHAR" property="hotelPhone" />
+    <result column="hotel_reply_level" jdbcType="INTEGER" property="hotelReplyLevel" />
+    <result column="hotel_description" jdbcType="VARCHAR" property="hotelDescription" />
+    <result column="hotel_address" jdbcType="INTEGER" property="hotelAddress" />
+    <result column="hotel_address_specific" jdbcType="VARCHAR" property="hotelAddressSpecific" />
+    <result column="hotel_img_uri" jdbcType="VARCHAR" property="hotelImgUri" />
+    <result column="hotel_reply_count" jdbcType="INTEGER" property="hotelReplyCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hotel_id, hotel_name, hotel_min_price, hotel_manager_id, hotel_phone, hotel_reply_level, 
+    hotel_description, hotel_address, hotel_address_specific, hotel_img_uri, hotel_reply_count
+  </sql>
+  <select id="selectByExample" parameterType="com.LiteTravel.web.Model.HotelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel_hotel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from travel_hotel
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from travel_hotel
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LiteTravel.web.Model.HotelExample">
+    delete from travel_hotel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LiteTravel.web.Model.Hotel">
+    <selectKey keyProperty="hotelId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_hotel (hotel_name, hotel_min_price, hotel_manager_id, 
+      hotel_phone, hotel_reply_level, hotel_description, 
+      hotel_address, hotel_address_specific, hotel_img_uri, 
+      hotel_reply_count)
+    values (#{hotelName,jdbcType=VARCHAR}, #{hotelMinPrice,jdbcType=INTEGER}, #{hotelManagerId,jdbcType=INTEGER}, 
+      #{hotelPhone,jdbcType=VARCHAR}, #{hotelReplyLevel,jdbcType=INTEGER}, #{hotelDescription,jdbcType=VARCHAR}, 
+      #{hotelAddress,jdbcType=INTEGER}, #{hotelAddressSpecific,jdbcType=VARCHAR}, #{hotelImgUri,jdbcType=VARCHAR}, 
+      #{hotelReplyCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.Hotel">
+    <selectKey keyProperty="hotelId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_hotel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hotelName != null">
+        hotel_name,
+      </if>
+      <if test="hotelMinPrice != null">
+        hotel_min_price,
+      </if>
+      <if test="hotelManagerId != null">
+        hotel_manager_id,
+      </if>
+      <if test="hotelPhone != null">
+        hotel_phone,
+      </if>
+      <if test="hotelReplyLevel != null">
+        hotel_reply_level,
+      </if>
+      <if test="hotelDescription != null">
+        hotel_description,
+      </if>
+      <if test="hotelAddress != null">
+        hotel_address,
+      </if>
+      <if test="hotelAddressSpecific != null">
+        hotel_address_specific,
+      </if>
+      <if test="hotelImgUri != null">
+        hotel_img_uri,
+      </if>
+      <if test="hotelReplyCount != null">
+        hotel_reply_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hotelName != null">
+        #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelMinPrice != null">
+        #{hotelMinPrice,jdbcType=INTEGER},
+      </if>
+      <if test="hotelManagerId != null">
+        #{hotelManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelPhone != null">
+        #{hotelPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelReplyLevel != null">
+        #{hotelReplyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="hotelDescription != null">
+        #{hotelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelAddress != null">
+        #{hotelAddress,jdbcType=INTEGER},
+      </if>
+      <if test="hotelAddressSpecific != null">
+        #{hotelAddressSpecific,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelImgUri != null">
+        #{hotelImgUri,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelReplyCount != null">
+        #{hotelReplyCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LiteTravel.web.Model.HotelExample" resultType="java.lang.Long">
+    select count(*) from travel_hotel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update travel_hotel
+    <set>
+      <if test="record.hotelId != null">
+        hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelName != null">
+        hotel_name = #{record.hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelMinPrice != null">
+        hotel_min_price = #{record.hotelMinPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelManagerId != null">
+        hotel_manager_id = #{record.hotelManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelPhone != null">
+        hotel_phone = #{record.hotelPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelReplyLevel != null">
+        hotel_reply_level = #{record.hotelReplyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelDescription != null">
+        hotel_description = #{record.hotelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelAddress != null">
+        hotel_address = #{record.hotelAddress,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelAddressSpecific != null">
+        hotel_address_specific = #{record.hotelAddressSpecific,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelImgUri != null">
+        hotel_img_uri = #{record.hotelImgUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelReplyCount != null">
+        hotel_reply_count = #{record.hotelReplyCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update travel_hotel
+    set hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      hotel_name = #{record.hotelName,jdbcType=VARCHAR},
+      hotel_min_price = #{record.hotelMinPrice,jdbcType=INTEGER},
+      hotel_manager_id = #{record.hotelManagerId,jdbcType=INTEGER},
+      hotel_phone = #{record.hotelPhone,jdbcType=VARCHAR},
+      hotel_reply_level = #{record.hotelReplyLevel,jdbcType=INTEGER},
+      hotel_description = #{record.hotelDescription,jdbcType=VARCHAR},
+      hotel_address = #{record.hotelAddress,jdbcType=INTEGER},
+      hotel_address_specific = #{record.hotelAddressSpecific,jdbcType=VARCHAR},
+      hotel_img_uri = #{record.hotelImgUri,jdbcType=VARCHAR},
+      hotel_reply_count = #{record.hotelReplyCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LiteTravel.web.Model.Hotel">
+    update travel_hotel
+    <set>
+      <if test="hotelName != null">
+        hotel_name = #{hotelName,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelMinPrice != null">
+        hotel_min_price = #{hotelMinPrice,jdbcType=INTEGER},
+      </if>
+      <if test="hotelManagerId != null">
+        hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="hotelPhone != null">
+        hotel_phone = #{hotelPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelReplyLevel != null">
+        hotel_reply_level = #{hotelReplyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="hotelDescription != null">
+        hotel_description = #{hotelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelAddress != null">
+        hotel_address = #{hotelAddress,jdbcType=INTEGER},
+      </if>
+      <if test="hotelAddressSpecific != null">
+        hotel_address_specific = #{hotelAddressSpecific,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelImgUri != null">
+        hotel_img_uri = #{hotelImgUri,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelReplyCount != null">
+        hotel_reply_count = #{hotelReplyCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.Hotel">
+    update travel_hotel
+    set hotel_name = #{hotelName,jdbcType=VARCHAR},
+      hotel_min_price = #{hotelMinPrice,jdbcType=INTEGER},
+      hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER},
+      hotel_phone = #{hotelPhone,jdbcType=VARCHAR},
+      hotel_reply_level = #{hotelReplyLevel,jdbcType=INTEGER},
+      hotel_description = #{hotelDescription,jdbcType=VARCHAR},
+      hotel_address = #{hotelAddress,jdbcType=INTEGER},
+      hotel_address_specific = #{hotelAddressSpecific,jdbcType=VARCHAR},
+      hotel_img_uri = #{hotelImgUri,jdbcType=VARCHAR},
+      hotel_reply_count = #{hotelReplyCount,jdbcType=INTEGER}
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </update>
+</mapper>

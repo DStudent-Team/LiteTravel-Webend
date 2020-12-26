@@ -318,3 +318,15 @@ function clearHotel (){
 function checkHotelData() {
 
 }
+
+//用户订单评价模态框赋值
+function setOrderComment(userId, hotelId, orderId){
+    $('#ocUserId').val(userId);
+    $('#ocHotelId').val(hotelId);
+    $('#ocOrderId').val(orderId);
+}
+function clearOrderComment(){
+    $('#ocUserId').val('');
+    $('#ocHotelId').val('');
+    $('#ocOrderId').val('');
+}

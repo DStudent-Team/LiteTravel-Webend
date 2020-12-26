@@ -48,12 +48,12 @@ public class OrderCommentService {
      */
     public ResultVO listOrderCommentsByHotelId(Integer hotelId, Integer pageNum, Integer pageSize) {
 
-        PageHelper.startPage(pageNum, pageSize);
         OrderCommentExample orderCommentExample = new OrderCommentExample();
         orderCommentExample.createCriteria().andHotelIdEqualTo(hotelId);
+        PageHelper.startPage(pageNum, pageSize);
         List<OrderComment> orderComments = orderCommentMapper.selectByExample(orderCommentExample);
+        PageInfo<OrderComment> pageInfo = new PageInfo<>(orderComments, 5);
         List<DisplayOrderCommentDTO> displayOrderCommentDTOS = listDisplayOrderComment(orderComments);
-        PageInfo<DisplayOrderCommentDTO> pageInfo = new PageInfo<>(displayOrderCommentDTOS, 5);
 
         return new ResultVO(displayOrderCommentDTOS,pageInfo);
     }

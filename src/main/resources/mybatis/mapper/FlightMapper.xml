@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.LiteTravel.web.mapper.FlightMapper">
+  <resultMap id="BaseResultMap" type="com.LiteTravel.web.Model.Flight">
+    <id column="flight_id" jdbcType="INTEGER" property="flightId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="flight_level" jdbcType="INTEGER" property="flightLevel" />
+    <result column="flight_from" jdbcType="INTEGER" property="flightFrom" />
+    <result column="flight_to" jdbcType="INTEGER" property="flightTo" />
+    <result column="flight_depart" jdbcType="TIMESTAMP" property="flightDepart" />
+    <result column="flight_arrived" jdbcType="TIMESTAMP" property="flightArrived" />
+    <result column="flight_total" jdbcType="REAL" property="flightTotal" />
+    <result column="flight_seats" jdbcType="INTEGER" property="flightSeats" />
+    <result column="flight_status" jdbcType="INTEGER" property="flightStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    flight_id, user_id, flight_level, flight_from, flight_to, flight_depart, flight_arrived, 
+    flight_total, flight_seats, flight_status
+  </sql>
+  <select id="selectByExample" parameterType="com.LiteTravel.web.Model.FlightExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel_flight
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from travel_flight
+    where flight_id = #{flightId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from travel_flight
+    where flight_id = #{flightId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LiteTravel.web.Model.FlightExample">
+    delete from travel_flight
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LiteTravel.web.Model.Flight">
+    <selectKey keyProperty="flightId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_flight (user_id, flight_level, flight_from, 
+      flight_to, flight_depart, flight_arrived, 
+      flight_total, flight_seats, flight_status
+      )
+    values (#{userId,jdbcType=INTEGER}, #{flightLevel,jdbcType=INTEGER}, #{flightFrom,jdbcType=INTEGER}, 
+      #{flightTo,jdbcType=INTEGER}, #{flightDepart,jdbcType=TIMESTAMP}, #{flightArrived,jdbcType=TIMESTAMP}, 
+      #{flightTotal,jdbcType=REAL}, #{flightSeats,jdbcType=INTEGER}, #{flightStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.Flight">
+    <selectKey keyProperty="flightId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_flight
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="flightLevel != null">
+        flight_level,
+      </if>
+      <if test="flightFrom != null">
+        flight_from,
+      </if>
+      <if test="flightTo != null">
+        flight_to,
+      </if>
+      <if test="flightDepart != null">
+        flight_depart,
+      </if>
+      <if test="flightArrived != null">
+        flight_arrived,
+      </if>
+      <if test="flightTotal != null">
+        flight_total,
+      </if>
+      <if test="flightSeats != null">
+        flight_seats,
+      </if>
+      <if test="flightStatus != null">
+        flight_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="flightLevel != null">
+        #{flightLevel,jdbcType=INTEGER},
+      </if>
+      <if test="flightFrom != null">
+        #{flightFrom,jdbcType=INTEGER},
+      </if>
+      <if test="flightTo != null">
+        #{flightTo,jdbcType=INTEGER},
+      </if>
+      <if test="flightDepart != null">
+        #{flightDepart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightArrived != null">
+        #{flightArrived,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightTotal != null">
+        #{flightTotal,jdbcType=REAL},
+      </if>
+      <if test="flightSeats != null">
+        #{flightSeats,jdbcType=INTEGER},
+      </if>
+      <if test="flightStatus != null">
+        #{flightStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LiteTravel.web.Model.FlightExample" resultType="java.lang.Long">
+    select count(*) from travel_flight
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update travel_flight
+    <set>
+      <if test="record.flightId != null">
+        flight_id = #{record.flightId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightLevel != null">
+        flight_level = #{record.flightLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightFrom != null">
+        flight_from = #{record.flightFrom,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightTo != null">
+        flight_to = #{record.flightTo,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightDepart != null">
+        flight_depart = #{record.flightDepart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flightArrived != null">
+        flight_arrived = #{record.flightArrived,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flightTotal != null">
+        flight_total = #{record.flightTotal,jdbcType=REAL},
+      </if>
+      <if test="record.flightSeats != null">
+        flight_seats = #{record.flightSeats,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightStatus != null">
+        flight_status = #{record.flightStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update travel_flight
+    set flight_id = #{record.flightId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      flight_level = #{record.flightLevel,jdbcType=INTEGER},
+      flight_from = #{record.flightFrom,jdbcType=INTEGER},
+      flight_to = #{record.flightTo,jdbcType=INTEGER},
+      flight_depart = #{record.flightDepart,jdbcType=TIMESTAMP},
+      flight_arrived = #{record.flightArrived,jdbcType=TIMESTAMP},
+      flight_total = #{record.flightTotal,jdbcType=REAL},
+      flight_seats = #{record.flightSeats,jdbcType=INTEGER},
+      flight_status = #{record.flightStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LiteTravel.web.Model.Flight">
+    update travel_flight
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="flightLevel != null">
+        flight_level = #{flightLevel,jdbcType=INTEGER},
+      </if>
+      <if test="flightFrom != null">
+        flight_from = #{flightFrom,jdbcType=INTEGER},
+      </if>
+      <if test="flightTo != null">
+        flight_to = #{flightTo,jdbcType=INTEGER},
+      </if>
+      <if test="flightDepart != null">
+        flight_depart = #{flightDepart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightArrived != null">
+        flight_arrived = #{flightArrived,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flightTotal != null">
+        flight_total = #{flightTotal,jdbcType=REAL},
+      </if>
+      <if test="flightSeats != null">
+        flight_seats = #{flightSeats,jdbcType=INTEGER},
+      </if>
+      <if test="flightStatus != null">
+        flight_status = #{flightStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where flight_id = #{flightId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.Flight">
+    update travel_flight
+    set user_id = #{userId,jdbcType=INTEGER},
+      flight_level = #{flightLevel,jdbcType=INTEGER},
+      flight_from = #{flightFrom,jdbcType=INTEGER},
+      flight_to = #{flightTo,jdbcType=INTEGER},
+      flight_depart = #{flightDepart,jdbcType=TIMESTAMP},
+      flight_arrived = #{flightArrived,jdbcType=TIMESTAMP},
+      flight_total = #{flightTotal,jdbcType=REAL},
+      flight_seats = #{flightSeats,jdbcType=INTEGER},
+      flight_status = #{flightStatus,jdbcType=INTEGER}
+    where flight_id = #{flightId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -179,6 +179,9 @@
     </div>
 </section> <!-- .section -->
 
+<!--调用评价模态框-->
+<div th:replace="~{commons/modal_box::orderCommentModal}"></div>
+
 <!--重用-->
 <div th:replace="~{commons/Footer::subscriber}"></div>
 <!--End Subscribe-->
@@ -190,6 +193,7 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 
 <script th:src="@{/js/jquery.js}"></script>
 <!-- 地址选择器引用的js -->

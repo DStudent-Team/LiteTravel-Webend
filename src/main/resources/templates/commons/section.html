@@ -95,7 +95,8 @@
                 <a th:case="'0'" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">支付</a>
                 <a th:case="'1'" class="btn btn-outline-info" style="cursor:not-allowed">等待入住</a>
                 <a th:case="'2'" class="btn btn-outline-info" style="cursor:not-allowed">已入住，未离店</a>
-                <a th:case="'3'" class="btn btn-primary" th:href="@{'/order/reply/' + ${order.orderId}}">评价</a>
+                <a th:case="'3'" class="btn btn-primary" data-toggle="modal" data-target="#orderCommentModal"
+                   th:onclick="setOrderComment([[${order.userId}]],[[${order.hotelId}]],[[${order.orderId}]])">评价</a>
                 <a th:case="'4'" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">详情</a>
             </div>
         </div>
@@ -196,5 +197,7 @@
     </div>
 </div>
 
+<th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 </body>
 </html>
