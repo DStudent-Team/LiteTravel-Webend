@@ -124,6 +124,7 @@ public class HotelOrderController {
         }).collect(Collectors.toList()));
         System.out.println(hotelOrderInfoDTO.toString());
         model.addAttribute("order", hotelOrderInfoDTO);
+
         return "order";
     }
 }

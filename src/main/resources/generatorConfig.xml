@@ -62,6 +62,7 @@
         <table tableName="travel_hotel_orders" domainObjectName="HotelOrder">
             <generatedKey column="order_id" sqlStatement="Mysql" identity="true"/>
         </table>
+        <table tableName="travel_order_comment" domainObjectName="OrderComment"/>
         <table tableName="travel_hotel_orders_detail" domainObjectName="HotelOrderDetail"/>
         <table tableName="travel_hotel_room" domainObjectName="Room"/>
         <table tableName="travel_bed" domainObjectName="Bed"/>
