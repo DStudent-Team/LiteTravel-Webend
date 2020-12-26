@@ -14,9 +14,10 @@ public class AdminHotelOrderController {
     HotelOrderService hotelOrderService;
 
     @GetMapping("/manage/orders")
-    public String list(ModelMap model){
-        ResultVO resultVO = hotelOrderService.getOrders(1, 10);
+    public String list(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model){
+        ResultVO resultVO = hotelOrderService.getOrders(page, 6);
         model.addAttribute("orders", resultVO.data);
+        model.addAttribute("pageInfo", resultVO.info);
         return "order/list";
     }
 

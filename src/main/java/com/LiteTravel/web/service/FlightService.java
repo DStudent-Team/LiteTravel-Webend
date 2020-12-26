@@ -13,7 +13,11 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +49,7 @@ public class FlightService {
         return flight.getFlightId();
     }
     /* 提交 服务商对特定预约提供的服务 */
+    @Transactional
     public void submitReserve(FlightReserveDTO reserveDTO) {
         FlightReserve reserve = new FlightReserve();
         BeanUtils.copyProperties(reserveDTO, reserve);
@@ -253,5 +258,34 @@ public class FlightService {
             return flightDTO;
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
+    }
+    /* 删除机票行程信息 */
+    public int deleteFlight(Integer flightId) {
+        FlightReserveExample flightReserveExample = new FlightReserveExample();
+        flightReserveExample.createCriteria().andFlightIdEqualTo(flightId);
+        List<FlightReserve> flightReserves= flightReserveMapper.selectByExample(flightReserveExample);
+        List<Integer> reserveIds = flightReserves.stream().map(FlightReserve::getReserveId).collect(Collectors.toList());
+        if (reserveIds.size() > 0){
+            FlightTicketExample ticketExample = new FlightTicketExample();
+            ticketExample.createCriteria().andReserveIdIn(reserveIds);
+            flightTicketMapper.deleteByExample(ticketExample);
+            flightReserveMapper.deleteByExample(flightReserveExample);
+        }
+        return flightMapper.deleteByPrimaryKey(flightId);
+    }
+    /* 删除机票服务信息 */
+    public int deleteReserve(Integer reserveId) {
+        FlightTicketExample flightTicketExample = new FlightTicketExample();
+        flightTicketExample.createCriteria().andReserveIdEqualTo(reserveId);
+        flightTicketMapper.deleteByExample(flightTicketExample);
+        return flightReserveMapper.deleteByPrimaryKey(reserveId);
+    }
+
+    /* 更新机票服务*/
+    public int updateReserve(Integer reserveId, String service) {
+        FlightReserve flightReserve = new FlightReserve();
+        flightReserve.setReserveId(reserveId);
+        flightReserve.setService(service);
+        return flightReserveMapper.updateByPrimaryKeySelective(flightReserve);
     }
 }

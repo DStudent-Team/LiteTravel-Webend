@@ -11,9 +11,11 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -54,7 +56,7 @@ HotelService {
         hotelExample.createCriteria()
                 .andHotelIdNotEqualTo(hotelId);
         return selectByExample(page, pageSize, hotelExample);
-    }
+}
 
     private ResultVO selectByExample(Integer page, Integer pageSize, HotelExample hotelExample){
         /* 分页：
@@ -148,6 +150,78 @@ HotelService {
     }
     private List<RoomDTO> getRoomDTOs(List<Room> rooms){
         return rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
+    }
+
+    //增刪改方法
+    public int checkHotelId(HotelDTO hotelDTO){
+        //查询hotelHTO是否包含hotelId值，如果包含表示是更新方法，否则是插入方法返回0
+        if(hotelDTO.getHotelId() == null){
+            return 0;
+        }
+        return 1;
+    }
+
+    //根據酒店名称查询酒店是否存在，存在则返回0.不存在返回1
+    public List<Hotel> checkHotelByName(HotelDTO hotelDTO){
+        String hotelName = hotelDTO.getHotelName();
+        HotelExample hotelExample = new HotelExample();
+        // 逆向工程方法，查询条件，相当于where语句
+        hotelExample.createCriteria()
+                .andHotelNameEqualTo(hotelName);
+        return hotelMapper.selectByExample(hotelExample);
+    }
+
+    //删除，接收传递过来的id值进行数据库修改
+    public int deleteHotel(Integer hotelId){
+        RoomExample roomExample = new RoomExample();
+        RoomExample.Criteria criteria = roomExample.createCriteria();
+        criteria.andHotelIdEqualTo(hotelId);
+        List<Room> rooms = new ArrayList<>();
+        //rooms是需要的对象
+        rooms = roomMapper.selectByExample(roomExample);
+        //取出来hotel中的对应的room_id值，进行接下来的删除操作
+        List<Integer> roomIds = rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
+        //遍历room_id，逐个删除room_id对应的bed和room
+        for(int i=0;i<roomIds.size();i++){//list为集合的对象名
+            Integer roomId =  roomIds.get(i);
+            RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+            roomBedMapExample.createCriteria()
+                    .andRoomIdEqualTo(roomId);
+            roomBedMapper.deleteByExample(roomBedMapExample);
+            roomMapper.deleteByPrimaryKey(roomId);
+        }
+        int result = hotelMapper.deleteByPrimaryKey(hotelId);
+        return result;
+    }
+
+    //修改酒店數據
+    public int updateHotel(HotelDTO hotelDTO) {
+        Hotel hotel = new Hotel();
+        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+        BeanUtils.copyProperties(hotelDTO, hotel);
+        HotelExample hotelExample = new HotelExample();
+        hotelExample.createCriteria()
+                .andHotelIdEqualTo(hotel.getHotelId());
+        //酒店图片设置默认值，count初始值设置为0
+        hotel.setHotelImgUri("hotel-1.jpg");
+        hotel.setHotelReplyCount(0);
+        int result = 0;
+            result = hotelMapper.updateByExample(hotel, hotelExample);
+        return result;
+    }
+
+    //添加数据
+    public int insertHotel(HotelDTO hotelDTO){
+        Hotel hotel = new Hotel();
+        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+        BeanUtils.copyProperties(hotelDTO, hotel);
+        //设置默认值
+        hotel.setHotelImgUri("hotel-1.jpg");
+        hotel.setHotelReplyCount(0);
+        int insert = 0;
+            insert = hotelMapper.insert(hotel);
+        System.out.println(insert);
+        return insert;
     }
 
     private  HotelExample getHotelExample(HotelQueryDTO query) {

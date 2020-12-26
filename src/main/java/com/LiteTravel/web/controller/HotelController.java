@@ -2,11 +2,15 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
+import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HotelController {
@@ -84,10 +88,49 @@ public class HotelController {
         return "hotel-single";
     }
 
-
     @GetMapping("/manage/hotels")
     public String MangeHotelList(ModelMap model){
         setPageHotel(1, model);
         return "hotel/list";
     }
+
+    /**
+     * 酒店增删改方法
+     * @param hotelDTO
+     */
+    @PostMapping("/manage/hotel")
+    public String insertOrUpdateHotel(HotelDTO hotelDTO){
+        //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
+        int i = hotelService.checkHotelId(hotelDTO);
+        if(i == 0){
+
+            /*插入酒店信息,checkHotelByName()是查询是否存在此酒店，存在则不能插入*/
+            List<Hotel> hotel = hotelService.checkHotelByName(hotelDTO);
+            if(hotel.size() > 0){
+                //数据库中存在酒店，不可添加
+                System.out.println("酒店已存在！");
+            }
+            else{
+                hotelService.insertHotel(hotelDTO);
+            }
+        }
+        else{
+
+            /*更新酒店信息*/
+            int result = hotelService.updateHotel(hotelDTO);
+            if(result == 0){
+                System.out.println("修改失败");
+            }
+        }
+        return "redirect:/manage/hotels";
+    }
+
+    //delete
+    @DeleteMapping("/manage/hotel/{hotelId}")
+    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+
+        hotelService.deleteHotel(hotelId);
+        return "redirect:/manage/hotels";
+    }
+
 }
