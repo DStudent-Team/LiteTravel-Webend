@@ -3,17 +3,22 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.Flight.FlightDTO;
 import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.Flight.FlightSearchDTO;
+import com.LiteTravel.web.DTO.Flight.TransactionDTO;
 import com.LiteTravel.web.DTO.Region.RegionDTO;
 import com.LiteTravel.web.DTO.Region.RegionSearchDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.UserDTO;
+import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.service.FlightService;
 import com.LiteTravel.web.service.RegionService;
+import com.LiteTravel.web.service.Utils.MoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -23,6 +28,9 @@ public class FlightController {
     FlightService flightService;
     @Autowired
     RegionService regionService;
+
+    @Resource
+    private MoneyService moneyService;
 
     /*提交预约*/
     @PostMapping("flight/submit")
@@ -81,11 +89,27 @@ public class FlightController {
 
 
     @GetMapping("flight/{flightId}")
-    public String getFlight(@PathVariable("flightId") Integer flightId, ModelMap model){
+    public String getFlight(@PathVariable("flightId") Integer flightId, ModelMap model, HttpSession session){
+        // 额外返回余额信息
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        model.addAttribute("userMoney", moneyService.getMoney(user.getUserId()));
+
         FlightDTO flightDTO = flightService.getFlightById(flightId);
         model.addAttribute("flight", flightDTO);
         return "flight";
     }
 
+    @PostMapping("/flight/transaction")
+    public String transaction(TransactionDTO transactionDTO, Model model){
+
+        boolean flag = moneyService.transaction(transactionDTO.getUserId(), transactionDTO.getAdminId(), transactionDTO.getMoney());
+        if (flag){
+            model.addAttribute("message", "交易失败");
+            return "flights";
+        }else{
+            model.addAttribute("message", "交易成功");
+            return "flights";
+        }
+    }
 
 }

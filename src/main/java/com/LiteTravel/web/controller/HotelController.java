@@ -91,6 +91,7 @@ public class HotelController {
         /* todo 设计推荐算法 */
         model.addAttribute("hotels", result.data);
 
+        //分页展示酒店评价信息
         ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(hotelId, 1, 3);
         model.addAttribute("orderComments", resultVO.data);
         return "hotel-single";

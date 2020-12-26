@@ -1,20 +1,22 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderInfoDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
-import com.LiteTravel.web.DTO.HotelOrder.HotelOrderSubmitDTO;
+import com.LiteTravel.web.DTO.Flight.TransactionDTO;
+import com.LiteTravel.web.DTO.HotelOrder.*;
+import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
+import com.LiteTravel.web.service.Utils.MoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -27,6 +29,9 @@ public class HotelOrderController {
     HotelService hotelService;
     @Autowired
     HotelOrderService hotelOrderService;
+
+    @Resource
+    private MoneyService moneyService;
 
     /***
      * 提交订单请求
@@ -114,7 +119,11 @@ public class HotelOrderController {
         model.addAttribute("pageInfo", resultVO.info);
     }
     @GetMapping("/order/{orderId}")
-    public String getHotelOrderInfo(@PathVariable("orderId") Integer orderId, ModelMap model){
+    public String getHotelOrderInfo(@PathVariable("orderId") Integer orderId, ModelMap model, HttpSession session){
+        //额外提供用户余额
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        model.addAttribute("userMoney", moneyService.getMoney(user.getUserId()));
+
         HotelOrderInfoDTO hotelOrderInfoDTO = hotelOrderService.getHotelOrderInfoById(orderId);
         hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelOrderInfoDTO.getHotelId(), false));
         hotelOrderInfoDTO.setDetails(hotelOrderInfoDTO.getDetails().stream().peek(hotelOrderDetailDTO -> {
@@ -127,5 +136,26 @@ public class HotelOrderController {
         System.out.println(hotelOrderInfoDTO.toString());
         model.addAttribute("order", hotelOrderInfoDTO);
         return "order";
+    }
+
+    @PostMapping("/hotel/transaction")
+    public String transaction(OrderTransactionDTO orderTransactionDTO, Model model){
+
+        //通过hotelId找到managerId
+        Integer managerId = hotelService.findManagerIdByHotelId(orderTransactionDTO.getHotelId());
+        if (managerId == -1){
+            model.addAttribute("message", "没有这个用户");
+            return "hotels";
+        }else{
+            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
+            if (flag){
+                model.addAttribute("message", "交易失败");
+                return "hotels";
+            }else{
+
+                model.addAttribute("message", "交易成功");
+                return "hotels";
+            }
+        }
     }
 }

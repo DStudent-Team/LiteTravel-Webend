@@ -37,7 +37,4 @@ public class OrderCommentController {
             return "redirect:order/" + orderCommentDTO.getOrderId();
         }
     }
-
-
-
 }

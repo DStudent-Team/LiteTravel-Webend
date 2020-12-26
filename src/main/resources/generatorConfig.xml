@@ -59,6 +59,7 @@
             <generatedKey column="hotel_id" sqlStatement="Mysql" identity="true"/>
             <columnOverride column="hotel_description" jdbcType="VARCHAR"/>
         </table>
+        <table tableName="travel_hotel_manager" domainObjectName="HotelManager"/>
         <table tableName="travel_hotel_orders" domainObjectName="HotelOrder">
             <generatedKey column="order_id" sqlStatement="Mysql" identity="true"/>
         </table>

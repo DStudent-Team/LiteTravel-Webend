@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.LiteTravel.web.mapper.HotelOrderMapper">
+  <resultMap id="BaseResultMap" type="com.LiteTravel.web.Model.HotelOrder">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="hotel_id" jdbcType="INTEGER" property="hotelId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="when_arrived" jdbcType="VARCHAR" property="whenArrived" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="check_in" jdbcType="TIMESTAMP" property="checkIn" />
+    <result column="check_out" jdbcType="TIMESTAMP" property="checkOut" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="pay_date" jdbcType="TIMESTAMP" property="payDate" />
+    <result column="confirm_check_in" jdbcType="TIMESTAMP" property="confirmCheckIn" />
+    <result column="confirm_check_out" jdbcType="TIMESTAMP" property="confirmCheckOut" />
+    <result column="total" jdbcType="REAL" property="total" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.LiteTravel.web.Model.HotelOrder">
+    <result column="note" jdbcType="LONGVARCHAR" property="note" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, hotel_id, user_id, user_phone, user_name, when_arrived, days, status, check_in, 
+    check_out, create_date, pay_date, confirm_check_in, confirm_check_out, total
+  </sql>
+  <sql id="Blob_Column_List">
+    note
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.LiteTravel.web.Model.HotelOrderExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_hotel_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.LiteTravel.web.Model.HotelOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel_hotel_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_hotel_orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from travel_hotel_orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LiteTravel.web.Model.HotelOrderExample">
+    delete from travel_hotel_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LiteTravel.web.Model.HotelOrder">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_hotel_orders (hotel_id, user_id, user_phone, 
+      user_name, when_arrived, days, 
+      status, check_in, check_out, 
+      create_date, pay_date, confirm_check_in, 
+      confirm_check_out, total, note
+      )
+    values (#{hotelId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{whenArrived,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{checkIn,jdbcType=TIMESTAMP}, #{checkOut,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{payDate,jdbcType=TIMESTAMP}, #{confirmCheckIn,jdbcType=TIMESTAMP}, 
+      #{confirmCheckOut,jdbcType=TIMESTAMP}, #{total,jdbcType=REAL}, #{note,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.HotelOrder">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_hotel_orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hotelId != null">
+        hotel_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="whenArrived != null">
+        when_arrived,
+      </if>
+      <if test="days != null">
+        days,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="checkIn != null">
+        check_in,
+      </if>
+      <if test="checkOut != null">
+        check_out,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="payDate != null">
+        pay_date,
+      </if>
+      <if test="confirmCheckIn != null">
+        confirm_check_in,
+      </if>
+      <if test="confirmCheckOut != null">
+        confirm_check_out,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hotelId != null">
+        #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="whenArrived != null">
+        #{whenArrived,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="checkIn != null">
+        #{checkIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkOut != null">
+        #{checkOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payDate != null">
+        #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmCheckIn != null">
+        #{confirmCheckIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmCheckOut != null">
+        #{confirmCheckOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=REAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LiteTravel.web.Model.HotelOrderExample" resultType="java.lang.Long">
+    select count(*) from travel_hotel_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update travel_hotel_orders
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotelId != null">
+        hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.whenArrived != null">
+        when_arrived = #{record.whenArrived,jdbcType=VARCHAR},
+      </if>
+      <if test="record.days != null">
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.checkIn != null">
+        check_in = #{record.checkIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkOut != null">
+        check_out = #{record.checkOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payDate != null">
+        pay_date = #{record.payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.confirmCheckIn != null">
+        confirm_check_in = #{record.confirmCheckIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.confirmCheckOut != null">
+        confirm_check_out = #{record.confirmCheckOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.total != null">
+        total = #{record.total,jdbcType=REAL},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update travel_hotel_orders
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      when_arrived = #{record.whenArrived,jdbcType=VARCHAR},
+      days = #{record.days,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR},
+      check_in = #{record.checkIn,jdbcType=TIMESTAMP},
+      check_out = #{record.checkOut,jdbcType=TIMESTAMP},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      pay_date = #{record.payDate,jdbcType=TIMESTAMP},
+      confirm_check_in = #{record.confirmCheckIn,jdbcType=TIMESTAMP},
+      confirm_check_out = #{record.confirmCheckOut,jdbcType=TIMESTAMP},
+      total = #{record.total,jdbcType=REAL},
+      note = #{record.note,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update travel_hotel_orders
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      hotel_id = #{record.hotelId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      when_arrived = #{record.whenArrived,jdbcType=VARCHAR},
+      days = #{record.days,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR},
+      check_in = #{record.checkIn,jdbcType=TIMESTAMP},
+      check_out = #{record.checkOut,jdbcType=TIMESTAMP},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      pay_date = #{record.payDate,jdbcType=TIMESTAMP},
+      confirm_check_in = #{record.confirmCheckIn,jdbcType=TIMESTAMP},
+      confirm_check_out = #{record.confirmCheckOut,jdbcType=TIMESTAMP},
+      total = #{record.total,jdbcType=REAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LiteTravel.web.Model.HotelOrder">
+    update travel_hotel_orders
+    <set>
+      <if test="hotelId != null">
+        hotel_id = #{hotelId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="whenArrived != null">
+        when_arrived = #{whenArrived,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="checkIn != null">
+        check_in = #{checkIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkOut != null">
+        check_out = #{checkOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payDate != null">
+        pay_date = #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmCheckIn != null">
+        confirm_check_in = #{confirmCheckIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmCheckOut != null">
+        confirm_check_out = #{confirmCheckOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=REAL},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.LiteTravel.web.Model.HotelOrder">
+    update travel_hotel_orders
+    set hotel_id = #{hotelId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      when_arrived = #{whenArrived,jdbcType=VARCHAR},
+      days = #{days,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      check_in = #{checkIn,jdbcType=TIMESTAMP},
+      check_out = #{checkOut,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      pay_date = #{payDate,jdbcType=TIMESTAMP},
+      confirm_check_in = #{confirmCheckIn,jdbcType=TIMESTAMP},
+      confirm_check_out = #{confirmCheckOut,jdbcType=TIMESTAMP},
+      total = #{total,jdbcType=REAL},
+      note = #{note,jdbcType=LONGVARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.HotelOrder">
+    update travel_hotel_orders
+    set hotel_id = #{hotelId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      when_arrived = #{whenArrived,jdbcType=VARCHAR},
+      days = #{days,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      check_in = #{checkIn,jdbcType=TIMESTAMP},
+      check_out = #{checkOut,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      pay_date = #{payDate,jdbcType=TIMESTAMP},
+      confirm_check_in = #{confirmCheckIn,jdbcType=TIMESTAMP},
+      confirm_check_out = #{confirmCheckOut,jdbcType=TIMESTAMP},
+      total = #{total,jdbcType=REAL}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

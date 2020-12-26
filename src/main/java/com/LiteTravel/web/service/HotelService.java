@@ -8,11 +8,14 @@ import com.LiteTravel.web.mapper.*;
 import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import jdk.nashorn.internal.ir.annotations.Reference;
+import org.apache.catalina.Manager;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -37,6 +40,10 @@ HotelService {
 
     @Autowired
     public RegionMapper regionMapper;
+
+    @Resource
+    private HotelManagerMapper hotelManagerMapper;
+
     // 默认酒店列表
 //    @Cacheable(cacheNames = {"hotels"}, key = "#page")
     public ResultVO getHotels(Integer page, Integer pageSize){
@@ -263,6 +270,24 @@ HotelService {
             hotelExample.or(hotelExampleCriteria1);
         }
         return hotelExample;
+    }
+
+    /**
+     * 通过hotelId找到managerId
+     * @param hotelId hotelId
+     * @return managerId
+     */
+    public Integer findManagerIdByHotelId(Integer hotelId){
+
+        HotelManagerExample hotelManagerExample = new HotelManagerExample();
+        hotelManagerExample.createCriteria().andHotelIdEqualTo(hotelId);
+        List<HotelManager> hotelManagers = hotelManagerMapper.selectByExample(hotelManagerExample);
+        if (hotelManagers.isEmpty()){
+            return -1;
+        }
+        else{
+            return hotelManagers.get(0).getHotelManagerId();
+        }
     }
 
 }

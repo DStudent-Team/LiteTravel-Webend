@@ -1,10 +1,13 @@
 package com.LiteTravel.web.service.Utils;
 
+import com.LiteTravel.web.Model.Transaction;
 import com.LiteTravel.web.Model.UserMoney;
+import com.LiteTravel.web.mapper.TransactionMapper;
 import com.LiteTravel.web.mapper.UserMoneyMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 
 /**
@@ -21,6 +24,9 @@ public class MoneyService {
      */
     @Resource
     private UserMoneyMapper moneyMapper;
+
+    @Resource
+    private TransactionMapper transactionMapper;
 
     /**
      * 通过userId查找钱
@@ -67,9 +73,9 @@ public class MoneyService {
      * @param userId 用户id
      * @param adminId 商家id
      * @param money 交易金额
-     * @return 提示信息
+     * @return 是否成功
      */
-    public String transaction(int userId, int adminId, float money){
+    public boolean transaction(int userId, int adminId, float money){
         UserMoney uMoney = new UserMoney();
         float um = 0;
         // 用户可能空账号
@@ -77,12 +83,12 @@ public class MoneyService {
             uMoney.setUserId(userId);
             uMoney.setMoney(0.0f);
             moneyMapper.insertSelective(uMoney);
-            return "没钱啊";
+            return false;
         }
         else{
             um = getMoney(userId);
             if (um < money){
-                return "不够钱";
+                return false;
             }
         }
         // 管理员很可能空账号
@@ -101,7 +107,14 @@ public class MoneyService {
             uMoney.setUserId(adminId);
             uMoney.setMoney(getMoney(adminId) + money);
             moneyMapper.updateByPrimaryKeySelective(uMoney);
+            //记录交易
+            Transaction transaction = new Transaction();
+            transaction.setSellerId(adminId);
+            transaction.setBuyerId(userId);
+            transaction.setMoney(money);
+            transaction.setCreateTime(new Date());
+            transactionMapper.insertSelective(transaction);
         }
-        return "交易成功";
+        return true;
     }
 }
