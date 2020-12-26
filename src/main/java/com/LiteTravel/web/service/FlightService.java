@@ -63,7 +63,7 @@ public class FlightService {
             flightTicket.setReserveId(reserveId);
             flightTicketMapper.insert(flightTicket);
         }
-        UpdateFlightStatus(reserve.getFlightId(), 1);
+//        UpdateFlightStatus(reserve.getFlightId(), 1);
     }
 
     /* 选中某一项服务商提供的服务 */
@@ -81,6 +81,10 @@ public class FlightService {
         /* 如果状态为已支付, 则需要退回账款 */
 
         /* 更新机票状态 */
+        FlightReserve reserve = new FlightReserve();
+        reserve.setReserveId(reserveDTO.getReserveId());
+        reserve.setSelected(false);
+        flightReserveMapper.updateByPrimaryKeySelective(reserve);
         UpdateFlightStatus(reserveDTO.getFlightId(), 1);
     }
     public void payFlight(FlightReserveDTO reserveDTO) {
