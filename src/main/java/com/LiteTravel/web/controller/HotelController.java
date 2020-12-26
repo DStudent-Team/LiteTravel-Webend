@@ -4,11 +4,13 @@ import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
+import com.LiteTravel.web.service.OrderCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,9 @@ public class HotelController {
 
     @Autowired
     public HotelService hotelService;
+
+    @Resource
+    private OrderCommentService orderCommentService;
 
     /* 点击页面数切换 分页显示酒店列表 */
     @GetMapping("/hotels")
@@ -85,6 +90,9 @@ public class HotelController {
         /* 设置推荐酒店基本信息数据 */
         /* todo 设计推荐算法 */
         model.addAttribute("hotels", result.data);
+
+        ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(hotelId, 1, 3);
+        model.addAttribute("orderComments", resultVO.data);
         return "hotel-single";
     }
 

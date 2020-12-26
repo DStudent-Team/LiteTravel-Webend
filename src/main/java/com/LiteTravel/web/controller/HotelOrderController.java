@@ -7,12 +7,14 @@ import com.LiteTravel.web.DTO.HotelOrder.HotelOrderQueryDTO;
 import com.LiteTravel.web.DTO.HotelOrder.HotelOrderSubmitDTO;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
+import com.LiteTravel.web.service.OrderCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -124,7 +126,6 @@ public class HotelOrderController {
         }).collect(Collectors.toList()));
         System.out.println(hotelOrderInfoDTO.toString());
         model.addAttribute("order", hotelOrderInfoDTO);
-
         return "order";
     }
 }

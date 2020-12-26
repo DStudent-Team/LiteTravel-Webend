@@ -13,4 +13,10 @@ public class DisplayOrderCommentDTO {
     private String username;
     private Integer score;
     private String detail;
+
+    public DisplayOrderCommentDTO(String username, Integer score, String detail) {
+        this.username = username;
+        this.score = score;
+        this.detail = detail;
+    }
 }

@@ -3,6 +3,8 @@ package com.LiteTravel.web.Model;
 public class OrderComment {
     private Integer ocId;
 
+    private String userName;
+
     private Integer hotelId;
 
     private Integer orderId;
@@ -17,6 +19,14 @@ public class OrderComment {
 
     public void setOcId(Integer ocId) {
         this.ocId = ocId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public Integer getHotelId() {
