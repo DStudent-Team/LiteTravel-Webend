@@ -1,7 +1,7 @@
 package com.LiteTravel.web.service.Utils;
 
-import com.LiteTravel.web.Model.userMoney;
-import com.LiteTravel.web.mapper.userMoneyMapper;
+import com.LiteTravel.web.Model.UserMoney;
+import com.LiteTravel.web.mapper.UserMoneyMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +20,7 @@ public class MoneyService {
      *
      */
     @Resource
-    private userMoneyMapper moneyMapper;
+    private UserMoneyMapper moneyMapper;
 
     /**
      * 通过userId查找钱
@@ -40,7 +40,7 @@ public class MoneyService {
      * @param money 钱
      */
     public void insertMoney(int userId, float money){
-        userMoney uMoney = new userMoney();
+        UserMoney uMoney = new UserMoney();
         if (hasUser(userId)){
              uMoney.setMoney(getMoney(userId) + money);
              uMoney.setUserId(userId);
@@ -70,7 +70,7 @@ public class MoneyService {
      * @return 提示信息
      */
     public String transaction(int userId, int adminId, float money){
-        userMoney uMoney = new userMoney();
+        UserMoney uMoney = new UserMoney();
         float um = 0;
         // 用户可能空账号
         if (!hasUser(userId)){

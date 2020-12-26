@@ -267,3 +267,54 @@ function clearReserve() {
     $("#total").val('');
     $("#_service").val('');
 }
+
+/**
+ * 酒店前端数据管理层
+ * 创建点击事件，点击更新将数据提交给输入框对应值
+ * @param hotelId
+ * @param hotelName
+ * @param hotelMinPrice
+ * @param hotelManagerId
+ * @param hotelPhone
+ * @param hotelReplyLevel
+ * @param hotelAddress
+ * @param hotelAddressSpecific
+ * @param hotelDescription
+ */
+//模态框赋值，用于更新数据时
+function editHotel (hotelId, hotelName, hotelMinPrice,
+                    hotelManagerId, hotelPhone, hotelReplyLevel,
+                    hotelAddress, hotelAddressSpecific, hotelDescription){
+    // $('#myModal').modal("hide");
+    $("#myModalLabel").text("新增");
+    $('#myModal').modal();
+    //向模态框中传值
+    $('#hotelId').val(hotelId);
+    $('#hotelName').val(hotelName);
+    $('#hotelMinPrice').val(hotelMinPrice);
+    $('#hotelManagerId').val(hotelManagerId);
+    $('#hotelPhone').val(hotelPhone);
+    $('#hotelReplyLevel').val(hotelReplyLevel);
+    $('#hotelAddress').val(hotelAddress);
+    $('#hotelAddressSpecific').val(hotelAddressSpecific);
+    $('#hotelDescription').val(hotelDescription);
+}
+
+//模态框置空，用于插入数据和点击清空模态框时
+function clearHotel (){
+    // 置空模态框
+    $('#hotelId').val('');
+    $('#hotelName').val('');
+    $('#hotelMinPrice').val('');
+    $('#hotelManagerId').val('');
+    $('#hotelPhone').val('');
+    $('#hotelReplyLevel').val('');
+    $('#hotelAddress').val('');
+    $('#hotelAddressSpecific').val('');
+    $('#hotelDescription').val('');
+}
+
+//检测输入的酒店数据是否合法
+function checkHotelData() {
+
+}

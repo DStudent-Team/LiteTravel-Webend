@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.LiteTravel.web.mapper.userAuthorityMapper">
-  <resultMap id="BaseResultMap" type="com.LiteTravel.web.Model.userAuthority">
+<mapper namespace="com.LiteTravel.web.mapper.UserAuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.LiteTravel.web.Model.UserAuthority">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="authority_level" jdbcType="BIT" property="authorityLevel" />
-    <result column="user_authority" jdbcType="BIT" property="userAuthority" />
+    <result column="authority_level" jdbcType="INTEGER" property="authorityLevel" />
     <result column="hotel_authority" jdbcType="BIT" property="hotelAuthority" />
     <result column="flight_authority" jdbcType="BIT" property="flightAuthority" />
-    <result column="guide_authority" jdbcType="BIT" property="guideAuthority" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,9 +66,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, authority_level, user_authority, hotel_authority, flight_authority, guide_authority
+    user_id, authority_level, hotel_authority, flight_authority
   </sql>
-  <select id="selectByExample" parameterType="com.LiteTravel.web.Model.userAuthorityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.LiteTravel.web.Model.UserAuthorityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,21 +92,19 @@
     delete from travel_user_authority
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.LiteTravel.web.Model.userAuthorityExample">
+  <delete id="deleteByExample" parameterType="com.LiteTravel.web.Model.UserAuthorityExample">
     delete from travel_user_authority
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.LiteTravel.web.Model.userAuthority">
-    insert into travel_user_authority (user_id, authority_level, user_authority, 
-      hotel_authority, flight_authority, guide_authority
-      )
-    values (#{userId,jdbcType=INTEGER}, #{authorityLevel,jdbcType=BIT}, #{userAuthority,jdbcType=BIT}, 
-      #{hotelAuthority,jdbcType=BIT}, #{flightAuthority,jdbcType=BIT}, #{guideAuthority,jdbcType=BIT}
-      )
+  <insert id="insert" parameterType="com.LiteTravel.web.Model.UserAuthority">
+    insert into travel_user_authority (user_id, authority_level, hotel_authority, 
+      flight_authority)
+    values (#{userId,jdbcType=INTEGER}, #{authorityLevel,jdbcType=INTEGER}, #{hotelAuthority,jdbcType=BIT}, 
+      #{flightAuthority,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.userAuthority">
+  <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.UserAuthority">
     insert into travel_user_authority
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -117,17 +113,11 @@
       <if test="authorityLevel != null">
         authority_level,
       </if>
-      <if test="userAuthority != null">
-        user_authority,
-      </if>
       <if test="hotelAuthority != null">
         hotel_authority,
       </if>
       <if test="flightAuthority != null">
         flight_authority,
-      </if>
-      <if test="guideAuthority != null">
-        guide_authority,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -135,10 +125,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="authorityLevel != null">
-        #{authorityLevel,jdbcType=BIT},
-      </if>
-      <if test="userAuthority != null">
-        #{userAuthority,jdbcType=BIT},
+        #{authorityLevel,jdbcType=INTEGER},
       </if>
       <if test="hotelAuthority != null">
         #{hotelAuthority,jdbcType=BIT},
@@ -146,12 +133,9 @@
       <if test="flightAuthority != null">
         #{flightAuthority,jdbcType=BIT},
       </if>
-      <if test="guideAuthority != null">
-        #{guideAuthority,jdbcType=BIT},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.LiteTravel.web.Model.userAuthorityExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.LiteTravel.web.Model.UserAuthorityExample" resultType="java.lang.Long">
     select count(*) from travel_user_authority
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -164,19 +148,13 @@
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.authorityLevel != null">
-        authority_level = #{record.authorityLevel,jdbcType=BIT},
-      </if>
-      <if test="record.userAuthority != null">
-        user_authority = #{record.userAuthority,jdbcType=BIT},
+        authority_level = #{record.authorityLevel,jdbcType=INTEGER},
       </if>
       <if test="record.hotelAuthority != null">
         hotel_authority = #{record.hotelAuthority,jdbcType=BIT},
       </if>
       <if test="record.flightAuthority != null">
         flight_authority = #{record.flightAuthority,jdbcType=BIT},
-      </if>
-      <if test="record.guideAuthority != null">
-        guide_authority = #{record.guideAuthority,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -186,23 +164,18 @@
   <update id="updateByExample" parameterType="map">
     update travel_user_authority
     set user_id = #{record.userId,jdbcType=INTEGER},
-      authority_level = #{record.authorityLevel,jdbcType=BIT},
-      user_authority = #{record.userAuthority,jdbcType=BIT},
+      authority_level = #{record.authorityLevel,jdbcType=INTEGER},
       hotel_authority = #{record.hotelAuthority,jdbcType=BIT},
-      flight_authority = #{record.flightAuthority,jdbcType=BIT},
-      guide_authority = #{record.guideAuthority,jdbcType=BIT}
+      flight_authority = #{record.flightAuthority,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.LiteTravel.web.Model.userAuthority">
+  <update id="updateByPrimaryKeySelective" parameterType="com.LiteTravel.web.Model.UserAuthority">
     update travel_user_authority
     <set>
       <if test="authorityLevel != null">
-        authority_level = #{authorityLevel,jdbcType=BIT},
-      </if>
-      <if test="userAuthority != null">
-        user_authority = #{userAuthority,jdbcType=BIT},
+        authority_level = #{authorityLevel,jdbcType=INTEGER},
       </if>
       <if test="hotelAuthority != null">
         hotel_authority = #{hotelAuthority,jdbcType=BIT},
@@ -210,19 +183,14 @@
       <if test="flightAuthority != null">
         flight_authority = #{flightAuthority,jdbcType=BIT},
       </if>
-      <if test="guideAuthority != null">
-        guide_authority = #{guideAuthority,jdbcType=BIT},
-      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.userAuthority">
+  <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.UserAuthority">
     update travel_user_authority
-    set authority_level = #{authorityLevel,jdbcType=BIT},
-      user_authority = #{userAuthority,jdbcType=BIT},
+    set authority_level = #{authorityLevel,jdbcType=INTEGER},
       hotel_authority = #{hotelAuthority,jdbcType=BIT},
-      flight_authority = #{flightAuthority,jdbcType=BIT},
-      guide_authority = #{guideAuthority,jdbcType=BIT}
+      flight_authority = #{flightAuthority,jdbcType=BIT}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>
