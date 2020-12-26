@@ -48,7 +48,7 @@
                     <ul class="list-group">
                         <li class="list-group-item"><a th:href="@{/userModify/} + ${info.userId}">修改信息</a></li>
                         <li class="list-group-item">
-                            <a href="javascript:vo(0);" class="userHotelOrders">我的酒店</a>
+                            <a href="javascript:vo(0);" class="userHotelOrders">我的订单</a>
                             <form id="order" name="order" method="post" th:action="@{/orders}">
                                 <input name="userId" th:value="${session.user.userId}" hidden="hidden">
                                 <input type="submit" value="我的酒店" hidden="hidden">
