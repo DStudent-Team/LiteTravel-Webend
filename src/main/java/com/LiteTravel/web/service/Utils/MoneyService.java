@@ -1,13 +1,18 @@
 package com.LiteTravel.web.service.Utils;
 
+import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Transaction;
+import com.LiteTravel.web.Model.TransactionExample;
 import com.LiteTravel.web.Model.UserMoney;
 import com.LiteTravel.web.mapper.TransactionMapper;
 import com.LiteTravel.web.mapper.UserMoneyMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -116,5 +121,18 @@ public class MoneyService {
             transactionMapper.insertSelective(transaction);
         }
         return true;
+    }
+
+    /**
+     * 查找所有的交易记录
+     * @param pageNum 页数
+     * @param pageSize 大小
+     * @return ResultVo
+     */
+    public ResultVO listTransactions(Integer pageNum, Integer pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<Transaction> transactions = transactionMapper.selectByExample(new TransactionExample());
+        PageInfo<Transaction> pageInfo = new PageInfo<>(transactions, 5);
+        return new ResultVO(transactions, pageInfo);
     }
 }
