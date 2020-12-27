@@ -4,7 +4,9 @@ import com.LiteTravel.web.Model.Flight;
 import com.LiteTravel.web.Model.FlightExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface FlightMapper {
     long countByExample(FlightExample example);
 

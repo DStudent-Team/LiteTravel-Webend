@@ -4,7 +4,9 @@ import com.LiteTravel.web.Model.FlightReserve;
 import com.LiteTravel.web.Model.FlightReserveExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface FlightReserveMapper {
     long countByExample(FlightReserveExample example);
 

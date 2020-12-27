@@ -4,7 +4,9 @@ import com.LiteTravel.web.Model.Bed;
 import com.LiteTravel.web.Model.BedExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BedMapper {
     long countByExample(BedExample example);
 
