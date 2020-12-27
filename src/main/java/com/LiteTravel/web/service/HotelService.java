@@ -10,6 +10,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jdk.nashorn.internal.ir.annotations.Reference;
 import org.apache.catalina.Manager;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
+import javafx.scene.effect.DisplacementMapBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +47,12 @@ HotelService {
     @Resource
     private HotelManagerMapper hotelManagerMapper;
 
+
+    @Autowired
+    public HotelOrderMapper hotelOrderMapper;
+
+    @Autowired
+    public HotelOrderDetailMapper hotelOrderDetailMapper;
     // 默认酒店列表
 //    @Cacheable(cacheNames = {"hotels"}, key = "#page")
     public ResultVO getHotels(Integer page, Integer pageSize){
@@ -94,7 +103,7 @@ HotelService {
 
     // 展现酒店单页
 //    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId + '[' + #roomFlag + ']'")
-    public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag){
+    public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag, Date startTime, Date endTime){
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
         HotelDTO hotelDTO = JDBCUtils.initHotelDTO(regionMapper, hotel);
         // 判断是否需要room数据, 借此获得Room数据
@@ -104,6 +113,13 @@ HotelService {
                     .andHotelIdEqualTo(hotelId);
             List<Room> rooms = roomMapper.selectByExample(roomExample);
             List<RoomDTO> roomDTOs = rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
+
+            //根据时间设定剩余房间数
+            List<Integer> roomType = this.getRoomType(hotelId);
+            List<Integer> remainRooms = this.getRemainRooms(startTime, endTime, hotelId, roomType);
+            for (int index = 0; index < roomDTOs.size(); index++) {
+                roomDTOs.get(index).setRoomRemaining(remainRooms.get(index));
+            }
             hotelDTO.setRooms(roomDTOs);
         }
         return hotelDTO;
@@ -272,6 +288,65 @@ HotelService {
         return hotelExample;
     }
 
+    /**
+     * 获取酒店的所有房间类型
+     * @param hotelId 酒店id
+     * @return roomType 房间类型列表
+     */
+    public List<Integer> getRoomType(Integer hotelId) {
+
+        RoomExample roomExample = new RoomExample();
+        roomExample.createCriteria().andHotelIdEqualTo(hotelId);
+        List<Room> rooms = roomMapper.selectByExample(roomExample);
+        List<Integer> roomType = rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
+        return roomType;
+    }
+
+    /**
+     * 查询酒店某个房间类型的剩余数量
+     * @param startTime 起始时间
+     * @param endTime 终止时间
+     * @param hotelId 酒店id
+     * @param roomId 房间类型Id
+     * @return remain 对应时间段内，该酒店该房间类型的剩余数目
+     */
+    public Integer getRemainRoom(Date startTime, Date endTime, Integer hotelId, Integer roomId) {
+
+        //返回值
+        Integer remainRoom = roomMapper.selectByPrimaryKey(roomId).getRoomMax();
+
+        /* 获取相关房间类型的订单id */
+        HotelOrderDetailExample hotelOrderDetailExample = new HotelOrderDetailExample();
+        hotelOrderDetailExample.createCriteria()
+                .andRoomIdEqualTo(roomId);
+        List<HotelOrderDetail> hotelOrderDetails = hotelOrderDetailMapper.selectByExample(hotelOrderDetailExample);
+        List<Integer> orderIds = hotelOrderDetails.stream().map(HotelOrderDetail::getOrderId).distinct().collect(Collectors.toList());
+
+        /* 通过时间条件查找有效订单，即在对应时间段占用了房间的订单 */
+        HotelOrderExample hotelOrderExample = new HotelOrderExample();
+        if (orderIds.size() > 0) {
+            hotelOrderExample.or()
+                    .andOrderIdIn(orderIds)
+                    .andCheckInLessThanOrEqualTo(startTime)
+                    .andCheckOutGreaterThanOrEqualTo(startTime);
+            hotelOrderExample.or()
+                    .andOrderIdIn(orderIds)
+                    .andCheckInBetween(startTime, endTime);
+            List<HotelOrder> hotelOrders = hotelOrderMapper.selectByExample(hotelOrderExample);
+            for (HotelOrder order: hotelOrders) {
+                remainRoom -= hotelOrderDetailMapper.selectByPrimaryKey(order.getOrderId()).getRoomCount();
+            }
+        }
+        return remainRoom;
+    }
+
+    public List<Integer> getRemainRooms(Date startTime, Date endTime, Integer hotelId, List<Integer> roomId) {
+        List<Integer> remainRooms = new ArrayList<>();
+        for (Integer id : roomId) {
+            remainRooms.add(getRemainRoom(startTime, endTime, hotelId, id));
+        }
+        return remainRooms;
+    }
     /**
      * 通过hotelId找到managerId
      * @param hotelId hotelId

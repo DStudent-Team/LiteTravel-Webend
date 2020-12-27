@@ -4,10 +4,14 @@ import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.Flight.TransactionDTO;
 import com.LiteTravel.web.DTO.HotelOrder.*;
 import com.LiteTravel.web.Model.User;
+import com.LiteTravel.web.DTO.HotelOrder.*;
+import com.LiteTravel.web.Model.HotelOrder;
+import com.LiteTravel.web.Model.HotelOrderDetail;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
 import com.LiteTravel.web.service.Utils.MoneyService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +23,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -47,7 +53,7 @@ public class HotelOrderController {
         HotelOrderInfoDTO hotelOrderInfoDTO = new HotelOrderInfoDTO();
         hotelOrderInfoDTO.setHotelId(submitDTO.getHotelId());
         hotelOrderInfoDTO.setUserId(submitDTO.getUserId());
-        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(submitDTO.getHotelId(), false));
+        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(submitDTO.getHotelId(), false, null, null));
         hotelOrderInfoDTO.setDetails(hotelService.getHotelOrderDetailByRoomIds(Collections.singletonList(submitDTO.getRoomId())));
         for (HotelOrderDetailDTO detail: hotelOrderInfoDTO.getDetails()){
             detail.setRoomPrice(submitDTO.getPrice());
@@ -131,7 +137,7 @@ public class HotelOrderController {
         model.addAttribute("userMoney", moneyService.getMoney(user.getUserId()));
 
         HotelOrderInfoDTO hotelOrderInfoDTO = hotelOrderService.getHotelOrderInfoById(orderId);
-        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelOrderInfoDTO.getHotelId(), false));
+        hotelOrderInfoDTO.setHotel(hotelService.selectHotelById(hotelOrderInfoDTO.getHotelId(), false , null, null));
         hotelOrderInfoDTO.setDetails(hotelOrderInfoDTO.getDetails().stream().peek(hotelOrderDetailDTO -> {
             RoomDTO roomDTO = hotelService.getRoomDTO(hotelOrderDetailDTO.getRoomId());
             hotelOrderDetailDTO.setRoomName(roomDTO.getRoomName());
@@ -163,5 +169,30 @@ public class HotelOrderController {
                 return "hotels";
             }
         }
+    }
+
+    /**
+     * 在发起订单页面 确认订单信息并提交酒店订单业务，申请新订单
+     */
+    @PostMapping("/book/submit")
+    @ResponseBody
+    public ResponseDTO bookHotel(@RequestBody HotelOrderConfirmDTO hotelOrderConfirmDTO){
+        //生成订单信息，成功则跳转至订单页面
+        HotelOrder hotelOrder = new HotelOrder();
+        BeanUtils.copyProperties(hotelOrderConfirmDTO, hotelOrder);
+        hotelOrder.setStatus("0");
+        hotelOrder.setCreateDate(new Date());
+        System.out.println(hotelOrder.toString());
+        List<HotelOrderDetail> hotelOrderDetails = new ArrayList<>();
+        for (HotelOrderDetailDTO roomOrder:hotelOrderConfirmDTO.getRooms()) {
+            HotelOrderDetail hotelOrderDetail = new HotelOrderDetail();
+            BeanUtils.copyProperties(roomOrder, hotelOrderDetail);
+            System.out.println(hotelOrderDetail.toString());
+            hotelOrderDetails.add(hotelOrderDetail);
+        }
+        /*插入新数据*/
+        Integer orderId = hotelOrderService.insertHotelOrder(hotelOrder, hotelOrderDetails);
+
+        return ResponseDTO.success(orderId);
     }
 }

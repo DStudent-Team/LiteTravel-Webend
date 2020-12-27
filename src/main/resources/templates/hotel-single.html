@@ -217,65 +217,69 @@
                     <!-- 使用js发送请求，并刷新客房展示 -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <h4 class="mb-5">Check Availability &amp; Booking</h4>
-                        <div class="fields">
-                            <div class="row">
-                                <!-- 入店时间 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <!--入住时间，默认为当天-->
-                                        <label for="checkInQuery">入店时间</label>
-                                        <input id="checkInQuery" readonly="readonly" type="text" class="form-control checkin_date"
-                                               th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
-                                    </div>
-                                </div>
-                                <!-- 离店时间 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="checkOutQuery">离店时间</label>
-                                        <input id="checkOutQuery" readonly="readonly" type="text" class="form-control checkout_date"
-                                               th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
-                                    </div>
-                                </div>
-                                <!-- 旅客数 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <!--<div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
-                                            <label for="travelers">旅客数</label>
-                                            <select name="travelers" id="travelers" class="form-control" placeholder="Guest">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                        <form id="search" method="get" action="/room">
+                            <div class="fields">
+                                <div class="row">
+                                    <input name="hotelId" readonly="readonly" type="hidden" th:value="${hotel.hotelId}" class="form-control date">
+                                    <!-- 入店时间 -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!--入住时间，默认为当天-->
+                                            <label for="checkInQuery">入店时间</label>
+                                            <input id="checkInQuery" name="startTime" type="date" class="form-control"
+                                                   th:value="${startTime != null?#dates.format(startTime, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
                                         </div>
                                     </div>
-                                </div>
-                                <!-- 小孩数 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="select-wrap one-third">
-<!--                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
-                                            <label for="children">孩童数</label>
-                                            <select name="children" id="children" class="form-control" placeholder="Children">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                    <!-- 离店时间 -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="checkOutQuery">离店时间</label>
+                                            <input id="checkOutQuery" name="endTime" type="date" class="form-control"
+                                                   th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="submit" value="Check Availability" class="btn btn-primary py-3">
+                                    <!--                                &lt;!&ndash; 旅客数 &ndash;&gt;-->
+                                    <!--                                <div class="col-md-6">-->
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <div class="select-wrap one-third">-->
+                                    <!--                                            &lt;!&ndash;<div class="icon"><span class="ion-ios-arrow-down"></span></div>&ndash;&gt;-->
+                                    <!--                                            <label for="travelers">旅客数</label>-->
+                                    <!--                                            <select name="travelers" id="travelers" class="form-control" placeholder="Guest">-->
+                                    <!--                                                <option value="1">1</option>-->
+                                    <!--                                                <option value="2">2</option>-->
+                                    <!--                                                <option value="3">3</option>-->
+                                    <!--                                                <option value="4">4</option>-->
+                                    <!--                                                <option value="5">5</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!--                                &lt;!&ndash; 小孩数 &ndash;&gt;-->
+                                    <!--                                <div class="col-md-6">-->
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <div class="select-wrap one-third">-->
+                                    <!--&lt;!&ndash;                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>&ndash;&gt;-->
+                                    <!--                                            <label for="children">孩童数</label>-->
+                                    <!--                                            <select name="children" id="children" class="form-control" placeholder="Children">-->
+                                    <!--                                                <option value="0">0</option>-->
+                                    <!--                                                <option value="1">1</option>-->
+                                    <!--                                                <option value="2">2</option>-->
+                                    <!--                                                <option value="3">3</option>-->
+                                    <!--                                                <option value="4">4</option>-->
+                                    <!--                                                <option value="5">5</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!-- todo 用人数查不太现实，到时候还有给他安排好房间类型，比较难搞，直接查房间类型好了 -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" value="Check Availability" class="btn btn-primary py-3" onclick="getRemainRoom()">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <!-- todo
                              酒店单间介绍
@@ -425,7 +429,15 @@
 <div th:replace="~{commons/Footer::loader}"></div>
 
 
+<script th:src="@{/js/jquery.form.js}"></script>
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/hotel-single.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    function getRemainRoom() {
+        $('#search').submit
+    }
+</script>
+
 </body>
 </html>
