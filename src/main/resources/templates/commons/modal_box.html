@@ -484,6 +484,75 @@
         </div>
     </form>
 </section>
+
+<!--订单评价模态框-->
+<section class="ftco-section-parallax" th:fragment="orderCommentModal">
+    <form method="post" th:action="@{/saveOrderComment}" class="form-horizontal" onsubmit="return checkValid()" role="form" style="margin: 20px;">
+        <div class="modal fade" id="orderCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            用户信息
+                        </h4>
+                        <button type="button" class="close" onclick="clearOrderComment()" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--userId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="ocUserId" name="userId">
+                                </div>
+                            </div>
+                            <!--hotelId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="ocHotelId" name="hotelId">
+                                </div>
+                            </div>
+                            <!--orderId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="ocOrderId" name="orderId">
+                                </div>
+                            </div>
+                            <!--评分 -->
+                            <div class="form-group form-inline">
+                                <label for="scoreSelect" class="col-sm-2 control-label">评分</label>
+                                <select class="form-control col-sm-9" id="scoreSelect" name="score">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                </select>
+                            </div>
+                            <!--comment-->
+                            <div class="form-group form-inline">
+                                <label for="userCode" class="col-sm-2 control-label">评价</label>
+                                <textarea class="col-sm-9" id="orderComment" name="detail"
+                                          placeholder="请输入评价"></textarea>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!--调用user.js方法-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearOrderComment()">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
 <!--调用用户脚本-->
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script type="text/javascript" th:src="@{/js/manage.js}"></script>
