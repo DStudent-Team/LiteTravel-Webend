@@ -75,7 +75,6 @@ function editUser (userId, userCode, userPassword,
     $('#userCode').val(userCode);
     $('#userPassword').val(userPassword);
     $('#userName').val(userName);
-    $('#userBirth').val(userBirth);
     $('#userEmail').val(userEmail);
     $('#userPhone').val(userPhone);
     $('#userAddressSpecific').val(userAddressSpecific);
@@ -93,7 +92,6 @@ function clearUser(){
     $('#userCode').val("");
     $('#userPassword').val("");
     $('#userName').val("");
-    $('#userBirth').val("");
     $('#userEmail').val("");
     $('#userPhone').val("");
     $('#userAddressSpecific').val("");

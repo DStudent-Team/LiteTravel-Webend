@@ -1,10 +1,8 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.Model.User;
-import com.LiteTravel.web.Model.UserExample;
-import com.LiteTravel.web.Model.UserInfo;
-import com.LiteTravel.web.Model.UserInfoExample;
+import com.LiteTravel.web.Model.*;
+import com.LiteTravel.web.mapper.UserAuthorityMapper;
 import com.LiteTravel.web.mapper.UserInfoMapper;
 import com.LiteTravel.web.mapper.UserMapper;
 import com.github.pagehelper.PageHelper;
@@ -14,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +24,9 @@ public class UserService {
     UserMapper userMapper;
     @Autowired
     UserInfoMapper userInfoMapper;
+    @Autowired
+    UserAuthorityMapper userAuthorityMapper;
+
 
     public List<User> checkUserValid(String userCode, String userPassword){
         UserExample userExample = new UserExample();
@@ -89,7 +91,9 @@ public class UserService {
         Map<Integer, String> userCodeMap;
         Map<Integer, String> userPasswordMap;
         Map<Integer, Integer> userStateMap;
+        Map<Integer, Integer> authorityLevelMap;
         if(userIds.size() > 0){
+            /*查询账号表*/
             UserExample userExample = new UserExample();
             userExample.createCriteria()
                     .andUserIdIn(userIds);
@@ -97,10 +101,19 @@ public class UserService {
             userCodeMap = users.stream().collect(Collectors.toMap(User::getUserId, User::getUserCode));
             userPasswordMap = users.stream().collect(Collectors.toMap(User::getUserId, User::getUserPassword));
             userStateMap = users.stream().collect(Collectors.toMap(User::getUserId, User::getUserState));
+
+            /*查询权限表*/
+            UserAuthorityExample userAuthorityExample = new UserAuthorityExample();
+            userAuthorityExample.createCriteria()
+                    .andUserIdIn(userIds);
+            List<UserAuthority> userAuthorities = userAuthorityMapper.selectByExample(userAuthorityExample);
+            authorityLevelMap = userAuthorities.stream().collect(Collectors.toMap(UserAuthority::getUserId,UserAuthority::getAuthorityLevel));
+
         }else {
             userCodeMap = new HashMap<>();
             userPasswordMap = new HashMap<>();
             userStateMap = new HashMap<>();
+            authorityLevelMap = new HashMap<>();
         }
         List<UserManageDTO> data = userInfos.stream().map(userInfo -> {
             UserManageDTO userManageDTO = new UserManageDTO();
@@ -108,9 +121,11 @@ public class UserService {
             String userCode = userCodeMap.get(userInfo.getUserId());
             String userPassword = userPasswordMap.get(userInfo.getUserId());
             Integer userState = userStateMap.get(userInfo.getUserId());
+            Integer authorityLevel = authorityLevelMap.get(userInfo.getUserId());
             userManageDTO.setUserCode(userCode);
             userManageDTO.setUserPassword(userPassword);
             userManageDTO.setUserState(userState);
+            userManageDTO.setAuthorityLevel(authorityLevel);
             return userManageDTO;
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
