@@ -24,7 +24,7 @@
                     <!-- 查找特定城市中的酒店 -->
                     <h3 class="heading mb-4">Find Orders</h3>
                     <form id="search" name="search" method="post" th:action="@{/orders}">
-                        <div class="fields">
+                            <div class="fields">
                             <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
                             <div class="form-group">
                                 <input type="text" id="keyword" name="keyword"
@@ -105,6 +105,7 @@
                                     </svg>
                                 </div>
                             </div>-->
+                            <br>
                             <div class="form-group">
                                 <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
                                 <br>
