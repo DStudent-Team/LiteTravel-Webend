@@ -51,6 +51,7 @@ public class FlightService {
     /* 提交 服务商对特定预约提供的服务 */
     @Transactional
     public void submitReserve(FlightReserveDTO reserveDTO) {
+        float total = 0;
         FlightReserve reserve = new FlightReserve();
         BeanUtils.copyProperties(reserveDTO, reserve);
         reserve.setSelected(false);
@@ -61,9 +62,13 @@ public class FlightService {
             FlightTicket flightTicket = new FlightTicket();
             BeanUtils.copyProperties(flightTicketDTO, flightTicket);
             flightTicket.setReserveId(reserveId);
+            total = total+flightTicket.getTicketPrice();
             flightTicketMapper.insert(flightTicket);
         }
-//        UpdateFlightStatus(reserve.getFlightId(), 1);
+        /*计算总价*/
+        reserve.setTotal(total);
+        flightReserveMapper.updateByPrimaryKeySelective(reserve);
+        UpdateFlightStatus(reserve.getFlightId(), 1);
     }
 
     /* 选中某一项服务商提供的服务 */
@@ -93,7 +98,7 @@ public class FlightService {
         UpdateFlightStatus(reserveDTO.getFlightId(), 3);
     }
     /* 修改flight的状态 */
-    private void UpdateFlightStatus(Integer flightId, Integer status){
+    public void UpdateFlightStatus(Integer flightId, Integer status){
         Flight flight = new Flight();
         flight.setFlightId(flightId);
         flight.setFlightStatus(status);

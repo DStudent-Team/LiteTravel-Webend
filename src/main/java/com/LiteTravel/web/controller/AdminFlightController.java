@@ -78,8 +78,9 @@ public class AdminFlightController {
     }
     /*删除提供的机票服务信息*/
     @PostMapping("/manage/deleteReserve")
-    public String deleteReserve(Integer reserveId, ModelMap map){
-        int id = flightService.deleteReserve(reserveId);
+    public String deleteReserve(FlightReserveDTO flightReserveDTO, ModelMap map){
+        int id = flightService.deleteReserve(flightReserveDTO.getReserveId());
+        flightService.UpdateFlightStatus(flightReserveDTO.getFlightId(),0);
         if (id == 1) {
             return "redirect:/manage/reserves";
         }else{

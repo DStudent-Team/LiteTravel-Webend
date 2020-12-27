@@ -2,9 +2,7 @@ package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.Model.*;
-import com.LiteTravel.web.mapper.UserAuthorityMapper;
-import com.LiteTravel.web.mapper.UserInfoMapper;
-import com.LiteTravel.web.mapper.UserMapper;
+import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +19,17 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     UserMapper userMapper;
+
     @Autowired
     UserInfoMapper userInfoMapper;
+
     @Autowired
     UserAuthorityMapper userAuthorityMapper;
+
+    @Autowired
+    UserAuthorityService userAuthorityService;
+
+
 
 
     public List<User> checkUserValid(String userCode, String userPassword){
@@ -139,6 +143,10 @@ public class UserService {
         user.setUserPassword(userManageDTO.getUserPassword());
         user.setUserState(1);
 
+        /*userAuthority*/
+        UserAuthority userAuthority = new UserAuthority();
+        userAuthority.setAuthorityLevel(userManageDTO.getAuthorityLevel());
+
 
         /*user_info*/
         UserInfo userInfo = new UserInfo();
@@ -154,18 +162,24 @@ public class UserService {
             insert(user);
             userInfo.setUserId(user.getUserId());
             insert(userInfo);
+            userAuthorityService.insertAuthority(user.getUserId(), userManageDTO.getAuthorityLevel());
+            /*根据权限等级设置相应的服务商*/
+            userAuthorityService.addCompany(user.getUserId(),userManageDTO);
             System.out.println("保存成功！"+user);
         }
         else if(tag.equals("update")){
             user.setUserId(userManageDTO.getUserId());
             userInfo.setUserId(userManageDTO.getUserId());
+            userAuthority.setUserId(userManageDTO.getUserId());
             userMapper.updateByPrimaryKeySelective(user);
             userInfoMapper.updateByPrimaryKeySelective(userInfo);
+            userAuthorityMapper.updateByPrimaryKeySelective(userAuthority);
+            /*根据权限等级设置相应的服务商*/
+            userAuthorityService.addCompany(user.getUserId(),userManageDTO);
             System.out.println("修改成功！"+user);
         }
     }
 
-    /*后台更新用户信息*/
 
     /*删除用户信息 包括账号信息和具体信息*/
     public int deleteUser(Integer userId){

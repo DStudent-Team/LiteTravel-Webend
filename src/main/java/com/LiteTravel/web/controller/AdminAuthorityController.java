@@ -20,14 +20,14 @@ public class AdminAuthorityController {
     @Resource
     UserAuthorityService userAuthorityService;
 
-    @GetMapping("/manage/authority")
-    public String getAuthorities(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
-        userAuthorityService.setAuthorityPage(page,6, model);
-        return "user/authority";
-    }
+//    @GetMapping("/manage/authority")
+//    public String getAuthorities(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
+//        userAuthorityService.setAuthorityPage(page,6, model);
+//        return "user/authority";
+//    }
 
     @PostMapping("/manage/authority/update")
-    public String updateAuthority(AuthorityDTO authorityDTO, Model model){
+    public String updateAuthority(AuthorityDTO authorityDTO, ModelMap model){
         int flag = userAuthorityService.updateAuthority(authorityDTO);
         if (flag == 1){
             model.addAttribute("message", "更新成功");
@@ -35,7 +35,7 @@ public class AdminAuthorityController {
         else{
             model.addAttribute("message", "更新失败");
         }
-        return "user/list";
+        return "redirect:/manage/users";
     }
 
 }

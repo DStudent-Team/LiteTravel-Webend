@@ -225,9 +225,15 @@ HotelService {
         //设置默认值
         hotel.setHotelImgUri("hotel-1.jpg");
         hotel.setHotelReplyCount(0);
-        int insert = 0;
-            insert = hotelMapper.insert(hotel);
-        System.out.println(insert);
+        int insert = hotelMapper.insert(hotel);
+        Integer hotelId = hotel.getHotelId();
+        HotelManager hotelManager = new HotelManager();
+        hotelManager.setHotelManagerId(hotelDTO.getUserId());
+        hotelManager.setHotelManagerName(hotelDTO.getUserName());
+        hotelManager.setHotelManagerPhone(hotelDTO.getHotelPhone());
+        System.out.println(hotelDTO.toString());
+        hotelManager.setHotelId(hotelId);
+        hotelManagerMapper.insert(hotelManager);
         return insert;
     }
 

@@ -65,7 +65,7 @@
                             <span th:case="'4'">行程结束</span>
                         </td>
                         <td>
-                            <a th:if="${flight.flightStatus == 0 && flight.isSelected = false}" class="btn btn-sm btn-info"
+                            <a th:if="${flight.flightStatus == 0 && flight.isSelected != true}" class="btn btn-sm btn-info"
                                data-toggle="modal" data-target="#reserveModal"
                                th:onclick="getFlightMessage(
                                [[${flight.flightId}]],
