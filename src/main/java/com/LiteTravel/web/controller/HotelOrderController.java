@@ -73,6 +73,14 @@ public class HotelOrderController {
             total += detail.getRoomCount() * detail.getRoomPrice();
         }
         hotelOrderInfoDTO.setTotal(total);
+
+        /* 更新时间段剩余房间数 */
+        List<Integer> roomRemaining = hotelService.getRemainRooms(checkInDate, checkOutDate, submitDTO.getHotelId(),
+                Collections.singletonList(submitDTO.getRoomId()));
+        for (int index = 0; index < roomRemaining.size(); index++) {
+            hotelOrderInfoDTO.getDetails().get(index).setRoomRemaining(roomRemaining.get(index));
+        }
+
         model.addAttribute("order", hotelOrderInfoDTO);
         return "hotel-order";
     }

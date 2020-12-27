@@ -60,7 +60,7 @@ function submitOrder() {
             //done
             console.log(response);
             alert("success");
-            window.location.href = "http://localhost:8080/order/" + response.data
+            window.location.href = "order/" + response.data
             return response
         },
         error: function (response) {
