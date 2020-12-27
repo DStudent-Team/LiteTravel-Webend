@@ -109,9 +109,13 @@ public class FlightService {
      * @param companyId 确认前端数据需要 服务商获取服务被选中信息.
      * @return
      */
-    public ResultVO getFlights(Integer page, Integer pageSize, Integer companyId) {
+    public ResultVO getFlights(Integer page, Integer pageSize, Integer companyId, Integer userId) {
+        // 只查询当前用户的飞机行程
+        FlightExample flightExample = new FlightExample();
+        flightExample.createCriteria().andUserIdEqualTo(userId);
         PageHelper.startPage(page, pageSize);
-        List<Flight> flights = flightMapper.selectByExample(new FlightExample());
+        List<Flight> flights = flightMapper.selectByExample(flightExample);
+
         PageInfo<Flight> info = new PageInfo<>(flights, 5);
         List<FlightDTO> data = flights.stream().map(flight -> {
             FlightDTO flightDTO = getFlightDTO(flight, false);

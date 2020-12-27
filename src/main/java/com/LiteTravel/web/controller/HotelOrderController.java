@@ -58,7 +58,8 @@ public class HotelOrderController {
         Date checkOutDate = dateFormat.parse(submitDTO.getCheckOut());
         hotelOrderInfoDTO.setCheckIn(checkInDate);
         hotelOrderInfoDTO.setCheckOut(checkOutDate);
-        Integer days = (int)((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));//计算时间
+        //计算时间
+        Integer days = (int)((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
         hotelOrderInfoDTO.setDays(days);
         /*总价需重新计算*/
         float total = 0;
@@ -72,8 +73,13 @@ public class HotelOrderController {
 
     @GetMapping("/orders")
     public String OrderList(@RequestParam(value = "page", defaultValue = "1")Integer page,
-                            ModelMap model){
-        setPageHotelOrder(page, model);
+                            ModelMap model, HttpSession session){
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null){
+            model.addAttribute("message", "找不到该用户");
+            return "redirect:/login";
+        }
+        setPageHotelOrder(page, model, user.getUserId());
         return "orders";
     }
 
@@ -87,9 +93,9 @@ public class HotelOrderController {
         return "orders";
     }
     /* 使用PageHelper获得并设置 分页数据 */
-    private void setPageHotelOrder(Integer page, ModelMap model){
+    private void setPageHotelOrder(Integer page, ModelMap model, Integer userId){
         /* 向service层分发请求处理 */
-        ResultVO resultVO = hotelOrderService.getOrders(page, 6);
+        ResultVO resultVO = hotelOrderService.getOrders(page, 6, userId);
         /* 分页信息类
          * 参数1：数据集合
          * 参数2：需要展示的最大导航页数*/

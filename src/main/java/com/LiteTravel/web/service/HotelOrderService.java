@@ -37,6 +37,11 @@ public class HotelOrderService {
     public ResultVO getOrders(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
+    public ResultVO getOrders(Integer page, Integer pageSize, Integer userId){
+        HotelOrderExample hotelOrderExample = new HotelOrderExample();
+        hotelOrderExample.createCriteria().andUserIdEqualTo(userId);
+        return selectByExample(page, pageSize, hotelOrderExample);
+    }
 
     public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO) {
         return selectByExample(page, pageSize, getHotelOrderExample(hotelOrderQueryDTO));
@@ -47,6 +52,7 @@ public class HotelOrderService {
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
         PageHelper.startPage(page, pageSize);
+
         List<HotelOrder> hotelOrders = hotelOrderMapper.selectByExample(hotelOrderExample);
         PageInfo<HotelOrder> info = new PageInfo<>(hotelOrders, 5);
         List<Integer> hotelIds = hotelOrders.stream().map(HotelOrder::getHotelId).distinct().collect(Collectors.toList());

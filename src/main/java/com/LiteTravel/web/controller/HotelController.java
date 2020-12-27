@@ -92,7 +92,7 @@ public class HotelController {
         model.addAttribute("hotels", result.data);
 
         //分页展示酒店评价信息
-        ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(hotelId, 1, 3);
+        ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(hotelId, 1, 10);
         model.addAttribute("orderComments", resultVO.data);
         return "hotel-single";
     }

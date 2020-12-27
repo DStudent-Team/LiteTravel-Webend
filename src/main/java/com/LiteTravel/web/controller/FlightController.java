@@ -76,11 +76,15 @@ public class FlightController {
 
 
     @GetMapping("flights")
-    public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model){
+    public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model, HttpSession session){
         //需要生成查询信息, 以保留查询状态
         //同样需要生成查询地址信息, 与预约填单之间分开
         //生成订单列表允许用户查看
-        ResultVO resultVO = flightService.getFlights(page, 6, 0);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        ResultVO resultVO = flightService.getFlights(page, 6, 0, user.getUserId());
         model.addAttribute("flights", resultVO.data);
         model.addAttribute("pageInfo", resultVO.info);
         return "flights";

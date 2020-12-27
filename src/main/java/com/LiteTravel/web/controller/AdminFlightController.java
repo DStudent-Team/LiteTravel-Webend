@@ -31,7 +31,11 @@ public class AdminFlightController {
 
     @GetMapping("/manage/flights")
     public String getFlights(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model, HttpSession session){
-        ResultVO result = flightService.getFlights(page, 10, ((UserDTO) session.getAttribute("user")).userId);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        ResultVO result = flightService.getFlights(page, 10,0, user.getUserId());
         model.addAttribute("flights", result.data);
         model.addAttribute("pageInfo", result.info);
         return "/flight/list";
