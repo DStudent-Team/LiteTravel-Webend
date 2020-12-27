@@ -56,10 +56,20 @@ public class FlightController {
     }
     /*支付模块*/
     @PostMapping("flight/pay/")
-    public String payFlight(FlightReserveDTO flightReserveDTO, ModelMap model){
+    public String payFlight(FlightReserveDTO flightReserveDTO, ModelMap model, HttpSession session){
         /* 转账 */
-
-//        model.addAttribute("tips","钱不够");
+        UserDTO userDTO = (UserDTO) session.getAttribute("user");
+        if (userDTO == null){
+            model.addAttribute("message", "请登录");
+            return "flights";
+        }
+        boolean flag = moneyService.transaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal());
+        if (flag){
+            model.addAttribute("message", "交易失败");
+            return "flights";
+        }else{
+            model.addAttribute("message", "交易成功");
+        }
         flightService.payFlight(flightReserveDTO);
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
     }
@@ -97,19 +107,6 @@ public class FlightController {
         FlightDTO flightDTO = flightService.getFlightById(flightId);
         model.addAttribute("flight", flightDTO);
         return "flight";
-    }
-
-    @PostMapping("/flight/transaction")
-    public String transaction(TransactionDTO transactionDTO, Model model){
-
-        boolean flag = moneyService.transaction(transactionDTO.getUserId(), transactionDTO.getAdminId(), transactionDTO.getMoney());
-        if (flag){
-            model.addAttribute("message", "交易失败");
-            return "flights";
-        }else{
-            model.addAttribute("message", "交易成功");
-            return "flights";
-        }
     }
 
 }

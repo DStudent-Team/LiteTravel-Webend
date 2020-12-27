@@ -12,16 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import javax.annotation.Resource;
 import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserAuthorityService {
-    @Autowired
+
+    @Resource
     UserAuthorityMapper authorityMapper;
 
-    /*获取用户权限列表*/
+    /**
+     *
+     * @param page
+     * @param pageSize
+     * @param model
+     */
     public void setAuthorityPage(Integer page, Integer pageSize, ModelMap model){
         ResultVO result = selectByExample(page, pageSize, new UserAuthorityExample());
         model.addAttribute("authorities", result.data);
@@ -40,10 +47,44 @@ public class UserAuthorityService {
         return new ResultVO(data, info);
     }
 
-//    public int updateAuthority(@PathParam("userId") Integer userId,
-//                               @PathParam("authorityLevel") Integer blogTitle,
-//                               @PathParam("hotelAuthority") Boolean blogContent,
-//                               @PathParam("flightAuthority") Boolean blogTags){
-//
-//    }
+
+    /**
+     * 可以更新所有权限
+     * @param authorityDTO authorityDTO
+     * @return int
+     */
+    public int updateAuthority(AuthorityDTO authorityDTO){
+        UserAuthority userAuthority = new UserAuthority();
+        BeanUtils.copyProperties(authorityDTO,userAuthority);
+        return authorityMapper.updateByPrimaryKeySelective(userAuthority);
+    }
+
+    /**
+     * 添加用户权限level
+     * @param userId userId
+     * @param authorityLevel level
+     * @return int
+     */
+    public int insertAuthority(Integer userId, Integer authorityLevel){
+        UserAuthority userAuthority = new UserAuthority();
+        userAuthority.setUserId(userId);
+        userAuthority.setAuthorityLevel(authorityLevel);
+        return authorityMapper.insertSelective(userAuthority);
+    }
+
+    /**
+     * 通过用户id查找权限
+     * @param userId userId
+     * @return int
+     */
+    public int findAuthorityLevelByUserId(Integer userId){
+        UserAuthority userAuthority = authorityMapper.selectByPrimaryKey(userId);
+        if (userAuthority == null){
+            return -1;
+        }
+        else{
+            return userAuthority.getAuthorityLevel();
+        }
+    }
+
 }

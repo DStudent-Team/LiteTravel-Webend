@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author xiaobai
+ */
 @Data
 public class FlightReserveDTO {
     Integer reserveId;
@@ -13,5 +16,8 @@ public class FlightReserveDTO {
     Integer companyId;
     String companyName;
     String service;
-    List<FlightTicketDTO> flightTickets;//所有预定到的机票数据
+    /**
+     * 所有预定到的机票数据
+     */
+    List<FlightTicketDTO> flightTickets;
 }

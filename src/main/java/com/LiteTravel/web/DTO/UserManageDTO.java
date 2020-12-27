@@ -16,4 +16,5 @@ public class UserManageDTO {
     private String userEmail;
     private String userAddressSpecific;
     private Integer userState;
+    private Integer authorityLevel;
 }

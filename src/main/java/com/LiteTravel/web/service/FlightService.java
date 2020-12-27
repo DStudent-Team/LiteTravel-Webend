@@ -88,7 +88,6 @@ public class FlightService {
         UpdateFlightStatus(reserveDTO.getFlightId(), 1);
     }
     public void payFlight(FlightReserveDTO reserveDTO) {
-        /* 将支付金额转入服务商账户 */
 
         /* 更新机票状态 */
         UpdateFlightStatus(reserveDTO.getFlightId(), 3);

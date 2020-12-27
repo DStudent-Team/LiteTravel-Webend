@@ -4,6 +4,7 @@ import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
+import com.LiteTravel.web.service.UserAuthorityService;
 import com.LiteTravel.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 @Controller
 public class LoginController {
-    @Autowired
+    @Resource
     UserService userService;
+
+    @Resource
+    private UserAuthorityService userAuthorityService;
 
     @PostMapping(value = "/login")
     public String login(@RequestParam("userCode") String userCode,
@@ -35,7 +40,9 @@ public class LoginController {
             userDTO.setUserId(userInfo.getUserId());
             userDTO.setUserName(userInfo.getUserName());
             userDTO.setUserAvatarUri(userInfo.getUserAvatarUri());
-
+            // 将权限添加到session中
+            session.setAttribute("authorityLevel",
+                    userAuthorityService.findAuthorityLevelByUserId(userInfo.getUserId()));
             session.setAttribute("user", userDTO);
 
             //需要重定向
@@ -76,6 +83,8 @@ public class LoginController {
         userinfo.setUserBirth(new Date());
         userinfo.setUserAvatarUri("avatar.jpg");
         userService.insert(userinfo);
+        // 普通用户添加权限0
+        userAuthorityService.insertAuthority(user.getUserId(), 0);
 //        自动跳转登陆
         if(userService.selectByCode(userCode).size() != 0) {
             login(userCode, userPassword, map, session);
