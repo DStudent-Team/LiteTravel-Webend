@@ -59,13 +59,13 @@ function submitOrder() {
         success: function (response) {
             //done
             console.log(response);
-            alert("success");
+            alert("订单创建成功！正在前往支付页面...");
             window.location.href = "order/" + response.data
             return response
         },
         error: function (response) {
             console.log(response);
-            alert("test:");
+            alert("订单创建失败，请重试！");
             return response
         },
     });

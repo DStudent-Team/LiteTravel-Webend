@@ -3,6 +3,7 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.Hotel;
+import com.LiteTravel.web.Model.Room;
 import com.LiteTravel.web.Model.OrderComment;
 import com.LiteTravel.web.Model.OrderCommentExample;
 import com.LiteTravel.web.Model.Room;
@@ -146,6 +147,7 @@ public class HotelController {
      */
     @DeleteMapping("/manage/hotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+
         hotelService.deleteHotel(hotelId);
         // 同时删除该商家的所有评论
         orderCommentService.deleteOrderCommentsByHotelId(hotelId);
