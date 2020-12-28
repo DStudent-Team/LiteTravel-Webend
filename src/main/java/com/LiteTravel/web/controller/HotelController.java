@@ -5,6 +5,7 @@ import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.Model.OrderComment;
 import com.LiteTravel.web.Model.OrderCommentExample;
+import com.LiteTravel.web.Model.Room;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -76,8 +78,9 @@ public class HotelController {
     @GetMapping("/hotel/{hotelId}")
     public String Hotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
         /* 获取酒店基本信息 */
-        HotelDTO hotel = hotelService.selectHotelById(hotelId, true);
-
+        Date startTime = new Date();
+        Date endTime = new Date(startTime.getTime() + 60 * 60 * 24 * 1000);
+        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, startTime, endTime);
         /* todo 获取酒店具体介绍数据 */
         /* done 获取房间块展示数据 */
         /* todo 获取房间可折叠展示块信息 */
@@ -147,6 +150,34 @@ public class HotelController {
         // 同时删除该商家的所有评论
         orderCommentService.deleteOrderCommentsByHotelId(hotelId);
         return "redirect:/manage/hotels";
+    }
+
+    @RequestMapping("/room")
+    public String Hotel(@RequestParam("hotelId") Integer hotelId,
+                        @RequestParam("startTime") Date startTime,
+                        @RequestParam("endTime") Date endTime, ModelMap model){
+        /* 获取酒店基本信息 */
+        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, startTime, endTime);
+
+
+        /* todo 获取酒店具体介绍数据 */
+        /* done 获取房间块展示数据 */
+        /* todo 获取房间可折叠展示块信息 */
+
+        ResultVO result = hotelService.getHotels(hotelId, 1, 3);
+        /* 设置酒店基本信息数据 */
+        model.addAttribute("hotel", hotel);
+        /* todo 设置酒店具体介绍数据 */
+        /* done 设置房间块展示数据 */
+        /* todo 设置房间可折叠展示块信息 */
+
+        /* 设置推荐酒店基本信息数据 */
+        /* todo 设计推荐算法 */
+        model.addAttribute("hotels", result.data);
+        model.addAttribute("startTime", startTime);
+        model.addAttribute("endTime", endTime);
+        System.out.println("成功");
+        return "hotel-single";
     }
 
 }

@@ -4,7 +4,9 @@ import com.LiteTravel.web.Model.Company;
 import com.LiteTravel.web.Model.CompanyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CompanyMapper {
     long countByExample(CompanyExample example);
 

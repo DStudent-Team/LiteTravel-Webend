@@ -70,7 +70,7 @@
                     <p id="total" th:text="${order.total} + '(入住' + ${order.days} + '天)'"></p></h5>
             </div>
             <div class="col-md-12">
-                <button type="button" onclick="submitOrder()">确认订单</button>
+                <input type="button" onclick="submitOrder()" class="btn btn-primary py-3 px-5" value="确认订单"/>
             </div>
         </div>
     </div>

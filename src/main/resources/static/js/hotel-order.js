@@ -60,12 +60,14 @@ function submitOrder() {
             //done
             console.log(response);
             alert("success");
+            window.location.href = "order/" + response.data
             return response
         },
         error: function (response) {
             console.log(response);
             alert("test:");
             return response
-        }
+        },
     });
+
 }

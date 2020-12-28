@@ -4,7 +4,9 @@ import com.LiteTravel.web.Model.BlogTagMap;
 import com.LiteTravel.web.Model.BlogTagMapExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BlogTagMapMapper {
     long countByExample(BlogTagMapExample example);
 
