@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Data
 public class OrderTransactionDTO {
+    private Integer orderId;
     private Integer userId;
     private Integer hotelId;
     private Float money;

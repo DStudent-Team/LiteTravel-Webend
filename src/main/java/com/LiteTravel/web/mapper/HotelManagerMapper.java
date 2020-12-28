@@ -10,7 +10,7 @@ public interface HotelManagerMapper {
 
     int deleteByExample(HotelManagerExample example);
 
-    int deleteByPrimaryKey(Integer hotelManagerId);
+    int deleteByPrimaryKey(Integer managerId);
 
     int insert(HotelManager record);
 
@@ -18,7 +18,7 @@ public interface HotelManagerMapper {
 
     List<HotelManager> selectByExample(HotelManagerExample example);
 
-    HotelManager selectByPrimaryKey(Integer hotelManagerId);
+    HotelManager selectByPrimaryKey(Integer managerId);
 
     int updateByExampleSelective(@Param("record") HotelManager record, @Param("example") HotelManagerExample example);
 

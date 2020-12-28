@@ -1,0 +1,68 @@
+<!-- 教程材料，绝对正确的网页素材 -->
+<!DOCTYPE html>
+<!--suppress ALL-->
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
+    <!--导航栏和按钮的样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
+
+
+</head>
+
+<body>
+<div th:replace="~{commons/bar::topbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar::sidebar(activeUri='transactions')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <!--博客后台不需要添加, 虽然多一个添加也完全没关系-->
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>账单ID</th>
+                        <th>用户ID</th>
+                        <th>公司ID</th>
+                        <th>交易金额</th>
+                        <th>交易时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="transaction:${transactions}">
+                        <td th:text="${transaction.transactionId}"></td>
+                        <td th:text="${transaction.buyerId}"></td>
+                        <td th:text="${transaction.sellerId}"></td>
+                        <td th:text="${transaction.money}"></td>
+                        <td th:text="${#dates.format(transaction.createTime, 'yyyy-MM-dd hh:mm')}">
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页展示:  个人信息页面导航栏  暂无样式-->
+            <div class="col-lg-9" th:replace="~{commons/navigation::navigationBar(redirect = '/manager/transactions')}"></div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<th:block th:replace="~{commons/includes/common_js::common_js}" />
+<script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
+
+</body>
+
+</html>

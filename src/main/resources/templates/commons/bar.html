@@ -39,7 +39,7 @@
         </div>
 
         <!--用户管理-->
-        <div tclass="nav flex-column">
+        <div th:if="${session.authorityLevel == 1}" class="nav flex-column">
             <span style="padding: 5px 16px;" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -51,7 +51,7 @@
             </span>
         </div>
         <!--用户管理子列表-->
-        <div id="collapseOne2" class="collapse show" aria-labelledby="headingOne2" data-parent="#accordionExample">
+        <div th:if="${session.authorityLevel == 1}" id="collapseOne2" class="collapse show" aria-labelledby="headingOne2" data-parent="#accordionExample">
                 <ul class="nav flex-column">
                     <li class="nav-item" style="padding: 0 6px;" >
                         <a href="#" th:href="@{/manage/users}"
@@ -63,8 +63,8 @@
                         </a>
                     </li>
                     <li class="nav-item" style="padding: 0 6px;" >
-                        <a class="nav-link active" href="#" th:href="@{/manage/transaction}"
-                           th:class="${activeUri=='transaction'?'nav-link active':'nav-link disable'}">
+                        <a class="nav-link active" href="#" th:href="@{/manage/transactions}"
+                           th:class="${activeUri=='transactions'?'nav-link active':'nav-link disable'}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
                                 <path fill-rule="evenodd" d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/>
@@ -79,22 +79,17 @@
         </div>
 
         <!--酒店管理-->
-        <div class="nav flex-column">
+        <div th:if="${session.authorityLevel == 3 || session.authorityLevel == 4}" class="nav flex-column">
             <span style="padding: 5px 16px;" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16" stroke="currentColor" stroke-width="0.5">
                     <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
                      <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
                 </svg>
                 <span style="font-size: 16px;font-weight: bold;">酒店管理</span>
-<!--                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">-->
-<!--                    <circle cx="12" cy="12" r="10"></circle>-->
-<!--                    <line x1="12" y1="8" x2="12" y2="16"></line>-->
-<!--                    <line x1="8" y1="12" x2="16" y2="12"></line>-->
-<!--                </svg>-->
             </span>
         </div>
         <!--酒店管理子列表-->
-        <div id="collapseOne3" class="collapse show" aria-labelledby="headingOne3" data-parent="#accordionExample"
+        <div th:if="${session.authorityLevel == 3 || session.authorityLevel == 4}" id="collapseOne3" class="collapse show" aria-labelledby="headingOne3" data-parent="#accordionExample"
              th:class="${activeUri=='hotels'||activeUri=='orders'?'collapse show':'collapse show'}">
             <ul class="nav flex-column">
                 <li class="nav-item" style="padding: 0 6px;" >
@@ -142,7 +137,7 @@
         </div>
         <div>
             <!--机票管理-->
-            <div class="nav flex-column">
+            <div th:if="${session.authorityLevel == 2 || session.authorityLevel == 4}" class="nav flex-column">
             <span style="padding: 5px 16px;" type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16" stroke="currentColor" stroke-width="1">
                     <path fill-rule="evenodd" d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
@@ -153,7 +148,7 @@
             <!--机票管理子列表-->
         </div>
         <!--机票管理子列表-->
-        <div id="collapseOne4" class="collapse show" aria-labelledby="headingOne4" data-parent="#accordionExample">
+        <div th:if="${session.authorityLevel == 2 || session.authorityLevel == 4}" id="collapseOne4" class="collapse show" aria-labelledby="headingOne4" data-parent="#accordionExample">
             <ul class="nav flex-column">
                 <li class="nav-item" style="padding: 0 6px;" >
                     <a href="#" th:href="@{/manage/flights}"
@@ -187,7 +182,7 @@
         </div>
 
         <!--博客管理-->
-        <div class="nav flex-column">
+        <div th:if="${session.authorityLevel == 1}" class="nav flex-column">
             <span style="padding: 5px 16px;" type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true" aria-controls="collapseOne5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16" stroke="currentColor" stroke-width="0.5">
                     <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.5a2 2 0 0 1 1.6.8L8 14.333 9.9 11.8a2 2 0 0 1 1.6-.8H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -197,7 +192,7 @@
             </span>
         </div>
         <!--博客管理子列表-->
-        <div id="collapseOne5" class="collapse show" aria-labelledby="headingOne5" data-parent="#accordionExample">
+        <div th:if="${session.authorityLevel == 1}" id="collapseOne5" class="collapse show" aria-labelledby="headingOne5" data-parent="#accordionExample">
             <ul class="nav flex-column">
                 <li class="nav-item" style="padding: 0 6px;" >
                     <a href="#" th:href="@{/manage/blogs}"
