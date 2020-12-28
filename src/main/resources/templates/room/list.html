@@ -14,63 +14,77 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
 
+    <!--导航栏和按钮的样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 
 <body>
 <div th:replace="~{commons/bar::topbar}"></div>
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="~{commons/bar::sidebar(activeUri='hotels')}"></div>
+        <div th:replace="~{commons/bar::sidebar(activeUri='rooms')}"></div>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <h2><a class="btn btn-sm btn-success" th:href="@{/manage/room}">添加房间</a></h2>
+            <h2>
+                <button type="button" id="add_new_site_bnt" class="btn btn-sm btn-success" style="margin: 0 0;"
+                        data-toggle="modal" data-target="#addRoomModal" th:onclick="clearRoom()">添加酒店信息</button>
+            </h2>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
-                    <!--todo 还没做内容-->
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>全名</th>
-                        <th>联系电话</th>
-                        <th>评分</th><!--包括评分和评价数--><!--点击跳转至评价面-->
-                        <th>地址</th>
-                        <th>详细地址</th>
-                        <th>拥有房间数</th>
+                        <th>roomId</th>
+                        <th>hotelId</th>
+                        <th>roomName</th>
+                        <th>roomPrice</th>
+                        <th>roomRemaining</th>
+                        <th>roomMax</th><!--包括评分和评价数--><!--点击跳转至评价面-->
+                        <th>roomBookMax</th>
+                        <th>roomCancel</th>
+                        <th>roomSize</th>
+                        <th>roomWifi</th>
+                        <th>roomBedAdd</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="hotel:${hotels}">
-                        <td th:text="${hotel.hotelId}"></td>
-                        <td th:text="${hotel.hotelName}"></td>
-                        <td th:text="${hotel.hotelPhone}"></td>
-                        <td>
-                            <p class="rate">
-                                <!-- 评分星星展示 -->
-                                <i class="icon-star"
-                                   th:if="${hotel.hotelReplyLevel}>0"
-                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
-                                </i><i class="icon-star-o"
-                                       th:if="${hotel.hotelReplyLevel}<10"
-                                       th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
-                            </i>
-                                <span>[[${hotel.hotelReplyCount}]] Rating</span>
-                            </p>
-                        </td>
-                        <td th:text="${hotel.hotelAddressString}"></td>
-                        <td th:text="${hotel.hotelAddressSpecific}"></td>
-                        <td>
-                            (暂无数据)
-                            <!--尚未传址-->
-                            <!--										<a class="btn btn-block" th:href="@{'/manage/room/' + ${hotel.hotelId}}" th:text="${hotel.roomCount}"></a>-->
-                        </td>
-                        <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${hotel.hotelId}}">修改</a>
-                            <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post">
+                    <tr th:each="room:${rooms}">
+                        <td th:text="${room.roomId}"></td>
+                        <td th:text="${room.hotelId}"></td>
+                        <td th:text="${room.roomName}"></td>
+                        <td th:text="${room.roomPrice}"></td>
+                        <td th:text="${room.roomRemaining}"></td>
+                        <td th:text="${room.roomMax}"></td>
+                        <td th:text="${room.roomBookMax}"></td>
+                        <td th:text="${room.roomCancel}"></td>
+                        <td th:text="${room.roomSize}"></td>
+                        <td th:text="${room.roomWifi}"></td>
+                        <td th:text="${room.roomBedAdd}"></td>
+                        <td class="form-inline">
+                            <button type="submit" id="add_new_site_bnt" class="btn btn-sm btn-primary"
+                                    th:onclick="editRoom(
+                                        [[${room.roomId}]],
+                                        [[${room.roomName}]],
+                                        [[${room.roomPrice}]],
+                                        [[${room.roomRemaining}]],
+                                        [[${room.roomMax}]],
+                                        [[${room.roomBookMax}]],
+                                        [[${room.roomCancel}]],
+                                        [[${room.roomSize}]],
+                                        [[${room.roomWifi}]],
+                                        [[${room.roomBedAdd}]],
+                                        [[${room.roomDescription}]]
+                                        )"
+                                    data-toggle="modal" data-target="#addRoomModal">修改</button>
+
+                            <form th:action="@{'/manage/room/' + ${room.roomId}}" method="post" style="margin-left: 5px">
                                 <input name="_method" type="hidden" value="delete"/>
                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>
                             </form>
+                            <button type="submit" class="btn btn-sm btn-info" style="margin-left: 5px"
+                                    data-toggle="modal" data-target="#roomBedModal"
+                                    th:onclick="transferRoomId([[${room.roomId}]])">床位</button>
                         </td>
                     </tr>
                     </tbody>
@@ -80,13 +94,20 @@
     </div>
 </div>
 
+<!--酒店房间编辑模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::addRoomModal}"></div>
+<!--房间床位编辑模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::roomBedModal}"></div>
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
+<!--自定义js-->
+<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 
 </body>
 

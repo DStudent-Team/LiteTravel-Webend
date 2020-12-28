@@ -3,20 +3,23 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.Hotel;
+import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class HotelController {
 
     @Autowired
     public HotelService hotelService;
+
+    /*-----------------------------------------------------------------*/
 
     /* 点击页面数切换 分页显示酒店列表 */
     @GetMapping("/hotels")
@@ -28,9 +31,9 @@ public class HotelController {
     private void setPageHotel(Integer page, ModelMap model){
         /* 向service层分发请求处理 */
         ResultVO  resultVO = hotelService.getHotels(page, 6);
-         /* 分页信息类
-        * 参数1：数据集合
-        * 参数2：需要展示的最大导航页数*/
+        /* 分页信息类
+         * 参数1：数据集合
+         * 参数2：需要展示的最大导航页数*/
         /* 设置筛选页面的筛选项目为Hotel */
 //        model.addAttribute("category", "hotel");
         /* 放入数据 */
@@ -88,49 +91,35 @@ public class HotelController {
         return "hotel-single";
     }
 
+    /*酒店后台页面数据获取*/
     @GetMapping("/manage/hotels")
     public String MangeHotelList(ModelMap model){
         setPageHotel(1, model);
         return "hotel/list";
     }
 
-    /**
-     * 酒店增删改方法
-     * @param hotelDTO
-     */
-    @PostMapping("/manage/hotel")
-    public String insertOrUpdateHotel(HotelDTO hotelDTO){
-        //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
-        int i = hotelService.checkHotelId(hotelDTO);
-        if(i == 0){
+    /*-----------------------------------------------------------------*/
 
-            /*插入酒店信息,checkHotelByName()是查询是否存在此酒店，存在则不能插入*/
-            List<Hotel> hotel = hotelService.checkHotelByName(hotelDTO);
-            if(hotel.size() > 0){
-                //数据库中存在酒店，不可添加
-                System.out.println("酒店已存在！");
-            }
-            else{
-                hotelService.insertHotel(hotelDTO);
-            }
-        }
-        else{
-
-            /*更新酒店信息*/
-            int result = hotelService.updateHotel(hotelDTO);
-            if(result == 0){
-                System.out.println("修改失败");
-            }
-        }
-        return "redirect:/manage/hotels";
+    /*酒店后台房间管理根据管理员id信息获取数据*/
+    @GetMapping("manage/rooms")
+    public String blogList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model,
+        HttpSession session){
+        /*获取session对象*/
+        UserDTO userDTO = (UserDTO) session.getAttribute("user");
+        /*通过session获取管理员id，从而得到他管理的酒店id*/
+        ResultVO result = hotelService.getAllRooms(page, 6,userDTO.userId);
+        List<Integer> hotelIds = hotelService.getHotelByManagerId(userDTO.userId);
+        session.setAttribute("hotelList", hotelIds);
+        model.addAttribute("rooms",result.data);
+        model.addAttribute("pageInfo", result.info);
+        return "room/list";
     }
 
-    //delete
-    @DeleteMapping("/manage/hotel/{hotelId}")
-    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+    /*-----------------------------------------------------------------*/
 
-        hotelService.deleteHotel(hotelId);
-        return "redirect:/manage/hotels";
-    }
+    /*床位数据获取*/
+
+
+    /*-----------------------------------------------------------------*/
 
 }
