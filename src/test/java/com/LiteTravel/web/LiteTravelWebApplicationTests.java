@@ -2,6 +2,7 @@ package com.LiteTravel.web;
 
 import com.LiteTravel.web.DTO.HotelOrder.OrderCommentDTO;
 import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.Model.HotelOrder;
 import com.LiteTravel.web.service.FlightService;
 import com.LiteTravel.web.service.HotelOrderService;
@@ -17,14 +18,17 @@ import java.util.Arrays;
 @SpringBootTest
 class LiteTravelWebApplicationTests {
 
-    @Resource
-    private OrderCommentService orderCommentService;
+//    @Resource
+//    private OrderCommentService orderCommentService;
+//
+//    @Resource
+//    private FlightService flightService;
+//
+//    @Resource
+//    private HotelOrderService hotelOrderService;
 
     @Resource
-    private FlightService flightService;
-
-    @Resource
-    private HotelOrderService hotelOrderService;
+    private HotelService hotelService;
 
     @Test
     void contextLoads() {
@@ -42,7 +46,8 @@ class LiteTravelWebApplicationTests {
 //        System.out.println(resultVO.data);
 //        ResultVO resultVO = flightService.getFlights(1, 12, 6);
 
-        System.out.println(hotelOrderService.updateHotelOrder(9));
+//        System.out.println(hotelOrderService.updateHotelOrder(9));
+        System.out.println(hotelService.findManagerIdByHotelId(3));
     }
 
 

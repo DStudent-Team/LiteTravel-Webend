@@ -6,6 +6,7 @@ import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.service.UserAuthorityService;
 import com.LiteTravel.web.service.UserService;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +69,9 @@ public class LoginController {
          * 重账号用js直接Post请求完成
          * */
 //        设置筛选条件 : userCode
-        if(userService.selectByCode(userCode).size() != 0)
+        if(userService.selectByCode(userCode).size() != 0) {
             return "redirect:/toRegister";
+        }
         User user = new User();
 //        写入账号密码
         user.setUserCode(userCode);
@@ -124,15 +128,21 @@ public class LoginController {
 
     @ResponseBody
     @PostMapping(value = "/checkPassword")
-    public ResponseDTO checkPassword(@RequestParam("userPassword") String userPassword, HttpSession session){
+    public ResponseDTO checkPassword(@RequestBody String userPassword, HttpSession session) throws IOException {
         UserDTO user = (UserDTO) session.getAttribute("user");
         Integer userId = user.getUserId();
+        System.out.println(userId);
+        System.out.println(userPassword);
+        String[] password = userPassword.split("\"");
+        userPassword = password[password.length - 2];
         List<User> users = userService.checkPasswordValid(userId, userPassword);
+        System.out.println(users.size());
         if (userPassword != null && users.size() > 0){
             return ResponseDTO.successOf();
         }
         else{
             return ResponseDTO.errorOf(2003, "输入密码有误! 请重新输入!");
         }
+
     }
 }

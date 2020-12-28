@@ -2,12 +2,7 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
-import com.LiteTravel.web.Model.Hotel;
-import com.LiteTravel.web.Model.Room;
-import com.LiteTravel.web.Model.OrderComment;
-import com.LiteTravel.web.Model.OrderCommentExample;
-import com.LiteTravel.web.Model.Room;
-import com.LiteTravel.web.Model.User;
+
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +144,7 @@ public class HotelController {
         return "redirect:/manage/hotels";
     }
 
-    @RequestMapping("/room")
+    @GetMapping("/room")
     public String Hotel(@RequestParam("hotelId") Integer hotelId,
                         @RequestParam("startTime") Date startTime,
                         @RequestParam("endTime") Date endTime, ModelMap model){

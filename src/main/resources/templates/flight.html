@@ -76,7 +76,7 @@
                                 <input id="total" name="total" type="hidden" th:value="${reserve.total}">
                                 <input id="userMoney" type="hidden" th:value="${userMoney}">
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-small btn-primary py-3 px-5"  onclick="checkPay()" value="支付"/>
+                                    <input type="submit" class="btn btn-small btn-primary py-3 px-5"  value="支付"/>
                                     <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
                                 </div>
                             </form>
@@ -175,7 +175,8 @@
                 if (response.code === 200) {
                     //密码正确
                     //弹出回复成功浮动框消息(数秒后自动消失)
-                    alert("密码正确");
+                    // alert("密码正确");
+                    checkPay();
                     return true;
                 } else {
                     alert(response.message);
@@ -190,6 +191,17 @@
                 return false;
             }
         });
+    }
+
+    function checkPay(){
+        const userMoney = parseFloat($('#userMoney').val());
+        const money = parseFloat($('#money').val());
+        const userId = $('#userId').val();
+        if(userMoney < money){
+            alert("余额不足, 请充值！");
+            window.location.href = "user/" + userId;
+        }
+
     }
 
     function chooseReserve() {

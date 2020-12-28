@@ -32,13 +32,3 @@
 //     });
 // }
 
-function checkPay(){
-    const userMoney = parseFloat($('#userMoney').val());
-    const money = parseFloat($('#money').val());
-    const userId = $('#userId').val();
-    if(userMoney < money){
-        alert("余额不足, 请充值！");
-        windows.location.href("/user/"+userId);
-    }
-
-}

@@ -282,7 +282,10 @@ HotelService {
         hotelManager.setHotelManagerPhone(hotelDTO.getHotelPhone());
         System.out.println(hotelDTO.toString());
         hotelManager.setHotelId(hotelId);
-        hotelManagerMapper.insert(hotelManager);
+        HotelManager hotelManager1 = hotelManagerMapper.selectByPrimaryKey(hotelDTO.getUserId());
+        if(hotelManager1 == null){
+            hotelManagerMapper.insert(hotelManager);
+        }
         return insert;
     }
 

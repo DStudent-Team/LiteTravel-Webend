@@ -49,13 +49,13 @@ public class AdminHotelController {
         return "redirect:/manage/hotels";
     }
 
-    //delete
-    @DeleteMapping("/manage/hotel/{hotelId}")
-    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
-
-        hotelService.deleteHotel(hotelId);
-        return "redirect:/manage/hotels";
-    }
+//    //delete
+//    @DeleteMapping("/manage/hotel/{hotelId}")
+//    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+//
+//        hotelService.deleteHotel(hotelId);
+//        return "redirect:/manage/hotels";
+//    }
 
     /*-----------------------------------------------------------------------------*/
     /*酒店房间增删改*/

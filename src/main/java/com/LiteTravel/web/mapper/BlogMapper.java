@@ -4,9 +4,7 @@ import com.LiteTravel.web.Model.Blog;
 import com.LiteTravel.web.Model.BlogExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface BlogMapper {
     long countByExample(BlogExample example);
 

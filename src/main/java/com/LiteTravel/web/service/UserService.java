@@ -41,6 +41,8 @@ public class UserService {
         return userMapper.selectByExample(userExample);
     }
     public List<User> checkPasswordValid(Integer userId, String userPassword){
+        System.out.println("用户Id" + userId);
+        System.out.println("用户密码" + userPassword);
         UserExample userExample = new UserExample();
         userExample.createCriteria()
                 .andUserIdEqualTo(userId)

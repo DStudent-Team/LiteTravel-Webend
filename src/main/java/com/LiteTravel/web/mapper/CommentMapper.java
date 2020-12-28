@@ -4,9 +4,7 @@ import com.LiteTravel.web.Model.Comment;
 import com.LiteTravel.web.Model.CommentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface CommentMapper {
     long countByExample(CommentExample example);
 

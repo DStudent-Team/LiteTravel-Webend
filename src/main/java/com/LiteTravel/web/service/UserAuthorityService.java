@@ -73,8 +73,10 @@ public class UserAuthorityService {
         userManageDTO.setUserName(authorityDTO.getUserName());
         userManageDTO.setAuthorityLevel(authorityDTO.getAuthorityLevel());
         userManageDTO.setUserPhone(authorityDTO.getUserPhone());
-        addCompany(authorityDTO.getUserId(), userManageDTO);
-
+        Company company = companyMapper.selectByPrimaryKey(authorityDTO.getUserId());
+        if(company == null){
+            addCompany(authorityDTO.getUserId(), userManageDTO);
+        }
         return authorityMapper.updateByPrimaryKeySelective(userAuthority);
     }
 

@@ -160,7 +160,6 @@ public class HotelOrderController {
 
     @PostMapping("/order/pay")
     public String transaction(OrderTransactionDTO orderTransactionDTO, Model model){
-
         //通过hotelId找到managerId
         Integer managerId = hotelService.findManagerIdByHotelId(orderTransactionDTO.getHotelId());
         if (managerId == -1){
@@ -170,11 +169,11 @@ public class HotelOrderController {
             boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
             if (!flag){
                 model.addAttribute("message", "交易失败");
-                return "redirect:/orders";
+                return "redirect:/order/" + orderTransactionDTO.getOrderId();
             }else{
                 hotelOrderService.updateHotelOrder(orderTransactionDTO.getOrderId());
                 model.addAttribute("message", "交易成功");
-                return "redirect:/orders";
+                return "redirect:/order/" + orderTransactionDTO.getOrderId();
             }
         }
     }

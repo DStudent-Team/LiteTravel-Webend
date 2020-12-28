@@ -323,10 +323,6 @@ function clearHotel (userId, userName){
     $('#hotelDescription').val('');
 }
 
-//检测输入的酒店数据是否合法
-function checkHotelData() {
-
-}
 
 //用户订单评价模态框赋值
 function setOrderComment(userId, hotelId, orderId){

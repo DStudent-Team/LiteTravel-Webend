@@ -3,12 +3,15 @@ package com.LiteTravel.web.service.Utils;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Transaction;
 import com.LiteTravel.web.Model.TransactionExample;
+import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserMoney;
 import com.LiteTravel.web.mapper.TransactionMapper;
+import com.LiteTravel.web.mapper.UserMapper;
 import com.LiteTravel.web.mapper.UserMoneyMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import sun.security.util.Password;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -32,6 +35,9 @@ public class MoneyService {
 
     @Resource
     private TransactionMapper transactionMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 通过userId查找钱
@@ -134,5 +140,16 @@ public class MoneyService {
         List<Transaction> transactions = transactionMapper.selectByExample(new TransactionExample());
         PageInfo<Transaction> pageInfo = new PageInfo<>(transactions, 5);
         return new ResultVO(transactions, pageInfo);
+    }
+
+    public int checkPassword(String userPassword, Integer userId){
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(!userPassword.equals(user.getUserPassword())){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+
     }
 }

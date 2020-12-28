@@ -68,7 +68,7 @@
 <!--                                  placeholder="Note"></textarea>-->
 <!--                    </div>-->
                     <div class="form-group">
-                        <button type="submit" onclick="checkPay()" class="btn btn-primary py-3 px-5">支付</button>
+                        <button type="submit" class="btn btn-primary py-3 px-5">支付</button>
 <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
                         <button type="button" class="btn btn-secondary py-3 px-5" th:href="@{'/order/cancel/' + ${order.orderId}}">取消</button>
                     </div>
@@ -96,6 +96,55 @@
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <!--加入订单支付脚本数据-->
 <script th:src="@{/js/hotel-pay.js}"></script>
+<script>
+    function checkPassword() {
+        const password = prompt("输入支付密码:");
+        if(password == null){
+            return false;
+        }
+        let checkTimes = 0;
+        return $.ajax({
+            async: false,
+            type: "POST",
+            url: "/checkPassword",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "userPassword": password,
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    //密码正确
+                    //弹出回复成功浮动框消息(数秒后自动消失)
+                    // alert("密码正确");
+                    checkPay();
+                    return true;
+                } else {
+                    alert(response.message);
+                    checkTimes += 1;
+                    if (checkTimes >= 3) {
+                        alert("输入超过三次错误, 请确认个人密码再次尝试");
+                        window.location.reload();
+                        return false;
+                    }
+                    checkPassword();
+                }
+            }, error: function () {
+                return false;
+            }
+        });
+    }
 
+    function checkPay(){
+        const userMoney = parseFloat($('#userMoney').val());
+        const money = parseFloat($('#total').val());
+        const userId = $('#userId').val();
+        if(userMoney < money){
+            alert("余额不足, 请充值！");
+            window.location.href = "user/" + userId;
+        }
+
+    }
+</script>
 </body>
 </html>
