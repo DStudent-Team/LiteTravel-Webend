@@ -35,10 +35,22 @@ public class AdminFlightController {
         if (user == null){
             return "redirect:/login";
         }
-        ResultVO result = flightService.getFlights(page, 10,0, user.getUserId());
+        ResultVO result = flightService.getFlights(page, 10, user.getUserId());
         model.addAttribute("flights", result.data);
         model.addAttribute("pageInfo", result.info);
         return "/flight/list";
+    }
+
+    @GetMapping("/manage/company/flights")
+    public String getReserveFlights(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model, HttpSession session){
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        ResultVO result = flightService.getReserveFlights(page, 10, user.getUserId());
+        model.addAttribute("flights", result.data);
+        model.addAttribute("pageInfo", result.info);
+        return "/flight/reserve-list";
     }
 
     @PostMapping("/manage/reserve")
@@ -48,21 +60,27 @@ public class AdminFlightController {
         return ResponseDTO.successOf();
     }
     
-    /* 获取所有提供的服务 */
-    @GetMapping("/manage/reserves")
-    public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
-        ResultVO result = flightService.getReserves(page, 10, new FlightReserveDTO());
-        model.addAttribute("reserves", result.data);
-        model.addAttribute("pageInfo", result.info);
-        return "/flight/reserves";
-    }
+//    /* 获取所有提供的服务 */
+//    @GetMapping("/manage/reserves")
+//    public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
+//        ResultVO result = flightService.getReserves(page, 10, new FlightReserveDTO());
+//        model.addAttribute("reserves", result.data);
+//        model.addAttribute("pageInfo", result.info);
+//        return "/flight/reserves";
+//    }
     /* 获取特定的服务*/
-    @PostMapping("/manage/reserves")
-    public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, FlightReserveDTO flightReserveDTO, ModelMap model){
+    @GetMapping("/manage/reserves")
+    public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, HttpSession session, ModelMap model){
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null){
+            return "redirect:/login";
+        }
+        FlightReserveDTO flightReserveDTO = new FlightReserveDTO();
+        flightReserveDTO.setCompanyId(user.getUserId());
         ResultVO result = flightService.getReserves(page, 10, flightReserveDTO);
         model.addAttribute("reserves", result.data);
         model.addAttribute("pageInfo", result.info);
-        return "/manage/reserves";
+        return "/flight/reserves";
     }
     /* 删除飞机行程信息*/
     @PostMapping("manage/deleteFlight")

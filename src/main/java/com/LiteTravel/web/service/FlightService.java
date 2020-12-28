@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -105,7 +102,81 @@ public class FlightService {
         flightMapper.updateByPrimaryKeySelective(flight);
     }
 
-
+    /**
+     * 获取当前商家可以提供服务的行程
+     * @param page pageNum
+     * @param pageSize pageSize
+     * @param companyId companyId
+     * @return ResultVo
+     */
+    public ResultVO getFlights(Integer page, Integer pageSize, Integer companyId) {
+        // 查找非status=2的行程
+        FlightExample flightExample = new FlightExample();
+        flightExample.createCriteria().andFlightStatusNotEqualTo(2);
+        PageHelper.startPage(page, pageSize);
+        List<Flight> flights = flightMapper.selectByExample(flightExample);
+        PageInfo<Flight> info = new PageInfo<>(flights, 5);
+        // 通过companyId查看所有的服务
+        FlightReserveExample flightReserveExample = new FlightReserveExample();
+        flightReserveExample.createCriteria().andCompanyIdEqualTo(companyId);
+        List<FlightReserve> flightReserves = flightReserveMapper.selectByExample(flightReserveExample);
+        // 整合DTO
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (FlightReserve flightReserve : flightReserves){
+            arrayList.add(flightReserve.getFlightId());
+        }
+        // 查看所有的行程
+        List<FlightDTO> flightDTOS = new ArrayList<>();
+        for (Flight flight : flights){
+            if (!arrayList.contains(flight.getFlightId())){
+                FlightDTO flightDTO = new FlightDTO();
+                BeanUtils.copyProperties(flight, flightDTO);
+                //设置
+                Region fromRegion = regionMapper.selectByPrimaryKey(flight.getFlightFrom());
+                flightDTO.setFlightFromString(fromRegion.getName());
+                Region toRegion = regionMapper.selectByPrimaryKey(flight.getFlightTo());
+                flightDTO.setFlightFromString(toRegion.getName());
+                flightDTOS.add(flightDTO);
+            }
+        }
+        return new ResultVO(flightDTOS, info);
+    }
+    /**
+     * 获取当前商家可以提供服务的行程
+     * @param page pageNum
+     * @param pageSize pageSize
+     * @param companyId companyId
+     * @return ResultVo
+     */
+    public ResultVO getReserveFlights(Integer page, Integer pageSize, Integer companyId) {
+        PageHelper.startPage(page, pageSize);
+        List<Flight> flights = flightMapper.selectByExample(new FlightExample());
+        PageInfo<Flight> info = new PageInfo<>(flights, 1);
+        // 通过companyId查看所有的服务
+        FlightReserveExample flightReserveExample = new FlightReserveExample();
+        flightReserveExample.createCriteria().andCompanyIdEqualTo(companyId);
+        List<FlightReserve> flightReserves = flightReserveMapper.selectByExample(flightReserveExample);
+        // 整合DTO
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (FlightReserve flightReserve : flightReserves){
+            arrayList.add(flightReserve.getFlightId());
+        }
+        // 查看所有的行程
+        List<FlightDTO> flightDTOS = new ArrayList<>();
+        for (Flight flight : flights){
+            if (arrayList.contains(flight.getFlightId())){
+                FlightDTO flightDTO = new FlightDTO();
+                BeanUtils.copyProperties(flight, flightDTO);
+                //设置
+                Region fromRegion = regionMapper.selectByPrimaryKey(flight.getFlightFrom());
+                flightDTO.setFlightFromString(fromRegion.getName());
+                Region toRegion = regionMapper.selectByPrimaryKey(flight.getFlightTo());
+                flightDTO.setFlightFromString(toRegion.getName());
+                flightDTOS.add(flightDTO);
+            }
+        }
+        return new ResultVO(flightDTOS, info);
+    }
 
     /***
      *
