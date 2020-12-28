@@ -440,8 +440,8 @@
                                 <input type="text" class="col-sm-8" id="hotelMinPrice" name="hotelMinPrice" placeholder="请输入最低价格（必填）">
                             </div>
                             <!--hotelManagerId-->
-                            <input type="hidden" class="col-sm-8" id="hotelManagerId" name="userId">
-                            <input type="hidden" class="col-sm-8" id="hotelManagerIdTrue" name="hotelManagerId">
+                            <input type="text" class="col-sm-8" id="hotelManagerId" name="userId">
+                            <input type="text" class="col-sm-8" id="hotelManagerIdTrue" name="hotelManagerId">
                             <!--hotelManagerName-->
                             <input type="hidden" class="col-sm-8" id="hotelManagerName" name="userName">
                             <!--hotelPhone-->
@@ -610,83 +610,6 @@
     </form>
 </section>
 
-<!--酒店插入更新模态框-->
-<section class="ftco-section-parallax" th:fragment="addHotelModal">
-    <form method="post" th:action="@{/manage/hotel}" class="form-horizontal" role="form" id="hotel_data" style="margin:20px;">
-        <input  id="putMe" name="_method" type="hidden" value="PUT" disabled>
-        <div class="modal fade" id="addHotelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" >
-                <div class="modal-content" style="width: 160%;padding: 0 20%;">
-
-                    <div class="modal-header">
-                        <h4 class="modal-title">酒店信息</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form class="form-horizontal" role="form" method="post">
-                            <!--hotelId-->
-                            <div class="form-group">
-                                <div class="col-sm-8">
-                                    <input type="hidden" class="form-control" id="hotelId" name="hotelId">
-                                </div>
-                            </div>
-                            <!--hotelName-->
-                            <div class="form-group form-inline">
-                                <label for="hotelName" class="col-sm-3 control-label">酒店名称</label>
-                                <input type="text" class="col-sm-8" id="hotelName" name="hotelName" placeholder="请输入酒店名称（必填）" >
-                            </div>
-                            <!--hotelMinPrice-->
-                            <div class="form-group form-inline">
-                                <label for="hotelMinPrice" class="col-sm-3 control-label">最低价格</label>
-                                <input type="text" class="col-sm-8" id="hotelMinPrice" name="hotelMinPrice" placeholder="请输入最低价格（必填）">
-                            </div>
-                            <!--hotelManagerId-->
-                            <div class="form-group form-inline">
-                                <label for="hotelManagerId" class="col-sm-3 control-label">经理编号</label>
-                                <input type="text" class="col-sm-8" id="hotelManagerId" name="hotelManagerId" placeholder="请输入经理编号（必填）">
-                            </div>
-                            <!--hotelPhone-->
-                            <div class="form-group form-inline">
-                                <label for="hotelPhone" class="col-sm-3 control-label">酒店电话</label>
-                                <input type="text" class="col-sm-8" id="hotelPhone" name="hotelPhone" placeholder="请输入酒店电话（必填）">
-                            </div>
-                            <!--hotelReplyLevel-->
-                            <div class="form-group form-inline">
-                                <label for="hotelReplyLevel" class="col-sm-3 control-label">酒店星级</label>
-                                <input type="text" class="col-sm-8" id="hotelReplyLevel" name="hotelReplyLevel" placeholder="请输入酒店星级（必填）">
-                            </div>
-                            <!--hotelAddress-->
-                            <div class="form-group form-inline">
-                                <label for="hotelAddress" class="col-sm-3 control-label">地址编码</label>
-                                <input type="text" class="col-sm-8" id="hotelAddress" name="hotelAddress" placeholder="请输入酒店地址（必填）">
-                            </div>
-                            <!--hotelAddressSpecific-->
-                            <div class="form-group form-inline">
-                                <label for="hotelAddressSpecific" class="col-sm-3 control-label">地址详情</label>
-                                <input type="text" class="col-sm-8" id="hotelAddressSpecific" name="hotelAddressSpecific" placeholder="详细地址（默认）">
-                            </div>
-                            <!--hotelDescription-->
-                            <div class="form-group form-inline">
-                                <label for="hotelDescription" class="col-sm-3 control-label">酒店描述</label>
-                                <input type="textarea" class="col-sm-8" id="hotelDescription" name="hotelDescription" placeholder="请输入酒店描述（选填）">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-default" onclick="clearHotel()">清空</button>
-                        <button type="submit" class="btn btn-primary">提交</button>
-                        <spam id="tip"></spam>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</section>
 
 <!--酒店房间插入更新模态框-->
 <section class="ftco-section-parallax" th:fragment="addRoomModal">
