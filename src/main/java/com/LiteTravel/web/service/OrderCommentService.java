@@ -59,6 +59,17 @@ public class OrderCommentService {
     }
 
     /**
+     * 根据商家的id删除所有评价
+     * @param hotelId 商家id
+     * @return int
+     */
+    public int deleteOrderCommentsByHotelId(Integer hotelId){
+        OrderCommentExample orderCommentExample = new OrderCommentExample();
+        orderCommentExample.createCriteria().andHotelIdEqualTo(hotelId);
+        return orderCommentMapper.deleteByExample(orderCommentExample);
+    }
+
+    /**
      * 将List<OrderComment> orderComments转为 List<DisplayOrderCommentDTO>
      * @param orderComments List<OrderComment> orderComments
      * @return List<DisplayOrderCommentDTO>
