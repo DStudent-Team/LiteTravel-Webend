@@ -2,6 +2,7 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.HotelDTO;
 import com.LiteTravel.web.DTO.RoomDTO;
+import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -23,7 +25,8 @@ public class AdminHotelController {
     /*-----------------------------------------------------------------------------*/
     /*酒店增删改方法*/
     @PostMapping("/manage/hotel")
-    public String insertOrUpdateHotel(HotelDTO hotelDTO){
+    public String insertOrUpdateHotel(HotelDTO hotelDTO, HttpSession session){
+
         //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
         int i = hotelService.checkHotelId(hotelDTO);
         if(i == 0){
@@ -35,11 +38,14 @@ public class AdminHotelController {
                 System.out.println("酒店已存在！");
             }
             else{
+                UserDTO user = (UserDTO) session.getAttribute("user");
+                hotelDTO.setHotelManagerId(user.userId);
+                hotelDTO.setUserName(user.userName);
+                System.out.println("你妹的："+user.userId);
                 hotelService.insertHotel(hotelDTO);
             }
         }
         else{
-
             /*更新酒店信息*/
             int result = hotelService.updateHotel(hotelDTO);
             if(result == 0){

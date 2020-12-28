@@ -30,6 +30,8 @@ class LiteTravelWebApplicationTests {
     @Resource
     private HotelService hotelService;
 
+
+
     @Test
     void contextLoads() {
 //        OrderCommentDTO orderCommentDTO = new OrderCommentDTO();
@@ -47,8 +49,10 @@ class LiteTravelWebApplicationTests {
 //        ResultVO resultVO = flightService.getFlights(1, 12, 6);
 
 //        System.out.println(hotelOrderService.updateHotelOrder(9));
-        System.out.println(hotelService.findManagerIdByHotelId(3));
+//        System.out.println(hotelService.findManagerIdByHotelId(3));
+        System.out.println(hotelService.getHotelsByManagerId(1, 5, 17).data);
     }
+
 
 
 

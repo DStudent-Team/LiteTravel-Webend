@@ -58,6 +58,11 @@ HotelService {
     public ResultVO getHotels(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelExample());
     }
+    public ResultVO getHotelsByManagerId(Integer page, Integer pageSize, Integer managerId){
+        HotelExample hotelExample = new HotelExample();
+        hotelExample.createCriteria().andHotelManagerIdEqualTo(managerId);
+        return selectByExample(page, pageSize, hotelExample);
+    }
 
     public ResultVO getHotels(Integer page, Integer pageSize, HotelQueryDTO hotelQueryDTO){
         return selectByExample(page, pageSize, getHotelExample(hotelQueryDTO));
@@ -183,8 +188,13 @@ HotelService {
         hotelExample.createCriteria().andHotelManagerIdEqualTo(managerId);
         List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
         //通过管理员id得到的他管理的所有酒店id
-        List<Integer> hotelId = hotels.stream().map(Hotel::getHotelId).distinct().collect(Collectors.toList());
-        return hotelId;
+        return hotels.stream().map(Hotel::getHotelId).distinct().collect(Collectors.toList());
+    }
+    public List<Hotel> getHotelsByManagerId(Integer managerId){
+        HotelExample hotelExample = new HotelExample();
+        hotelExample.createCriteria().andHotelManagerIdEqualTo(managerId);
+        //通过管理员id得到的他管理的所有酒店id
+        return hotelMapper.selectByExample(hotelExample);
     }
 
     //获取管理员管理酒店的房间数据
@@ -263,7 +273,7 @@ HotelService {
         hotel.setHotelImgUri("hotel-1.jpg");
         hotel.setHotelReplyCount(0);
         int result = 0;
-            result = hotelMapper.updateByExample(hotel, hotelExample);
+            result = hotelMapper.updateByExampleSelective(hotel, hotelExample);
         return result;
     }
     //添加数据
@@ -274,10 +284,11 @@ HotelService {
         //设置默认值
         hotel.setHotelImgUri("hotel-1.jpg");
         hotel.setHotelReplyCount(0);
+        hotel.setHotelManagerId(hotelDTO.getHotelManagerId());
         int insert = hotelMapper.insert(hotel);
         Integer hotelId = hotel.getHotelId();
         HotelManager hotelManager = new HotelManager();
-        hotelManager.setHotelManagerId(hotelDTO.getUserId());
+        hotelManager.setHotelManagerId(hotelDTO.getHotelManagerId());
         hotelManager.setHotelManagerName(hotelDTO.getUserName());
         hotelManager.setHotelManagerPhone(hotelDTO.getHotelPhone());
         System.out.println(hotelDTO.toString());

@@ -714,8 +714,8 @@
                             <div class="form-group form-inline">
                                 <span>请选择酒店ID</span>
                                 <select id="hotelList" name="hotelId" style="margin-left:30px;height: 30px;width: 150px">
-                                    <span th:each="hotel:${session.hotelList}">
-                                        <option th:text="${hotel}"></option>
+                                    <span th:each="hotel:${session.hotels}">
+                                        <option th:value="${hotel.hotelId}" th:text="${hotel.hotelName}"></option>
                                     </span>
                                 </select>
                             </div>

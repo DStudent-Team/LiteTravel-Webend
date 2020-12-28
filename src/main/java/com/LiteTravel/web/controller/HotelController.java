@@ -3,6 +3,7 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 
+import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class HotelController {
 
     /* 点击页面数切换 分页显示酒店列表 */
     @GetMapping("/hotels")
-    public String HotelPage(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model){
+    public String hotelPage(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model){
         setPageHotel(page, model);
         return "hotels";
     }
@@ -103,8 +104,14 @@ public class HotelController {
 
     /*酒店后台页面数据获取*/
     @GetMapping("/manage/hotels")
-    public String MangeHotelList(ModelMap model){
-        setPageHotel(1, model);
+    public String mangeHotelList(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model, HttpSession session){
+        //额外提供用户余额
+
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        ResultVO  resultVO = hotelService.getHotelsByManagerId(page, 6, user.userId);
+        model.addAttribute("hotels", resultVO.data);
+        /* 放入页面信息数据 */
+        model.addAttribute("pageInfo", resultVO.info);
         return "hotel/list";
     }
 
@@ -118,8 +125,8 @@ public class HotelController {
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
         /*通过session获取管理员id，从而得到他管理的酒店id*/
         ResultVO result = hotelService.getAllRooms(page, 6,userDTO.userId);
-        List<Integer> hotelIds = hotelService.getHotelByManagerId(userDTO.userId);
-        session.setAttribute("hotelList", hotelIds);
+        List<Hotel> hotels = hotelService.getHotelsByManagerId(userDTO.userId);
+        session.setAttribute("hotels", hotels);
         model.addAttribute("rooms",result.data);
         model.addAttribute("pageInfo", result.info);
         return "room/list";
