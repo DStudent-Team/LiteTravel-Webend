@@ -164,4 +164,20 @@ public class HotelOrderController {
             }
         }
     }
+
+    @PostMapping("/order/unPay")
+    public String unTransaction(OrderTransactionDTO orderTransactionDTO, Model model){
+
+        //通过hotelId找到managerId
+        Integer managerId = hotelService.findManagerIdByHotelId(orderTransactionDTO.getHotelId());
+        if (managerId == -1){
+            model.addAttribute("message", "没有这个用户");
+            return "redirect:/login";
+        }else{
+            moneyService.unTransaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
+            hotelOrderService.updateHotelOrderStatus(orderTransactionDTO.getOrderId(), "2");
+            model.addAttribute("message", "退款成功");
+            return "redirect:/orders";
+        }
+    }
 }

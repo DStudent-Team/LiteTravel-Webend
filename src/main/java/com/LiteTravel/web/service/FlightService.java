@@ -94,7 +94,12 @@ public class FlightService {
         /* 更新机票状态 */
         UpdateFlightStatus(reserveDTO.getFlightId(), 3);
     }
-    /* 修改flight的状态 */
+
+    /**
+     * 修改状态为已支付
+     * @param flightId flightId
+     * @param status status
+     */
     public void UpdateFlightStatus(Integer flightId, Integer status){
         Flight flight = new Flight();
         flight.setFlightId(flightId);
