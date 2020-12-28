@@ -61,17 +61,17 @@ public class FlightController {
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
         if (userDTO == null){
             model.addAttribute("message", "请登录");
-            return "flights";
+            return "redirect:/flights";
         }
         boolean flag = moneyService.transaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal());
-        if (flag){
+        if (!flag){
             model.addAttribute("message", "交易失败");
-            return "flights";
+            return "redirect:/flights";
         }else{
             model.addAttribute("message", "交易成功");
+            flightService.payFlight(flightReserveDTO);
+            return "redirect:/flight/" + flightReserveDTO.getFlightId();
         }
-        flightService.payFlight(flightReserveDTO);
-        return "redirect:/flight/" + flightReserveDTO.getFlightId();
     }
 
 

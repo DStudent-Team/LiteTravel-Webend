@@ -1,12 +1,8 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.Model.User;
-import com.LiteTravel.web.Model.UserExample;
-import com.LiteTravel.web.Model.UserInfo;
-import com.LiteTravel.web.Model.UserInfoExample;
-import com.LiteTravel.web.mapper.UserInfoMapper;
-import com.LiteTravel.web.mapper.UserMapper;
+import com.LiteTravel.web.Model.*;
+import com.LiteTravel.web.mapper.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -23,8 +19,18 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     UserMapper userMapper;
+
     @Autowired
     UserInfoMapper userInfoMapper;
+
+    @Autowired
+    UserAuthorityMapper userAuthorityMapper;
+
+    @Autowired
+    UserAuthorityService userAuthorityService;
+
+
+
 
     public List<User> checkUserValid(String userCode, String userPassword){
         UserExample userExample = new UserExample();
@@ -89,7 +95,9 @@ public class UserService {
         Map<Integer, String> userCodeMap;
         Map<Integer, String> userPasswordMap;
         Map<Integer, Integer> userStateMap;
+        Map<Integer, Integer> authorityLevelMap;
         if(userIds.size() > 0){
+            /*查询账号表*/
             UserExample userExample = new UserExample();
             userExample.createCriteria()
                     .andUserIdIn(userIds);
@@ -97,10 +105,19 @@ public class UserService {
             userCodeMap = users.stream().collect(Collectors.toMap(User::getUserId, User::getUserCode));
             userPasswordMap = users.stream().collect(Collectors.toMap(User::getUserId, User::getUserPassword));
             userStateMap = users.stream().collect(Collectors.toMap(User::getUserId, User::getUserState));
+
+            /*查询权限表*/
+            UserAuthorityExample userAuthorityExample = new UserAuthorityExample();
+            userAuthorityExample.createCriteria()
+                    .andUserIdIn(userIds);
+            List<UserAuthority> userAuthorities = userAuthorityMapper.selectByExample(userAuthorityExample);
+            authorityLevelMap = userAuthorities.stream().collect(Collectors.toMap(UserAuthority::getUserId,UserAuthority::getAuthorityLevel));
+
         }else {
             userCodeMap = new HashMap<>();
             userPasswordMap = new HashMap<>();
             userStateMap = new HashMap<>();
+            authorityLevelMap = new HashMap<>();
         }
         List<UserManageDTO> data = userInfos.stream().map(userInfo -> {
             UserManageDTO userManageDTO = new UserManageDTO();
@@ -108,9 +125,11 @@ public class UserService {
             String userCode = userCodeMap.get(userInfo.getUserId());
             String userPassword = userPasswordMap.get(userInfo.getUserId());
             Integer userState = userStateMap.get(userInfo.getUserId());
+            Integer authorityLevel = authorityLevelMap.get(userInfo.getUserId());
             userManageDTO.setUserCode(userCode);
             userManageDTO.setUserPassword(userPassword);
             userManageDTO.setUserState(userState);
+            userManageDTO.setAuthorityLevel(authorityLevel);
             return userManageDTO;
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
@@ -123,6 +142,10 @@ public class UserService {
         user.setUserCode(userManageDTO.getUserCode());
         user.setUserPassword(userManageDTO.getUserPassword());
         user.setUserState(1);
+
+        /*userAuthority*/
+        UserAuthority userAuthority = new UserAuthority();
+        userAuthority.setAuthorityLevel(userManageDTO.getAuthorityLevel());
 
 
         /*user_info*/
@@ -139,18 +162,24 @@ public class UserService {
             insert(user);
             userInfo.setUserId(user.getUserId());
             insert(userInfo);
+            userAuthorityService.insertAuthority(user.getUserId(), userManageDTO.getAuthorityLevel());
+            /*根据权限等级设置相应的服务商*/
+            userAuthorityService.addCompany(user.getUserId(),userManageDTO);
             System.out.println("保存成功！"+user);
         }
         else if(tag.equals("update")){
             user.setUserId(userManageDTO.getUserId());
             userInfo.setUserId(userManageDTO.getUserId());
+            userAuthority.setUserId(userManageDTO.getUserId());
             userMapper.updateByPrimaryKeySelective(user);
             userInfoMapper.updateByPrimaryKeySelective(userInfo);
+            userAuthorityMapper.updateByPrimaryKeySelective(userAuthority);
+            /*根据权限等级设置相应的服务商*/
+            userAuthorityService.addCompany(user.getUserId(),userManageDTO);
             System.out.println("修改成功！"+user);
         }
     }
 
-    /*后台更新用户信息*/
 
     /*删除用户信息 包括账号信息和具体信息*/
     public int deleteUser(Integer userId){

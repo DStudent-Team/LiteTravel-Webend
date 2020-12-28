@@ -75,13 +75,18 @@ function editUser (userId, userCode, userPassword,
     $('#userCode').val(userCode);
     $('#userPassword').val(userPassword);
     $('#userName').val(userName);
-    $('#userBirth').val(userBirth);
     $('#userEmail').val(userEmail);
     $('#userPhone').val(userPhone);
     $('#userAddressSpecific').val(userAddressSpecific);
     $('#userState').val(userState);
     $('#putMethod').removeAttr("disabled");
     console.log(userId)
+}
+
+// 用户权限
+function setAuthority(userId, userName){
+    $('#authorityUserId').val(userId);
+    $('#authorityUserName').val(userName);
 }
 
 /*清除输入框的内容  #userId  对应  输入框的id=“userId“
@@ -93,7 +98,6 @@ function clearUser(){
     $('#userCode').val("");
     $('#userPassword').val("");
     $('#userName').val("");
-    $('#userBirth').val("");
     $('#userEmail').val("");
     $('#userPhone').val("");
     $('#userAddressSpecific').val("");
@@ -253,8 +257,9 @@ function createInput(inputName, inputType, inputValue, aDiv) {
 }
 
 /*机票服务脚本*/
-function deleteReserve (reserveId){
+function deleteReserve (reserveId, flightId){
     $("#deleteReserveId").val(reserveId);
+    $("#reserveFlightId").val(flightId);
 }
 
 function editReserve(reserveId, total, service) {
@@ -274,7 +279,8 @@ function clearReserve() {
  * @param hotelId
  * @param hotelName
  * @param hotelMinPrice
- * @param hotelManagerId
+ * @param userId
+ * @param userName
  * @param hotelPhone
  * @param hotelReplyLevel
  * @param hotelAddress
@@ -283,7 +289,7 @@ function clearReserve() {
  */
 //模态框赋值，用于更新数据时
 function editHotel (hotelId, hotelName, hotelMinPrice,
-                    hotelManagerId, hotelPhone, hotelReplyLevel,
+                    hotelPhone, userId, userName,hotelReplyLevel,
                     hotelAddress, hotelAddressSpecific, hotelDescription){
     // $('#myModal').modal("hide");
     $("#myModalLabel").text("新增");
@@ -292,7 +298,8 @@ function editHotel (hotelId, hotelName, hotelMinPrice,
     $('#hotelId').val(hotelId);
     $('#hotelName').val(hotelName);
     $('#hotelMinPrice').val(hotelMinPrice);
-    $('#hotelManagerId').val(hotelManagerId);
+    $('#hotelManagerId').val(userId);
+    $('#hotelManagerName').val(userName);
     $('#hotelPhone').val(hotelPhone);
     $('#hotelReplyLevel').val(hotelReplyLevel);
     $('#hotelAddress').val(hotelAddress);
@@ -301,12 +308,14 @@ function editHotel (hotelId, hotelName, hotelMinPrice,
 }
 
 //模态框置空，用于插入数据和点击清空模态框时
-function clearHotel (){
+function clearHotel (userId, userName){
     // 置空模态框
     $('#hotelId').val('');
     $('#hotelName').val('');
     $('#hotelMinPrice').val('');
-    $('#hotelManagerId').val('');
+    $('#hotelManagerId').val(userId);
+    $('#hotelManagerIdTrue').val(userId);
+    $('#hotelManagerName').val(userName);
     $('#hotelPhone').val('');
     $('#hotelReplyLevel').val('');
     $('#hotelAddress').val('');

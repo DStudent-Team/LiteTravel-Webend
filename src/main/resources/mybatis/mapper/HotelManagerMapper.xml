@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.LiteTravel.web.mapper.HotelManagerMapper">
   <resultMap id="BaseResultMap" type="com.LiteTravel.web.Model.HotelManager">
-    <id column="hotel_manager_id" jdbcType="INTEGER" property="hotelManagerId" />
+    <id column="manager_id" jdbcType="INTEGER" property="managerId" />
+    <result column="hotel_manager_id" jdbcType="INTEGER" property="hotelManagerId" />
     <result column="hotel_manager_name" jdbcType="VARCHAR" property="hotelManagerName" />
     <result column="hotel_manager_phone" jdbcType="VARCHAR" property="hotelManagerPhone" />
     <result column="hotel_id" jdbcType="INTEGER" property="hotelId" />
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    hotel_manager_id, hotel_manager_name, hotel_manager_phone, hotel_id
+    manager_id, hotel_manager_id, hotel_manager_name, hotel_manager_phone, hotel_id
   </sql>
   <select id="selectByExample" parameterType="com.LiteTravel.web.Model.HotelManagerExample" resultMap="BaseResultMap">
     select
@@ -86,11 +87,11 @@
     select 
     <include refid="Base_Column_List" />
     from travel_hotel_manager
-    where hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER}
+    where manager_id = #{managerId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from travel_hotel_manager
-    where hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER}
+    where manager_id = #{managerId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.LiteTravel.web.Model.HotelManagerExample">
     delete from travel_hotel_manager
@@ -99,14 +100,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.LiteTravel.web.Model.HotelManager">
-    insert into travel_hotel_manager (hotel_manager_id, hotel_manager_name, 
+    insert into travel_hotel_manager (manager_id, hotel_manager_id, hotel_manager_name, 
       hotel_manager_phone, hotel_id)
-    values (#{hotelManagerId,jdbcType=INTEGER}, #{hotelManagerName,jdbcType=VARCHAR}, 
+    values (#{managerId,jdbcType=INTEGER}, #{hotelManagerId,jdbcType=INTEGER}, #{hotelManagerName,jdbcType=VARCHAR}, 
       #{hotelManagerPhone,jdbcType=VARCHAR}, #{hotelId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.HotelManager">
     insert into travel_hotel_manager
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="managerId != null">
+        manager_id,
+      </if>
       <if test="hotelManagerId != null">
         hotel_manager_id,
       </if>
@@ -121,6 +125,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="managerId != null">
+        #{managerId,jdbcType=INTEGER},
+      </if>
       <if test="hotelManagerId != null">
         #{hotelManagerId,jdbcType=INTEGER},
       </if>
@@ -144,6 +151,9 @@
   <update id="updateByExampleSelective" parameterType="map">
     update travel_hotel_manager
     <set>
+      <if test="record.managerId != null">
+        manager_id = #{record.managerId,jdbcType=INTEGER},
+      </if>
       <if test="record.hotelManagerId != null">
         hotel_manager_id = #{record.hotelManagerId,jdbcType=INTEGER},
       </if>
@@ -163,7 +173,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update travel_hotel_manager
-    set hotel_manager_id = #{record.hotelManagerId,jdbcType=INTEGER},
+    set manager_id = #{record.managerId,jdbcType=INTEGER},
+      hotel_manager_id = #{record.hotelManagerId,jdbcType=INTEGER},
       hotel_manager_name = #{record.hotelManagerName,jdbcType=VARCHAR},
       hotel_manager_phone = #{record.hotelManagerPhone,jdbcType=VARCHAR},
       hotel_id = #{record.hotelId,jdbcType=INTEGER}
@@ -174,6 +185,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.LiteTravel.web.Model.HotelManager">
     update travel_hotel_manager
     <set>
+      <if test="hotelManagerId != null">
+        hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER},
+      </if>
       <if test="hotelManagerName != null">
         hotel_manager_name = #{hotelManagerName,jdbcType=VARCHAR},
       </if>
@@ -184,13 +198,14 @@
         hotel_id = #{hotelId,jdbcType=INTEGER},
       </if>
     </set>
-    where hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER}
+    where manager_id = #{managerId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.LiteTravel.web.Model.HotelManager">
     update travel_hotel_manager
-    set hotel_manager_name = #{hotelManagerName,jdbcType=VARCHAR},
+    set hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER},
+      hotel_manager_name = #{hotelManagerName,jdbcType=VARCHAR},
       hotel_manager_phone = #{hotelManagerPhone,jdbcType=VARCHAR},
       hotel_id = #{hotelId,jdbcType=INTEGER}
-    where hotel_manager_id = #{hotelManagerId,jdbcType=INTEGER}
+    where manager_id = #{managerId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -139,12 +139,6 @@
                                 <input type="text" class="col-sm-9" id="userName" name="userName"
                                        placeholder="请输入用户昵称(必填)">
                             </div>
-                            <!--userBirth-->
-                            <div class="form-group form-inline">
-                                <label for="userBirth" class="col-sm-2 control-label">生日</label>
-                                <input th:type="date" class="col-sm-9 checkin_date" id="userBirth" name="userBirth"
-                                       placeholder="请输入生日(选填)">
-                            </div>
 
                             <!--userEmail-->
                             <div class="form-group form-inline">
@@ -164,9 +158,16 @@
                                 <input type="text" class="col-sm-9" id="userAddressSpecific" name="userAddressSpecific"
                                        placeholder="请输入地址(选填)">
                             </div>
-                            <br/>
-
-
+                            <div class="form-group form-inline">
+                                <label class="col-sm-2 control-label" for="authoritySelect">权限</label>
+                                <select class="col-sm-9" style="height: 30px" id="authorityAdd" name="authorityLevel">
+                                    <option value="0" selected>普通用户</option>
+                                    <option value="1">管理员</option>
+                                    <option value="2">飞机服务商</option>
+                                    <option value="3">酒店服务商</option>
+                                    <option value="4">旅游集团</option>
+                                </select>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -382,12 +383,10 @@
                     <div class="modal-body">
                         <form class="form-horizontal" role="form" method="post">
                             <!--deleteId-->
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                    <!--隐藏用户id 再传输给后台-->
-                                    <input type="hidden" class="form-control" id="deleteReserveId" name="reserveId">
-                                </div>
-                            </div>
+                            <!--隐藏用户id 再传输给后台-->
+                            <input type="hidden" class="form-control" id="deleteReserveId" name="reserveId">
+                            <input type="hidden" class="form-control" id="reserveFlightId" name="flightId">
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -441,10 +440,10 @@
                                 <input type="text" class="col-sm-8" id="hotelMinPrice" name="hotelMinPrice" placeholder="请输入最低价格（必填）">
                             </div>
                             <!--hotelManagerId-->
-                            <div class="form-group form-inline">
-                                <label for="hotelManagerId" class="col-sm-3 control-label">经理编号</label>
-                                <input type="text" class="col-sm-8" id="hotelManagerId" name="hotelManagerId" placeholder="请输入经理编号（必填）">
-                            </div>
+                            <input type="hidden" class="col-sm-8" id="hotelManagerId" name="userId">
+                            <input type="hidden" class="col-sm-8" id="hotelManagerIdTrue" name="hotelManagerId">
+                            <!--hotelManagerName-->
+                            <input type="hidden" class="col-sm-8" id="hotelManagerName" name="userName">
                             <!--hotelPhone-->
                             <div class="form-group form-inline">
                                 <label for="hotelPhone" class="col-sm-3 control-label">酒店电话</label>
@@ -487,13 +486,13 @@
 
 <!--订单评价模态框-->
 <section class="ftco-section-parallax" th:fragment="orderCommentModal">
-    <form method="post" th:action="@{/saveOrderComment}" class="form-horizontal" onsubmit="return checkValid()" role="form" style="margin: 20px;">
+    <form method="post" th:action="@{/saveOrderComment}" class="form-horizontal"  role="form" style="margin: 20px;">
         <div class="modal fade" id="orderCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            用户信息
+                            订单评价
                         </h4>
                         <button type="button" class="close" onclick="clearOrderComment()" data-dismiss="modal" aria-hidden="true">
                             &times;
@@ -543,6 +542,63 @@
                     <div class="modal-footer">
                         <!--调用user.js方法-->
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearOrderComment()">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
+<!--用户权限模态框-->
+<section class="ftco-section-parallax" th:fragment="authorityModal">
+    <form method="post" th:action="@{/manage/authority/update}" class="form-horizontal"  role="form" style="margin: 20px;">
+        <div class="modal fade" id="authorityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            角色权限分配
+                        </h4>
+                        <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--userId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="authorityUserId" name="userId">
+                                </div>
+                            </div>
+                            <!--userName-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="hidden" class="form-control" id="authorityUserName" name="userName">
+                                </div>
+                            </div>
+                            <label>备注：</label><p>旅游集团表示既提供酒店服务也提供机票服务</p>
+                            <!--评分 -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="authoritySelect">权限</label>
+                                </div>
+                                <select class="custom-select" id="authoritySelect" name="authorityLevel">
+                                    <option value="0" selected>普通用户</option>
+                                    <option value="1">管理员</option>
+                                    <option value="2">飞机服务商</option>
+                                    <option value="3">酒店服务商</option>
+                                    <option value="4">旅游集团</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!--调用user.js方法-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                         </button>
                         <button type="submit" class="btn btn-primary">
                             提交

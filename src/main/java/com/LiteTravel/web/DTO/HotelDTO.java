@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class HotelDTO {
     private Integer hotelId;
+    private Integer userId;
+    private String userName;
     private String hotelName;
     private Integer hotelMinPrice;
     private Integer hotelManagerId;

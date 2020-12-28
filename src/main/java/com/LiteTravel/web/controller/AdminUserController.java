@@ -44,7 +44,6 @@ public class AdminUserController {
             System.out.println("账号已存在！");
             return "redirect:/manage/users";
         }else{
-            userAuthorityService.insertAuthority(userManageDTO.getUserId(), userManageDTO.getAuthorityLevel());
             userService.addUserByManager(userManageDTO,"insert");
         }
         return "redirect:/manage/users";

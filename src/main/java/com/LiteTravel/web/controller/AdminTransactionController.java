@@ -20,11 +20,12 @@ public class AdminTransactionController {
     @Resource
     private MoneyService moneyService;
 
-    @GetMapping("/manager/transactions")
+    @GetMapping("/manage/transactions")
     public String listTransactions(@RequestParam(value = "page", defaultValue = "1") Integer pageNum, Model model){
 
         ResultVO resultVO = moneyService.listTransactions(pageNum,5);
         model.addAttribute("transactions", resultVO.data);
-        return "自定义页面";
+        model.addAttribute("pageInfo", resultVO.info);
+        return "user/transaction";
     }
 }

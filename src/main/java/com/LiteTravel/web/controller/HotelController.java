@@ -4,6 +4,8 @@ import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.Model.Room;
+import com.LiteTravel.web.Model.OrderComment;
+import com.LiteTravel.web.Model.OrderCommentExample;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,11 +139,17 @@ public class HotelController {
         return "redirect:/manage/hotels";
     }
 
-    //delete
+    /**
+     * 删除商家和所在酒店的评价
+     * @param hotelId hotelId
+     * @return String
+     */
     @DeleteMapping("/manage/hotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
 
         hotelService.deleteHotel(hotelId);
+        // 同时删除该商家的所有评论
+        orderCommentService.deleteOrderCommentsByHotelId(hotelId);
         return "redirect:/manage/hotels";
     }
 

@@ -59,7 +59,7 @@
                             <!--调用manage.js下的方法-->
                             <button th:if="${reserve.selected} == false" type="submit" class="btn btn-sm btn-danger"
                                     data-toggle="modal" data-target="#deleteReserveModal"
-                            th:onclick="deleteReserve([[${reserve.reserveId}]])">删除</button>
+                            th:onclick="deleteReserve([[${reserve.reserveId}]],[[${reserve.flightId}]])">删除</button>
                         </td>
                     </tr>
                     </tbody>

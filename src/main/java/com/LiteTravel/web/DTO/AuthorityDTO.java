@@ -13,6 +13,8 @@ public class AuthorityDTO {
      * 4: 飞机+酒店管理员
      */
     private Integer authorityLevel;
+    private String userName;
+    private String userPhone;
     private Boolean hotelAuthority;
     private Boolean flightAuthority;
 }

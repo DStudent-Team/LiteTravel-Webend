@@ -1,6 +1,8 @@
 package com.LiteTravel.web.Model;
 
 public class HotelManager {
+    private Integer managerId;
+
     private Integer hotelManagerId;
 
     private String hotelManagerName;
@@ -8,6 +10,14 @@ public class HotelManager {
     private String hotelManagerPhone;
 
     private Integer hotelId;
+
+    public Integer getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Integer managerId) {
+        this.managerId = managerId;
+    }
 
     public Integer getHotelManagerId() {
         return hotelManagerId;

@@ -37,11 +37,11 @@
 									<th>用户账号</th>
 									<th>用户密码</th>
 									<th>用户昵称</th>
-									<th>用户生日</th>
 									<th>用户邮箱</th>
 									<th>用户电话</th>
 									<th>用户地址</th>
 									<th>用户状态</th>
+									<th>角色权限</th>
                                     <th>操作</th>
 								</tr>
 							</thead>
@@ -52,7 +52,6 @@
 									<td th:text="${user.userCode}"></td>
 									<td th:text="${user.userPassword}"></td>
 									<td th:text="${user.userName}"></td>
-									<td th:text="${#dates.format(user.userBirth, 'yyyy-MM-dd')}"></td>
 									<td th:text="${user.userEmail}"></td>
 									<td th:text="${user.userPhone}"></td>
 									<td th:text="${user.userAddressSpecific}"></td>
@@ -61,19 +60,28 @@
 										<a th:if="${user.userState == 1}">可用</a>
 										<a th:if="${user.userState == 0}">不可用</a>
 									</td>
+									<td>
+										<a th:if="${user.authorityLevel == 0}">普通用户</a>
+										<a th:if="${user.authorityLevel == 1}">管理员</a>
+										<a th:if="${user.authorityLevel == 2}">飞机服务商</a>
+										<a th:if="${user.authorityLevel == 3}">酒店服务商</a>
+										<a th:if="${user.authorityLevel == 4}">旅游集团</a>
+									</td>
 									<!-- 床底参数给user.js 文件下的方法 -->
 									<!--不知道怎么传整个列表过去，只能一个个传了-->
 									<!--传值到模态框-->
 									<!--报错不用管，不知道怎么回事，就是这样用的-->
 									<!--to : manage.js  下的 editUser(..)-->
 									<td class="form-inline">
+										<!--调用manage.js下的方法-->
+										<button type="submit" class="btn btn-sm btn-success" data-toggle="modal" data-target="#authorityModal"
+												th:onclick="setAuthority([[${user.userId}]],[[${user.userName}]])">权限分配</button>
 										<button type="submit" class="btn btn-sm btn-primary"
 												th:onclick="editUser(
 												[[${user.userId}]],
 												[[${user.userCode}]],
 												[[${user.userPassword}]],
 												[[${user.userName}]],
-												[[${#dates.format(user.userBirth, 'yyyy-MM-dd')}]],
 												[[${user.userEmail}]],
 												[[${user.userPhone}]],
 												[[${user.userAddressSpecific}]],
@@ -97,6 +105,8 @@
 
 		<!-- 用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
 		<div th:replace="~{commons/modal_box::addUserModal}"></div>
+		<!--权限分配模态框-->
+		<div th:replace="~{commons/modal_box::authorityModal}"></div>
 
 		<!-- 分页展示:  个人信息页面导航栏  暂无样式-->
 		<div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/users')}"></div>

@@ -2,6 +2,9 @@ package com.LiteTravel.web;
 
 import com.LiteTravel.web.DTO.HotelOrder.OrderCommentDTO;
 import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.Model.HotelOrder;
+import com.LiteTravel.web.service.FlightService;
+import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
 import org.junit.jupiter.api.Test;
@@ -17,6 +20,12 @@ class LiteTravelWebApplicationTests {
     @Resource
     private OrderCommentService orderCommentService;
 
+    @Resource
+    private FlightService flightService;
+
+    @Resource
+    private HotelOrderService hotelOrderService;
+
     @Test
     void contextLoads() {
 //        OrderCommentDTO orderCommentDTO = new OrderCommentDTO();
@@ -29,8 +38,11 @@ class LiteTravelWebApplicationTests {
 //        int i = orderCommentService.saveOrderComment(orderCommentDTO, username);
 //        System.out.println(i);
 
-        ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(2, 1, 3);
-        System.out.println(resultVO.data);
+//        ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(2, 1, 3);
+//        System.out.println(resultVO.data);
+//        ResultVO resultVO = flightService.getFlights(1, 12, 6);
+
+        System.out.println(hotelOrderService.updateHotelOrder(9));
     }
 
 
