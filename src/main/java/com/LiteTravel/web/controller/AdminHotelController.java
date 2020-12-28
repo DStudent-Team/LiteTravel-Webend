@@ -25,7 +25,7 @@ public class AdminHotelController {
     /*-----------------------------------------------------------------------------*/
     /*酒店增删改方法*/
     @PostMapping("/manage/hotel")
-    public String insertOrUpdateHotel(HotelDTO hotelDTO, HttpSession session){
+    public String insertOrUpdateHotel(HotelDTO hotelDTO){
 
         //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
         int i = hotelService.checkHotelId(hotelDTO);
@@ -38,10 +38,6 @@ public class AdminHotelController {
                 System.out.println("酒店已存在！");
             }
             else{
-                UserDTO user = (UserDTO) session.getAttribute("user");
-                hotelDTO.setHotelManagerId(user.userId);
-                hotelDTO.setUserName(user.userName);
-                System.out.println("你妹的："+user.userId);
                 hotelService.insertHotel(hotelDTO);
             }
         }

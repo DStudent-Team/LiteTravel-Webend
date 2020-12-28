@@ -298,7 +298,7 @@ function editHotel (hotelId, hotelName, hotelMinPrice,
     $('#hotelId').val(hotelId);
     $('#hotelName').val(hotelName);
     $('#hotelMinPrice').val(hotelMinPrice);
-    $('#hotelManagerId').val(userId);
+    $('#hotelManagerIdTrue').val(userId);
     $('#hotelManagerName').val(userName);
     $('#hotelPhone').val(hotelPhone);
     $('#hotelReplyLevel').val(hotelReplyLevel);
@@ -313,8 +313,8 @@ function clearHotel (userId, userName){
     $('#hotelId').val('');
     $('#hotelName').val('');
     $('#hotelMinPrice').val('');
-    $('#hotelManagerId').val(userId);
     $('#hotelManagerIdTrue').val(userId);
+    console.log("sdaijesk"+userId);
     $('#hotelManagerName').val(userName);
     $('#hotelPhone').val('');
     $('#hotelReplyLevel').val('');
@@ -336,6 +336,12 @@ function clearOrderComment(){
     $('#ocOrderId').val('');
 }
 
+
+
+//检测输入的酒店数据是否合法
+function checkHotelData() {
+
+}
 
 /*酒店房间增加修改管理*/
 //模态框置空，用于插入数据和点击清空模态框时
