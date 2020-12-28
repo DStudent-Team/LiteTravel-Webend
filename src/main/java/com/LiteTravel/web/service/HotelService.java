@@ -1,6 +1,7 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.Blog.BlogDTO;
 import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.*;
@@ -8,11 +9,15 @@ import com.LiteTravel.web.mapper.*;
 import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -154,6 +159,8 @@ HotelService {
         return rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
     }
 
+    /*-----------------------------------------------------------------------------*/
+    /*数据获取域*/
     //通过管理员ID获取他管理所有酒店Id
     public List<Integer> getHotelByManagerId(Integer managerId){
         HotelExample hotelExample = new HotelExample();
@@ -183,11 +190,24 @@ HotelService {
         }
 
         PageHelper.startPage(page, pageSize);
-        PageInfo<Room> roomPageInfo = new PageInfo<>(rooms, 5);
+        PageInfo<Room> info = new PageInfo<>(rooms, 5);
         List<RoomDTO> data = getRoomDTOs(rooms);
-        return new ResultVO(data,roomPageInfo);
+        return new ResultVO(data,info);
     }
 
+    private BedDTO getBedDTO(Bed bed) {
+        BedDTO bedDTO = new BedDTO();
+        BeanUtils.copyProperties(bed, bedDTO);
+        return bedDTO;
+    }
+    //获取床位信息
+    public ResultVO getAllBeds(Integer page, Integer pageSize){
+        PageHelper.startPage(page,pageSize);
+        List<Bed> beds = bedMapper.selectByExample(new BedExample());
+        PageInfo<Bed> info = new PageInfo<>(beds, 5);
+        List<BedDTO> data = beds.stream().map(this::getBedDTO).collect(Collectors.toList());
+        return new ResultVO(data, info);
+    }
     /*-----------------------------------------------------------------------------*/
     //酒店增刪改方法
     public int checkHotelId(HotelDTO hotelDTO){
@@ -295,9 +315,29 @@ HotelService {
     }
 
     /*-----------------------------------------------------------------------------*/
-    //床位增删方法
+    //床位增删改方法
 
+    public void insertBed(Bed bed){
+        bedMapper.insert(bed);
+    }
+    public void updateBed(Bed bed){
+        BedExample bedExample = new BedExample();
+        bedExample.createCriteria().andBedIdEqualTo(bed.getBedId());
+        bedMapper.updateByExample(bed, bedExample);
+    }
+    public void deleteBed(Integer bedId){
+        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+        roomBedMapExample.createCriteria()
+                .andBedIdEqualTo(bedId);
+        List<RoomBedMap> roomBeds = roomBedMapper.selectByExample(roomBedMapExample);
+        if (roomBeds.size()>0){
+           ;
+        }
+        else{
+            bedMapper.deleteByPrimaryKey(bedId);
+        }
 
+    }
     /*-----------------------------------------------------------------------------*/
     private  HotelExample getHotelExample(HotelQueryDTO query) {
 

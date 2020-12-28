@@ -102,7 +102,7 @@ public class HotelController {
 
     /*酒店后台房间管理根据管理员id信息获取数据*/
     @GetMapping("manage/rooms")
-    public String blogList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model,
+    public String hotelRoomList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model,
         HttpSession session){
         /*获取session对象*/
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
@@ -118,7 +118,13 @@ public class HotelController {
     /*-----------------------------------------------------------------*/
 
     /*床位数据获取*/
-
+    @GetMapping("manage/beds")
+    public String bedList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
+        ResultVO result = hotelService.getAllBeds(page, 6);
+        model.addAttribute("beds",result.data);
+        model.addAttribute("pageInfo", result.info);
+        return "bed/list";
+    }
 
     /*-----------------------------------------------------------------*/
 

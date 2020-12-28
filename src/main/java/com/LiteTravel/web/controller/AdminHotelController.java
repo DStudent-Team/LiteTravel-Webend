@@ -1,17 +1,23 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.BedDTO;
 import com.LiteTravel.web.DTO.HotelDTO;
 import com.LiteTravel.web.DTO.RoomDTO;
+import com.LiteTravel.web.Model.Bed;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
+import com.sun.deploy.net.HttpResponse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -84,7 +90,22 @@ public class AdminHotelController {
 
     /*-----------------------------------------------------------------------------*/
     /*床位增删*/
+    @PostMapping("/manage/bed")
+    public String insertOrUpdateBed(BedDTO bedDTO){
+        Bed bed = new Bed();
+        BeanUtils.copyProperties(bedDTO, bed);
+        if(bed.getBedId() == null){
+            hotelService.insertBed(bed);
+        }
+        else{
+            hotelService.updateBed(bed);
+        }
+        return "redirect:/manage/beds";
+    }
 
-
-
+    @DeleteMapping("manage/bed/{bedId}")
+    public String deleteBed(@PathVariable("bedId") Integer bedId) {
+        hotelService.deleteBed(bedId);
+        return "redirect:/manage/beds";
+    }
 }

@@ -359,5 +359,26 @@ function editRoom (roomId,roomName, roomPrice,
 }
 
 function transferRoomId(roomId) {
-    $('room_Id').val(roomId);
+    $('#room_Id').val(roomId);
+}
+
+function editBed(bedId, bedName,bedSize) {
+    $('#bed_Id').val(bedId);
+    $('#bedName').val(bedName);
+    $('#bedSize').val(bedSize);
+}
+
+function clearBed() {
+    $('#bed_Id').val('');
+    $('#bedName').val('');
+    $('#bedSize').val('');
+}
+
+function checkBedSize() {
+    //验证床尺寸
+    var size = document.getElementById("bedSize").value; //获取你所填写的信息
+    var nameReg = /^[0-9]+([.][0-9]{1,2}){0,1}$/;  //定义约束,要求输入2到6个中文
+    if (!nameReg.test(size)) {   //判断
+        alert("床型尺寸只能输入纯数字或者二位小数");
+    }
 }

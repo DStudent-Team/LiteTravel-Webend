@@ -631,6 +631,56 @@
     </form>
 </section>
 
+<!--床位编辑模态框-->
+<section class="ftco-section-parallax" th:fragment="addBedModal">
+    <form method="post" th:action="@{/manage/bed}" class="form-horizontal" role="form" >
+        <input id="bedMethod" name="_method" type="hidden" value="PUT" disabled>
+        <div class="modal fade" id="addBedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">床位信息</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+
+                    <div class="modal-body" style="font-size: 14px;">
+                        <form method="post" class="form-horizontal">
+                            <!--bedId-->
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" class="form-control" id="bed_Id" name="bedId">
+                                </div>
+                            </div>
+                            <!--bedName-->
+                            <div class="form-group form-inline">
+                                <label for="bedName" class="col-sm-3 control-label">床型名称</label>
+                                <input type="text" class="col-sm-8" id="bedName" name="bedName"
+                                       style="font-size: 14px;" placeholder="名称不能为空（必填）">
+                            </div>
+                            <!--bedSize-->
+                            <div class="form-group form-inline">
+                                <label for="bedSize" class="col-sm-3 control-label">床型尺寸</label>
+                                <input type="text" class="col-sm-8" id="bedSize" name="bedSize" style="font-size: 14px;"
+                                    onblur="checkBedSize()"   placeholder="只能输入纯数字或者小数（必填）">
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-sm btn-default" onclick="clearBed()">清空</button>
+                        <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                        <spam id="tip"></spam>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
 <!--调用用户脚本-->
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script type="text/javascript" th:src="@{/js/manage.js}"></script>
