@@ -80,10 +80,8 @@
                     </i>
                         <span>查看评价</span>
                     </p>
-                    <p>
-                        <p><span>入住时间:</span>[[${#dates.format(order.checkIn, 'yyyy-M-d')}]]</p>
-                        <p><span>离店时间:</span>[[${#dates.format(order.checkOut, 'yyyy-M-d')}]]</p>
-                    </p>
+                    <p style="font-size: 15px;" ><span>入住时间:</span>[[${#dates.format(order.checkIn, 'yyyy-MM-dd')}]]</p>
+                    <p style="font-size: 15px;"><span>离店时间:</span>[[${#dates.format(order.checkOut, 'yyyy-MM-dd')}]]</p>
                 </div>
                 <div class="two">
                     <span class="price per-price">总价$[[${order.total}]]<br>元</span>

@@ -59,7 +59,7 @@ public class HotelOrderController {
             detail.setRoomPrice(submitDTO.getPrice());
             detail.setRoomCount(submitDTO.getRoomCount());
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date checkInDate = dateFormat.parse(submitDTO.getCheckIn());
         Date checkOutDate = dateFormat.parse(submitDTO.getCheckOut());
         hotelOrderInfoDTO.setCheckIn(checkInDate);

@@ -235,7 +235,7 @@
                                         <div class="form-group">
                                             <label for="checkOutQuery">离店时间</label>
                                             <input id="checkOutQuery" name="endTime" type="date" class="form-control"
-                                                   th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
+                                                   th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-MM-dd')}">
                                         </div>
                                     </div>
                                     <!--                                &lt;!&ndash; 旅客数 &ndash;&gt;-->
@@ -296,7 +296,7 @@
                                 <input type="hidden" name="roomId" th:value="${room.roomId}">
                                 <input type="hidden" name="userId" th:value="${session.user.userId}">
                                 <input type="hidden" name="checkIn" th:value="${startTime != null?#dates.format(startTime, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
-                                <input type="hidden" name="checkOut" th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
+                                <input type="hidden" name="checkOut" th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-MM-dd')}">
                                 <input type="hidden" name="roomCount" th:value=1>
                                 <div class="destination">
                                     <!-- 房间展示单块 -->

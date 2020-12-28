@@ -30,8 +30,8 @@
                     <div class="form-group">
                         <div id="checkInLabel" class="form-field">
                             <div class="icon"><span class="icon-calendar"></span><label>入住时间</label></div>
-                            <input type="text" id="checkIn" class="form-control checkin_date" placeholder="Check In"
-                                   th:value="${#dates.format(order.checkIn, 'yyyy-M-d')}">
+                            <input type="date" id="checkIn" class="form-control" placeholder="Check In"
+                                   th:value="${#dates.format(order.checkIn, 'yyyy-MM-dd')}">
                         </div>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                     <div class="form-group">
                         <div id="checkOutLabel" class="form-field">
                             <div class="icon"><span class="icon-calendar"></span><label>离店时间</label></div>
-                            <input type="text" id="checkOut" class="form-control checkout_date" placeholder="Check Out"
-                                   th:value="${#dates.format(order.checkOut, 'yyyy-M-d')}">
+                            <input type="date" id="checkOut" class="form-control" placeholder="Check Out"
+                                   th:value="${#dates.format(order.checkOut, 'yyyy-MM-dd')}">
                         </div>
                     </div>
                 </div>
