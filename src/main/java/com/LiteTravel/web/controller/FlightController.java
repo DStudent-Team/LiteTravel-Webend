@@ -75,6 +75,21 @@ public class FlightController {
         }
     }
 
+    @PostMapping("flight/unPay")
+    public String unPayFlight(FlightReserveDTO flightReserveDTO, ModelMap model, HttpSession session){
+        //判断用户是否登录
+        UserDTO userDTO = (UserDTO) session.getAttribute("user");
+        if (userDTO == null){
+            model.addAttribute("message", "请登录");
+            return "redirect:/flights";
+        }
+        //回退交易
+        moneyService.unTransaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal());
+        //修改状态为未支付
+        flightService.UpdateFlightStatus(flightReserveDTO.getFlightId(), 2);
+        return "redirect:/flight/" + flightReserveDTO.getFlightId();
+    }
+
 
     @GetMapping("flights")
     public String getFlights(@RequestParam(value = "page",defaultValue = "1")Integer page, ModelMap model, HttpSession session){

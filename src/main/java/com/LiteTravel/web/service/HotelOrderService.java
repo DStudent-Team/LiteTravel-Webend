@@ -126,21 +126,33 @@ public class HotelOrderService {
         }
         return insertId;
     }
-    /*
-    * 更新订单
-    * */
+
+    /**
+     * 更新订单状态为已支付
+     * @param orderId
+     * @return
+     */
     public int updateHotelOrder(Integer orderId){
         //支付日期
         Date pay_date = new Date();
-//        HotelOrderExample hotelOrderExample = new HotelOrderExample();
-//        hotelOrderExample.createCriteria()
-//                .andOrderIdEqualTo(orderId)
-//                .andPayDateIsNull()
-//                .andStatusEqualTo("0");
         HotelOrder hotelOrder = new HotelOrder();
         hotelOrder.setOrderId(orderId);
         hotelOrder.setPayDate(pay_date);
         hotelOrder.setStatus("1");
+        return hotelOrderMapper.updateByPrimaryKeySelective(hotelOrder);
+    }
+
+    /**
+     * 更新订单状态
+     * @param orderId 订单id
+     * @param status 订单状态
+     * @return int
+     */
+    public int updateHotelOrderStatus(Integer orderId, String status){
+        HotelOrder hotelOrder = new HotelOrder();
+        hotelOrder.setOrderId(orderId);
+        hotelOrder.setPayDate(new Date());
+        hotelOrder.setStatus(status);
         return hotelOrderMapper.updateByPrimaryKeySelective(hotelOrder);
     }
 

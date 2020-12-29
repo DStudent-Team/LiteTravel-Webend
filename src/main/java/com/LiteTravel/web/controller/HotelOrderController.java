@@ -160,20 +160,21 @@ public class HotelOrderController {
 
     @PostMapping("/order/pay")
     public String transaction(OrderTransactionDTO orderTransactionDTO, Model model){
+
         //通过hotelId找到managerId
         Integer managerId = hotelService.findManagerIdByHotelId(orderTransactionDTO.getHotelId());
         if (managerId == -1){
             model.addAttribute("message", "没有这个用户");
             return "redirect:/login";
         }else{
-            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney(), orderTransactionDTO.getUserPassword());
+            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
             if (!flag){
                 model.addAttribute("message", "交易失败");
-                return "redirect:/order/" + orderTransactionDTO.getOrderId();
+                return "redirect:/orders";
             }else{
                 hotelOrderService.updateHotelOrder(orderTransactionDTO.getOrderId());
                 model.addAttribute("message", "交易成功");
-                return "redirect:/order/" + orderTransactionDTO.getOrderId();
+                return "redirect:/orders";
             }
         }
     }
@@ -201,5 +202,21 @@ public class HotelOrderController {
         Integer orderId = hotelOrderService.insertHotelOrder(hotelOrder, hotelOrderDetails);
 
         return ResponseDTO.success(orderId);
+    }
+
+    @PostMapping("/order/unPay")
+    public String unTransaction(OrderTransactionDTO orderTransactionDTO, Model model){
+
+        //通过hotelId找到managerId
+        Integer managerId = hotelService.findManagerIdByHotelId(orderTransactionDTO.getHotelId());
+        if (managerId == -1){
+            model.addAttribute("message", "没有这个用户");
+            return "redirect:/login";
+        }else{
+            moneyService.unTransaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
+            hotelOrderService.updateHotelOrderStatus(orderTransactionDTO.getOrderId(), "2");
+            model.addAttribute("message", "退款成功");
+            return "redirect:/orders";
+        }
     }
 }

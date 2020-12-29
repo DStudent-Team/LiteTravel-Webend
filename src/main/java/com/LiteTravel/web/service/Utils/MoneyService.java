@@ -168,4 +168,31 @@ public class MoneyService {
             }
         }
     }
+
+    /**
+     * 取消交易
+     * @param userId 用户id
+     * @param adminId 商家id
+     * @param money 交易金额
+     */
+    public void unTransaction(int userId, int adminId, float money){
+        UserMoney userMoney = new UserMoney();
+        synchronized (this){
+            // +money
+            userMoney.setUserId(userId);
+            userMoney.setMoney(getMoney(userId) + money);
+            moneyMapper.updateByPrimaryKeySelective(userMoney);
+            // -money
+            userMoney.setUserId(adminId);
+            userMoney.setMoney(getMoney(adminId) - money);
+            moneyMapper.updateByPrimaryKeySelective(userMoney);
+            // 记录交易
+            Transaction transaction = new Transaction();
+            transaction.setSellerId(adminId);
+            transaction.setBuyerId(userId);
+            transaction.setMoney(-money);
+            transaction.setCreateTime(new Date());
+            transactionMapper.insertSelective(transaction);
+        }
+    }
 }
