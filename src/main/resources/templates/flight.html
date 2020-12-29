@@ -75,6 +75,7 @@
                                 <input name="companyId" type="hidden" th:value="${reserve.companyId}">
                                 <input id="total" name="total" type="hidden" th:value="${reserve.total}">
                                 <input id="userMoney" type="hidden" th:value="${userMoney}">
+                                <input id="userPassword" type="hidden" name="userPassword">
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-small btn-primary py-3 px-5"  value="支付"/>
                                     <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
@@ -162,6 +163,10 @@
 
     function checkPassword() {
         const password = prompt("输入支付密码:");
+        if(password == null){
+            return false;
+        }
+        $('#userPassword').val(password);
         let checkTimes = 0;
         return $.ajax({
             type: "POST",

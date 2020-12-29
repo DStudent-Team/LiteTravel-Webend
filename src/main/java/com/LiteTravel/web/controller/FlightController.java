@@ -50,6 +50,7 @@ public class FlightController {
     /*撤销模块*/
     @PostMapping("flight/withdraw/")
     public String cancelReserve(FlightReserveDTO flightReserveDTO){
+
         flightService.withdrawReserve(flightReserveDTO);
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
 
@@ -63,7 +64,7 @@ public class FlightController {
             model.addAttribute("message", "请登录");
             return "redirect:/flights";
         }
-        boolean flag = moneyService.transaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal());
+        boolean flag = moneyService.transaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal(),flightReserveDTO.getUserPassword());
         if (!flag){
             model.addAttribute("message", "交易失败");
             return "redirect:/flights";

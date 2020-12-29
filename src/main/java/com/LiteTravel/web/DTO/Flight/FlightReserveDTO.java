@@ -16,6 +16,7 @@ public class FlightReserveDTO {
     Integer companyId;
     String companyName;
     String service;
+    String userPassword;
     /**
      * 所有预定到的机票数据
      */

@@ -13,4 +13,5 @@ public class OrderTransactionDTO {
     private Integer userId;
     private Integer hotelId;
     private Float money;
+    private String userPassword;
 }

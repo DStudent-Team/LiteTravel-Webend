@@ -50,6 +50,8 @@
                     <input id="hotelId" name="hotelId" type="text" th:value="${order.hotelId}">
                     <input id="total" name="money" type="text" th:value="${order.total}">
                     <input id="userMoney" type="text" th:value="${userMoney}">
+                    <input id="userPassword" type="hidden" name="userPassword">
+
 <!--                    <div class="form-group">-->
 <!--                        <label>用户真实姓名:</label>-->
 <!--                        <input id="name" name="name" type="text" class="form-control" placeholder="Your Name">-->
@@ -102,6 +104,7 @@
         if(password == null){
             return false;
         }
+        $('#userPassword').val(password);
         let checkTimes = 0;
         return $.ajax({
             async: false,

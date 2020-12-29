@@ -166,7 +166,7 @@ public class HotelOrderController {
             model.addAttribute("message", "没有这个用户");
             return "redirect:/login";
         }else{
-            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
+            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney(), orderTransactionDTO.getUserPassword());
             if (!flag){
                 model.addAttribute("message", "交易失败");
                 return "redirect:/order/" + orderTransactionDTO.getOrderId();

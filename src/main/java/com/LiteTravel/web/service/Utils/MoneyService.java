@@ -86,7 +86,12 @@ public class MoneyService {
      * @param money 交易金额
      * @return 是否成功
      */
-    public boolean transaction(int userId, int adminId, float money){
+    public boolean transaction(int userId, int adminId, float money, String password){
+        int flag = checkPassword(password,userId);
+        if (flag == 0){
+            return false;
+        }
+
         UserMoney uMoney = new UserMoney();
         float um = 0;
         // 用户可能空账号
