@@ -157,4 +157,15 @@ public class MoneyService {
         }
 
     }
+    public void insertMoneyAccount(Integer userId){
+        if(userId != null){
+            UserMoney userMoney = moneyMapper.selectByPrimaryKey(userId);
+            if(userMoney == null){
+                UserMoney userMoney1 = new UserMoney();
+                userMoney1.setUserId(userId);
+                userMoney1.setMoney(0F);
+                moneyMapper.insert(userMoney1);
+            }
+        }
+    }
 }

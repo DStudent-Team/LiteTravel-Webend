@@ -3,6 +3,7 @@ package com.LiteTravel.web.service;
 import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
+import com.LiteTravel.web.service.Utils.MoneyService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,12 @@ public class UserService {
 
     @Autowired
     UserAuthorityService userAuthorityService;
+
+    @Resource
+    private MoneyService moneyService;
+
+    @Resource
+    private UserMoneyMapper userMoneyMapper;
 
 
 
@@ -167,6 +175,9 @@ public class UserService {
             userAuthorityService.insertAuthority(user.getUserId(), userManageDTO.getAuthorityLevel());
             /*根据权限等级设置相应的服务商*/
             userAuthorityService.addCompany(user.getUserId(),userManageDTO);
+            // 添加账户表
+            moneyService.insertMoneyAccount(user.getUserId());
+
             System.out.println("保存成功！"+user);
         }
         else if(tag.equals("update")){
@@ -187,7 +198,9 @@ public class UserService {
     public int deleteUser(Integer userId){
         int id = userMapper.deleteByPrimaryKey(userId);
         int infoId = userInfoMapper.deleteByPrimaryKey(userId);
-        if(id == 1 && infoId == 1){
+        int id1 = userAuthorityMapper.deleteByPrimaryKey(userId);
+        int id2 = userMoneyMapper.deleteByPrimaryKey(userId);
+        if(id == 1 && infoId == 1 && id1==1 && id2==1){
             return 1;
         }else{
             return 0;

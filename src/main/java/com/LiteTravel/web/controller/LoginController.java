@@ -6,6 +6,7 @@ import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.service.UserAuthorityService;
 import com.LiteTravel.web.service.UserService;
+import com.LiteTravel.web.service.Utils.MoneyService;
 import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class LoginController {
 
     @Resource
     private UserAuthorityService userAuthorityService;
+
+    @Resource
+    MoneyService moneyService;
 
     @PostMapping(value = "/login")
     public String login(@RequestParam("userCode") String userCode,
@@ -89,6 +93,8 @@ public class LoginController {
         userService.insert(userinfo);
         // 普通用户添加权限0
         userAuthorityService.insertAuthority(user.getUserId(), 0);
+        // 添加账户表
+        moneyService.insertMoneyAccount(user.getUserId());
 //        自动跳转登陆
         if(userService.selectByCode(userCode).size() != 0) {
             login(userCode, userPassword, map, session);
