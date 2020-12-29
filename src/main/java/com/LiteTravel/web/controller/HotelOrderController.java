@@ -158,6 +158,14 @@ public class HotelOrderController {
         return "order";
     }
 
+    @PostMapping ("/order/cancel")
+    public String deleteOrder(Integer orderId, ModelMap model){
+        hotelOrderService.deleteOrder(orderId);
+        model.addAttribute("message", "取消成功");
+        return "redirect:/orders";
+
+    }
+
     @PostMapping("/order/pay")
     public String transaction(OrderTransactionDTO orderTransactionDTO, Model model){
 
@@ -165,16 +173,16 @@ public class HotelOrderController {
         Integer managerId = hotelService.findManagerIdByHotelId(orderTransactionDTO.getHotelId());
         if (managerId == -1){
             model.addAttribute("message", "没有这个用户");
-            return "redirect:/login";
+            return "redirect:/orders";
         }else{
-            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
+            boolean flag = moneyService.transaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney(), orderTransactionDTO.getUserPassword());
             if (!flag){
                 model.addAttribute("message", "交易失败");
-                return "redirect:/orders";
+                return "redirect:/order/"+orderTransactionDTO.getOrderId();
             }else{
                 hotelOrderService.updateHotelOrder(orderTransactionDTO.getOrderId());
                 model.addAttribute("message", "交易成功");
-                return "redirect:/orders";
+                return "redirect:/order/"+orderTransactionDTO.getOrderId();
             }
         }
     }

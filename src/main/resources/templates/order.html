@@ -72,10 +72,17 @@
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary py-3 px-5">支付</button>
 <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
-                        <button type="button" class="btn btn-secondary py-3 px-5" th:href="@{'/order/cancel/' + ${order.orderId}}">取消</button>
                     </div>
                 </form>
             </div>
+        </div>
+        <div th:if="${order.status == '0'}">
+            <form method="post" th:action="@{/order/cancel}">
+                <input name="orderId" type="text" th:value="${order.orderId}">
+                <div class="form-group">
+                    <button type="submit" onclick="return checkCancel()" class="btn btn-secondary py-3 px-5" >取消</button>
+                </div>
+            </form>
         </div>
         <div th:if="${order.status == '1'}"><p>已支付，等待用户入住</p></div>
         <div th:if="${order.status == '2'}"><p>已入住</p></div>
@@ -99,9 +106,12 @@
 <!--加入订单支付脚本数据-->
 <script th:src="@{/js/hotel-pay.js}"></script>
 <script>
+    function checkCancel() {
+        return confirm("确认要取消订单吗？") === true;
+    }
     function checkPassword() {
         const password = prompt("输入支付密码:");
-        if(password == null){
+        if(password === null){
             return false;
         }
         $('#userPassword').val(password);
@@ -119,7 +129,7 @@
                 if (response.code === 200) {
                     //密码正确
                     //弹出回复成功浮动框消息(数秒后自动消失)
-                    // alert("密码正确");
+                    alert("密码正确");
                     checkPay();
                     return true;
                 } else {

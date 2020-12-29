@@ -314,7 +314,7 @@ function clearHotel (userId, userName){
     $('#hotelName').val('');
     $('#hotelMinPrice').val('');
     $('#hotelManagerIdTrue').val(userId);
-    console.log("sdaijesk"+userId);
+    // console.log("sdaijesk"+userId);
     $('#hotelManagerName').val(userName);
     $('#hotelPhone').val('');
     $('#hotelReplyLevel').val('');

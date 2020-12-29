@@ -67,7 +67,7 @@ public class FlightController {
         boolean flag = moneyService.transaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal(),flightReserveDTO.getUserPassword());
         if (!flag){
             model.addAttribute("message", "交易失败");
-            return "redirect:/flights";
+            return "redirect:/flight/" + flightReserveDTO.getFlightId();
         }else{
             model.addAttribute("message", "交易成功");
             flightService.payFlight(flightReserveDTO);
