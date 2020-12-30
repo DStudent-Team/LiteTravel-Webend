@@ -4,14 +4,15 @@ import com.LiteTravel.web.DTO.HotelDTO;
 import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.Hotel;
+import com.LiteTravel.web.Model.RoomBedMap;
 import com.LiteTravel.web.service.HotelService;
+import com.sun.deploy.net.HttpResponse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -42,6 +43,7 @@ public class AdminHotelController {
             }
         }
         else{
+
             /*更新酒店信息*/
             int result = hotelService.updateHotel(hotelDTO);
             if(result == 0){
@@ -51,13 +53,13 @@ public class AdminHotelController {
         return "redirect:/manage/hotels";
     }
 
-//    //delete
-//    @DeleteMapping("/manage/hotel/{hotelId}")
-//    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
-//
-//        hotelService.deleteHotel(hotelId);
-//        return "redirect:/manage/hotels";
-//    }
+    //delete
+    @DeleteMapping("/manage/hotel/{hotelId}")
+    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+
+        hotelService.deleteHotel(hotelId);
+        return "redirect:/manage/hotels";
+    }
 
     /*-----------------------------------------------------------------------------*/
     /*酒店房间增删改*/
@@ -83,10 +85,51 @@ public class AdminHotelController {
         }
         return "redirect:/manage/rooms";
     }
+    /*---------------------------------------------*/
+    /*房间床位*/
+    /*从床位管理返回Rooms菜单*/
+    @PostMapping("manage/turnBackRooms")
+    public String turnBackRooms(){
+        return "redirect:/manage/rooms";
+    }
 
+    /*删除酒店床位*/
+    @PostMapping("manage/roomBed/delete")
+    public String deleteRoomBed(RoomBedDTO roomBedDTO, ModelMap model, HttpSession session,
+                                @RequestParam(value = "page", defaultValue = "1")Integer page) {
+        hotelService.deleteRoomBed(roomBedDTO);
+        //bedCount 数值是 roomId
+        hotelService.getRoomBeds(page, 6, roomBedDTO.getRoomId(),model,session);
+        return "room/roomBed";
+    }
+    //添加酒店床位
+    @PostMapping("manage/roomBed/insert")
+    public String insertRoomBed(BedDTO bedDTO,ModelMap model,HttpSession session,
+                                @RequestParam(value = "page", defaultValue = "1")Integer page){
+        //将bedId当做roomId，所以getBedId其实是getRoomId
+        hotelService.insertRoomBed(bedDTO);
+        //BedId 保存的是 roomId
+        hotelService.getRoomBeds(page, 6, bedDTO.getBedId(),model,session);
+        return "room/roomBed";
+    }
     /*-----------------------------------------------------------------------------*/
-    /*床位增删*/
+    /*床位增删改*/
+    @PostMapping("/manage/bed")
+    public String insertOrUpdateBed(BedDTO bedDTO){
+        Bed bed = new Bed();
+        BeanUtils.copyProperties(bedDTO, bed);
+        if(bed.getBedId() == null){
+            hotelService.insertBed(bed);
+        }
+        else{
+            hotelService.updateBed(bed);
+        }
+        return "redirect:/manage/beds";
+    }
 
-
-
+    @DeleteMapping("manage/bed/{bedId}")
+    public String deleteBed(@PathVariable("bedId") Integer bedId) {
+        hotelService.deleteBed(bedId);
+        return "redirect:/manage/beds";
+    }
 }

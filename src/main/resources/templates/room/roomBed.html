@@ -24,11 +24,17 @@
 <div th:replace="~{commons/bar::topbar}"></div>
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="~{commons/bar::sidebar(activeUri='beds')}"></div>
+        <div th:replace="~{commons/bar::sidebar(activeUri='roomBed')}"></div>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <h2>
-                <button type="button" id="add_new_site_bnt" class="btn btn-sm btn-success" style="margin: 0 0;"
-                        data-toggle="modal" data-target="#addBedModal" th:onclick="clearBed()">添加床位信息</button>
+            <h2 class="form-inline">
+                <form th:action="@{'/manage/turnBackRooms/'}" method="post">
+                    <button type="submit" class="btn btn-sm btn-info">返回房间管理</button>
+                </form>
+                <form>
+                    <button type="button" id="add_new_site_bnt" class="btn btn-sm btn-success" style="margin-left: 5px"
+                            data-toggle="modal" data-target="#insertBedRoomModal"
+                            th:onclick="insertRoomBed([[${roomIdForRoomBed}]])">添加房间床位</button>
+                </form>
             </h2>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
@@ -37,40 +43,35 @@
                         <th>ID</th>
                         <th>名称</th>
                         <th>尺寸</th>
+                        <th>数量</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="bed:${beds}">
-                        <td th:text="${bed.bedId}"></td>
-                        <td th:text="${bed.bedName}"></td>
-                        <td th:text="${bed.bedSize}"></td>
+                    <tr th:each="roomBed:${roomBeds}">
+                        <td th:text="${roomBed.bedId}"></td>
+                        <td th:text="${roomBed.bedName}"></td>
+                        <td th:text="${roomBed.bedSize}"></td>
+                        <td th:text="${roomBed.bedCount}"></td>
                         <td class="form-inline">
-                            <button type="submit" id="add_new_site_bnt" class="btn btn-sm btn-info"
-                                    th:onclick="editBed(
-                                        [[${bed.bedId}]],
-                                        [[${bed.bedName}]],
-                                        [[${bed.bedSize}]]
-                                        )"
-                                    data-toggle="modal" data-target="#addBedModal">修改</button>
-
-                            <form th:action="@{'/manage/bed/' + ${bed.bedId}}" method="post" style="margin-left: 5px">
-                                <input name="_method" type="hidden" value="delete"/>
-                                <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                            </form>
+                            <button type="button" id="delete_new_site_bnt" class="btn btn-sm btn-danger" style="margin-left: 5px"
+                                    data-toggle="modal" data-target="#decreaseBedRoomModal"
+                                    th:onclick="decreaseRoomBed([[${roomIdForRoomBed}]],[[${roomBed.bedId}]])">床位-1</button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <!-- 分页展示:  个人信息页面导航栏  暂无样式-->
-            <div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/beds')}"></div>
+<!--            <div th:replace="~{commons/navigation::navigationBar(redirect = 'manage/beds')}"></div>-->
         </main>
     </div>
 </div>
 
 <!--酒店房间编辑模态框（Modal） 调用commons/modal_box.html-->
-<div th:replace="~{commons/modal_box::addBedModal}"></div>
+<div th:replace="~{commons/modal_box::insertBedRoomModal}"></div>
+<!--酒店房间编辑模态框（Modal） 调用commons/modal_box.html-->
+<div th:replace="~{commons/modal_box::decreaseBedRoomModal}"></div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

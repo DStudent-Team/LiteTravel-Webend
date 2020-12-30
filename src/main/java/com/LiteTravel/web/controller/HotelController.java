@@ -29,7 +29,7 @@ public class HotelController {
 
     /* 点击页面数切换 分页显示酒店列表 */
     @GetMapping("/hotels")
-    public String hotelPage(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model){
+    public String HotelPage(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model){
         setPageHotel(page, model);
         return "hotels";
     }
@@ -119,7 +119,7 @@ public class HotelController {
 
     /*酒店后台房间管理根据管理员id信息获取数据*/
     @GetMapping("manage/rooms")
-    public String blogList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model,
+    public String hotelRoomList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model,
         HttpSession session){
         /*获取session对象*/
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
@@ -130,6 +130,15 @@ public class HotelController {
         model.addAttribute("rooms",result.data);
         model.addAttribute("pageInfo", result.info);
         return "room/list";
+    }
+
+    /*---------------------------------------------*/
+    /*酒店管理点击床位跳转酒店床位管理页*/
+    @PostMapping("manage/roomBed/{roomId}")
+    public String roomBed(@PathVariable("roomId") Integer roomId,ModelMap model,HttpSession session,
+                          @RequestParam(value = "page", defaultValue = "1")Integer page){
+        hotelService.getRoomBeds(page, 6, roomId,model,session);
+        return "room/roomBed";
     }
 
     /*-----------------------------------------------------------------*/
@@ -143,6 +152,13 @@ public class HotelController {
      */
     @DeleteMapping("/manage/hotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+    @GetMapping("manage/beds")
+    public String bedList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
+        ResultVO result = hotelService.getAllBeds(page, 6);
+        model.addAttribute("beds",result.data);
+        model.addAttribute("pageInfo", result.info);
+        return "bed/list";
+    }
 
     /*-----------------------------------------------------------------*/
         hotelService.deleteHotel(hotelId);

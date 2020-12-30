@@ -717,11 +717,11 @@
     </form>
 </section>
 
-<!--房间床位插入删除模态框-->
-<section class="ftco-section-parallax" th:fragment="roomBedModal">
-    <form method="post" th:action="@{/manage/roomBed}" class="form-horizontal" role="form" >
+<!--房间床位插入模态框-->
+<section class="ftco-section-parallax" th:fragment="insertBedRoomModal">
+    <form method="post" th:action="@{/manage/roomBed/insert}" class="form-horizontal" role="form" >
         <input id="roomBedMethod" name="_method" type="hidden" value="PUT" disabled>
-        <div class="modal fade" id="roomBedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="insertBedRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
@@ -733,25 +733,131 @@
                     <div class="modal-body" style="font-size: 16px;">
                         <!--输入框-->
                         <form method="post">
-                            <div>
-                                <span>房间编号：</span>
-                                <span id="room_Id">*</span>
+                            <!--roomId-->
+                            <div class="form-group">
+                                <!--bedId其实是roomId-->
+                                <div >
+                                    <input type="hidden" id="room_Id" name="bedId">
+                                </div>
                             </div>
-                            <div>
-                                <span>请选择添加床位号</span>
-                                <select name="bedId" id="bedId">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                            <!--bedId-->
+                            <div class="form-group form-inline">
+                                <span>请选择床位名称</span>
+                                <select id="bed_Name" name="bedName" style="margin-left:30px;height: 30px;width: 150px">
+                                    <span th:each="bed:${session.bedList}">
+                                        <option th:text="${bed.bedName}"></option>
+                                    </span>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-default" onclick="">清空</button>
-                            <button type="submit" class="btn btn-primary">提交</button>
+                            <!--bedCount-->
+                            <div class="form-group form-inline">
+                                <span>请选择床位数量</span>
+                                <select id="bedCount" name="bedCount" style="margin-left:30px;height: 30px;width: 150px">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                </select>
+                            </div>
+
                         </form>
-                        <!--床位查看框-->
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<!--房间床位减少模态框-->
+<section class="ftco-section-parallax" th:fragment="decreaseBedRoomModal">
+    <form method="post" th:action="@{/manage/roomBed/delete}" class="form-horizontal" role="form" >
+        <input name="_method" type="hidden" value="PUT" disabled>
+        <div class="modal fade" id="decreaseBedRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">床位信息</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body" style="font-size: 16px;">
+                        <!--输入框-->
+                        <form method="post">
+                            <div class="form-group">
+                                <!--bedId-->
+                                <div >
+                                    <input type="hidden" id="deleteBedId" name="bedId">
+                                </div>
+                            </div>
+                            <!--rooomId-->
+                            <div class="form-group">
+                                <!--bedId其实是roomId-->
+                                <div >
+                                    <input type="hidden" id="deleteRoomId" name="roomId">
+                                </div>
+                            </div>
+                            <span>确认减少房间数量-1？当数量为1减一则删除</span>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<!--床位编辑模态框-->
+<section class="ftco-section-parallax" th:fragment="addBedModal">
+    <form method="post" th:action="@{/manage/bed}" class="form-horizontal" role="form" >
+        <input id="bedMethod" name="_method" type="hidden" value="PUT" disabled>
+        <div class="modal fade" id="addBedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">床位信息</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+
+                    <div class="modal-body" style="font-size: 14px;">
+                        <form method="post" class="form-horizontal">
+                            <!--bedId-->
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" class="form-control" id="bed_Id" name="bedId">
+                                </div>
+                            </div>
+                            <!--bedName-->
+                            <div class="form-group form-inline">
+                                <label for="bedName" class="col-sm-3 control-label">床型名称</label>
+                                <input type="text" class="col-sm-8" id="bedName" name="bedName"
+                                       style="font-size: 14px;" placeholder="名称不能为空（必填）">
+                            </div>
+                            <!--bedSize-->
+                            <div class="form-group form-inline">
+                                <label for="bedSize" class="col-sm-3 control-label">床型尺寸</label>
+                                <input type="text" class="col-sm-8" id="bedSize" name="bedSize" style="font-size: 14px;"
+                                    onblur="checkBedSize()"   placeholder="只能输入纯数字或者小数（必填）">
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-sm btn-default" onclick="clearBed()">清空</button>
+                        <button type="submit" class="btn btn-sm btn-primary">提交</button>
                         <spam id="tip"></spam>
                     </div>
                 </div>
