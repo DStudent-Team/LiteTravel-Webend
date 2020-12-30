@@ -38,7 +38,9 @@ public class BlogService {
 
     public ResultVO selectAll(Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<Blog> blogs = blogMapper.selectByExample(new BlogExample());
+        BlogExample blogExample = new BlogExample();
+        blogExample.setOrderByClause("blog_modify_time desc");
+        List<Blog> blogs = blogMapper.selectByExample(blogExample);
         PageInfo<Blog> info = new PageInfo<>(blogs, 5);
         List<BlogDTO> data = blogs.stream().map(this::getBlogDTO).collect(Collectors.toList());
         return new ResultVO(data, info);
@@ -83,6 +85,7 @@ public class BlogService {
 
     public ResultVO selectByExample(Integer page, Integer pageSize, BlogExample blogExample){
         PageHelper.startPage(page, pageSize);
+        blogExample.setOrderByClause("blog_modify_time desc");
         List<Blog> blogs = blogMapper.selectByExample(blogExample);
         PageInfo<Blog> info = new PageInfo<>(blogs, 5);
         List<BlogDTO> data = blogs.stream().map(this::getBlogDTO).collect(Collectors.toList());
