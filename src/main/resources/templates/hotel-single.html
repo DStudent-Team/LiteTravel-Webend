@@ -162,7 +162,7 @@
                         <p class="rate mb-5">
                             <!-- todo 详细地址-->
                             <!-- 可跳转, 跳转至地点介绍? 不对, 地图展示? 会更复杂, 不然先设计跳转至通过地址筛选酒店的列表? 好像可行, 先这么做着 -->
-                            <span class="loc"><a th:href="@{'/hotels/address/' + ${hotel.hotelAddress}}"><i class="icon-map"></i> [[${hotel.hotelAddressString}]]</a> [[${hotel.hotelAddressSpecific}]]</span>
+                            <span class="loc"><a th:href="@{'/guide/' + ${hotel.hotelAddressString}+${hotel.hotelAddressSpecific}}"><i class="icon-map"></i> [[${hotel.hotelAddressString}]]</a> [[${hotel.hotelAddressSpecific}]]</span>
                             <!-- 用户评分 -->
                             <span class="star">
     							<i class="icon-star"

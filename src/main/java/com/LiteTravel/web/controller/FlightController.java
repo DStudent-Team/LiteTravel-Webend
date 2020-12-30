@@ -86,8 +86,14 @@ public class FlightController {
         //回退交易
         moneyService.unTransaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal());
         //修改状态为未支付
-        flightService.UpdateFlightStatus(flightReserveDTO.getFlightId(), 2);
+        flightService.withdrawReserve(flightReserveDTO);
         return "redirect:/flight/" + flightReserveDTO.getFlightId();
+    }
+
+    @GetMapping("/flight/order/{flightId}")
+    public String confirmFlight(@PathVariable Integer flightId) {
+        flightService.UpdateFlightStatus(flightId, 4);
+        return "redirect:/manage/company/flights";
     }
 
 

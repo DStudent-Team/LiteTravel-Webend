@@ -35,6 +35,7 @@ public class LoginController {
     @PostMapping(value = "/login")
     public String login(@RequestParam("userCode") String userCode,
                         @RequestParam("userPassword") String userPassword,
+                        @RequestParam("userAddress") String userAddress,
                         Map<String, Object> map,
                         HttpSession session){
         /* Mybatis Generator 生成的筛选条件器 */
@@ -52,6 +53,11 @@ public class LoginController {
                     userAuthorityService.findAuthorityLevelByUserId(userInfo.getUserId()));
             session.setAttribute("user", userDTO);
 
+
+            session.setAttribute("userAddress", userAddress);
+            String name = (String) session.getAttribute("userAddress");
+            System.out.println("用户地址:"+userAddress+name);
+
             //需要重定向
             return "redirect:index";
         }
@@ -66,6 +72,7 @@ public class LoginController {
     public String register(@RequestParam(name = "userCode") String userCode,
                            @RequestParam(name = "userName") String userName,
                            @RequestParam(name = "userPassword") String userPassword,
+                           @RequestParam(name = "userAddress") String userAddress,
                            Map<String, Object> map,
                            HttpSession session) throws Exception {
         /*
@@ -97,7 +104,7 @@ public class LoginController {
         moneyService.insertMoneyAccount(user.getUserId());
 //        自动跳转登陆
         if(userService.selectByCode(userCode).size() != 0) {
-            login(userCode, userPassword, map, session);
+            login(userCode, userPassword, userAddress, map, session);
             return "redirect:/index";
         }
         else {

@@ -2,6 +2,7 @@ package com.LiteTravel.web.DTO.Flight;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,8 @@ public class FlightReserveDTO {
     String companyName;
     String service;
     String userPassword;
+    String flightDepart;
+    String flightArrived;
     /**
      * 所有预定到的机票数据
      */

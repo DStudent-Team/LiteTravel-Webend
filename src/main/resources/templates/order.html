@@ -84,6 +84,17 @@
                 </div>
             </form>
         </div>
+        <div th:if="${order.status == '1'}">
+            <form method="post" th:action="@{/order/unPay}">
+                <input  name="orderId" type="text" th:value="${order.orderId}">
+                <input  name="userId" type="text" th:value="${session.user.userId}">
+                <input  name="hotelId" type="text" th:value="${order.hotelId}">
+                <input  name="money" type="text" th:value="${order.total}">
+                <div class="form-group">
+                    <button type="submit" onclick="return checkCancelMoney()" class="btn btn-secondary py-3 px-5" >退款</button>
+                </div>
+            </form>
+        </div>
         <div th:if="${order.status == '1'}"><p>已支付，等待用户入住</p></div>
         <div th:if="${order.status == '2'}"><p>已入住</p></div>
         <div th:if="${order.status == '3'}"><p>已离店，等待用户评价</p></div>
@@ -108,6 +119,10 @@
 <script>
     function checkCancel() {
         return confirm("确认要取消订单吗？") === true;
+    }
+
+    function checkCancelMoney() {
+        return confirm("确认要退款吗？") === true;
     }
     function checkPassword() {
         const password = prompt("输入支付密码:");

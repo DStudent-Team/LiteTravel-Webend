@@ -133,6 +133,7 @@
                 <a th:case="'1'" class="btn btn-primary" th:href="@{'/flight/' + ${flight.flightId}}">支付</a>
                 <a th:case="'2'" class="btn btn-outline-info" style="cursor:not-allowed">已支付, 等待预约</a>
                 <a th:case="'3'" class="btn btn-outline-info">预约成功,等待出行</a>
+                <a th:case="'4'" class="btn btn-outline-info">行程结束</a>
                 <a th:default class="btn btn-primary" th:href="@{'/flight/' + ${flight.flightId}}">详情</a>
             </div>
         </div>

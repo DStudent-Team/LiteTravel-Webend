@@ -19,7 +19,7 @@
             <div class="col-md-9 ftco-animate">
                 <h1 class="mb-3 text-center">预定信息</h1>
                 <div class="col-12 text-left">
-                    <h2>预定路线: [[${flight.flightToString}]] 前往 [[${flight.flightFromString}]]</h2>
+                    <h2>预定路线: [[${flight.flightFromString}]] 前往 [[${flight.flightToString}]]</h2>
                     <h2>预定出发日期: [[${#dates.format(flight.flightDepart, 'yyyy-M-d')}]]</h2>
                     <h2>预定服务级别: [[${flight.flightLevel}]]</h2>
                     <h2>预定行程人数: [[${flight.flightSeats}]]</h2>
@@ -108,12 +108,17 @@
                             </div>
                             <hr>
                             <p th:text="${reserve.selected == true}?'已选中':'未选中'"></p>
-                            <form method="post" th:action="@{/flight/withdraw/}">
+                            <form method="post" th:action="@{flight/unPay}">
                                 <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
                                 <input name="flightId" type="hidden" th:value="${reserve.flightId}">
-                                <div class="form-group">
-                                    <button type="submit" onclick="return checkCancel()" class="btn btn-small btn-danger py-3 px-5">取消</button>
+                                <input name="companyId" type="hidden" th:value="${reserve.companyId}">
+                                <input name="total" type="hidden" th:value="${reserve.total}">
+                                <div class="form-group" th:if="${flight.flightStatus  == 3}">
+                                    <button type="submit" onclick="return checkCancelMoney()" class="btn btn-small btn-danger py-3 px-5">取消</button>
                                 </div>
+                                <p th:if="${flight.flightStatus  == 4}">
+                                    行程已结束
+                                </p>
                             </form>
                         </div>
                     </div>
@@ -159,6 +164,9 @@
 <script type="text/javascript" th:inline="javascript">
     function checkCancel() {
         return confirm("确认要取消预约吗？") === true;
+    }
+    function checkCancelMoney() {
+        return confirm("确认要退款吗？") === true;
     }
 
     function checkPassword() {

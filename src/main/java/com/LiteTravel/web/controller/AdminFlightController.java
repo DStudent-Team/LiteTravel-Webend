@@ -1,5 +1,6 @@
 package com.LiteTravel.web.controller;
 
+import com.LiteTravel.web.DTO.Flight.FlightDTO;
 import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.ResultVO;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -55,8 +59,12 @@ public class AdminFlightController {
 
     @PostMapping("/manage/reserve")
     @ResponseBody
-    public Object SubmitReserve(@RequestBody FlightReserveDTO reserveDTO){
+    public Object SubmitReserve(@RequestBody FlightReserveDTO reserveDTO) throws ParseException {
         flightService.submitReserve(reserveDTO);
+        FlightDTO flightDTO = new FlightDTO();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");//注意月份是MM
+        flightDTO.setFlightDepart(simpleDateFormat.parse(reserveDTO.getFlightDepart()));
+        flightDTO.setFlightArrived(simpleDateFormat.parse(reserveDTO.getFlightArrived()));
         return ResponseDTO.successOf();
     }
     

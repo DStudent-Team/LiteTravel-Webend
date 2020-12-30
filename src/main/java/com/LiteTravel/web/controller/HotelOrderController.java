@@ -222,7 +222,7 @@ public class HotelOrderController {
             return "redirect:/login";
         }else{
             moneyService.unTransaction(orderTransactionDTO.getUserId(), managerId, orderTransactionDTO.getMoney());
-            hotelOrderService.updateHotelOrderStatus(orderTransactionDTO.getOrderId(), "2");
+            hotelOrderService.updateHotelOrderStatus(orderTransactionDTO.getOrderId(), "0");
             model.addAttribute("message", "退款成功");
             return "redirect:/orders";
         }

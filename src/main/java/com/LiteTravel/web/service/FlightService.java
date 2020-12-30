@@ -107,6 +107,12 @@ public class FlightService {
         flightMapper.updateByPrimaryKeySelective(flight);
     }
 
+    public void updateFlight(FlightDTO flightDTO){
+        Flight flight = new Flight();
+        BeanUtils.copyProperties(flightDTO,flight);
+        flightMapper.updateByPrimaryKeySelective(flight);
+    }
+
     /**
      * 获取当前商家可以提供服务的行程
      * @param page pageNum
@@ -117,7 +123,7 @@ public class FlightService {
     public ResultVO getFlights(Integer page, Integer pageSize, Integer companyId) {
         // 查找非status=2的行程
         FlightExample flightExample = new FlightExample();
-        flightExample.createCriteria().andFlightStatusNotEqualTo(2);
+        flightExample.createCriteria().andFlightStatusLessThan(2);
         PageHelper.startPage(page, pageSize);
         List<Flight> flights = flightMapper.selectByExample(flightExample);
         PageInfo<Flight> info = new PageInfo<>(flights, 5);
@@ -140,7 +146,7 @@ public class FlightService {
                 Region fromRegion = regionMapper.selectByPrimaryKey(flight.getFlightFrom());
                 flightDTO.setFlightFromString(fromRegion.getName());
                 Region toRegion = regionMapper.selectByPrimaryKey(flight.getFlightTo());
-                flightDTO.setFlightFromString(toRegion.getName());
+                flightDTO.setFlightToString(toRegion.getName());
                 flightDTOS.add(flightDTO);
             }
         }
@@ -176,7 +182,7 @@ public class FlightService {
                 Region fromRegion = regionMapper.selectByPrimaryKey(flight.getFlightFrom());
                 flightDTO.setFlightFromString(fromRegion.getName());
                 Region toRegion = regionMapper.selectByPrimaryKey(flight.getFlightTo());
-                flightDTO.setFlightFromString(toRegion.getName());
+                flightDTO.setFlightToString(toRegion.getName());
                 flightDTOS.add(flightDTO);
             }
         }
