@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.servlet.http.HttpSession;
@@ -131,27 +132,27 @@ HotelService {
         RoomDTO roomDTO = new RoomDTO();
         BeanUtils.copyProperties(room, roomDTO);
 
-//        // 获取roomBedMap
-//        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
-//        roomBedMapExample.createCriteria()
-//                .andRoomIdEqualTo(room.getRoomId());
-//        List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
-//        List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
-//        // 获取bed
-//        BedExample bedExample = new BedExample();
-//        bedExample.createCriteria()
-//                .andBedIdIn(bedIds);
-//        List<Bed> bedList = bedMapper.selectByExample(bedExample);
-//        // 获取bedCount
-//        Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
-//        // bed和bedCount写入bedDTO
-//        List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
-//            BedDTO bedDTO = new BedDTO();
-//            BeanUtils.copyProperties(bed, bedDTO);
-//            bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
-//            return bedDTO;
-//        }).collect(Collectors.toList());
-//        roomDTO.setBeds(bedDTOs);
+        // 获取roomBedMap
+        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+        roomBedMapExample.createCriteria()
+                .andRoomIdEqualTo(room.getRoomId());
+        List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
+        List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
+        // 获取bed
+        BedExample bedExample = new BedExample();
+        bedExample.createCriteria()
+                .andBedIdIn(bedIds);
+        List<Bed> bedList = bedMapper.selectByExample(bedExample);
+        // 获取bedCount
+        Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
+        // bed和bedCount写入bedDTO
+        List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
+            BedDTO bedDTO = new BedDTO();
+            BeanUtils.copyProperties(bed, bedDTO);
+            bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
+            return bedDTO;
+        }).collect(Collectors.toList());
+        roomDTO.setBeds(bedDTOs);
         return roomDTO;
     }
 
@@ -161,6 +162,16 @@ HotelService {
 
     /*-----------------------------------------------------------------------------*/
     /*数据获取域*/
+    /*-------------------------------------------------*/
+    //获取管理员管理酒店的房间数据
+    private RoomDTO getManagerRoomDTO(Room room){
+        RoomDTO roomDTO = new RoomDTO();
+        BeanUtils.copyProperties(room, roomDTO);
+        return roomDTO;
+    }
+    private List<RoomDTO> getManagerRoomDTOs(List<Room> rooms){
+        return rooms.stream().map(this::getManagerRoomDTO).collect(Collectors.toList());
+    }
     //通过管理员ID获取他管理所有酒店Id
     public List<Integer> getHotelByManagerId(Integer managerId){
         HotelExample hotelExample = new HotelExample();
@@ -170,8 +181,6 @@ HotelService {
         List<Integer> hotelId = hotels.stream().map(Hotel::getHotelId).distinct().collect(Collectors.toList());
         return hotelId;
     }
-
-    //获取管理员管理酒店的房间数据
     public ResultVO getAllRooms(Integer page, Integer pageSize,Integer managerId){
 
         List<Integer> hotelId = getHotelByManagerId(managerId);
@@ -191,16 +200,55 @@ HotelService {
 
         PageHelper.startPage(page, pageSize);
         PageInfo<Room> info = new PageInfo<>(rooms, 5);
-        List<RoomDTO> data = getRoomDTOs(rooms);
+        List<RoomDTO> data = getManagerRoomDTOs(rooms);
         return new ResultVO(data,info);
     }
 
+    /*-------------------------------------------------*/
+    //获取酒店床位数据
+    public void getRoomBeds(Integer page, Integer pageSize, Integer roomId, ModelMap model,HttpSession session){
+        PageHelper.startPage(page, pageSize);
+        // 获取roomBedMap
+        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+        roomBedMapExample.createCriteria()
+                .andRoomIdEqualTo(roomId);
+        List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
+
+        //有床位则获取，没有床位则直接跳过
+        if (roomBedMaps.size() > 0) {
+            List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
+            // 获取bed
+            BedExample bedExample = new BedExample();
+            bedExample.createCriteria()
+                    .andBedIdIn(bedIds);
+            List<Bed> bedList = bedMapper.selectByExample(bedExample);
+            // 获取bedCount
+            Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
+            // bed和bedCount写入bedDTO
+            List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
+                BedDTO bedDTO = new BedDTO();
+                BeanUtils.copyProperties(bed, bedDTO);
+                bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
+                return bedDTO;
+            }).collect(Collectors.toList());
+            PageInfo<RoomBedMap> info = new PageInfo<>(roomBedMaps, 5);
+            model.addAttribute("roomBeds",bedDTOs);
+            model.addAttribute("pageInfo",info);
+        }
+        model.addAttribute("roomIdForRoomBed",roomId);
+        //获取床列表，添加床型从床列表中获取
+        List<Bed> bedList = bedMapper.selectByExample(new BedExample());
+        session.setAttribute("bedList",bedList);
+
+    }
+
+    /*-------------------------------------------------*/
+    //获取床位数据
     private BedDTO getBedDTO(Bed bed) {
         BedDTO bedDTO = new BedDTO();
         BeanUtils.copyProperties(bed, bedDTO);
         return bedDTO;
     }
-    //获取床位信息
     public ResultVO getAllBeds(Integer page, Integer pageSize){
         PageHelper.startPage(page,pageSize);
         List<Bed> beds = bedMapper.selectByExample(new BedExample());
@@ -314,9 +362,86 @@ HotelService {
         return result;
     }
 
+
+    /*------------------------------------------*/
+    //酒店床位编辑
+    //添加
+    public void insertRoomBed(BedDTO bedDTO){
+
+        //BedId 保存的是 roomId
+        Integer roomId = bedDTO.getBedId();
+        String bedName = bedDTO.getBedName();
+        Integer bedCount = bedDTO.getBedCount();
+
+        //通过bedName 查找出 beds列表，如果不存在两个bedName则只有一个bedId
+        BedExample bedExample = new BedExample();
+        bedExample.createCriteria().andBedNameEqualTo(bedName);
+        List<Bed> beds = bedMapper.selectByExample(bedExample);
+
+        //在beds列表中取出来bedId
+        List<Integer> bedIds = beds.stream().map(Bed::getBedId).distinct().collect(Collectors.toList());
+        Integer bedId = bedIds.get(0);
+
+        //通过roomId 和 bedId查找roomBed对应对象
+        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+        roomBedMapExample.createCriteria()
+                .andRoomIdEqualTo(roomId).andBedIdEqualTo(bedId);
+        List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
+
+        //赋值
+        RoomBedMap roomBedMap = new RoomBedMap();
+        roomBedMap.setBedId(bedId);
+        roomBedMap.setRoomId(roomId);
+
+        //获取床位数量，如果上面列表为空表示一张都没有，有数据则表示有一张或者以上
+        //有不只一张，添加数量
+        if(roomBedMaps.size()>0){
+            //得到原来的bedCount数量
+            List<Integer> bedCounts = roomBedMaps.stream().map(RoomBedMap::getBedCount).distinct().collect(Collectors.toList());
+            Integer count = bedCounts.get(0);
+            count = count +bedCount;
+            roomBedMap.setBedCount(count);
+            roomBedMapper.updateByExample(roomBedMap,roomBedMapExample);
+        }
+        //一张都没有则新建
+        else{
+            roomBedMap.setBedCount(bedCount);
+            roomBedMapper.insert(roomBedMap);
+        }
+    }
+    //删除
+    public void deleteRoomBed(BedDTO bedDTO){
+
+        Integer bedId = bedDTO.getBedId();
+        //bedCount 数值是 roomId
+        Integer roomId = bedDTO.getBedCount();
+
+        //通过roomId 和 bedId 得到要减少的对象
+        RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
+        roomBedMapExample.createCriteria()
+                .andRoomIdEqualTo(roomId).andBedIdEqualTo(bedId);
+        List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
+
+        //获取床位数量信息,因为上面获取到的对应对象只有一个，所以床位数量也只有一个，且bedCount>=1（删除应该能查询到床位数据）
+        List<Integer> bedCount = roomBedMaps.stream().map(RoomBedMap::getBedCount).distinct().collect(Collectors.toList());
+        Integer count = bedCount.get(0);
+
+        //只有一张，直接删除
+        if(count == 1){
+            roomBedMapper.deleteByExample(roomBedMapExample);
+        }
+        else{
+            count = count -1;
+            RoomBedMap roomBedMap = new RoomBedMap();
+            roomBedMap.setBedCount(count);
+            roomBedMap.setBedId(bedId);
+            roomBedMap.setRoomId(roomId);
+            roomBedMapper.updateByExample(roomBedMap,roomBedMapExample);
+        }
+    }
+
     /*-----------------------------------------------------------------------------*/
     //床位增删改方法
-
     public void insertBed(Bed bed){
         bedMapper.insert(bed);
     }
@@ -326,18 +451,22 @@ HotelService {
         bedMapper.updateByExample(bed, bedExample);
     }
     public void deleteBed(Integer bedId){
+
         RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
         roomBedMapExample.createCriteria()
                 .andBedIdEqualTo(bedId);
         List<RoomBedMap> roomBeds = roomBedMapper.selectByExample(roomBedMapExample);
+
         if (roomBeds.size()>0){
-           ;
+//            System.out.println("这里应该反馈个信息说明床型在酒店房间使用中，不可以删除");
+            System.out.println();
         }
         else{
             bedMapper.deleteByPrimaryKey(bedId);
         }
 
     }
+
     /*-----------------------------------------------------------------------------*/
     private  HotelExample getHotelExample(HotelQueryDTO query) {
 

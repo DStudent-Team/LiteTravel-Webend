@@ -115,6 +115,15 @@ public class HotelController {
         return "room/list";
     }
 
+    /*---------------------------------------------*/
+    /*酒店管理点击床位跳转酒店床位管理页*/
+    @PostMapping("manage/roomBed/{roomId}")
+    public String roomBed(@PathVariable("roomId") Integer roomId,ModelMap model,HttpSession session,
+                          @RequestParam(value = "page", defaultValue = "1")Integer page){
+        hotelService.getRoomBeds(page, 6, roomId,model,session);
+        return "room/roomBed";
+    }
+
     /*-----------------------------------------------------------------*/
 
     /*床位数据获取*/
