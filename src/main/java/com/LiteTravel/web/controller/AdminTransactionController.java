@@ -21,9 +21,9 @@ public class AdminTransactionController {
     private MoneyService moneyService;
 
     @GetMapping("/manage/transactions")
-    public String listTransactions(@RequestParam(value = "page", defaultValue = "1") Integer pageNum, Model model){
+    public String listTransactions(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model){
 
-        ResultVO resultVO = moneyService.listTransactions(pageNum,5);
+        ResultVO resultVO = moneyService.listTransactions(page,5);
         model.addAttribute("transactions", resultVO.data);
         model.addAttribute("pageInfo", resultVO.info);
         return "user/transaction";

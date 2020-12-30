@@ -45,11 +45,11 @@
         <div th:if="${order.status == '0'}" class="row block-9">
             <div class="col-md-6 order-md-last pr-md-5">
                 <form method="post" th:action="@{/order/pay}" onsubmit="return checkPassword()">
-                    <input id="orderId" name="orderId" type="text" th:value="${order.orderId}">
-                    <input id="userId" name="userId" type="text" th:value="${session.user.userId}">
-                    <input id="hotelId" name="hotelId" type="text" th:value="${order.hotelId}">
-                    <input id="total" name="money" type="text" th:value="${order.total}">
-                    <input id="userMoney" type="text" th:value="${userMoney}">
+                    <input id="orderId" name="orderId" type="hidden" th:value="${order.orderId}">
+                    <input id="userId" name="userId" type="hidden" th:value="${session.user.userId}">
+                    <input id="hotelId" name="hotelId" type="hidden" th:value="${order.hotelId}">
+                    <input id="total" name="money" type="hidden" th:value="${order.total}">
+                    <input id="userMoney" type="hidden" th:value="${userMoney}">
                     <input id="userPassword" type="hidden" name="userPassword">
 
 <!--                    <div class="form-group">-->
@@ -78,7 +78,7 @@
         </div>
         <div th:if="${order.status == '0'}">
             <form method="post" th:action="@{/order/cancel}">
-                <input name="orderId" type="text" th:value="${order.orderId}">
+                <input name="orderId" type="hidden" th:value="${order.orderId}">
                 <div class="form-group">
                     <button type="submit" onclick="return checkCancel()" class="btn btn-secondary py-3 px-5" >取消</button>
                 </div>
@@ -86,10 +86,10 @@
         </div>
         <div th:if="${order.status == '1'}">
             <form method="post" th:action="@{/order/unPay}">
-                <input  name="orderId" type="text" th:value="${order.orderId}">
-                <input  name="userId" type="text" th:value="${session.user.userId}">
-                <input  name="hotelId" type="text" th:value="${order.hotelId}">
-                <input  name="money" type="text" th:value="${order.total}">
+                <input  name="orderId" type="hidden" th:value="${order.orderId}">
+                <input  name="userId" type="hidden" th:value="${session.user.userId}">
+                <input  name="hotelId" type="hidden" th:value="${order.hotelId}">
+                <input  name="money" type="hidden" th:value="${order.total}">
                 <div class="form-group">
                     <button type="submit" onclick="return checkCancelMoney()" class="btn btn-secondary py-3 px-5" >退款</button>
                 </div>

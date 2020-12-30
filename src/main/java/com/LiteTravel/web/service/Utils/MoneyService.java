@@ -1,5 +1,7 @@
 package com.LiteTravel.web.service.Utils;
 
+import com.LiteTravel.web.DTO.AuthorityDTO;
+import com.LiteTravel.web.DTO.Flight.TransactionDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.Transaction;
 import com.LiteTravel.web.Model.TransactionExample;
@@ -10,12 +12,14 @@ import com.LiteTravel.web.mapper.UserMapper;
 import com.LiteTravel.web.mapper.UserMoneyMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import sun.security.util.Password;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -144,7 +148,12 @@ public class MoneyService {
         PageHelper.startPage(pageNum, pageSize);
         List<Transaction> transactions = transactionMapper.selectByExample(new TransactionExample());
         PageInfo<Transaction> pageInfo = new PageInfo<>(transactions, 5);
-        return new ResultVO(transactions, pageInfo);
+        List<TransactionDTO> data = transactions.stream().map(transaction -> {
+            TransactionDTO transactionDTO = new TransactionDTO();
+            BeanUtils.copyProperties(transaction, transactionDTO);
+            return transactionDTO;
+        }).collect(Collectors.toList());
+        return new ResultVO(data, pageInfo);
     }
 
     public int checkPassword(String userPassword, Integer userId){
