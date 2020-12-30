@@ -634,7 +634,7 @@
                             </div>
                             <!--hotelId-->
                             <div class="form-group form-inline">
-                                <span>请选择酒店ID</span>
+                                <span>请选择酒店名称</span>
                                 <select id="hotelList" name="hotelId" style="margin-left:30px;height: 30px;width: 150px">
                                     <span th:each="hotel:${session.hotels}">
                                         <option th:value="${hotel.hotelId}" th:text="${hotel.hotelName}"></option>
@@ -645,62 +645,66 @@
                             <div class="form-group col-md-8">
                                 <label for="roomName">房间名称</label>
                                 <input type="text" class="form-control"  style="font-size: 12px"
-                                       id="roomName" name="roomName" placeholder="名称（必填）">
+                                       id="roomName" name="roomName" placeholder="中文英文数字字符（必填）">
                             </div>
                             <!--roomPrice-->
                             <div class="form-group col-md-4">
                                 <label for="roomPrice">房间价格</label>
                                 <input type="text"  class="form-control" style="font-size: 12px"
-                                       id="roomPrice" name="roomPrice" placeholder="价格（必填）">
+                                       id="roomPrice" name="roomPrice" placeholder="整数或者小数（必填）">
                             </div>
                             <!--roomCancel-->
-                            <div class="form-group col-md-4">
-                                <label for="roomCancel" >roomCancel</label>
-                                <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomCancel" name="roomCancel" placeholder="Cancel（选填）">
+                            <div class="form-group col-md-4" style="display:none;">
+                                <span>是否可以取消预定</span>
+                                <select name="roomCancel" id="roomCancel">
+                                    <option value="0">不可以</option>
+                                    <option value="1" selected>可以</option>
+                                </select>
                             </div>
                             <!--roomSize-->
                             <div class="form-group col-md-4">
-                                <label for="roomSize" >roomSize</label>
+                                <label for="roomSize" >房间面积</label>
                                 <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomSize" name="roomSize" placeholder="面积（必填）">
+                                       id="roomSize" name="roomSize" placeholder="值为数字（必填）">
                             </div>
                             <!--roomWifi-->
-                            <div class="form-group col-md-4">
-                                <label for="roomWifi" >roomWifi</label>
-                                <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomWifi" name="roomWifi" placeholder="wifi数量（选填）">
+                            <div class="form-group col-md-4" >
+                                <label for="roomWifi" >是否有WiFi</label>
+                                <select class="form-control" name="roomWifi" id="roomWifi">
+                                    <option value="0">无</option>
+                                    <option value="1" selected>有</option>
+                                </select>
                             </div>
                             <!--roomRemaining-->
                             <div class="form-group col-md-4">
                                 <label for="roomRemaining" >房间存余</label>
                                 <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomRemaining" name="roomRemaining" placeholder="房间存余（选填）">
+                                       id="roomRemaining" name="roomRemaining" placeholder="值为数字（必填）">
                             </div>
                             <!--roomMax-->
                             <div class="form-group col-md-4">
-                                <label for="roomMax" >roomMax</label>
+                                <label for="roomMax" >房间最大数量</label>
                                 <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomMax" name="roomMax" placeholder="最大数量（必填）">
+                                       id="roomMax" name="roomMax" placeholder="值为数字（必填）">
                             </div>
                             <!--roomBookMax-->
                             <div class="form-group col-md-4">
-                                <label for="roomBookMax" >roomBookMax</label>
+                                <label for="roomBookMax" >最大可住人数</label>
                                 <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomBookMax" name="roomBookMax" placeholder="BookMax（选填）">
+                                       id="roomBookMax" name="roomBookMax" placeholder="值为数字（必填）">
                             </div>
 
                             <!--roomDescription-->
                             <div class="form-group col-md-8">
                                 <label for="roomDescription" >房间描述</label>
                                 <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomDescription" name="roomDescription" placeholder="roomDescription（选填）">
+                                       id="roomDescription" name="roomDescription" placeholder="请输入中文或英文（必填）">
                             </div>
                             <!--roomBedAdd-->
-                            <div class="form-group col-md-4">
-                                <label for="roomBedAdd" >roomBedAdd</label>
+                            <div class="form-group col-md-4" style="display:none;">
+                                <label for="roomBedAdd" >能否加床</label>
                                 <input type="text" class="form-control" style="font-size: 12px"
-                                       id="roomBedAdd" name="roomBedAdd" placeholder="roomBedAdd（必填）">
+                                       id="roomBedAdd" name="roomBedAdd" placeholder="值为加床价格，-1不可以（必填）">
                             </div>
                         </form>
                     </div>

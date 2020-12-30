@@ -124,7 +124,7 @@ public class HotelController {
         /*获取session对象*/
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
         /*通过session获取管理员id，从而得到他管理的酒店id*/
-        ResultVO result = hotelService.getAllRooms(page, 6,userDTO.userId);
+        ResultVO result = hotelService.getAllRooms(page, 5,userDTO.userId);
         List<Hotel> hotels = hotelService.getHotelsByManagerId(userDTO.userId);
         session.setAttribute("hotels", hotels);
         model.addAttribute("rooms",result.data);
@@ -152,19 +152,18 @@ public class HotelController {
      */
     @DeleteMapping("/manage/hotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+        hotelService.deleteHotel(hotelId);
+        // 同时删除该商家的所有评论
+        orderCommentService.deleteOrderCommentsByHotelId(hotelId);
+        return "redirect:/manage/hotels";
+    }
+
     @GetMapping("manage/beds")
     public String bedList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
         ResultVO result = hotelService.getAllBeds(page, 6);
         model.addAttribute("beds",result.data);
         model.addAttribute("pageInfo", result.info);
         return "bed/list";
-    }
-
-    /*-----------------------------------------------------------------*/
-        hotelService.deleteHotel(hotelId);
-        // 同时删除该商家的所有评论
-        orderCommentService.deleteOrderCommentsByHotelId(hotelId);
-        return "redirect:/manage/hotels";
     }
 
     @GetMapping("/room")

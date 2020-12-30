@@ -1,8 +1,7 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.HotelDTO;
-import com.LiteTravel.web.DTO.RoomDTO;
-import com.LiteTravel.web.DTO.UserDTO;
+import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.Model.Bed;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.Model.RoomBedMap;
 import com.LiteTravel.web.service.HotelService;
@@ -54,12 +53,12 @@ public class AdminHotelController {
     }
 
     //delete
-    @DeleteMapping("/manage/hotel/{hotelId}")
-    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
-
-        hotelService.deleteHotel(hotelId);
-        return "redirect:/manage/hotels";
-    }
+//    @DeleteMapping("/manage/hotel/{hotelId}")
+//    public String deleteHotel(@PathVariable("hotelId") Integer hotelId){
+//
+//        hotelService.deleteHotel(hotelId);
+//        return "redirect:/manage/hotels";
+//    }
 
     /*-----------------------------------------------------------------------------*/
     /*酒店房间增删改*/
@@ -75,6 +74,8 @@ public class AdminHotelController {
     @PostMapping("/manage/room")
     public String insertOrUpdateRoom(RoomDTO roomDTO){
         //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
+        roomDTO.setRoomCancel(1);
+        roomDTO.setRoomBedAdd(1);
         //检查是删除还是更新
         if(hotelService.checkRoomId(roomDTO)==0 ){
             /*是插入数据*/
@@ -104,7 +105,7 @@ public class AdminHotelController {
     }
     //添加酒店床位
     @PostMapping("manage/roomBed/insert")
-    public String insertRoomBed(BedDTO bedDTO,ModelMap model,HttpSession session,
+    public String insertRoomBed(BedDTO bedDTO, ModelMap model, HttpSession session,
                                 @RequestParam(value = "page", defaultValue = "1")Integer page){
         //将bedId当做roomId，所以getBedId其实是getRoomId
         hotelService.insertRoomBed(bedDTO);

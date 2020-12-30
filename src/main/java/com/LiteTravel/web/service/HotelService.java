@@ -159,21 +159,23 @@ HotelService {
                 .andRoomIdEqualTo(room.getRoomId());
         List<RoomBedMap> roomBedMaps = roomBedMapper.selectByExample(roomBedMapExample);
         List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
-        // 获取bed
-        BedExample bedExample = new BedExample();
-        bedExample.createCriteria()
-                .andBedIdIn(bedIds);
-        List<Bed> bedList = bedMapper.selectByExample(bedExample);
-        // 获取bedCount
-        Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
-        // bed和bedCount写入bedDTO
-        List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
-            BedDTO bedDTO = new BedDTO();
-            BeanUtils.copyProperties(bed, bedDTO);
-            bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
-            return bedDTO;
-        }).collect(Collectors.toList());
-        roomDTO.setBeds(bedDTOs);
+        if(bedIds.size() > 0){
+            // 获取bed
+            BedExample bedExample = new BedExample();
+            bedExample.createCriteria()
+                    .andBedIdIn(bedIds);
+            List<Bed> bedList = bedMapper.selectByExample(bedExample);
+            // 获取bedCount
+            Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
+            // bed和bedCount写入bedDTO
+            List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
+                BedDTO bedDTO = new BedDTO();
+                BeanUtils.copyProperties(bed, bedDTO);
+                bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
+                return bedDTO;
+            }).collect(Collectors.toList());
+            roomDTO.setBeds(bedDTOs);
+        }
         return roomDTO;
     }
 
