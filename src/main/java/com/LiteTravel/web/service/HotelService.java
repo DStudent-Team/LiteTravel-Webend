@@ -410,11 +410,10 @@ HotelService {
         }
     }
     //删除
-    public void deleteRoomBed(BedDTO bedDTO){
+    public void deleteRoomBed(RoomBedDTO roomBedDTO){
 
-        Integer bedId = bedDTO.getBedId();
-        //bedCount 数值是 roomId
-        Integer roomId = bedDTO.getBedCount();
+        Integer bedId = roomBedDTO.getBedId();
+        Integer roomId = roomBedDTO.getRoomId();
 
         //通过roomId 和 bedId 得到要减少的对象
         RoomBedMapExample roomBedMapExample = new RoomBedMapExample();

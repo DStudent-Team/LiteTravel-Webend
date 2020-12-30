@@ -2,6 +2,7 @@ package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.BedDTO;
 import com.LiteTravel.web.DTO.HotelDTO;
+import com.LiteTravel.web.DTO.RoomBedDTO;
 import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.Model.Bed;
 import com.LiteTravel.web.Model.Hotel;
@@ -95,11 +96,11 @@ public class AdminHotelController {
 
     /*删除酒店床位*/
     @PostMapping("manage/roomBed/delete")
-    public String deleteRoomBed(BedDTO bedDTO,ModelMap model,HttpSession session,
+    public String deleteRoomBed(RoomBedDTO roomBedDTO, ModelMap model, HttpSession session,
                                 @RequestParam(value = "page", defaultValue = "1")Integer page) {
-        hotelService.deleteRoomBed(bedDTO);
+        hotelService.deleteRoomBed(roomBedDTO);
         //bedCount 数值是 roomId
-        hotelService.getRoomBeds(page, 6, bedDTO.getBedCount(),model,session);
+        hotelService.getRoomBeds(page, 6, roomBedDTO.getRoomId(),model,session);
         return "room/roomBed";
     }
     //添加酒店床位
