@@ -65,7 +65,7 @@ function deleteByUserId (userId) {
  * @param userState
  */
 function editUser (userId, userCode, userPassword,
-                   userName, userBirth, userEmail,
+                   userName, userEmail,
                    userPhone, userAddressSpecific, userState){
     // $('#myModal').modal("hide");
     $("#myModalLabel").text("新增");
@@ -75,13 +75,18 @@ function editUser (userId, userCode, userPassword,
     $('#userCode').val(userCode);
     $('#userPassword').val(userPassword);
     $('#userName').val(userName);
-    $('#userBirth').val(userBirth);
     $('#userEmail').val(userEmail);
     $('#userPhone').val(userPhone);
     $('#userAddressSpecific').val(userAddressSpecific);
     $('#userState').val(userState);
     $('#putMethod').removeAttr("disabled");
     console.log(userId)
+}
+
+// 用户权限
+function setAuthority(userId, userName){
+    $('#authorityUserId').val(userId);
+    $('#authorityUserName').val(userName);
 }
 
 /*清除输入框的内容  #userId  对应  输入框的id=“userId“
@@ -93,7 +98,6 @@ function clearUser(){
     $('#userCode').val("");
     $('#userPassword').val("");
     $('#userName').val("");
-    $('#userBirth').val("");
     $('#userEmail').val("");
     $('#userPhone').val("");
     $('#userAddressSpecific').val("");
@@ -221,6 +225,7 @@ function deleteFlight (flightId) {
 }
 
 
+//生成机票的座位和票价的输入框
 function createTicketList(seats) {
     let $tbody = document.getElementById("ticketTbody");
     let $ticket;
@@ -249,4 +254,159 @@ function createInput(inputName, inputType, inputValue, aDiv) {
     // input.setAttribute("id", inputId) ;
 
     aDiv.appendChild(input);
+}
+
+/*机票服务脚本*/
+function deleteReserve (reserveId, flightId){
+    $("#deleteReserveId").val(reserveId);
+    $("#reserveFlightId").val(flightId);
+}
+
+function editReserve(reserveId, total, service) {
+    $("#reserveId").val(reserveId);
+    $("#total").val(total);
+    $("#_service").val(service);
+}
+function clearReserve() {
+    $("#reserveId").val('');
+    $("#total").val('');
+    $("#_service").val('');
+}
+
+/**
+ * 酒店前端数据管理层
+ * 创建点击事件，点击更新将数据提交给输入框对应值
+ * @param hotelId
+ * @param hotelName
+ * @param hotelMinPrice
+ * @param userId
+ * @param userName
+ * @param hotelPhone
+ * @param hotelReplyLevel
+ * @param hotelAddress
+ * @param hotelAddressSpecific
+ * @param hotelDescription
+ */
+//模态框赋值，用于更新数据时
+function editHotel (hotelId, hotelName, hotelMinPrice,
+                    hotelPhone, userId, userName,hotelReplyLevel,
+                    hotelAddress, hotelAddressSpecific, hotelDescription){
+    // $('#myModal').modal("hide");
+    $("#myModalLabel").text("新增");
+    $('#myModal').modal();
+    //向模态框中传值
+    $('#hotelId').val(hotelId);
+    $('#hotelName').val(hotelName);
+    $('#hotelMinPrice').val(hotelMinPrice);
+    $('#hotelManagerIdTrue').val(userId);
+    $('#hotelManagerName').val(userName);
+    $('#hotelPhone').val(hotelPhone);
+    $('#hotelReplyLevel').val(hotelReplyLevel);
+    $('#hotelAddress').val(hotelAddress);
+    $('#hotelAddressSpecific').val(hotelAddressSpecific);
+    $('#hotelDescription').val(hotelDescription);
+}
+
+//模态框置空，用于插入数据和点击清空模态框时
+function clearHotel (userId, userName){
+    // 置空模态框
+    $('#hotelId').val('');
+    $('#hotelName').val('');
+    $('#hotelMinPrice').val('');
+    $('#hotelManagerIdTrue').val(userId);
+    // console.log("sdaijesk"+userId);
+    $('#hotelManagerName').val(userName);
+    $('#hotelPhone').val('');
+    $('#hotelReplyLevel').val('');
+    $('#hotelAddress').val('');
+    $('#hotelAddressSpecific').val('');
+    $('#hotelDescription').val('');
+}
+
+
+//用户订单评价模态框赋值
+function setOrderComment(userId, hotelId, orderId){
+    $('#ocUserId').val(userId);
+    $('#ocHotelId').val(hotelId);
+    $('#ocOrderId').val(orderId);
+}
+function clearOrderComment(){
+    $('#ocUserId').val('');
+    $('#ocHotelId').val('');
+    $('#ocOrderId').val('');
+}
+
+
+
+//检测输入的酒店数据是否合法
+function checkHotelData() {
+
+}
+
+/*酒店房间增加修改管理*/
+//模态框置空，用于插入数据和点击清空模态框时
+function clearRoom (){
+    // 置空模态框
+    $('#roomId').val('');
+    $('#roomName').val('');
+    $('#roomPrice').val('');
+    $('#roomRemaining').val('');
+    $('#roomMax').val('');
+    $('#roomBookMax').val('');
+    $('#roomCancel').val('');
+    $('#roomSize').val('');
+    $('#roomWifi').val('');
+    $('#roomBedAdd').val('');
+    $('#roomDescription').val('');
+}
+
+//模态框赋值，用于更新数据时
+function editRoom (roomId,roomName, roomPrice,
+                    roomRemaining, roomMax,roomBookMax, roomCancel,
+                    roomSize, roomWifi,roomBedAdd,roomDescription){
+    // $('#myModal').modal("hide");
+    $("#myModalLabel").text("新增");
+    $('#myModal').modal();
+    //向模态框中传值
+    $('#roomId').val(roomId);
+    $('#roomName').val(roomName);
+    $('#roomPrice').val(roomPrice);
+    $('#roomRemaining').val(roomRemaining);
+    $('#roomMax').val(roomMax);
+    $('#roomBookMax').val(roomBookMax);
+    $('#roomCancel').val(roomCancel);
+    $('#roomSize').val(roomSize);
+    $('#roomWifi').val(roomWifi);
+    $('#roomBedAdd').val(roomBedAdd);
+    $('#roomDescription').val(roomDescription);
+}
+
+function editBed(bedId, bedName,bedSize) {
+    $('#bed_Id').val(bedId);
+    $('#bedName').val(bedName);
+    $('#bedSize').val(bedSize);
+}
+
+function clearBed() {
+    $('#bed_Id').val('');
+    $('#bedName').val('');
+    $('#bedSize').val('');
+}
+
+function checkBedSize() {
+    //验证床尺寸
+    var size = document.getElementById("bedSize").value; //获取你所填写的信息
+    var nameReg = /^[0-9]+([.][0-9]{1,2}){0,1}$/;  //定义约束,要求输入2到6个中文
+    if (!nameReg.test(size)) {   //判断
+        alert("床型尺寸只能输入纯数字或者二位小数");
+    }
+}
+
+function insertRoomBed(roomId) {
+    $('#room_Id').val(roomId);
+}
+
+function decreaseRoomBed(roomId, bedId) {
+    $('#deleteRoomId').val(roomId);
+    $('#deleteBedId').val(bedId);
 }

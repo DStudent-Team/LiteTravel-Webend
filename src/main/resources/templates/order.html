@@ -44,32 +44,56 @@
         <!--当订单状态处于未支付时展示下面内容，使用户有权限进行支付-->
         <div th:if="${order.status == '0'}" class="row block-9">
             <div class="col-md-6 order-md-last pr-md-5">
-                <form method="post" th:action="@{/hotel/pay/}">
+                <form method="post" th:action="@{/order/pay}" onsubmit="return checkPassword()">
                     <input id="orderId" name="orderId" type="hidden" th:value="${order.orderId}">
+                    <input id="userId" name="userId" type="hidden" th:value="${session.user.userId}">
+                    <input id="hotelId" name="hotelId" type="hidden" th:value="${order.hotelId}">
+                    <input id="total" name="money" type="hidden" th:value="${order.total}">
+                    <input id="userMoney" type="hidden" th:value="${userMoney}">
+                    <input id="userPassword" type="hidden" name="userPassword">
+
+<!--                    <div class="form-group">-->
+<!--                        <label>用户真实姓名:</label>-->
+<!--                        <input id="name" name="name" type="text" class="form-control" placeholder="Your Name">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>电话:</label>-->
+<!--                        <input id="phone" name="phone" type="text" class="form-control" placeholder="Your Phone">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>预定到达时间:</label>-->
+<!--                        <input id="arrived" name="arrived" type="text" class="form-control" placeholder="When Arrived">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>备注信息:</label>-->
+<!--                        <textarea name="note" id="note" cols="30" rows="7" class="form-control"-->
+<!--                                  placeholder="Note"></textarea>-->
+<!--                    </div>-->
                     <div class="form-group">
-                        <label>用户真实姓名:</label>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Your Name">
-                    </div>
-                    <div class="form-group">
-                        <label>电话:</label>
-                        <input id="phone" name="phone" type="text" class="form-control" placeholder="Your Phone">
-                    </div>
-                    <div class="form-group">
-                        <label>预定到达时间:</label>
-                        <input id="arrived" name="arrived" type="text" class="form-control" placeholder="When Arrived">
-                    </div>
-                    <div class="form-group">
-                        <label>备注信息:</label>
-                        <textarea name="note" id="note" cols="30" rows="7" class="form-control"
-                                  placeholder="Note"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" onclick="payOrder()" class="btn btn-primary py-3 px-5">支付</button>
+                        <button type="submit" class="btn btn-primary py-3 px-5">支付</button>
 <!--                        <input type="submit" value="支付" class="btn btn-primary py-3 px-5">-->
-                        <button type="button" class="btn btn-secondary py-3 px-5" th:href="@{'/order/cancel/' + ${order.orderId}}">取消</button>
                     </div>
                 </form>
             </div>
+        </div>
+        <div th:if="${order.status == '0'}">
+            <form method="post" th:action="@{/order/cancel}">
+                <input name="orderId" type="hidden" th:value="${order.orderId}">
+                <div class="form-group">
+                    <button type="submit" onclick="return checkCancel()" class="btn btn-secondary py-3 px-5" >取消</button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${order.status == '1'}">
+            <form method="post" th:action="@{/order/unPay}">
+                <input  name="orderId" type="hidden" th:value="${order.orderId}">
+                <input  name="userId" type="hidden" th:value="${session.user.userId}">
+                <input  name="hotelId" type="hidden" th:value="${order.hotelId}">
+                <input  name="money" type="hidden" th:value="${order.total}">
+                <div class="form-group">
+                    <button type="submit" onclick="return checkCancelMoney()" class="btn btn-secondary py-3 px-5" >退款</button>
+                </div>
+            </form>
         </div>
         <div th:if="${order.status == '1'}"><p>已支付，等待用户入住</p></div>
         <div th:if="${order.status == '2'}"><p>已入住</p></div>
@@ -92,6 +116,63 @@
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <!--加入订单支付脚本数据-->
 <script th:src="@{/js/hotel-pay.js}"></script>
+<script>
+    function checkCancel() {
+        return confirm("确认要取消订单吗？") === true;
+    }
 
+    function checkCancelMoney() {
+        return confirm("确认要退款吗？") === true;
+    }
+    function checkPassword() {
+        const password = prompt("输入支付密码:");
+        if(password === null){
+            return false;
+        }
+        $('#userPassword').val(password);
+        let checkTimes = 0;
+        return $.ajax({
+            async: false,
+            type: "POST",
+            url: "/checkPassword",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "userPassword": password,
+            }),
+            success: function (response) {
+                if (response.code === 200) {
+                    //密码正确
+                    //弹出回复成功浮动框消息(数秒后自动消失)
+                    alert("密码正确");
+                    checkPay();
+                    return true;
+                } else {
+                    alert(response.message);
+                    checkTimes += 1;
+                    if (checkTimes >= 3) {
+                        alert("输入超过三次错误, 请确认个人密码再次尝试");
+                        window.location.reload();
+                        return false;
+                    }
+                    checkPassword();
+                }
+            }, error: function () {
+                return false;
+            }
+        });
+    }
+
+    function checkPay(){
+        const userMoney = parseFloat($('#userMoney').val());
+        const money = parseFloat($('#total').val());
+        const userId = $('#userId').val();
+        if(userMoney < money){
+            alert("余额不足, 请充值！");
+            window.location.href = "user/" + userId;
+        }
+
+    }
+</script>
 </body>
 </html>

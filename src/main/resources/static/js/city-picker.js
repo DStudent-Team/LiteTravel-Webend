@@ -68,7 +68,6 @@
             var p = this.getPosition(),
                 placeholder = this.$element.attr('placeholder') || this.options.placeholder,
                 textspan = '<span class="city-picker-span" style="' +
-<<<<<<< HEAD
                     this.getWidthStyle(p.width) + 'height:' +
                     p.height + 'px;line-height:' + (p.height - 1) + 'px;">' +
                     (placeholder ? '<span class="placeholder">' + placeholder + '</span>' : '') +
@@ -76,13 +75,11 @@
 
                 dropdown = '<div class="city-picker-dropdown" style="left:0px;top:100%;' +
                     this.getWidthStyle(p.width, true) + '">' +
-=======
                     'height:' + p.height + 'px;line-height:' + (p.height - 1) + 'px;">' +
                     (placeholder ? '<span class="placeholder">' + placeholder + '</span>' : '') +
                     '<span class="title"></span><div class="arrow"></div>' + '</span>',
 
                 dropdown = '<div class="city-picker-dropdown" style="left:0px;top:100%;">' +
->>>>>>> master
                     '<div class="city-select-wrap">' +
                     '<div class="city-select-tab">' +
                     '<a class="active" data-count="province">省份</a>' +

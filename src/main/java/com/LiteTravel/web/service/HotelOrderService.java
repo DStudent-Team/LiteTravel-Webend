@@ -37,6 +37,11 @@ public class HotelOrderService {
     public ResultVO getOrders(Integer page, Integer pageSize){
         return selectByExample(page, pageSize, new HotelOrderExample());
     }
+    public ResultVO getOrders(Integer page, Integer pageSize, Integer userId){
+        HotelOrderExample hotelOrderExample = new HotelOrderExample();
+        hotelOrderExample.createCriteria().andUserIdEqualTo(userId);
+        return selectByExample(page, pageSize, hotelOrderExample);
+    }
 
     public ResultVO getOrders(Integer page, Integer pageSize, HotelOrderQueryDTO hotelOrderQueryDTO) {
         return selectByExample(page, pageSize, getHotelOrderExample(hotelOrderQueryDTO));
@@ -47,6 +52,8 @@ public class HotelOrderService {
          * 参数1: 第几页
          * 参数2: 每页展示几个数据 */
         PageHelper.startPage(page, pageSize);
+
+        hotelOrderExample.setOrderByClause("create_date desc");
         List<HotelOrder> hotelOrders = hotelOrderMapper.selectByExample(hotelOrderExample);
         PageInfo<HotelOrder> info = new PageInfo<>(hotelOrders, 5);
         List<Integer> hotelIds = hotelOrders.stream().map(HotelOrder::getHotelId).distinct().collect(Collectors.toList());
@@ -120,20 +127,34 @@ public class HotelOrderService {
         }
         return insertId;
     }
-    /*
-    * 更新订单
-    * */
-    public int updateHotelOrder(HotelOrder hotelOrder){
+
+    /**
+     * 更新订单状态为已支付
+     * @param orderId
+     * @return
+     */
+    public int updateHotelOrder(Integer orderId){
         //支付日期
         Date pay_date = new Date();
-        HotelOrderExample hotelOrderExample = new HotelOrderExample();
-        hotelOrderExample.createCriteria()
-                .andOrderIdEqualTo(hotelOrder.getOrderId())
-                .andPayDateIsNull()
-                .andStatusEqualTo("0");
+        HotelOrder hotelOrder = new HotelOrder();
+        hotelOrder.setOrderId(orderId);
         hotelOrder.setPayDate(pay_date);
         hotelOrder.setStatus("1");
-        return hotelOrderMapper.updateByExampleSelective(hotelOrder, hotelOrderExample);
+        return hotelOrderMapper.updateByPrimaryKeySelective(hotelOrder);
+    }
+
+    /**
+     * 更新订单状态
+     * @param orderId 订单id
+     * @param status 订单状态
+     * @return int
+     */
+    public int updateHotelOrderStatus(Integer orderId, String status){
+        HotelOrder hotelOrder = new HotelOrder();
+        hotelOrder.setOrderId(orderId);
+        hotelOrder.setPayDate(new Date());
+        hotelOrder.setStatus(status);
+        return hotelOrderMapper.updateByPrimaryKeySelective(hotelOrder);
     }
 
     public int deleteOrder(Integer orderId) {
@@ -164,7 +185,7 @@ public class HotelOrderService {
                 modified.setStatus("3");
                 break;
             default:
-                break;
+               break;
         }
         return hotelOrderMapper.updateByPrimaryKeySelective(modified);
     }
@@ -178,6 +199,8 @@ public class HotelOrderService {
         String status = query.getStatus();
         String address = query.getAddress();
         String hotelId = query.getHotelIds();
+        Date checkInDateFrom = query.getCheckInDateFrom();
+        Date checkInDateTo = query.getCheckInDateTo();
 
         //获取权限
 
@@ -209,7 +232,7 @@ public class HotelOrderService {
         if (userId != null) {
             hotelOrderExampleCriteria.andUserIdEqualTo(userId);
         }
-        //根据起止时间和订单状态找到订单
+        /* 设置订单创建的时间区间 */
         if (startTime != null){
             startTime = new Timestamp(startTime.getTime());
             hotelOrderExampleCriteria.andCreateDateGreaterThanOrEqualTo(startTime);
@@ -219,12 +242,23 @@ public class HotelOrderService {
             hotelOrderExampleCriteria.andCreateDateLessThanOrEqualTo(endTime);
         }
 
-        if (status != null && status.length() > 0) {
-            List nullList = new ArrayList<>();
-            List<String> statusList = Arrays.asList(status.split(","));
-            nullList.add(null);
-            statusList.remove(nullList);
+        /* 设置入住时间区间 */
+        if (checkInDateFrom != null){
+            status = "3";
+            query.setStatus(status);
+            checkInDateFrom = new Timestamp(checkInDateFrom.getTime());
+            hotelOrderExampleCriteria.andConfirmCheckInGreaterThanOrEqualTo(checkInDateFrom);
+        }
+        if (checkInDateTo != null) {
+            status = "3";
+            query.setStatus(status);
+            checkInDateTo = new Timestamp(checkInDateTo.getTime() + (60 * 60 * 24) * 1000);
+            hotelOrderExampleCriteria.andConfirmCheckInLessThanOrEqualTo(checkInDateTo);
+        }
 
+        /* 设置订单状态 */
+        if (status != null && status.length() > 0) {
+            List<String> statusList = Arrays.asList(status.split(","));
             hotelOrderExampleCriteria.andStatusIn(statusList);
         }
 
@@ -237,8 +271,6 @@ public class HotelOrderService {
                 }
             }
         }
-
-
 
         //防止example生成空hotel报错, 加上这一条并不会影响查询到错误的结果
         hotelIds.add(-1);

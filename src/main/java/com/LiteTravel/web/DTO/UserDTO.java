@@ -10,5 +10,4 @@ public class UserDTO {
     public Boolean userAuthority;
     public Boolean hotelAuthority;
     public Boolean flightAuthority;
-    public Boolean guideAuthority;
 }

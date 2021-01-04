@@ -62,10 +62,10 @@
                             <span th:case="'1'">等待用户选择</span>
                             <span th:case="'2'">等待用户支付</span>
                             <span th:case="'3'">支付成功</span>
-                            <span th:case="'4'">行程结束</span>
+                            <span th:case="'4'">确认行程结束</span>
                         </td>
                         <td>
-                            <a th:if="${flight.flightStatus == 0}" class="btn btn-sm btn-info"
+                            <a class="btn btn-sm btn-info"
                                data-toggle="modal" data-target="#reserveModal"
                                th:onclick="getFlightMessage(
                                [[${flight.flightId}]],
@@ -76,10 +76,10 @@
                                [[${flight.flightToString}]],
                                [[${#dates.format(flight.flightDepart, 'yyyy-MM-dd hh:mm')}]],
                                [[${#dates.format(flight.flightArrived, 'yyyy-MM-dd hh:mm')}]])">提供服务</a>
-                            <a th:if="${flight.flightStatus == 1}" class="btn btn-sm btn-primary">等待用户预约</a>
-                            <a th:if="${flight.flightStatus == 2}" class="btn btn-sm btn-primary">等待支付</a>
-                            <a th:if="${flight.flightStatus == 3}" class="btn btn-sm btn-primary">预约成功</a>
-                            <a th:if="${flight.flightStatus == 4}" class="btn btn-sm btn-primary">行程结束</a>
+<!--                            <a th:if="${flight.flightStatus == 1 && flight.isSelected != true }" class="btn btn-sm btn-primary">等待用户预约</a>-->
+<!--                            <a th:if="${flight.flightStatus == 2}" class="btn btn-sm btn-primary">等待支付</a>-->
+<!--                            <a th:if="${flight.flightStatus == 3}" class="btn btn-sm btn-primary">预约成功</a>-->
+<!--                            <a th:if="${flight.flightStatus == 4}" class="btn btn-sm btn-primary">行程结束</a>-->
                             <!--调用manage.js下的方法-->
                             <button type="submit" class="btn btn-sm btn-danger"
                                     data-toggle="modal" data-target="#deleteFlightModal"

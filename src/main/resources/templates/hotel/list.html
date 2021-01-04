@@ -26,21 +26,25 @@
 			<div class="row">
 				<div th:replace="~{commons/bar::sidebar(activeUri='hotels')}"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h2><a class="btn btn-sm btn-success" th:href="@{/manage/hotel}">添加酒店</a></h2>
+					<h2><!--<a class="btn btn-sm btn-success" th:href="@{/manage/hotel/insert}" >添加酒店</a>-->
+						<button type="button" id="add_new_site_bnt" class="btn btn-sm btn-success" style="margin: 0 0;"
+								data-toggle="modal" data-target="#addHotelModal"
+								th:onclick="clearHotel([[${session.user.userId}]],[[${session.user.userName}]])">添加酒店信息</button>
+					</h2>
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
 							<thead>
-								<tr>
-									<th>ID</th>
-									<th>全名</th>
-									<th>联系电话</th>
-									<th>评分</th><!--包括评分和评价数--><!--点击跳转至评价面-->
-									<th>地址</th>
-									<th>详细地址</th>
-									<th>拥有房间数</th>
-                                    <th>操作</th>
-								</tr>
-							</thead>
+						<tr>
+							<th>ID</th>
+							<th>全名</th>
+							<th>联系电话</th>
+							<th>评分</th><!--包括评分和评价数--><!--点击跳转至评价面-->
+							<th>地址</th>
+							<th>详细地址</th>
+							<th>拥有房间数</th>
+							<th>操作</th>
+						</tr>
+						</thead>
 							<tbody>
 								<tr th:each="hotel:${hotels}">
 									<td th:text="${hotel.hotelId}"></td>
@@ -55,21 +59,36 @@
 											</i><i class="icon-star-o"
 												   th:if="${hotel.hotelReplyLevel}<10"
 												   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
-											</i>
+										</i>
 											<span>[[${hotel.hotelReplyCount}]] Rating</span>
 										</p>
-                                    </td>
+									</td>
                                     <td th:text="${hotel.hotelAddressString}"></td>
 									<td th:text="${hotel.hotelAddressSpecific}"></td>
 									<td>
-										(暂无数据)
+
 										<!--尚未传址-->
 <!--										<a class="btn btn-block" th:href="@{'/manage/room/' + ${hotel.hotelId}}" th:text="${hotel.roomCount}"></a>-->
 									</td>
-									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/'+${hotel.hotelId}}">修改</a>
-                                        <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post">
-											<input name="_method" type="hidden" value="delete"/>
+									<td class="form-inline">
+<!--										<a class="btn btn-sm btn-primary" th:href="@{'/manage/hotel/update'}" >修改</a>-->
+										<button type="submit" id="add_new_site_bnt" class="btn btn-sm btn-primary"
+												th:onclick="editHotel(
+												[[${hotel.hotelId}]],
+												[[${hotel.hotelName}]],
+												[[${hotel.hotelMinPrice}]],
+												[[${hotel.hotelPhone}]],
+												[[${session.user.userId}]],
+												[[${session.user.userName}]],
+												[[${hotel.hotelReplyLevel}]],
+												[[${hotel.hotelAddress}]],
+												[[${hotel.hotelAddressSpecific}]],
+												[[${hotel.hotelDescription}]]
+												)"
+												data-toggle="modal" data-target="#addHotelModal">修改</button>
+
+                                        <form th:action="@{'/manage/hotel/' + ${hotel.hotelId}}" method="post" style="margin-left: 5px">
+                                            <input name="_method" type="hidden" value="delete"/>
                                             <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                         </form>
 									</td>
@@ -77,9 +96,13 @@
 							</tbody>
 						</table>
 					</div>
+					<div class="col-lg-9" th:replace="~{commons/navigation::navigationBar(redirect = 'manage/hotels')}"></div>
 				</main>
 			</div>
 		</div>
+
+		<!--用户信息编辑模态框（Modal） 调用commons/modal_box.html-->
+		<div th:replace="~{commons/modal_box::addHotelModal}"></div>
 
 		<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -88,6 +111,8 @@
 		<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
+		<!--自定义js-->
+		<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 
 	</body>
 

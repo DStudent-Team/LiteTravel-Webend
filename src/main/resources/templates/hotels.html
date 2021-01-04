@@ -11,7 +11,7 @@
 <div th:replace="~{commons/bar::topBar(activeUri='hotels')}"></div>
 <!-- END nav -->
 
-<div th:replace="~{commons/BG::sectionBG(sectionName='Hotels')}"></div>
+<div th:replace="~{commons/BG::hotelsBG(sectionName='Hotels')}"></div>
 
 <section class="ftco-section">
     <div class="container">
@@ -73,17 +73,16 @@
                                 <div class="range-slider">
 		              		        <span>
                                     <!-- 文字金额标识 -->
-									    <input type="number" id="minPrice" name="minPrice"
-                                               placeholder="最低" min="0" max="2000"
+									    <input style="border: #0b0b0b 1px solid" type="number" id="minPrice" name="minPrice"
+                                               placeholder="最低价" min="0" max="2000"
                                                th:value="${search != null}?${search.minPrice}:null"/>	-
-                                        <input type="number" id="maxPrice" name="maxPrice"
-                                               placeholder="最高" min="0" max="2000"
+                                        <input style="border: #0b0b0b 1px solid" type="number" id="maxPrice" name="maxPrice"
+                                               placeholder="最高价" min="0" max="2000"
                                                th:value="${search != null}?${search.maxPrice}:null"/>
 							        </span>
-                                    <!-- 拖动栏 -->
-                                        <input value="200" min="0" max="2000" step="100" type="range"/>
-                                        <input value="600" min="0" max="2000" step="100" type="range"/>
-                                    </svg>
+<!--                                    &lt;!&ndash; 拖动栏 &ndash;&gt;-->
+<!--                                        <input value="200" min="0" max="2000" step="100" type="range"/>-->
+<!--                                        <input value="600" min="0" max="2000" step="100" type="range"/>-->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -98,54 +97,8 @@
                 <br>
                 <br>
                 <br>
-                <br>
                 <!-- 筛选结束 -->
                 <!-- 页面内评分星级筛选 -->
-                <div class="sidebar-wrap ftco-animate">
-                    <h3 class="heading mb-4">星级评分</h3>
-                    <form method="post" class="star-rating">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate5">
-                            <label class="form-check-label" for="rate5">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                                </p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate4">
-                            <label class="form-check-label" for="rate4">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate3">
-                            <label class="form-check-label" for="rate3">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate2">
-                            <label class="form-check-label" for="rate2">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rate1">
-                            <label class="form-check-label" for="rate1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                    </form>
-                </div>
             </div>
             <!-- END -->
             <!-- 展示列表模块 -->

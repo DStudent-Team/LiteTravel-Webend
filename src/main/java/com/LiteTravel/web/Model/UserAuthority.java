@@ -1,17 +1,13 @@
 package com.LiteTravel.web.Model;
 
-public class userAuthority {
+public class UserAuthority {
     private Integer userId;
 
-    private Boolean authorityLevel;
-
-    private Boolean userAuthority;
+    private Integer authorityLevel;
 
     private Boolean hotelAuthority;
 
     private Boolean flightAuthority;
-
-    private Boolean guideAuthority;
 
     public Integer getUserId() {
         return userId;
@@ -21,20 +17,12 @@ public class userAuthority {
         this.userId = userId;
     }
 
-    public Boolean getAuthorityLevel() {
+    public Integer getAuthorityLevel() {
         return authorityLevel;
     }
 
-    public void setAuthorityLevel(Boolean authorityLevel) {
+    public void setAuthorityLevel(Integer authorityLevel) {
         this.authorityLevel = authorityLevel;
-    }
-
-    public Boolean getUserAuthority() {
-        return userAuthority;
-    }
-
-    public void setUserAuthority(Boolean userAuthority) {
-        this.userAuthority = userAuthority;
     }
 
     public Boolean getHotelAuthority() {
@@ -51,13 +39,5 @@ public class userAuthority {
 
     public void setFlightAuthority(Boolean flightAuthority) {
         this.flightAuthority = flightAuthority;
-    }
-
-    public Boolean getGuideAuthority() {
-        return guideAuthority;
-    }
-
-    public void setGuideAuthority(Boolean guideAuthority) {
-        this.guideAuthority = guideAuthority;
     }
 }

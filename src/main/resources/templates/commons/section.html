@@ -80,10 +80,8 @@
                     </i>
                         <span>查看评价</span>
                     </p>
-                    <p>
-                        <p><span>入住时间:</span>[[${#dates.format(order.checkIn, 'yyyy-M-d')}]]</p>
-                        <p><span>离店时间:</span>[[${#dates.format(order.checkOut, 'yyyy-M-d')}]]</p>
-                    </p>
+                    <p style="font-size: 15px;" ><span>入住时间:</span>[[${#dates.format(order.checkIn, 'yyyy-MM-dd')}]]</p>
+                    <p style="font-size: 15px;"><span>离店时间:</span>[[${#dates.format(order.checkOut, 'yyyy-MM-dd')}]]</p>
                 </div>
                 <div class="two">
                     <span class="price per-price">总价$[[${order.total}]]<br>元</span>
@@ -95,7 +93,8 @@
                 <a th:case="'0'" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">支付</a>
                 <a th:case="'1'" class="btn btn-outline-info" style="cursor:not-allowed">等待入住</a>
                 <a th:case="'2'" class="btn btn-outline-info" style="cursor:not-allowed">已入住，未离店</a>
-                <a th:case="'3'" class="btn btn-primary" th:href="@{'/order/reply/' + ${order.orderId}}">评价</a>
+                <a th:case="'3'" class="btn btn-primary" data-toggle="modal" data-target="#orderCommentModal"
+                   th:onclick="setOrderComment([[${order.userId}]],[[${order.hotelId}]],[[${order.orderId}]])">评价</a>
                 <a th:case="'4'" class="btn btn-primary" th:href="@{'/order/' + ${order.orderId}}">详情</a>
             </div>
         </div>
@@ -134,6 +133,7 @@
                 <a th:case="'1'" class="btn btn-primary" th:href="@{'/flight/' + ${flight.flightId}}">支付</a>
                 <a th:case="'2'" class="btn btn-outline-info" style="cursor:not-allowed">已支付, 等待预约</a>
                 <a th:case="'3'" class="btn btn-outline-info">预约成功,等待出行</a>
+                <a th:case="'4'" class="btn btn-outline-info">行程结束</a>
                 <a th:default class="btn btn-primary" th:href="@{'/flight/' + ${flight.flightId}}">详情</a>
             </div>
         </div>
@@ -196,5 +196,7 @@
     </div>
 </div>
 
+<th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 </body>
 </html>
