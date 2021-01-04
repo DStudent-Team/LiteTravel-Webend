@@ -65,7 +65,7 @@ function deleteByUserId (userId) {
  * @param userState
  */
 function editUser (userId, userCode, userPassword,
-                   userName, userBirth, userEmail,
+                   userName, userEmail,
                    userPhone, userAddressSpecific, userState){
     // $('#myModal').modal("hide");
     $("#myModalLabel").text("新增");
