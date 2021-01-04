@@ -59,12 +59,14 @@ public class AdminFlightController {
 
     @PostMapping("/manage/reserve")
     @ResponseBody
-    public Object SubmitReserve(@RequestBody FlightReserveDTO reserveDTO) throws ParseException {
+    public ResponseDTO SubmitReserve(@RequestBody FlightReserveDTO reserveDTO){
         flightService.submitReserve(reserveDTO);
-        FlightDTO flightDTO = new FlightDTO();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");//注意月份是MM
-        flightDTO.setFlightDepart(simpleDateFormat.parse(reserveDTO.getFlightDepart()));
-        flightDTO.setFlightArrived(simpleDateFormat.parse(reserveDTO.getFlightArrived()));
+//        FlightDTO flightDTO = new FlightDTO();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");//注意月份是MM
+//        flightDTO.setFlightDepart(simpleDateFormat.parse(reserveDTO.getFlightDepart()));
+//        flightDTO.setFlightArrived(simpleDateFormat.parse(reserveDTO.getFlightArrived()));
+//        flightDTO.setFlightId(reserveDTO.getFlightId());
+//        flightService.updateFlight(flightDTO);
         return ResponseDTO.successOf();
     }
     

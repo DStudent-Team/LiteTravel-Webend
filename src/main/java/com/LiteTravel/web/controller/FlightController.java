@@ -75,7 +75,7 @@ public class FlightController {
         }
     }
 
-    @PostMapping("flight/unPay")
+    @PostMapping("/flight/unPay")
     public String unPayFlight(FlightReserveDTO flightReserveDTO, ModelMap model, HttpSession session){
         //判断用户是否登录
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
@@ -83,6 +83,8 @@ public class FlightController {
             model.addAttribute("message", "请登录");
             return "redirect:/flights";
         }
+        System.out.println("飞机"+flightReserveDTO.getFlightId()+
+                "服务"+flightReserveDTO.getReserveId()+"钱"+flightReserveDTO.getTotal()+"公司"+flightReserveDTO.getCompanyId());
         //回退交易
         moneyService.unTransaction(userDTO.userId, flightReserveDTO.getCompanyId(), flightReserveDTO.getTotal());
         //修改状态为未支付

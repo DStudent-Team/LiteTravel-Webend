@@ -108,7 +108,7 @@
                             </div>
                             <hr>
                             <p th:text="${reserve.selected == true}?'已选中':'未选中'"></p>
-                            <form method="post" th:action="@{flight/unPay}">
+                            <form method="post" th:action="@{/flight/unPay}">
                                 <input name="reserveId" type="hidden" th:value="${reserve.reserveId}">
                                 <input name="flightId" type="hidden" th:value="${reserve.flightId}">
                                 <input name="companyId" type="hidden" th:value="${reserve.companyId}">
