@@ -9,8 +9,6 @@ public class Room {
 
     private Float roomPrice;
 
-    private Integer roomRemaining;
-
     private Integer roomMax;
 
     private Integer roomBookMax;
@@ -55,14 +53,6 @@ public class Room {
 
     public void setRoomPrice(Float roomPrice) {
         this.roomPrice = roomPrice;
-    }
-
-    public Integer getRoomRemaining() {
-        return roomRemaining;
-    }
-
-    public void setRoomRemaining(Integer roomRemaining) {
-        this.roomRemaining = roomRemaining;
     }
 
     public Integer getRoomMax() {
