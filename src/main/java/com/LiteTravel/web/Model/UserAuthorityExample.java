@@ -3,14 +3,14 @@ package com.LiteTravel.web.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class userMoneyExample {
+public class UserAuthorityExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public userMoneyExample() {
+    public UserAuthorityExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -164,63 +164,183 @@ public class userMoneyExample {
             return (Criteria) this;
         }
 
-        public Criteria andMoneyIsNull() {
-            addCriterion("money is null");
+        public Criteria andAuthorityLevelIsNull() {
+            addCriterion("authority_level is null");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyIsNotNull() {
-            addCriterion("money is not null");
+        public Criteria andAuthorityLevelIsNotNull() {
+            addCriterion("authority_level is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyEqualTo(Float value) {
-            addCriterion("money =", value, "money");
+        public Criteria andAuthorityLevelEqualTo(Integer value) {
+            addCriterion("authority_level =", value, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyNotEqualTo(Float value) {
-            addCriterion("money <>", value, "money");
+        public Criteria andAuthorityLevelNotEqualTo(Integer value) {
+            addCriterion("authority_level <>", value, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyGreaterThan(Float value) {
-            addCriterion("money >", value, "money");
+        public Criteria andAuthorityLevelGreaterThan(Integer value) {
+            addCriterion("authority_level >", value, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyGreaterThanOrEqualTo(Float value) {
-            addCriterion("money >=", value, "money");
+        public Criteria andAuthorityLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("authority_level >=", value, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyLessThan(Float value) {
-            addCriterion("money <", value, "money");
+        public Criteria andAuthorityLevelLessThan(Integer value) {
+            addCriterion("authority_level <", value, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyLessThanOrEqualTo(Float value) {
-            addCriterion("money <=", value, "money");
+        public Criteria andAuthorityLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("authority_level <=", value, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyIn(List<Float> values) {
-            addCriterion("money in", values, "money");
+        public Criteria andAuthorityLevelIn(List<Integer> values) {
+            addCriterion("authority_level in", values, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyNotIn(List<Float> values) {
-            addCriterion("money not in", values, "money");
+        public Criteria andAuthorityLevelNotIn(List<Integer> values) {
+            addCriterion("authority_level not in", values, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyBetween(Float value1, Float value2) {
-            addCriterion("money between", value1, value2, "money");
+        public Criteria andAuthorityLevelBetween(Integer value1, Integer value2) {
+            addCriterion("authority_level between", value1, value2, "authorityLevel");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyNotBetween(Float value1, Float value2) {
-            addCriterion("money not between", value1, value2, "money");
+        public Criteria andAuthorityLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("authority_level not between", value1, value2, "authorityLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityIsNull() {
+            addCriterion("hotel_authority is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityIsNotNull() {
+            addCriterion("hotel_authority is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityEqualTo(Boolean value) {
+            addCriterion("hotel_authority =", value, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityNotEqualTo(Boolean value) {
+            addCriterion("hotel_authority <>", value, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityGreaterThan(Boolean value) {
+            addCriterion("hotel_authority >", value, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("hotel_authority >=", value, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityLessThan(Boolean value) {
+            addCriterion("hotel_authority <", value, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityLessThanOrEqualTo(Boolean value) {
+            addCriterion("hotel_authority <=", value, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityIn(List<Boolean> values) {
+            addCriterion("hotel_authority in", values, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityNotIn(List<Boolean> values) {
+            addCriterion("hotel_authority not in", values, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityBetween(Boolean value1, Boolean value2) {
+            addCriterion("hotel_authority between", value1, value2, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotelAuthorityNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("hotel_authority not between", value1, value2, "hotelAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityIsNull() {
+            addCriterion("flight_authority is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityIsNotNull() {
+            addCriterion("flight_authority is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityEqualTo(Boolean value) {
+            addCriterion("flight_authority =", value, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityNotEqualTo(Boolean value) {
+            addCriterion("flight_authority <>", value, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityGreaterThan(Boolean value) {
+            addCriterion("flight_authority >", value, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("flight_authority >=", value, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityLessThan(Boolean value) {
+            addCriterion("flight_authority <", value, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityLessThanOrEqualTo(Boolean value) {
+            addCriterion("flight_authority <=", value, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityIn(List<Boolean> values) {
+            addCriterion("flight_authority in", values, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityNotIn(List<Boolean> values) {
+            addCriterion("flight_authority not in", values, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityBetween(Boolean value1, Boolean value2) {
+            addCriterion("flight_authority between", value1, value2, "flightAuthority");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlightAuthorityNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("flight_authority not between", value1, value2, "flightAuthority");
             return (Criteria) this;
         }
     }

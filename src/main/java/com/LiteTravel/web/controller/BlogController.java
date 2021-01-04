@@ -154,13 +154,13 @@ public class BlogController {
     }
     /*编辑博客标签*/
     @PostMapping("/manage/editTag")
-    public String editTag(@PathParam("tagId") Integer tagId,
+    public String updateTag(@PathParam("tagId") Integer tagId,
                           @PathParam("tagName") String tagName, ModelMap map) {
         int id = blogService.updateTag(tagId,tagName);
         if(id == 1){
             return "redirect:/manage/tags";
         }else{
-            map.put("msg","删除失败！");
+            map.put("msg","更新成功！");
             return "redirect:/manage/tags";
         }
     }

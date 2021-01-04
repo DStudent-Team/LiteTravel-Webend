@@ -1,6 +1,6 @@
 package com.LiteTravel.web.Model;
 
-public class userMoney {
+public class UserMoney {
     private Integer userId;
 
     private Float money;

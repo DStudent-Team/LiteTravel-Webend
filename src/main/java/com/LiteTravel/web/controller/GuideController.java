@@ -9,10 +9,7 @@ import com.LiteTravel.web.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,8 +26,25 @@ public class GuideController {
     public String getGuidesByUserId(ModelMap model, HttpSession session){
         GuideSearchDTO guideSearchDTO = new GuideSearchDTO();
         guideSearchDTO.setUserId(((UserDTO) session.getAttribute("user")).getUserId());
+        String userAddress = (String) session.getAttribute("userAddress");
+        model.addAttribute("hotelAddress","");
+        model.addAttribute("userAddress",userAddress);
         ResultVO result = guideService.getGuides(guideSearchDTO);
         model.addAttribute("guides", result.data);
+
+        return "guide";
+    }
+
+    @GetMapping("/guide/{hotelAddress}")
+    public String getGuidesByUserId(@PathVariable String hotelAddress, ModelMap model, HttpSession session){
+        GuideSearchDTO guideSearchDTO = new GuideSearchDTO();
+        guideSearchDTO.setUserId(((UserDTO) session.getAttribute("user")).getUserId());
+        String userAddress = (String) session.getAttribute("userAddress");
+        model.addAttribute("hotelAddress",hotelAddress);
+        model.addAttribute("userAddress",userAddress);
+        ResultVO result = guideService.getGuides(guideSearchDTO);
+        model.addAttribute("guides", result.data);
+
         return "guide";
     }
     @PostMapping("/guide")
@@ -43,6 +57,7 @@ public class GuideController {
     @PostMapping("/guide/search")
     @ResponseBody
     public ResponseDTO saveSearchInfo(@RequestBody GuideDTO guideDTO){
+
         guideService.insertGuide(guideDTO);
         return ResponseDTO.successOf();
     }

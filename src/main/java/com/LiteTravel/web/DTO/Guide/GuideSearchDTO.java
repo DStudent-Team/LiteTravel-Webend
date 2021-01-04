@@ -6,4 +6,6 @@ import lombok.Data;
 public class GuideSearchDTO {
 
     Integer userId;
+    String userAddress;
+    String hotelAddress;
 }

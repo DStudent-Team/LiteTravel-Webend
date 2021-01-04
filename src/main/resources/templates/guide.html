@@ -47,11 +47,11 @@
                     </div>
                     <div class="form-group">
                         <label for="start">出发地:</label>
-                        <input id="start" class="startKeyword"/>
+                        <input id="start" class="startKeyword" th:value="${userAddress}"/>
                     </div>
                     <div class="form-group">
                         <label for="end">目的地:</label>
-                        <input id="end" class="guideKeywords"/>
+                        <input id="end" class="guideKeywords" th:value="${hotelAddress}"/>
                     </div>
                     <hr>
                     <div class="form-inline">

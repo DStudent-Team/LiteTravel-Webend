@@ -48,12 +48,18 @@
                         <td th:text="${reserve.total}"></td>
                         <td th:text="${reserve.companyName}"></td>
                         <td th:text="${reserve.service}"></td>
-                        <td th:text="${reserve.selected}?'服务已选中':'暂未选中'"></td>
+                        <td th:text="${reserve.selected}?'用户已预约':'等待用户预约'"></td>
                         <td>
+                            <a class="btn btn-sm btn-primary"
+                               data-toggle="modal" data-target="#editReserveModal"
+                               th:if="${reserve.selected} == false"
+                               th:onclick="editReserve([[${reserve.reserveId}]],[[${reserve.total}]],[[${reserve.service}]])">编辑</a>
+<!--                            <a th:if="${reserve.selected == true}" class="btn btn-sm btn-primary">编辑</a>-->
+<!--                            <a th:if="${reserve.selected == false}" class="btn btn-sm btn-primary">不可编辑</a>-->
                             <!--调用manage.js下的方法-->
-                            <button type="submit" class="btn btn-sm btn-danger"
+                            <button th:if="${reserve.selected} == false" type="submit" class="btn btn-sm btn-danger"
                                     data-toggle="modal" data-target="#deleteReserveModal"
-                                    th:onclick="deleteReserve([[${reserve.reserveId}]])">删除</button>
+                            th:onclick="deleteReserve([[${reserve.reserveId}]],[[${reserve.flightId}]])">删除</button>
                         </td>
                     </tr>
                     </tbody>
@@ -72,11 +78,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.slim.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/popper.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script type="text/javascript" th:src="@{/static/js/manage.js}"></script>
-
 
 </body>
 
