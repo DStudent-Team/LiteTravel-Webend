@@ -7,20 +7,18 @@ import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.service.UserAuthorityService;
 import com.LiteTravel.web.service.UserService;
 import com.LiteTravel.web.service.Utils.MoneyService;
-import com.sun.deploy.net.HttpResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 @Controller
 public class LoginController {
     @Resource

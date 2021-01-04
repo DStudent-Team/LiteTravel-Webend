@@ -354,66 +354,6 @@ public class RoomExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoomRemainingIsNull() {
-            addCriterion("room_remaining is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingIsNotNull() {
-            addCriterion("room_remaining is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingEqualTo(Integer value) {
-            addCriterion("room_remaining =", value, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingNotEqualTo(Integer value) {
-            addCriterion("room_remaining <>", value, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingGreaterThan(Integer value) {
-            addCriterion("room_remaining >", value, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingGreaterThanOrEqualTo(Integer value) {
-            addCriterion("room_remaining >=", value, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingLessThan(Integer value) {
-            addCriterion("room_remaining <", value, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingLessThanOrEqualTo(Integer value) {
-            addCriterion("room_remaining <=", value, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingIn(List<Integer> values) {
-            addCriterion("room_remaining in", values, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingNotIn(List<Integer> values) {
-            addCriterion("room_remaining not in", values, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingBetween(Integer value1, Integer value2) {
-            addCriterion("room_remaining between", value1, value2, "roomRemaining");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoomRemainingNotBetween(Integer value1, Integer value2) {
-            addCriterion("room_remaining not between", value1, value2, "roomRemaining");
-            return (Criteria) this;
-        }
-
         public Criteria andRoomMaxIsNull() {
             addCriterion("room_max is null");
             return (Criteria) this;

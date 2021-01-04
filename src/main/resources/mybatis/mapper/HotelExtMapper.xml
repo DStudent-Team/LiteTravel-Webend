@@ -9,7 +9,7 @@
         UPDATE travel_hotel
         SET hotel_reply_count = hotel_reply_count + #{hotelReplyCount, jdbcType = INTEGER},
             hotel_reply_level =
-                (hotel_reply_level * (1 - #{hotelReplyCount, jdbcType = INTEGER} / hotel_reply_count)
+                (hotel_reply_level * (#{hotelReplyCount, jdbcType = INTEGER} - 1)
                                      + #{hotelReplyLevel}) / hotel_reply_count
         WHERE hotel_id = #{hotelId}
     </update>

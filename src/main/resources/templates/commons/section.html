@@ -28,10 +28,10 @@
                         <!-- 评分星星展示 -->
                         <i class="icon-star"
                            th:if="${hotel.hotelReplyLevel}>0"
-                           th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
+                           th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel))}">
                         </i><i class="icon-star-o"
-                               th:if="${hotel.hotelReplyLevel}<10"
-                               th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
+                               th:if="${hotel.hotelReplyLevel}<5"
+                               th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel)))}">
                     </i>
                         <span>[[${hotel.hotelReplyCount}]] Rating</span>
                     </p>
@@ -73,10 +73,10 @@
                         <!-- 评分星星展示 -->
                         <i class="icon-star"
                            th:if="${order.replyLevel}>0"
-                           th:each="i:${#numbers.sequence(1, (order.replyLevel / 2))}">
+                           th:each="i:${#numbers.sequence(1, (order.replyLevel))}">
                         </i><i class="icon-star-o"
-                               th:if="${order.replyLevel}<10"
-                               th:each="j:${#numbers.sequence(1, (5 - (order.replyLevel / 2)))}">
+                               th:if="${order.replyLevel}<5"
+                               th:each="j:${#numbers.sequence(1, (5 - (order.replyLevel)))}">
                     </i>
                         <span>查看评价</span>
                     </p>
@@ -184,7 +184,7 @@
                                             class="meta-chat">
                     <span class="icon-chat"></span> [[${blog.blogCommentCount}]]</a>
                 </div>
-                <!-- todo
+                <!-- not to do
                         点赞数
                         可以直接发送点赞请求
                  -->

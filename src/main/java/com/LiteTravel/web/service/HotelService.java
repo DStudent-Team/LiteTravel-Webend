@@ -1,35 +1,23 @@
 package com.LiteTravel.web.service;
 
 import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.DTO.Blog.BlogDTO;
+import com.LiteTravel.web.DTO.Hotel.HotelRoomSearchDTO;
 import com.LiteTravel.web.DTO.HotelOrder.HotelOrderDetailDTO;
-import com.LiteTravel.web.DTO.HotelQueryDTO;
 import com.LiteTravel.web.Model.*;
 import com.LiteTravel.web.mapper.*;
 import com.LiteTravel.web.service.Utils.JDBCUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sun.deploy.net.HttpResponse;
-import jdk.nashorn.internal.ir.annotations.Reference;
-import org.apache.catalina.Manager;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-import javafx.scene.effect.DisplacementMapBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class
@@ -75,7 +63,6 @@ HotelService {
     }
 
     // 推荐酒店
-//    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
     public ResultVO getHotels(Integer hotelId, Integer page, Integer pageSize)
     {
         HotelExample hotelExample = new HotelExample();
@@ -113,22 +100,28 @@ HotelService {
     }
 
     // 展现酒店单页
-//    @Cacheable(cacheNames = {"hotel"}, key = "#hotelId + '[' + #roomFlag + ']'")
-    public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag, Date startTime, Date endTime){
+    public HotelDTO selectHotelById(Integer hotelId, boolean roomFlag, HotelRoomSearchDTO hotelRoomSearchDTO){
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
         HotelDTO hotelDTO = JDBCUtils.initHotelDTO(regionMapper, hotel);
         // 判断是否需要room数据, 借此获得Room数据
         if(roomFlag){
             RoomExample roomExample = new RoomExample();
-            roomExample.createCriteria()
-                    .andHotelIdEqualTo(hotelId);
-            List<Room> rooms = roomMapper.selectByExample(roomExample);
-            List<RoomDTO> roomDTOs = rooms.stream().map(this::getRoomDTO).collect(Collectors.toList());
-            hotelDTO.setRooms(roomDTOs);
+            RoomExample.Criteria criteria = roomExample.createCriteria();
+            criteria.andHotelIdEqualTo(hotelId);
+            Date checkIn = hotelRoomSearchDTO.getCheckIn();
+            Date checkOut = hotelRoomSearchDTO.getCheckOut();
+            List<RoomDTO> rooms = roomMapper.selectByExample(roomExample).stream().map(this::getRoomDTO).collect(Collectors.toList());
+            List<Integer> roomIds = rooms.stream().map(RoomDTO::getRoomId).distinct().collect(Collectors.toList());
+            /* 更新时间段剩余房间数 */
+            List<Integer> roomRemaining = getRemainRooms(checkIn, checkOut, hotelId, roomIds);
+            /* lambda语法: foreach, 逐个设置房间剩余数*/
+            IntStream.range(0, roomRemaining.size()).forEach(index -> rooms.get(index).setRoomRemaining(roomRemaining.get(index)));
+
+
+            hotelDTO.setRooms(rooms);
         }
         return hotelDTO;
     }
-
     public RoomDTO getRoomDTO(Integer roomId){
         return getRoomDTO(roomMapper.selectByPrimaryKey(roomId));
     }
@@ -161,20 +154,8 @@ HotelService {
         List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
         if(bedIds.size() > 0){
             // 获取bed
-            BedExample bedExample = new BedExample();
-            bedExample.createCriteria()
-                    .andBedIdIn(bedIds);
-            List<Bed> bedList = bedMapper.selectByExample(bedExample);
-            // 获取bedCount
-            Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
-            // bed和bedCount写入bedDTO
-            List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
-                BedDTO bedDTO = new BedDTO();
-                BeanUtils.copyProperties(bed, bedDTO);
-                bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
-                return bedDTO;
-            }).collect(Collectors.toList());
-            roomDTO.setBeds(bedDTOs);
+            List<BedDTO> beds = getBedsByMap(bedIds, roomBedMaps);
+            roomDTO.setBeds(beds);
         }
         return roomDTO;
     }
@@ -217,13 +198,13 @@ HotelService {
         //保存一个hotel中所有room
         List<Room> room  = new ArrayList<>();
         RoomExample roomExample = new RoomExample();
-        for (int i=0;i<hotelId.size();i++){
-            roomExample.createCriteria().andHotelIdEqualTo(hotelId.get(i));
+        for (Integer integer : hotelId) {
+            roomExample.createCriteria().andHotelIdEqualTo(integer);
             room = roomMapper.selectByExample(roomExample);
             //将一个hotel中所有room保存到rooms中
             rooms.addAll(room);
             //新建对象，重新查找，原对象会在jvm中自动销毁
-            roomExample= new RoomExample();
+            roomExample = new RoomExample();
         }
 
         PageHelper.startPage(page, pageSize);
@@ -246,21 +227,9 @@ HotelService {
         if (roomBedMaps.size() > 0) {
             List<Integer> bedIds = roomBedMaps.stream().map(RoomBedMapKey::getBedId).distinct().collect(Collectors.toList());
             // 获取bed
-            BedExample bedExample = new BedExample();
-            bedExample.createCriteria()
-                    .andBedIdIn(bedIds);
-            List<Bed> bedList = bedMapper.selectByExample(bedExample);
-            // 获取bedCount
-            Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
-            // bed和bedCount写入bedDTO
-            List<BedDTO> bedDTOs = bedList.stream().map(bed -> {
-                BedDTO bedDTO = new BedDTO();
-                BeanUtils.copyProperties(bed, bedDTO);
-                bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
-                return bedDTO;
-            }).collect(Collectors.toList());
+            List<BedDTO> beds = getBedsByMap(bedIds, roomBedMaps);
             PageInfo<RoomBedMap> info = new PageInfo<>(roomBedMaps, 5);
-            model.addAttribute("roomBeds",bedDTOs);
+            model.addAttribute("roomBeds",beds);
             model.addAttribute("pageInfo",info);
         }
         model.addAttribute("roomIdForRoomBed",roomId);
@@ -268,6 +237,22 @@ HotelService {
         List<Bed> bedList = bedMapper.selectByExample(new BedExample());
         session.setAttribute("bedList",bedList);
 
+    }
+
+    private List<BedDTO> getBedsByMap(List<Integer> bedIds, List<RoomBedMap> roomBedMaps){
+        BedExample bedExample = new BedExample();
+        bedExample.createCriteria()
+                .andBedIdIn(bedIds);
+        List<Bed> bedList = bedMapper.selectByExample(bedExample);
+        // 获取bedCount
+        Map<Integer, Integer> bedCountMap = roomBedMaps.stream().collect(Collectors.toMap(RoomBedMapKey::getBedId, RoomBedMap::getBedCount));
+        // bed和bedCount写入bedDTO
+        return bedList.stream().map(bed -> {
+            BedDTO bedDTO = new BedDTO();
+            BeanUtils.copyProperties(bed, bedDTO);
+            bedDTO.setBedCount(bedCountMap.get(bed.getBedId()));
+            return bedDTO;
+        }).collect(Collectors.toList());
     }
 
     /*-------------------------------------------------*/
@@ -313,21 +298,20 @@ HotelService {
         //取出来hotel中的对应的room_id值，进行接下来的删除操作
         List<Integer> roomIds = rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
         //遍历room_id，逐个删除room_id对应的bed和room
-        for(int i=0;i<roomIds.size();i++){//list为集合的对象名
-            Integer roomId =  roomIds.get(i);
+        for (Integer roomId : roomIds) {
+            //list为集合的对象名
             RoomBedMapExample roomBedMapExample = new RoomBedMapExample();
             roomBedMapExample.createCriteria()
                     .andRoomIdEqualTo(roomId);
             roomBedMapper.deleteByExample(roomBedMapExample);
             roomMapper.deleteByPrimaryKey(roomId);
         }
-        int result = hotelMapper.deleteByPrimaryKey(hotelId);
-        return result;
+        return hotelMapper.deleteByPrimaryKey(hotelId);
     }
     //修改酒店數據
     public int updateHotel(HotelDTO hotelDTO) {
         Hotel hotel = new Hotel();
-        //利用反射属性对JaveBean进行处理，简单说就是将hotelDto转化成hotel类
+        //利用反射属性对JavaBean进行处理，简单说就是将hotelDto转化成hotel类
         BeanUtils.copyProperties(hotelDTO, hotel);
         HotelExample hotelExample = new HotelExample();
         hotelExample.createCriteria()
@@ -378,16 +362,13 @@ HotelService {
         roomBedMapExample.createCriteria()
                 .andRoomIdEqualTo(roomId);
         roomBedMapper.deleteByExample(roomBedMapExample);
-        int result = 0;
-                result = roomMapper.deleteByPrimaryKey(roomId);
-        return result;
+        return roomMapper.deleteByPrimaryKey(roomId);
     }
     //添加
     public int insertRoom(RoomDTO roomDTO){
         Room room = new Room();
         BeanUtils.copyProperties(roomDTO,room);
-        int result = roomMapper.insert(room);
-        return result;
+        return roomMapper.insert(room);
     }
     //更新
     public int updateRoom(RoomDTO roomDTO){
@@ -396,8 +377,7 @@ HotelService {
         RoomExample roomExample = new RoomExample();
         roomExample.createCriteria()
                 .andRoomIdEqualTo(room.getRoomId());
-        int result = roomMapper.updateByExample(room, roomExample);
-        return result;
+        return roomMapper.updateByExample(room, roomExample);
     }
 
 
@@ -556,8 +536,7 @@ HotelService {
         RoomExample roomExample = new RoomExample();
         roomExample.createCriteria().andHotelIdEqualTo(hotelId);
         List<Room> rooms = roomMapper.selectByExample(roomExample);
-        List<Integer> roomType = rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
-        return roomType;
+        return rooms.stream().map(Room::getRoomId).distinct().collect(Collectors.toList());
     }
 
     /**

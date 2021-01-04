@@ -68,25 +68,24 @@
                     </div>
                     <!-- 文字区 -->
                     <div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                        <!-- todo 一句话介绍? -->
+                        <!-- 一句话介绍? -->
                         <span>Our Best hotels &amp; Rooms</span>
                         <!-- 酒店名 -->
                         <h2 th:text="${hotel.hotelName}">Luxury Hotel in Paris</h2>
                         <p class="rate mb-5">
-                            <!-- todo 详细地址-->
-                            <!-- 可跳转, 跳转至地点介绍? 不对, 地图展示? 会更复杂, 不然先设计跳转至通过地址筛选酒店的列表? 好像可行, 先这么做着 -->
+                            <!-- 详细地址-->
                             <span class="loc"><a th:href="@{'/guide/' + ${hotel.hotelAddressString}+${hotel.hotelAddressSpecific}}"><i class="icon-map"></i> [[${hotel.hotelAddressString}]]</a> [[${hotel.hotelAddressSpecific}]]</span>
                             <!-- 用户评分 -->
                             <span class="star">
     							<i class="icon-star"
                                    th:if="${hotel.hotelReplyLevel}>0"
-                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
+                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel))}">
                                 </i><i class="icon-star-o"
-                                   th:if="${hotel.hotelReplyLevel}<10"
-                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
+                                   th:if="${hotel.hotelReplyLevel}<5"
+                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel )))}">
                                 </i>
                                 <!-- 评价数? -->
-    							[[${hotelReplyCount}]] Rating</span>
+    							[[${hotel.hotelReplyCount}]] Rating</span>
                         </p>
                         <!-- todo 主要文本(不太懂原来是写啥的, 到时要修改成介绍酒店属性部分) -->
                         <p>When she reached the first hills of the Italic Mountains, she had a last view back on the
@@ -124,80 +123,38 @@
                             </figure>
                         </div>
                     </div>
-                    <!-- todo 检查是否可以预约, 以及预定?? 我们的展示应该是选择好日期再展示酒店房间有无剩余 -->
-                    <!-- 实际上我们的正文部分还是需要修改的 -->
-                    <!-- 格式需要修改 -->
-                    <!-- 使用js发送请求，并刷新客房展示 -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                        <h4 class="mb-5">Check Availability &amp; Booking</h4>
-                        <form id="search" method="get" action="/room">
+                        <h4 class="mb-5">查找房间</h4>
+                        <form id="search" method="post" th:action="@{'/hotel/' + ${hotelId}}">
                             <div class="fields">
                                 <div class="row">
-                                    <input name="hotelId" readonly="readonly" type="hidden" th:value="${hotel.hotelId}" class="form-control date">
+                                    <input name="hotelId" type="hidden" th:value="${hotel.hotelId}">
                                     <!-- 入店时间 -->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <!--入住时间，默认为当天-->
                                             <label for="checkInQuery">入店时间</label>
-                                            <input id="checkInQuery" name="startTime" type="date" class="form-control"
-                                                   th:value="${startTime != null?#dates.format(startTime, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                                            <input id="checkInQuery" name="checkIn" type="date" class="form-control"
+                                                   th:value="${#dates.format((roomSearch != null?roomSearch.checkIn:#dates.createToday()), 'yyyy-MM-dd')}">
                                         </div>
                                     </div>
                                     <!-- 离店时间 -->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="checkOutQuery">离店时间</label>
-                                            <input id="checkOutQuery" name="endTime" type="date" class="form-control"
-                                                   th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-MM-dd')}">
+                                            <input id="checkOutQuery" name="checkOut" type="date" class="form-control"
+                                                   th:value="${#dates.format((roomSearch != null?roomSearch.checkOut:#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1)), 'yyyy-MM-dd')}">
                                         </div>
                                     </div>
-                                    <!--                                &lt;!&ndash; 旅客数 &ndash;&gt;-->
-                                    <!--                                <div class="col-md-6">-->
-                                    <!--                                    <div class="form-group">-->
-                                    <!--                                        <div class="select-wrap one-third">-->
-                                    <!--                                            &lt;!&ndash;<div class="icon"><span class="ion-ios-arrow-down"></span></div>&ndash;&gt;-->
-                                    <!--                                            <label for="travelers">旅客数</label>-->
-                                    <!--                                            <select name="travelers" id="travelers" class="form-control" placeholder="Guest">-->
-                                    <!--                                                <option value="1">1</option>-->
-                                    <!--                                                <option value="2">2</option>-->
-                                    <!--                                                <option value="3">3</option>-->
-                                    <!--                                                <option value="4">4</option>-->
-                                    <!--                                                <option value="5">5</option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                    <!--                                &lt;!&ndash; 小孩数 &ndash;&gt;-->
-                                    <!--                                <div class="col-md-6">-->
-                                    <!--                                    <div class="form-group">-->
-                                    <!--                                        <div class="select-wrap one-third">-->
-                                    <!--&lt;!&ndash;                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>&ndash;&gt;-->
-                                    <!--                                            <label for="children">孩童数</label>-->
-                                    <!--                                            <select name="children" id="children" class="form-control" placeholder="Children">-->
-                                    <!--                                                <option value="0">0</option>-->
-                                    <!--                                                <option value="1">1</option>-->
-                                    <!--                                                <option value="2">2</option>-->
-                                    <!--                                                <option value="3">3</option>-->
-                                    <!--                                                <option value="4">4</option>-->
-                                    <!--                                                <option value="5">5</option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                    <!-- todo 用人数查不太现实，到时候还有给他安排好房间类型，比较难搞，直接查房间类型好了 -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="submit" value="Check Availability" class="btn btn-primary py-3" onclick="getRemainRoom()">
+                                            <input type="submit" value="查看房间" class="btn btn-primary py-3" onclick="getRemainRoom()">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <!-- todo
-                             酒店单间介绍
-                             默认按当天入店, 第二天离店搜索可用房间
-                    -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <!-- Tips -->
                         <h4 class="mb-4">Our Rooms</h4>

@@ -92,13 +92,21 @@
 </script>
 <script th:src="@{/js/hotel-order.js}"></script>
 <script th:inline="javascript">
+    function getDays(){
+        var checkIn = $("#checkIn").val();
+        var checkOut = $("#checkOut").val();
+        if (Date.parse(checkOut) - Date.parse(checkIn) <= 0){
+            const date = new Date(Date.parse(checkOut) - (24 * 3600 * 2000));
+            $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
+        }
+    }
+
     $(function () {
         $("#checkIn").change(function () {
             var checkIn = $(this).val();
             var checkOut = $("#checkOut").val();
             if (Date.parse(checkOut) - Date.parse(checkIn) <= 0){
                 const date = new Date(Date.parse(checkOut) - (24 * 3600 * 2000));
-                // console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
                 $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
             }
             updateTotal();  //显示总金额
@@ -108,7 +116,6 @@
             var checkOut = $(this).val();
             if (Date.parse(checkOut) - Date.parse(checkIn) <= 0){
                 const date = new Date(Date.parse(checkIn));
-                // console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
                 $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
             }
             updateTotal();  //显示总金额

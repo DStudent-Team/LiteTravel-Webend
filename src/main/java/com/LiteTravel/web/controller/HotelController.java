@@ -1,6 +1,7 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.Hotel.HotelRoomSearchDTO;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
 
 import com.LiteTravel.web.Model.Hotel;
@@ -76,26 +77,31 @@ public class HotelController {
 
 
     @GetMapping("/hotel/{hotelId}")
-    public String Hotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
+    public String getHotel(@PathVariable("hotelId") Integer hotelId, ModelMap model){
         /* 获取酒店基本信息 */
-        Date startTime = new Date();
-        Date endTime = new Date(startTime.getTime() + 60 * 60 * 24 * 1000);
-        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, startTime, endTime);
-        /* todo 获取酒店具体介绍数据 */
-        /* done 获取房间块展示数据 */
-        /* todo 获取房间可折叠展示块信息 */
-
+        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, new HotelRoomSearchDTO());
         ResultVO result = hotelService.getHotels(hotelId, 1, 3);
         /* 设置酒店基本信息数据 */
         model.addAttribute("hotel", hotel);
-        /* todo 设置酒店具体介绍数据 */
-        /* done 设置房间块展示数据 */
-        /* todo 设置房间可折叠展示块信息 */
-
         /* 设置推荐酒店基本信息数据 */
-        /* todo 设计推荐算法 */
         model.addAttribute("hotels", result.data);
+        //分页展示酒店评价信息
+        ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(hotelId, 1, 10);
+        model.addAttribute("orderComments", resultVO.data);
+        return "hotel-single";
+    }
 
+    @PostMapping("/hotel/{hotelId}")
+    public String getHotel(@PathVariable("hotelId") Integer hotelId, HotelRoomSearchDTO roomRemainDTO, ModelMap model){
+        /* 获取酒店基本信息 */
+        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, roomRemainDTO);
+        /* done 获取房间块展示数据 */
+        ResultVO result = hotelService.getHotels(hotelId, 1, 3);
+        /* 设置酒店基本信息数据 */
+        model.addAttribute("hotel", hotel);
+        /* 设置推荐酒店基本信息数据 */
+        model.addAttribute("hotels", result.data);
+        model.addAttribute("roomSearch", roomRemainDTO);
         //分页展示酒店评价信息
         ResultVO resultVO = orderCommentService.listOrderCommentsByHotelId(hotelId, 1, 10);
         model.addAttribute("orderComments", resultVO.data);
@@ -166,32 +172,5 @@ public class HotelController {
         return "bed/list";
     }
 
-    @GetMapping("/room")
-    public String Hotel(@RequestParam("hotelId") Integer hotelId,
-                        @RequestParam("startTime") Date startTime,
-                        @RequestParam("endTime") Date endTime, ModelMap model){
-        /* 获取酒店基本信息 */
-        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, startTime, endTime);
-
-
-        /* todo 获取酒店具体介绍数据 */
-        /* done 获取房间块展示数据 */
-        /* todo 获取房间可折叠展示块信息 */
-
-        ResultVO result = hotelService.getHotels(hotelId, 1, 3);
-        /* 设置酒店基本信息数据 */
-        model.addAttribute("hotel", hotel);
-        /* todo 设置酒店具体介绍数据 */
-        /* done 设置房间块展示数据 */
-        /* todo 设置房间可折叠展示块信息 */
-
-        /* 设置推荐酒店基本信息数据 */
-        /* todo 设计推荐算法 */
-        model.addAttribute("hotels", result.data);
-        model.addAttribute("startTime", startTime);
-        model.addAttribute("endTime", endTime);
-        System.out.println("成功");
-        return "hotel-single";
-    }
 
 }

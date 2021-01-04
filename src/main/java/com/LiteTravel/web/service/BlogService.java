@@ -77,7 +77,7 @@ public class BlogService {
     public ResultVO getBlogs(Integer blogId, Integer page, Integer pageSize)
     {
         BlogExample blogExample = new BlogExample();
-//      todo 推荐算法尚未写好
+        // 推荐算法尚未写好
         blogExample.createCriteria()
                 .andBlogIdNotEqualTo(blogId);
         return selectByExample(page, pageSize, blogExample);

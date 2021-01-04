@@ -6,7 +6,6 @@
     <result column="hotel_id" jdbcType="INTEGER" property="hotelId" />
     <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="room_price" jdbcType="REAL" property="roomPrice" />
-    <result column="room_remaining" jdbcType="INTEGER" property="roomRemaining" />
     <result column="room_max" jdbcType="INTEGER" property="roomMax" />
     <result column="room_book_max" jdbcType="INTEGER" property="roomBookMax" />
     <result column="room_cancel" jdbcType="INTEGER" property="roomCancel" />
@@ -76,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    room_id, hotel_id, room_name, room_price, room_remaining, room_max, room_book_max, 
-    room_cancel, room_size, room_wifi, room_bed_add
+    room_id, hotel_id, room_name, room_price, room_max, room_book_max, room_cancel, room_size, 
+    room_wifi, room_bed_add
   </sql>
   <sql id="Blob_Column_List">
     room_description
@@ -132,15 +131,13 @@
   </delete>
   <insert id="insert" parameterType="com.LiteTravel.web.Model.Room">
     insert into travel_hotel_room (room_id, hotel_id, room_name, 
-      room_price, room_remaining, room_max, 
-      room_book_max, room_cancel, room_size, 
-      room_wifi, room_bed_add, room_description
-      )
+      room_price, room_max, room_book_max, 
+      room_cancel, room_size, room_wifi, 
+      room_bed_add, room_description)
     values (#{roomId,jdbcType=INTEGER}, #{hotelId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, 
-      #{roomPrice,jdbcType=REAL}, #{roomRemaining,jdbcType=INTEGER}, #{roomMax,jdbcType=INTEGER}, 
-      #{roomBookMax,jdbcType=INTEGER}, #{roomCancel,jdbcType=INTEGER}, #{roomSize,jdbcType=INTEGER}, 
-      #{roomWifi,jdbcType=CHAR}, #{roomBedAdd,jdbcType=REAL}, #{roomDescription,jdbcType=LONGVARCHAR}
-      )
+      #{roomPrice,jdbcType=REAL}, #{roomMax,jdbcType=INTEGER}, #{roomBookMax,jdbcType=INTEGER}, 
+      #{roomCancel,jdbcType=INTEGER}, #{roomSize,jdbcType=INTEGER}, #{roomWifi,jdbcType=CHAR}, 
+      #{roomBedAdd,jdbcType=REAL}, #{roomDescription,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.LiteTravel.web.Model.Room">
     insert into travel_hotel_room
@@ -156,9 +153,6 @@
       </if>
       <if test="roomPrice != null">
         room_price,
-      </if>
-      <if test="roomRemaining != null">
-        room_remaining,
       </if>
       <if test="roomMax != null">
         room_max,
@@ -194,9 +188,6 @@
       </if>
       <if test="roomPrice != null">
         #{roomPrice,jdbcType=REAL},
-      </if>
-      <if test="roomRemaining != null">
-        #{roomRemaining,jdbcType=INTEGER},
       </if>
       <if test="roomMax != null">
         #{roomMax,jdbcType=INTEGER},
@@ -242,9 +233,6 @@
       <if test="record.roomPrice != null">
         room_price = #{record.roomPrice,jdbcType=REAL},
       </if>
-      <if test="record.roomRemaining != null">
-        room_remaining = #{record.roomRemaining,jdbcType=INTEGER},
-      </if>
       <if test="record.roomMax != null">
         room_max = #{record.roomMax,jdbcType=INTEGER},
       </if>
@@ -277,7 +265,6 @@
       hotel_id = #{record.hotelId,jdbcType=INTEGER},
       room_name = #{record.roomName,jdbcType=VARCHAR},
       room_price = #{record.roomPrice,jdbcType=REAL},
-      room_remaining = #{record.roomRemaining,jdbcType=INTEGER},
       room_max = #{record.roomMax,jdbcType=INTEGER},
       room_book_max = #{record.roomBookMax,jdbcType=INTEGER},
       room_cancel = #{record.roomCancel,jdbcType=INTEGER},
@@ -295,7 +282,6 @@
       hotel_id = #{record.hotelId,jdbcType=INTEGER},
       room_name = #{record.roomName,jdbcType=VARCHAR},
       room_price = #{record.roomPrice,jdbcType=REAL},
-      room_remaining = #{record.roomRemaining,jdbcType=INTEGER},
       room_max = #{record.roomMax,jdbcType=INTEGER},
       room_book_max = #{record.roomBookMax,jdbcType=INTEGER},
       room_cancel = #{record.roomCancel,jdbcType=INTEGER},
@@ -317,9 +303,6 @@
       </if>
       <if test="roomPrice != null">
         room_price = #{roomPrice,jdbcType=REAL},
-      </if>
-      <if test="roomRemaining != null">
-        room_remaining = #{roomRemaining,jdbcType=INTEGER},
       </if>
       <if test="roomMax != null">
         room_max = #{roomMax,jdbcType=INTEGER},
@@ -350,7 +333,6 @@
     set hotel_id = #{hotelId,jdbcType=INTEGER},
       room_name = #{roomName,jdbcType=VARCHAR},
       room_price = #{roomPrice,jdbcType=REAL},
-      room_remaining = #{roomRemaining,jdbcType=INTEGER},
       room_max = #{roomMax,jdbcType=INTEGER},
       room_book_max = #{roomBookMax,jdbcType=INTEGER},
       room_cancel = #{roomCancel,jdbcType=INTEGER},
@@ -365,7 +347,6 @@
     set hotel_id = #{hotelId,jdbcType=INTEGER},
       room_name = #{roomName,jdbcType=VARCHAR},
       room_price = #{roomPrice,jdbcType=REAL},
-      room_remaining = #{roomRemaining,jdbcType=INTEGER},
       room_max = #{roomMax,jdbcType=INTEGER},
       room_book_max = #{roomBookMax,jdbcType=INTEGER},
       room_cancel = #{roomCancel,jdbcType=INTEGER},

@@ -5,6 +5,8 @@ import com.LiteTravel.web.DTO.HotelOrder.OrderCommentDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.Model.OrderComment;
 import com.LiteTravel.web.Model.OrderCommentExample;
+import com.LiteTravel.web.mapper.HotelExtMapper;
+import com.LiteTravel.web.mapper.HotelMapper;
 import com.LiteTravel.web.mapper.OrderCommentMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +24,9 @@ import java.util.List;
 @Service
 public class OrderCommentService {
     @Resource
+    private HotelExtMapper hotelExtMapper;
+
+    @Resource
     private OrderCommentMapper orderCommentMapper;
 
     /**
@@ -31,14 +36,20 @@ public class OrderCommentService {
      */
     public int saveOrderComment(OrderCommentDTO orderCommentDTO, String username){
         OrderComment orderComment = new OrderComment();
-
+        Integer hotelId = orderCommentDTO.getHotelId();
+        Integer score = orderCommentDTO.getScore();
         orderComment.setUserName(username);
-        orderComment.setHotelId(orderCommentDTO.getHotelId());
+        orderComment.setHotelId(hotelId);
         orderComment.setOrderId(orderCommentDTO.getOrderId());
-        orderComment.setOcScore(orderCommentDTO.getScore());
+        orderComment.setOcScore(score);
         orderComment.setOcDetail(orderCommentDTO.getDetail());
+        int insertId = orderCommentMapper.insertSelective(orderComment);
+        /*
+         * 当插入评价时，需要重新生成该酒店的评分平均值
+         * */
+        hotelExtMapper.incReplyCount(hotelId, score, 1);
 
-        return orderCommentMapper.insertSelective(orderComment);
+        return insertId;
     }
 
     /**
@@ -54,7 +65,6 @@ public class OrderCommentService {
         List<OrderComment> orderComments = orderCommentMapper.selectByExample(orderCommentExample);
         PageInfo<OrderComment> pageInfo = new PageInfo<>(orderComments, 5);
         List<DisplayOrderCommentDTO> displayOrderCommentDTOS = listDisplayOrderComment(orderComments);
-
         return new ResultVO(displayOrderCommentDTOS,pageInfo);
     }
 

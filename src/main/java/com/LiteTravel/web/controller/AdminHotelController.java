@@ -1,21 +1,27 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.*;
+import com.LiteTravel.web.DTO.BedDTO;
+import com.LiteTravel.web.DTO.HotelDTO;
+import com.LiteTravel.web.DTO.RoomBedDTO;
+import com.LiteTravel.web.DTO.RoomDTO;
 import com.LiteTravel.web.Model.Bed;
 import com.LiteTravel.web.Model.Hotel;
-import com.LiteTravel.web.Model.RoomBedMap;
 import com.LiteTravel.web.service.HotelService;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author KrisHugo
+ */
 @Controller
 public class AdminHotelController {
 
@@ -23,7 +29,9 @@ public class AdminHotelController {
     public HotelService hotelService;
 
     /*-----------------------------------------------------------------------------*/
-    /*酒店增删改方法*/
+    /***
+     * 酒店增删改方法
+     * */
     @PostMapping("/manage/hotel")
     public String insertOrUpdateHotel(HotelDTO hotelDTO){
 
@@ -70,7 +78,7 @@ public class AdminHotelController {
         return "redirect:/manage/rooms";
     }
 
-    //updata and insert
+    //update and insert
     @PostMapping("/manage/room")
     public String insertOrUpdateRoom(RoomDTO roomDTO){
         //通过检索id值是否为空判断是insert还是update,返回值0表示insert，1是update
@@ -113,6 +121,8 @@ public class AdminHotelController {
         hotelService.getRoomBeds(page, 6, bedDTO.getBedId(),model,session);
         return "room/roomBed";
     }
+
+
     /*-----------------------------------------------------------------------------*/
     /*床位增删改*/
     @PostMapping("/manage/bed")
