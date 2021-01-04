@@ -13,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class FlightService {
         return flight.getFlightId();
     }
     /* 提交 服务商对特定预约提供的服务 */
+    @Transactional
     public void submitReserve(FlightReserveDTO reserveDTO) {
         FlightReserve reserve = new FlightReserve();
         BeanUtils.copyProperties(reserveDTO, reserve);
@@ -253,5 +255,17 @@ public class FlightService {
             return flightDTO;
         }).collect(Collectors.toList());
         return new ResultVO(data, info);
+    }
+    /* 删除机票预约信息 */
+    public int deleteFlight(Integer flightId) {
+        FlightReserveExample flightReserveExample = new FlightReserveExample();
+        flightReserveExample.createCriteria().andFlightIdEqualTo(flightId);
+        List<FlightReserve> flightReserves= flightReserveMapper.selectByExample(flightReserveExample);
+        List<Integer> reserveIds = flightReserves.stream().map(FlightReserve::getReserveId).collect(Collectors.toList());
+        FlightTicketExample ticketExample = new FlightTicketExample();
+        ticketExample.createCriteria().andReserveIdIn(reserveIds);
+        flightTicketMapper.deleteByExample(ticketExample);
+        flightReserveMapper.deleteByExample(flightReserveExample);
+        return flightMapper.deleteByPrimaryKey(flightId);
     }
 }

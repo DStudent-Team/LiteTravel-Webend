@@ -183,8 +183,6 @@
     </form>
 </section>
 
-<<<<<<< HEAD
-=======
 <!--机票预约服务模态框-->
 <section class="ftco-section-parallax" th:fragment="reserveModal">
     <form method="post"  class="form-horizontal" role="form" id="reserve_data" style="margin: 20px;">
@@ -273,7 +271,46 @@
         </div>
     </form>
 </section>
->>>>>>> master
+
+<!-- 删除机票预约模态框  -->
+<section class="ftco-section-parallax" th:fragment="deleteFlightModal">
+    <form method="post" th:action="@{/manage/deleteFlight}" class="form-horizontal" role="form" style="margin: 20px;">
+        <div class="modal fade" id="deleteFlightModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--弹窗标题-->
+                        <h4 class="modal-title">
+                            是否确认删除该预约
+                        </h4>
+                        <!--弹窗右上角的关闭符号-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" method="post">
+                            <!--deleteId-->
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <!--隐藏用户id 再传输给后台-->
+                                    <input type="hidden" class="form-control" id="deleteFlightId" name="flightId">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+</section>
 <!--调用用户脚本-->
 <script type="text/javascript" th:src="@{/js/manage.js}"></script>
 </body>

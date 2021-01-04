@@ -16,21 +16,15 @@ public interface FlightReserveMapper {
 
     int insertSelective(FlightReserve record);
 
-    List<FlightReserve> selectByExampleWithBLOBs(FlightReserveExample example);
-
     List<FlightReserve> selectByExample(FlightReserveExample example);
 
     FlightReserve selectByPrimaryKey(Integer reserveId);
 
     int updateByExampleSelective(@Param("record") FlightReserve record, @Param("example") FlightReserveExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") FlightReserve record, @Param("example") FlightReserveExample example);
-
     int updateByExample(@Param("record") FlightReserve record, @Param("example") FlightReserveExample example);
 
     int updateByPrimaryKeySelective(FlightReserve record);
-
-    int updateByPrimaryKeyWithBLOBs(FlightReserve record);
 
     int updateByPrimaryKey(FlightReserve record);
 }
