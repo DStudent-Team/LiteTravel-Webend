@@ -63,7 +63,6 @@ HotelService {
     }
 
     // 推荐酒店
-//    @Cacheable(cacheNames = {"relateHotels"}, key = "#hotelId")
     public ResultVO getHotels(Integer hotelId, Integer page, Integer pageSize)
     {
         HotelExample hotelExample = new HotelExample();

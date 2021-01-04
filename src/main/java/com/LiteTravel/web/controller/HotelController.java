@@ -108,32 +108,6 @@ public class HotelController {
         return "hotel-single";
     }
 
-    @GetMapping("/room")
-    public String getHotel(@RequestParam("hotelId") Integer hotelId,
-                           @RequestParam("startTime") Date startTime,
-                           @RequestParam("endTime") Date endTime, ModelMap model){
-        /* 获取酒店基本信息 */
-        HotelDTO hotel = hotelService.selectHotelById(hotelId, true, new HotelRoomSearchDTO());
-
-        /* 设计推荐算法 */
-        /* 推荐酒店 */
-        ResultVO result = hotelService.getHotels(hotelId, 1, 3);
-        /* 设置酒店基本信息数据 */
-        model.addAttribute("hotel", hotel);
-        /* todo 设置酒店具体介绍数据 */
-        /* done 设置房间块展示数据 */
-        /* todo 设置房间可折叠展示块信息 */
-
-        /* 设置推荐酒店基本信息数据 */
-        /* todo 设计推荐算法 */
-        model.addAttribute("hotels", result.data);
-        model.addAttribute("startTime", startTime);
-        model.addAttribute("endTime", endTime);
-        System.out.println("成功");
-        return "hotel-single";
-    }
-
-
     /*酒店后台页面数据获取*/
     @GetMapping("/manage/hotels")
     public String mangeHotelList(@RequestParam(value = "page", defaultValue = "1") Integer page, ModelMap model, HttpSession session){
