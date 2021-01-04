@@ -73,20 +73,18 @@
                                 <div class="range-slider">
 		              		        <span>
                                     <!-- 文字金额标识 -->
-									    <input type="number" id="minPrice" name="minPrice"
+									    <input style="border: #0b0b0b 1px solid" type="number" id="minPrice" name="minPrice"
                                                placeholder="最低价" min="0" max="2000"
                                                th:value="${search != null}?${search.minPrice}:null"/>	-
-                                        <input type="number" id="maxPrice" name="maxPrice"
+                                        <input style="border: #0b0b0b 1px solid" type="number" id="maxPrice" name="maxPrice"
                                                placeholder="最高价" min="0" max="2000"
                                                th:value="${search != null}?${search.maxPrice}:null"/>
 							        </span>
-                                    <!-- 拖动栏 -->
-                                        <input value="200" min="0" max="2000" step="100" type="range"/>
-                                        <input value="600" min="0" max="2000" step="100" type="range"/>
-                                    </svg>
+<!--                                    &lt;!&ndash; 拖动栏 &ndash;&gt;-->
+<!--                                        <input value="200" min="0" max="2000" step="100" type="range"/>-->
+<!--                                        <input value="600" min="0" max="2000" step="100" type="range"/>-->
                                 </div>
                             </div>
-                            <br>
                             <div class="form-group">
                                 <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
                                 <br>

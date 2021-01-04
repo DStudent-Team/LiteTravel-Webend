@@ -20,4 +20,5 @@ public class Tag {
     public void setTagName(String tagName) {
         this.tagName = tagName == null ? null : tagName.trim();
     }
+
 }
