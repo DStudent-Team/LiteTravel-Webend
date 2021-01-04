@@ -21,4 +21,8 @@ public class Tag {
         this.tagName = tagName == null ? null : tagName.trim();
     }
 
+    @Override
+    public String toString() {
+        return tagName;
+    }
 }
