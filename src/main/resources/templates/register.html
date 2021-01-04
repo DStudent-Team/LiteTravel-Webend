@@ -20,7 +20,12 @@
 
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{register.tip}">Please sign up</h1>
 
-            <p id="usernameSpan" style="color:red"></p>
+
+			<!--获取用户当前地址-->
+			<input type="hidden" name="userAddress" id="userAddress" class="form-control">
+
+
+			<p id="usernameSpan" style="color:red"></p>
 			<label class="sr-only" th:text="#{login.usercode}">Usercode</label>
 			<input id="userCode" type="text" name="userCode" class="form-control" th:placeholder="#{login.usercode}" required="" autofocus="">
 
@@ -97,6 +102,50 @@
 				else
 				    usernameSpan.style.display = "visible";
 				return f;
+			}
+		</script>
+		<script type="text/javascript"
+				src="https://webapi.amap.com/maps?v=1.4.15&key=a99cc603485f5da30cbe6ff47939ab23&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Transfer,AMap.Driving"></script>
+		<script type="text/javascript">
+			window.onload = function (){
+				getLocation();
+			}
+
+			var x = document.getElementById("demo");
+
+			// 根据经纬度获得详细地址
+			function getPositionByLonLats(lng, lat) {
+				var address;
+				// console.log("经度："+lng+"纬度"+lat);
+				var lnglatXY = [lng, lat];// 地图上所标点的坐标
+				AMap.service('AMap.Geocoder', function () {// 回调函数
+					geocoder = new AMap.Geocoder({});
+					geocoder.getAddress(lnglatXY, function (status, result) {
+						if (status === 'complete' && result.info === 'OK') {
+							// console.log(result.regeocode.formattedAddress);
+							address = result.regeocode.formattedAddress;
+							console.log(address);
+							document.getElementById("userAddress").value = address;o
+						} else {
+						}
+					});
+				});
+
+			}
+
+			function getLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition);
+				}
+				else {
+					x.innerHTML = "该浏览器不支持获取地理位置。";
+				}
+			}
+
+			function showPosition(position) {
+				getPositionByLonLats(position.coords.longitude, position.coords.latitude)
+				x.innerHTML = "纬度: " + position.coords.latitude +
+						"<br>经度: " + position.coords.longitude;
 			}
 		</script>
 	</body>

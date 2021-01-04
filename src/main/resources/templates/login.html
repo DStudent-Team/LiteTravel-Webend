@@ -12,10 +12,14 @@
 		<link rel="stylesheet" th:href="@{/css/signin.css}">
 	</head>
 
-	<body class="text-center">
-		<form class="form-signin" th:action="@{/login}" method="post" >
+	<body class="text-center" onload=''>
+		<form class="form-signin" th:action="@{/login}" method="post">
 			<img alt="" class="mb-4" height="72" th:src="@{/static/img/bootstrap-solid.svg}" width="72">
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
+
+			<!--获取用户当前地址-->
+			<input type="hidden" name="userAddress" id="userAddress" class="form-control">
+
 			<!-- 只在错误发生时才会显示 -->
 			<!-- todo 设计JavaScript方法, 本地检测账号输入是否合理 -->
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
@@ -28,7 +32,7 @@
           <input type="checkbox" value="remember-me" > [[#{login.remember}]]
         </label>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block btnPlus" type="submit" th:text="#{login.btn}">Sign In</button>
+			<button class="btn btn-lg btn-primary btn-block btnPlus" type="submit" th:text="#{login.btn}" onclick="getLocation()">Sign In</button>
 			<a class="hrefBtn" th:href="@{/toRegister}">
 				<button class="btn btn-lg btn-primary btn-block btnPlus" type="button" th:text="#{register.btn}">Sign Up</button>
 			</a>
@@ -36,6 +40,51 @@
 			<a class="btn btn-sm" th:href="@{/(l='zh_CN')}">中文</a>
 			<a class="btn btn-sm" th:href="@{/(l='en_US')}">English</a>
 		</form>
+
+		<script type="text/javascript"
+				src="https://webapi.amap.com/maps?v=1.4.15&key=a99cc603485f5da30cbe6ff47939ab23&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Transfer,AMap.Driving"></script>
+		<script type="text/javascript">
+			window.onload = function (){
+				getLocation();
+			}
+
+			var x = document.getElementById("demo");
+
+			// 根据经纬度获得详细地址
+			function getPositionByLonLats(lng, lat) {
+				var address;
+				// console.log("经度："+lng+"纬度"+lat);
+				var lnglatXY = [lng, lat];// 地图上所标点的坐标
+				AMap.service('AMap.Geocoder', function () {// 回调函数
+					geocoder = new AMap.Geocoder({});
+					geocoder.getAddress(lnglatXY, function (status, result) {
+						if (status === 'complete' && result.info === 'OK') {
+							// console.log(result.regeocode.formattedAddress);
+							address = result.regeocode.formattedAddress;
+							console.log(address);
+							document.getElementById("userAddress").value = address;o
+						} else {
+						}
+					});
+				});
+
+			}
+
+			function getLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition);
+				}
+				else {
+					x.innerHTML = "该浏览器不支持获取地理位置。";
+				}
+			}
+
+			function showPosition(position) {
+				getPositionByLonLats(position.coords.longitude, position.coords.latitude)
+				x.innerHTML = "纬度: " + position.coords.latitude +
+						"<br>经度: " + position.coords.longitude;
+			}
+		</script>
 
 	</body>
 

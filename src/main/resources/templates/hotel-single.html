@@ -19,92 +19,29 @@
         <div class="row">
             <!-- Find City 筛选板块 -->
             <div class="col-lg-3 sidebar">
-                <div class="sidebar-wrap ftco-animate">
-                    <h3 class="heading mb-4">Find City</h3>
-                    <form action="#">
-                        <div class="fields">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Destination, City">
-                            </div>
-                            <div class="form-group">
-                                <div class="select-wrap one-third">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control" placeholder="Keyword search">
-                                        <option value="">Select Location</option>
-                                        <option value="">San Francisco USA</option>
-                                        <option value="">Berlin Germany</option>
-                                        <option value="">Lodon United Kingdom</option>
-                                        <option value="">Paris Italy</option>
-                                    </select>
+                <div>
+                    <h4><span class="badge badge-warning">酒店评价</span></h4>
+<!--                    <button type="button" class="btn btn-primary">-->
+<!--                        Notifications <span class="badge badge-light">4</span>-->
+<!--                    </button>-->
+                    <!-- 回复列表 -->
+                    <ul style="list-style: none;">
+                        <!-- Level1回复 -->
+                        <li  th:each="comment:${orderComments}">
+                                <!-- 回复人 -->
+                                <div class="row">
+                                    <!-- 回复人头像 -->
+                                    <div class="form-inline" style="width:100px;height:50px;">
+                                        <img th:src="@{'/img/avatar.jpg'}" alt="Image placeholder" width="20px">
+                                        <span class="badge badge-info">[[${comment.username}]]</span></div>
+                                    <div class="form-inline"><span style="color: #F9BE38;font-style: italic;">&ensp;&ensp;[[${comment.score}]]分</span></div>
+
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control" placeholder="Date from">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="checkin_date" class="form-control" placeholder="Date to">
-                            </div>
-                            <div class="form-group">
-                                <div class="range-slider">
-		              		<span>
-										    <input type="number" value="25000" min="0" max="120000"/>	-
-										    <input type="number" value="50000" min="0" max="120000"/>
-										  </span>
-                                    <input value="1000" min="0" max="120000" step="500" type="range"/>
-                                    <input value="50000" min="0" max="120000" step="500" type="range"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="sidebar-wrap ftco-animate">
-                    <h3 class="heading mb-4">Star Rating</h3>
-                    <form method="post" class="star-rating">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                                </p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                        class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">
-                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                        class="icon-star-o"></i></span></p>
-                            </label>
-                        </div>
-                    </form>
+
+                                <!-- 回复内容 -->
+                                <p style="font-size: 14px;" th:text="${comment.detail}"></p>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <!-- 主要内容介绍板块 -->
@@ -131,25 +68,24 @@
                     </div>
                     <!-- 文字区 -->
                     <div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate">
-                        <!-- todo 一句话介绍? -->
+                        <!-- 一句话介绍? -->
                         <span>Our Best hotels &amp; Rooms</span>
                         <!-- 酒店名 -->
                         <h2 th:text="${hotel.hotelName}">Luxury Hotel in Paris</h2>
                         <p class="rate mb-5">
-                            <!-- todo 详细地址-->
-                            <!-- 可跳转, 跳转至地点介绍? 不对, 地图展示? 会更复杂, 不然先设计跳转至通过地址筛选酒店的列表? 好像可行, 先这么做着 -->
-                            <span class="loc"><a th:href="@{'/hotels/address/' + ${hotel.hotelAddress}}"><i class="icon-map"></i> [[${hotel.hotelAddressString}]]</a> [[${hotel.hotelAddressSpecific}]]</span>
+                            <!-- 详细地址-->
+                            <span class="loc"><a th:href="@{'/guide/' + ${hotel.hotelAddressString}+${hotel.hotelAddressSpecific}}"><i class="icon-map"></i> [[${hotel.hotelAddressString}]]</a> [[${hotel.hotelAddressSpecific}]]</span>
                             <!-- 用户评分 -->
                             <span class="star">
     							<i class="icon-star"
                                    th:if="${hotel.hotelReplyLevel}>0"
-                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel / 2))}">
+                                   th:each="i:${#numbers.sequence(1, (hotel.hotelReplyLevel))}">
                                 </i><i class="icon-star-o"
-                                   th:if="${hotel.hotelReplyLevel}<10"
-                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel / 2)))}">
+                                   th:if="${hotel.hotelReplyLevel}<5"
+                                   th:each="j:${#numbers.sequence(1, (5 - (hotel.hotelReplyLevel )))}">
                                 </i>
                                 <!-- 评价数? -->
-    							[[${hotelReplyCount}]] Rating</span>
+    							[[${hotel.hotelReplyCount}]] Rating</span>
                         </p>
                         <!-- todo 主要文本(不太懂原来是写啥的, 到时要修改成介绍酒店属性部分) -->
                         <p>When she reached the first hills of the Italic Mountains, she had a last view back on the
@@ -193,70 +129,70 @@
                     <!-- 使用js发送请求，并刷新客房展示 -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <h4 class="mb-5">Check Availability &amp; Booking</h4>
-                        <div class="fields">
-                            <div class="row">
-                                <!-- 入店时间 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <!--入住时间，默认为当天-->
-                                        <label for="checkInQuery">入店时间</label>
-                                        <input id="checkInQuery" readonly="readonly" type="text" class="form-control checkin_date"
-                                               th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
-                                    </div>
-                                </div>
-                                <!-- 离店时间 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="checkOutQuery">离店时间</label>
-                                        <input id="checkOutQuery" readonly="readonly" type="text" class="form-control checkout_date"
-                                               th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
-                                    </div>
-                                </div>
-                                <!-- 旅客数 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <!--<div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
-                                            <label for="travelers">旅客数</label>
-                                            <select name="travelers" id="travelers" class="form-control" placeholder="Guest">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                        <form id="search" method="get" action="/room">
+                            <div class="fields">
+                                <div class="row">
+                                    <input name="hotelId" readonly="readonly" type="hidden" th:value="${hotel.hotelId}" class="form-control date">
+                                    <!-- 入店时间 -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!--入住时间，默认为当天-->
+                                            <label for="checkInQuery">入店时间</label>
+                                            <input id="checkInQuery" name="startTime" type="date" class="form-control"
+                                                   th:value="${startTime != null?#dates.format(startTime, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
                                         </div>
                                     </div>
-                                </div>
-                                <!-- 小孩数 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="select-wrap one-third">
-<!--                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>-->
-                                            <label for="children">孩童数</label>
-                                            <select name="children" id="children" class="form-control" placeholder="Children">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                    <!-- 离店时间 -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="checkOutQuery">离店时间</label>
+                                            <input id="checkOutQuery" name="endTime" type="date" class="form-control"
+                                                   th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-MM-dd')}">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="submit" value="Check Availability" class="btn btn-primary py-3">
+                                    <!--                                &lt;!&ndash; 旅客数 &ndash;&gt;-->
+                                    <!--                                <div class="col-md-6">-->
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <div class="select-wrap one-third">-->
+                                    <!--                                            &lt;!&ndash;<div class="icon"><span class="ion-ios-arrow-down"></span></div>&ndash;&gt;-->
+                                    <!--                                            <label for="travelers">旅客数</label>-->
+                                    <!--                                            <select name="travelers" id="travelers" class="form-control" placeholder="Guest">-->
+                                    <!--                                                <option value="1">1</option>-->
+                                    <!--                                                <option value="2">2</option>-->
+                                    <!--                                                <option value="3">3</option>-->
+                                    <!--                                                <option value="4">4</option>-->
+                                    <!--                                                <option value="5">5</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!--                                &lt;!&ndash; 小孩数 &ndash;&gt;-->
+                                    <!--                                <div class="col-md-6">-->
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <div class="select-wrap one-third">-->
+                                    <!--&lt;!&ndash;                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>&ndash;&gt;-->
+                                    <!--                                            <label for="children">孩童数</label>-->
+                                    <!--                                            <select name="children" id="children" class="form-control" placeholder="Children">-->
+                                    <!--                                                <option value="0">0</option>-->
+                                    <!--                                                <option value="1">1</option>-->
+                                    <!--                                                <option value="2">2</option>-->
+                                    <!--                                                <option value="3">3</option>-->
+                                    <!--                                                <option value="4">4</option>-->
+                                    <!--                                                <option value="5">5</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!-- todo 用人数查不太现实，到时候还有给他安排好房间类型，比较难搞，直接查房间类型好了 -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" value="Check Availability" class="btn btn-primary py-3" onclick="getRemainRoom()">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <!-- todo
-                             酒店单间介绍
-                             默认按当天入店, 第二天离店搜索可用房间
-                    -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
                         <!-- Tips -->
                         <h4 class="mb-4">Our Rooms</h4>
@@ -267,8 +203,8 @@
                                 <input type="hidden" name="hotelId" th:value="${hotel.hotelId}">
                                 <input type="hidden" name="roomId" th:value="${room.roomId}">
                                 <input type="hidden" name="userId" th:value="${session.user.userId}">
-                                <input type="hidden" name="checkIn" th:value="${#dates.format(#dates.createToday(), 'yyyy-M-d')}">
-                                <input type="hidden" name="checkOut" th:value="${#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-M-d')}">
+                                <input type="hidden" name="checkIn" th:value="${startTime != null?#dates.format(startTime, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                                <input type="hidden" name="checkOut" th:value="${endTime != null?#dates.format(endTime, 'yyyy-MM-dd'):#dates.format(#dates.create(#dates.year(#dates.createToday()), #dates.month(#dates.createToday()), #dates.day(#dates.createToday()) + 1), 'yyyy-MM-dd')}">
                                 <input type="hidden" name="roomCount" th:value=1>
                                 <div class="destination">
                                     <!-- 房间展示单块 -->
@@ -318,62 +254,6 @@
                     <!-- todo 评价区, 只有评分, 好怪 -->
                     <!-- 应该设计一个跳转评价按钮, 跳转至Blog-Writing板块, 用于写评价, 当然, 提交完评价要跳回原酒店处. -->
                     <!-- 评价完, 数据库应该自动刷新数据, 同时更新展示数据 -->
-                    <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
-                        <h4 class="mb-4">Review &amp; Ratings</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <form method="post" class="star-rating">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><!-- 当前分数的评价数 -->
-                                                <span><i class="icon-star">
-                                                </i><i class="icon-star">
-                                                </i><i class="icon-star">
-                                                </i><i class="icon-star">
-                                                </i><i class="icon-star">
-                                                </i>100 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star">
-                                            </i><i class="icon-star">
-                                            </i><i class="icon-star">
-                                            </i><i class="icon-star">
-                                            </i><i class="icon-star-o">
-                                            </i> 30 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                    class="icon-star"></i><i class="icon-star-o"></i><i
-                                                    class="icon-star-o"></i> 5 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i
-                                                    class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                                    class="icon-star-o"></i> 0 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">
-                                            <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i
-                                                    class="icon-star-o"></i><i class="icon-star-o"></i><i
-                                                    class="icon-star-o"></i> 0 Ratings</span></p>
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <!-- 推荐酒店板块 -->
                     <!-- 暂没有很好的推荐算法, 单纯把除该酒店外的酒店顺序排列推荐了。 -->
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-5">
@@ -403,5 +283,12 @@
 
 <th:block th:replace="~{commons/includes/common_js::common_js}" />
 <script th:src="@{/js/hotel-single.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    function getRemainRoom() {
+        $('#search').submit
+    }
+</script>
+
 </body>
 </html>

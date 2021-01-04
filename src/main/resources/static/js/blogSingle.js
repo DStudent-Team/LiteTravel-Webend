@@ -24,7 +24,7 @@ function postComment() {
                 window.location.reload();
                 $("#commentContent").val("");
                 // 定点跳转至指定位置
-                // todo 希望能做成滑动形式
+                // 希望能做成滑动形式
                 var bottomBox = document.getElementById("commentList");
                 bottomBox.scrollIntoView();
             } else {

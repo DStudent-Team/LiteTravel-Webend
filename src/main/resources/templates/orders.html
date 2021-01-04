@@ -24,7 +24,7 @@
                     <!-- 查找特定城市中的酒店 -->
                     <h3 class="heading mb-4">Find Orders</h3>
                     <form id="search" name="search" method="post" th:action="@{/orders}">
-                        <div class="fields">
+                            <div class="fields">
                             <input id="userId" name="userId" th:value="${session.user.userId}" hidden="hidden">
                             <div class="form-group">
                                 <input type="text" id="keyword" name="keyword"
@@ -73,32 +73,35 @@
                                 <label for="startDate">订单最早时间</label>
                                 <input type="date" id="startDate" name="startDate"
                                        class="form-control"
-<<<<<<< HEAD
                                        th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
-=======
-                                       th:value="${search != null?#dates.format(search.startDate, 'yyyy-MM-dd'):null}">
->>>>>>> master
                             </div>
                             <div class="form-group">
                                 <label for="startDate">订单最晚时间</label>
                                 <input type="date" id="endDate" name="endDate"
                                        class="form-control"
-<<<<<<< HEAD
                                        th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
-=======
-                                       th:value="${search != null?#dates.format(search.endDate, 'yyyy-MM-dd'):null}">
->>>>>>> master
                             </div>
-<!--                            <div class="form-group">-->
-<!--                                <input type="text" id="address" name="address"-->
-<!--                                       class="form-control" placeholder="地点选择" hidden="hidden"-->
-<!--                                       th:value="${search != null}?${search.address}:null">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="text" id="status" name="status"-->
-<!--                                       class="form-control" placeholder="状态选择" hidden="hidden"-->
-<!--                                       th:value="${search != null}?${search.status}:null">-->
-<!--                            </div>-->
+
+                            <div class="form-group">
+                                <label for="checkInDateFrom">入住最早时间</label>
+                                <input type="date" id="checkInDateFrom" name="checkInDateFrom" class="form-control"
+                                       th:value="${search != null?#dates.format(search.checkInDateFrom, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                            </div>
+                            <div class="form-group">
+                                <label for="checkInDateTo">入住最晚时间</label>
+                                <input type="date" id="checkInDateTo" name="checkInDateTo" class="form-control"
+                                       th:value="${search != null?#dates.format(search.checkInDateTo, 'yyyy-MM-dd'):#dates.format(#dates.createToday(), 'yyyy-MM-dd')}">
+                            </div>
+                            <!--                            <div class="form-group">-->
+                            <!--                                <input type="text" id="address" name="address"-->
+                            <!--                                       class="form-control" placeholder="地点选择" hidden="hidden"-->
+                            <!--                                       th:value="${search != null}?${search.address}:null">-->
+                            <!--                            </div>-->
+                            <!--                            <div class="form-group">-->
+                            <!--                                <input type="text" id="status" name="status"-->
+                            <!--                                       class="form-control" placeholder="状态选择" hidden="hidden"-->
+                            <!--                                       th:value="${search != null}?${search.status}:null">-->
+                            <!--                            </div>-->
                             <!-- 金额拖动栏 -->
                             <!--<div class="form-group">
                                 <div class="range-slider">
@@ -113,6 +116,7 @@
                                     </svg>
                                 </div>
                             </div>-->
+                            <br>
                             <div class="form-group">
                                 <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
                                 <br>
@@ -187,6 +191,9 @@
     </div>
 </section> <!-- .section -->
 
+<!--调用评价模态框-->
+<div th:replace="~{commons/modal_box::orderCommentModal}"></div>
+
 <!--重用-->
 <div th:replace="~{commons/Footer::subscriber}"></div>
 <!--End Subscribe-->
@@ -198,6 +205,7 @@
 <!-- loader -->
 <div th:replace="~{commons/Footer::loader}"></div>
 <th:block th:replace="~{commons/includes/common_js::common_js}"/>
+<script type="text/javascript" th:src="@{/js/manage.js}"></script>
 
 <script th:src="@{/js/jquery.js}"></script>
 <!-- 地址选择器引用的js -->
@@ -217,8 +225,10 @@
     }
     <!-- 重置功能 -->
     function clearInput() {
-        $('#startDate').val('');
-        $('#endDate').val('');
+        $('#startDate').val('')
+        $('#endDate').val('')
+        $('#checkInDateFrom').val('')
+        $('#checkInDateTo').val('')
         $('#keyword').val('')
         $('#address').citypicker("reset")
         $("#waitConfirm").prop('checked',false)
@@ -241,12 +251,8 @@
             });
         }
     }
-
     $('#address').citypicker();
-    //
-    // function reshow(status){
-    //
-    // }
+
 </script>
 </body>
 </html>

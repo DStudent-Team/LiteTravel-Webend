@@ -49,9 +49,9 @@
             <generatedKey column="user_id" sqlStatement="Mysql" identity="true"/>
         </table>
         <table tableName="travel_user_info" domainObjectName="UserInfo"/>
-        <table tableName="travel_user_authority" domainObjectName="userAuthority"/>
-        <table tableName="travel_user_money" domainObjectName="userMoney"/>
-        <table tableName="travel_transaction" domainObjectName="transaction">
+        <table tableName="travel_user_authority" domainObjectName="UserAuthority"/>
+        <table tableName="travel_user_money" domainObjectName="UserMoney"/>
+        <table tableName="travel_transaction" domainObjectName="Transaction">
             <generatedKey column="transaction_id" sqlStatement="Mysql" identity="true"/>
         </table>
         <table tableName="travel_company" domainObjectName="Company"/>
@@ -59,9 +59,11 @@
             <generatedKey column="hotel_id" sqlStatement="Mysql" identity="true"/>
             <columnOverride column="hotel_description" jdbcType="VARCHAR"/>
         </table>
+        <table tableName="travel_hotel_manager" domainObjectName="HotelManager"/>
         <table tableName="travel_hotel_orders" domainObjectName="HotelOrder">
             <generatedKey column="order_id" sqlStatement="Mysql" identity="true"/>
         </table>
+        <table tableName="travel_order_comment" domainObjectName="OrderComment"/>
         <table tableName="travel_hotel_orders_detail" domainObjectName="HotelOrderDetail"/>
         <table tableName="travel_hotel_room" domainObjectName="Room"/>
         <table tableName="travel_bed" domainObjectName="Bed"/>
@@ -89,7 +91,7 @@
         <table tableName="travel_guide" domainObjectName="Guide">
             <generatedKey column="guide_id" sqlStatement="Mysql" identity="true"/>
         </table>
- 
+
     </context>
 
 </generatorConfiguration>

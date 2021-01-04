@@ -30,8 +30,8 @@
                     <div class="form-group">
                         <div id="checkInLabel" class="form-field">
                             <div class="icon"><span class="icon-calendar"></span><label>入住时间</label></div>
-                            <input type="text" id="checkIn" class="form-control checkin_date" placeholder="Check In"
-                                   th:value="${#dates.format(order.checkIn, 'yyyy-M-d')}">
+                            <input type="date" id="checkIn" class="form-control" placeholder="Check In"
+                                   th:value="${#dates.format(order.checkIn, 'yyyy-MM-dd')}">
                         </div>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                     <div class="form-group">
                         <div id="checkOutLabel" class="form-field">
                             <div class="icon"><span class="icon-calendar"></span><label>离店时间</label></div>
-                            <input type="text" id="checkOut" class="form-control checkout_date" placeholder="Check Out"
-                                   th:value="${#dates.format(order.checkOut, 'yyyy-M-d')}">
+                            <input type="date" id="checkOut" class="form-control" placeholder="Check Out"
+                                   th:value="${#dates.format(order.checkOut, 'yyyy-MM-dd')}">
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     <p id="total" th:text="${order.total} + '(入住' + ${order.days} + '天)'"></p></h5>
             </div>
             <div class="col-md-12">
-                <button type="button" onclick="submitOrder()">确认订单</button>
+                <input type="button" onclick="submitOrder()" class="btn btn-primary py-3 px-5" value="确认订单"/>
             </div>
         </div>
     </div>
@@ -92,13 +92,21 @@
 </script>
 <script th:src="@{/js/hotel-order.js}"></script>
 <script th:inline="javascript">
+    function getDays(){
+        var checkIn = $("#checkIn").val();
+        var checkOut = $("#checkOut").val();
+        if (Date.parse(checkOut) - Date.parse(checkIn) <= 0){
+            const date = new Date(Date.parse(checkOut) - (24 * 3600 * 2000));
+            $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
+        }
+    }
+
     $(function () {
         $("#checkIn").change(function () {
             var checkIn = $(this).val();
             var checkOut = $("#checkOut").val();
             if (Date.parse(checkOut) - Date.parse(checkIn) <= 0){
                 const date = new Date(Date.parse(checkOut) - (24 * 3600 * 2000));
-                // console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
                 $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
             }
             updateTotal();  //显示总金额
@@ -108,7 +116,6 @@
             var checkOut = $(this).val();
             if (Date.parse(checkOut) - Date.parse(checkIn) <= 0){
                 const date = new Date(Date.parse(checkIn));
-                // console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
                 $(this).val(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay());
             }
             updateTotal();  //显示总金额

@@ -2,7 +2,7 @@ package com.LiteTravel.web.Model;
 
 import java.util.Date;
 
-public class transaction {
+public class Transaction {
     private Integer transactionId;
 
     private Integer buyerId;

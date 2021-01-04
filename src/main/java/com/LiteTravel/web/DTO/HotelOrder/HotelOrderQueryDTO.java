@@ -22,6 +22,10 @@ public class HotelOrderQueryDTO {
     String hotelIds;
     /*后续还可以添加排序功能*/
 
+    /** 查询入住时间区间 */
+    Date checkInDateFrom;
+    Date checkInDateTo;
+
     @Override
     public String toString() {
         return "HotelOrderQueryDTO{" +

@@ -69,6 +69,10 @@ public class UserController {
      */
     @PostMapping("/addMoney")
     public String addMoney(Integer userId, String money, String password, Model model){
+        if ("".equals(money) || "".equals(money)){
+            model.addAttribute("message", "请输入");
+            return "redirect:/user/" + userId;
+        }
         float mon = Float.parseFloat(money);
         if (mon < 0){
             model.addAttribute("message", "直呼好家伙，自己扣自己的钱");
