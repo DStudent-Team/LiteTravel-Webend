@@ -1,3 +1,4 @@
+//自定义Filter, 本项目中未用到
 package com.LiteTravel.web.filter;
 
 import javax.servlet.*;

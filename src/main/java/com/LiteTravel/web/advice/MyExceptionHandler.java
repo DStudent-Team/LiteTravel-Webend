@@ -1,4 +1,4 @@
-/* 只用于检测UserNotExistException */
+// 只用于检测UserNotExistException, 本项目中未使用
 package com.LiteTravel.web.advice;
 
 import com.LiteTravel.web.exception.UserNotExistException;

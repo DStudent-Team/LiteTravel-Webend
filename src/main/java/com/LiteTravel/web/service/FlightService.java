@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.annotation.Resource;
 import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
 import java.util.*;
@@ -24,15 +25,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
-    @Autowired
+    @Resource
     FlightMapper flightMapper;
-    @Autowired
+    @Resource
     FlightReserveMapper flightReserveMapper;
-    @Autowired
+    @Resource
     FlightTicketMapper flightTicketMapper;
-    @Autowired
+    @Resource
     CompanyMapper companyMapper;
-    @Autowired
+    @Resource
     RegionMapper regionMapper;
 
     /*  提交 用户对机票的服务需要 */

@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    @Autowired
+    @Resource
     UserMapper userMapper;
 
-    @Autowired
+    @Resource
     UserInfoMapper userInfoMapper;
 
-    @Autowired
+    @Resource
     UserAuthorityMapper userAuthorityMapper;
 
-    @Autowired
+    @Resource
     UserAuthorityService userAuthorityService;
 
     @Resource

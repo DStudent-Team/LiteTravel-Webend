@@ -25,7 +25,7 @@ public class LoginController {
     UserService userService;
 
     @Resource
-    private UserAuthorityService userAuthorityService;
+    UserAuthorityService userAuthorityService;
 
     @Resource
     MoneyService moneyService;

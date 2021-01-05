@@ -1,3 +1,4 @@
+//通过代码进行配置Mybatis，本项目中未使用
 package com.LiteTravel.web.config;
 
 

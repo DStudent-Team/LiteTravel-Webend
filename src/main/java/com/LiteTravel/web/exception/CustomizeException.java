@@ -1,5 +1,5 @@
 package com.LiteTravel.web.exception;
-
+//自定义错误类
 public class CustomizeException extends RuntimeException {
     private String message;
     private Integer code;

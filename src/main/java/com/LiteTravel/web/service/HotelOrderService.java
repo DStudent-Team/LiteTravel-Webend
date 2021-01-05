@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,19 +20,19 @@ import java.util.stream.Collectors;
 @Service
 public class HotelOrderService {
 
-    @Autowired
+    @Resource
     public HotelMapper hotelMapper;
-    @Autowired
+    @Resource
     public RoomMapper roomMapper;
-    @Autowired
+    @Resource
     public RoomBedMapMapper roomBedMapMapper;
-    @Autowired
+    @Resource
     public BedMapper bedMapper;
-    @Autowired
+    @Resource
     public HotelOrderMapper hotelOrderMapper;
-    @Autowired
+    @Resource
     public HotelOrderDetailMapper hotelOrderDetailMapper;
-    @Autowired
+    @Resource
     public RegionMapper regionMapper;
 
     public ResultVO getOrders(Integer page, Integer pageSize){

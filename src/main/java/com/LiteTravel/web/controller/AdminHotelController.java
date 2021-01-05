@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -25,7 +26,7 @@ import java.util.List;
 @Controller
 public class AdminHotelController {
 
-    @Autowired
+    @Resource
     public HotelService hotelService;
 
     /*-----------------------------------------------------------------------------*/

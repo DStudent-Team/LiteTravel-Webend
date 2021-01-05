@@ -8,12 +8,14 @@ import com.LiteTravel.web.mapper.RegionMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class RegionService {
-    @Autowired
+    @Resource
     RegionMapper regionMapper;
     /*不分页的全部数据*/
     public List<RegionDTO> searchRegion(RegionSearchDTO regionSearchDTO){

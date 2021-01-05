@@ -13,21 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class BlogService {
-    @Autowired
+    @Resource
     private BlogMapper blogMapper;
 
-    @Autowired
+    @Resource
     private UserInfoMapper userInfoMapper;
 
-    @Autowired
+    @Resource
     private BlogTagMapMapper blogTagMapMapper;
 
-    @Autowired
+    @Resource
     private TagMapper tagMapper;
 
 //    @Cacheable(cacheNames = {"blog"}, key = "#blogId")

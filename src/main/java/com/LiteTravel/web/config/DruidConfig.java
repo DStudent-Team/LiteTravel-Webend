@@ -1,3 +1,4 @@
+//Druid配置使用，用于监控后台数据，本项目中未使用
 package com.LiteTravel.web.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ public class DruidConfig {
         Map<String, String> initParams = new HashMap<>();
         initParams.put("exclusions", "*.js,*.css,/druid/*");
         bean.setInitParameters(initParams);
-        bean.setUrlPatterns(Arrays.asList("/*"));
+        bean.setUrlPatterns(Collections.singletonList("/*"));
         return bean;
     }
 

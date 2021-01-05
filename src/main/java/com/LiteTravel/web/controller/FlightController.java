@@ -3,32 +3,28 @@ package com.LiteTravel.web.controller;
 import com.LiteTravel.web.DTO.Flight.FlightDTO;
 import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.Flight.FlightSearchDTO;
-import com.LiteTravel.web.DTO.Flight.TransactionDTO;
-import com.LiteTravel.web.DTO.Region.RegionDTO;
-import com.LiteTravel.web.DTO.Region.RegionSearchDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.UserDTO;
-import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.service.FlightService;
 import com.LiteTravel.web.service.RegionService;
 import com.LiteTravel.web.service.Utils.MoneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class FlightController {
-    @Autowired
+    @Resource
     FlightService flightService;
-    @Autowired
+    @Resource
     RegionService regionService;
-
     @Resource
     private MoneyService moneyService;
 

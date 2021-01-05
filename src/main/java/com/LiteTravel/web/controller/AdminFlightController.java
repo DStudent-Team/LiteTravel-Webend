@@ -1,12 +1,9 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.Flight.FlightDTO;
 import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.UserDTO;
-import com.LiteTravel.web.Model.FlightReserveExample;
-import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.mapper.FlightReserveMapper;
 import com.LiteTravel.web.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +11,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
 @Controller
 public class AdminFlightController {
 
-    @Autowired
+    @Resource
     FlightService flightService;
 
-    @Autowired
+    @Resource
     FlightReserveMapper flightReserveMapper;
 
-    @Autowired
+    @Resource
     FlightReserveMapper flightMapper;
 
     @GetMapping("/manage/flights")
@@ -61,23 +55,9 @@ public class AdminFlightController {
     @ResponseBody
     public ResponseDTO SubmitReserve(@RequestBody FlightReserveDTO reserveDTO){
         flightService.submitReserve(reserveDTO);
-//        FlightDTO flightDTO = new FlightDTO();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");//注意月份是MM
-//        flightDTO.setFlightDepart(simpleDateFormat.parse(reserveDTO.getFlightDepart()));
-//        flightDTO.setFlightArrived(simpleDateFormat.parse(reserveDTO.getFlightArrived()));
-//        flightDTO.setFlightId(reserveDTO.getFlightId());
-//        flightService.updateFlight(flightDTO);
         return ResponseDTO.successOf();
     }
-    
-//    /* 获取所有提供的服务 */
-//    @GetMapping("/manage/reserves")
-//    public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){
-//        ResultVO result = flightService.getReserves(page, 10, new FlightReserveDTO());
-//        model.addAttribute("reserves", result.data);
-//        model.addAttribute("pageInfo", result.info);
-//        return "/flight/reserves";
-//    }
+
     /* 获取特定的服务*/
     @GetMapping("/manage/reserves")
     public String getReserves(@RequestParam(value = "page", defaultValue = "1")Integer page, HttpSession session, ModelMap model){

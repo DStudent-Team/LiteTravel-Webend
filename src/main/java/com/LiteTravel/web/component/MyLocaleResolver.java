@@ -1,19 +1,17 @@
+//国际化配置
 package com.LiteTravel.web.component;
 
-import org.omg.CORBA.Request;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.LocaleResolver;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
-/*
 
- */
 public class MyLocaleResolver implements LocaleResolver {
-
+    /*
+    * 获取url中的语言请求，否则调用默认的语言配置
+    * */
     @Override
     public Locale resolveLocale(HttpServletRequest httpServletRequest) {
         String l = httpServletRequest.getParameter("l");

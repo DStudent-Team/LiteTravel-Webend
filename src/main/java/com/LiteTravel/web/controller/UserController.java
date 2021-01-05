@@ -1,35 +1,30 @@
 package com.LiteTravel.web.controller;
 
 import com.LiteTravel.web.DTO.UserDTO;
-import com.LiteTravel.web.DTO.UserManageDTO;
 import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.Model.UserInfo;
 import com.LiteTravel.web.mapper.UserInfoMapper;
 import com.LiteTravel.web.mapper.UserMapper;
 import com.LiteTravel.web.service.UserService;
 import com.LiteTravel.web.service.Utils.MoneyService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UserController {
-    @Autowired
+    @Resource
     UserService userService;
-
-    @Autowired
-    UserMapper userMapper;
-
-    @Autowired
-    UserInfoMapper userInfoMapper;
-    @Autowired
+    @Resource
     MoneyService moneyService;
 
 

@@ -1,3 +1,4 @@
+//代码配置服务器，Servlet注册内容未使用
 package com.LiteTravel.web.config;
 
 import com.LiteTravel.web.filter.MyFilter;

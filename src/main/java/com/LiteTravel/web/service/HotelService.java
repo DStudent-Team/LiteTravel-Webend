@@ -23,29 +23,29 @@ import java.util.stream.IntStream;
 public class
 HotelService {
 
-    @Autowired
+    @Resource
     public HotelMapper hotelMapper;
 
-    @Autowired
+    @Resource
     public RoomMapper roomMapper;
 
-    @Autowired
+    @Resource
     public RoomBedMapMapper roomBedMapper;
 
-    @Autowired
+    @Resource
     public BedMapper bedMapper;
 
-    @Autowired
+    @Resource
     public RegionMapper regionMapper;
 
     @Resource
     private HotelManagerMapper hotelManagerMapper;
 
 
-    @Autowired
+    @Resource
     public HotelOrderMapper hotelOrderMapper;
 
-    @Autowired
+    @Resource
     public HotelOrderDetailMapper hotelOrderDetailMapper;
     // 默认酒店列表
 //    @Cacheable(cacheNames = {"hotels"}, key = "#page")

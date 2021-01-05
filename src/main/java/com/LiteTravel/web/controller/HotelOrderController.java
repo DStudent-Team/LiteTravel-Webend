@@ -1,16 +1,15 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.*;
-import com.LiteTravel.web.DTO.Flight.TransactionDTO;
 import com.LiteTravel.web.DTO.Hotel.HotelRoomSearchDTO;
 import com.LiteTravel.web.DTO.HotelOrder.*;
-import com.LiteTravel.web.Model.User;
-import com.LiteTravel.web.DTO.HotelOrder.*;
+import com.LiteTravel.web.DTO.ResponseDTO;
+import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.DTO.RoomDTO;
+import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.HotelOrder;
 import com.LiteTravel.web.Model.HotelOrderDetail;
 import com.LiteTravel.web.service.HotelOrderService;
 import com.LiteTravel.web.service.HotelService;
-import com.LiteTravel.web.service.OrderCommentService;
 import com.LiteTravel.web.service.Utils.MoneyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +32,12 @@ import java.util.stream.IntStream;
 
 @Controller
 public class HotelOrderController {
-    @Autowired
-    HotelService hotelService;
-    @Autowired
-    HotelOrderService hotelOrderService;
-
     @Resource
-    private MoneyService moneyService;
+    HotelService hotelService;
+    @Resource
+    HotelOrderService hotelOrderService;
+    @Resource
+    MoneyService moneyService;
 
     /***
      * 提交订单请求

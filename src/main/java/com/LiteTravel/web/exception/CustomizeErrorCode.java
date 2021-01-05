@@ -1,5 +1,5 @@
 package com.LiteTravel.web.exception;
-
+//自定义错误枚举
 public enum CustomizeErrorCode implements ICustomizeErrorCode {
     DEFAULT_ERROR(2000, "服务器出现了些小问题, 稍后再试试^_^"),
     BLOG_NOT_FOUND(2001, "你所找的文章不见了,要不换一个试试?"),

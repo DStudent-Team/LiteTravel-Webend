@@ -1,3 +1,4 @@
+//自定义Listener，本项目中未用到
 package com.LiteTravel.web.listener;
 
 import javax.servlet.ServletContextEvent;
