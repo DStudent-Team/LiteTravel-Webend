@@ -20,9 +20,8 @@ import java.util.List;
 @Controller
 public class HotelController {
 
-    @Autowired
+    @Resource
     public HotelService hotelService;
-
     @Resource
     private OrderCommentService orderCommentService;
 

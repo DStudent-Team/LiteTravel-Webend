@@ -23,8 +23,6 @@ public class AdminUserController {
     @Resource
     UserService userService;
 
-    @Resource
-    private UserAuthorityService userAuthorityService;
 
     @GetMapping("/manage/users")
     public String userList(@RequestParam(value = "page", defaultValue = "1")Integer page, ModelMap model){

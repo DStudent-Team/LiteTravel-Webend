@@ -16,17 +16,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
 public class BlogController {
-    @Autowired
+    @Resource
     BlogService blogService;
-    @Autowired
+    @Resource
     CommentService commentService;
-    @Autowired
+    @Resource
     UserService userService;
 
     @GetMapping("/blogs")
@@ -34,6 +35,15 @@ public class BlogController {
         setBlogPage(page, model);
         return "blogs";
     }
+
+    @PostMapping("/blogs")
+    public String blogSearchList(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model,
+                                 BlogQueryDTO blogQueryDTO) {
+        setBlogPage(page, model, blogQueryDTO);
+        return "blogs";
+    }
+
+
     private void setBlogPage(Integer page, ModelMap model){
         ResultVO result = blogService.selectAll(page, 6);
         model.addAttribute("blogs",result.data);
@@ -105,13 +115,6 @@ public class BlogController {
         return "redirect:/blogs";
     }
 
-    @PostMapping("/blogs")
-    public String blogSearchList(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model,
-                                 BlogQueryDTO blogQueryDTO) {
-        setBlogPage(page, model, blogQueryDTO);
-        return "blogs";
-    }
-  
     /*blog 后台管理*/
     /*blog列表展示*/
     @GetMapping("manage/blogs")

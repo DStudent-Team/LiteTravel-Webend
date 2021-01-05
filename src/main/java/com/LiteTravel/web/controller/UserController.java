@@ -16,20 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class UserController {
-    @Autowired
+    @Resource
     UserService userService;
-
-    @Autowired
-    UserMapper userMapper;
-
-    @Autowired
-    UserInfoMapper userInfoMapper;
-    @Autowired
+    @Resource
     MoneyService moneyService;
 
 

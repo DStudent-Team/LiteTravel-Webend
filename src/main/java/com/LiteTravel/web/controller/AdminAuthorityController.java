@@ -16,12 +16,6 @@ public class AdminAuthorityController {
     @Resource
     UserAuthorityService userAuthorityService;
 
-//    @GetMapping("/manage/authority")
-//    public String getAuthorities(@RequestParam(value = "page",defaultValue = "1") Integer page, ModelMap model){
-//        userAuthorityService.setAuthorityPage(page,6, model);
-//        return "user/authority";
-//    }
-
     @PostMapping("/manage/authority/update")
     public String updateAuthority(AuthorityDTO authorityDTO, ModelMap model){
         int flag = userAuthorityService.updateAuthority(authorityDTO);

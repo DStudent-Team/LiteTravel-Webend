@@ -19,10 +19,10 @@ import javax.annotation.Resource;
 public class OrderCommentController {
 
     @Resource
-    private UserService userService;
+    UserService userService;
 
     @Resource
-    private OrderCommentService orderCommentService;
+    OrderCommentService orderCommentService;
 
     @PostMapping("/saveOrderComment")
     public String saveOrderComment(OrderCommentDTO orderCommentDTO, Model model){

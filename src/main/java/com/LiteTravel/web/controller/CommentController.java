@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @RestController
 public class CommentController {
-    @Autowired
+    @Resource
     CommentService commentService;
     @PostMapping("/blog/comment")
     @ResponseBody

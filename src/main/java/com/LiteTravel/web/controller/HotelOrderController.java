@@ -32,13 +32,12 @@ import java.util.stream.IntStream;
 
 @Controller
 public class HotelOrderController {
-    @Autowired
-    HotelService hotelService;
-    @Autowired
-    HotelOrderService hotelOrderService;
-
     @Resource
-    private MoneyService moneyService;
+    HotelService hotelService;
+    @Resource
+    HotelOrderService hotelOrderService;
+    @Resource
+    MoneyService moneyService;
 
     /***
      * 提交订单请求

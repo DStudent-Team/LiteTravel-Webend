@@ -21,11 +21,10 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class FlightController {
-    @Autowired
+    @Resource
     FlightService flightService;
-    @Autowired
+    @Resource
     RegionService regionService;
-
     @Resource
     private MoneyService moneyService;
 
