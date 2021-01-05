@@ -1,9 +1,10 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.*;
 import com.LiteTravel.web.DTO.Hotel.HotelRoomSearchDTO;
+import com.LiteTravel.web.DTO.HotelDTO;
 import com.LiteTravel.web.DTO.HotelQueryDTO;
-
+import com.LiteTravel.web.DTO.ResultVO;
+import com.LiteTravel.web.DTO.UserDTO;
 import com.LiteTravel.web.Model.Hotel;
 import com.LiteTravel.web.service.HotelService;
 import com.LiteTravel.web.service.OrderCommentService;
@@ -12,9 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.annotation.Resource;
-import java.util.Date;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller

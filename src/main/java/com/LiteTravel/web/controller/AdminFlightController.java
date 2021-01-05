@@ -1,12 +1,9 @@
 package com.LiteTravel.web.controller;
 
-import com.LiteTravel.web.DTO.Flight.FlightDTO;
 import com.LiteTravel.web.DTO.Flight.FlightReserveDTO;
 import com.LiteTravel.web.DTO.ResponseDTO;
 import com.LiteTravel.web.DTO.ResultVO;
 import com.LiteTravel.web.DTO.UserDTO;
-import com.LiteTravel.web.Model.FlightReserveExample;
-import com.LiteTravel.web.Model.User;
 import com.LiteTravel.web.mapper.FlightReserveMapper;
 import com.LiteTravel.web.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
 @Controller
 public class AdminFlightController {

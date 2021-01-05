@@ -1,3 +1,4 @@
+//代码建立Servlet，本项目中仅作测试使用
 package com.LiteTravel.web.servlet;
 
 import javax.servlet.ServletException;

@@ -1,3 +1,4 @@
+//代码配置Mvc架构
 package com.LiteTravel.web.config;
 
 import com.LiteTravel.web.component.LoginHandlerInterceptor;

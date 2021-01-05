@@ -28,10 +28,10 @@ public class UserAuthorityService {
     @Resource
     UserAuthorityMapper authorityMapper;
 
-    @Autowired
+    @Resource
     HotelManagerMapper hotelManagerMapper;
 
-    @Autowired
+    @Resource
     CompanyMapper companyMapper;
 
     /**

@@ -1,5 +1,4 @@
 // 统一控制错误显示页面
-// 实际需要另外单独分开出来一个模块来管理所有的错误显示
 package com.LiteTravel.web.advice;
 
 import com.LiteTravel.web.DTO.ResponseDTO;

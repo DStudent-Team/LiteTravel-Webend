@@ -1,5 +1,5 @@
 package com.LiteTravel.web.enums;
-
+//回复类型
 public enum CommentTypeEnum {
     Blog(0),
     COMMENT(1);
