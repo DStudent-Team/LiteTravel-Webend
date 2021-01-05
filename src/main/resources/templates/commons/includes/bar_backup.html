@@ -182,8 +182,6 @@
                 <li th:if="${session.user != null}"
                     th:class="${activeUri=='Order'?'nav-item active':'nav-item'}">
                     <a th:href="@{/orders}" class="nav-link">Order</a></li>
-<!--                <li th:class="${activeUri=='Contact'?'nav-item active':'nav-item'}">
-                    <a th:href="@{/contact.html}" class="nav-link">Contact</a></li>-->
                 <!--用户界面或登陆页面跳转-->
                 <li th:switch="${session.user != null} " th:class="${activeUri=='User'?'nav-item active':'nav-item'}">
                     <a th:case="true" th:href="@{/user/} + ${session.user.userId}" class="nav-link">[[${session.user.userName}]]</a>
